@@ -6,6 +6,8 @@ select
 
     competition_type,
 
+
+
     country_name,
 
     confederation,

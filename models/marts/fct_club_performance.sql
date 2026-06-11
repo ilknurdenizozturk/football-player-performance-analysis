@@ -1,25 +1,27 @@
 select
 
-    club_id,
+    c.club_id,
 
-    matches_played,
+    c.club_name,
+    c.domestic_competition_id,
 
-    wins,
+    perf.matches_played,
 
-    draws,
+    perf.wins,
+    perf.draws,
+    perf.losses,
 
-    losses,
+    perf.goals_scored,
+    perf.goals_conceded,
 
-    goals_scored,
+    perf.goal_difference,
 
-    goals_conceded,
+    perf.win_rate,
 
-    goal_difference,
+    perf.avg_goals_scored,
+    perf.avg_goals_conceded
 
-    win_rate,
+from {{ ref('int_club_performance_summary') }} perf
 
-    avg_goals_scored,
-
-    avg_goals_conceded
-
-from {{ ref('int_club_performance_summary') }}
+left join {{ ref('dim_clubs') }} c
+    on perf.club_id = c.club_id

@@ -23,7 +23,6 @@ select
     p.international_goals,
 
     p.market_value_in_eur,
-    p.highest_market_value_in_eur,
 
     perf.matches_played,
     perf.total_goals,
