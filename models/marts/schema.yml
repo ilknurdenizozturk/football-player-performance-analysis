@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dim_players
+    description: Player dimension table
+    columns:
+      - name: player_id
+        description: Unique player identifier
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_clubs
+    description: Club dimension table
+    columns:
+      - name: club_id
+        description: Unique club identifier
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_competitions
+    description: Competition dimension table
+    columns:
+      - name: competition_id
+        description: Unique competition identifier
+        tests:
+          - unique
+          - not_null

@@ -1,0 +1,164 @@
+version: 2
+
+sources:
+  - name: football_raw
+    database: data-analiz-490513
+    schema: football_raw
+    tables:
+      - name: players 
+        description: Player profiles, positions and market values
+        columns:
+          - name: player_id
+            description: Unique player identifier
+            tests:
+            - not_null
+            - unique
+          - name: name
+            description: Full player name
+
+          - name: current_club_id
+            description: Current club identifier
+
+          - name: market_value_in_eur
+            description: Current market value in EUR
+
+      - name: clubs
+        description: Club details including squad size and stadium
+        columns:
+        - name: club_id
+          description: Unique club identifier
+          tests:
+          - unique
+          - not_null
+        - name: name
+          description: Club name
+        - name: domestic_competition_id
+          description: Domestic league identifier
+
+      - name: appearances
+        description: One row per player per game, with goals, assists and cards
+        columns:
+          - name: appearance_id
+            description: Unique appearance identifier
+            tests:
+              - not_null
+              - unique
+          - name: game_id
+            description: Game identifier
+            tests:
+              - not_null
+          - name: player_id
+            description: Player identifier
+            tests:
+              - not_null
+          - name: competition_id
+            description: Competition identifier
+      
+      - name: games
+        description: One row per game, with scores, attendance and referee
+        columns:
+          - name: game_id
+            description: Unique game identifier
+            tests:
+              - not_null
+              - unique
+          - name: competition_id
+            description: Competition identifier
+          - name: season
+            description: Season of the match
+          - name: home_club_id
+            description: Home club identifier
+          - name: away_club_id
+            description: Away club identifier
+
+      - name: transfers
+        description: Player transfers between clubs with fees
+        columns:
+          - name: player_id
+            description: Player identifier
+            tests:
+              - not_null
+          - name: transfer_date
+            description: Transfer date
+            tests:
+              - not_null
+          - name: transfer_fee
+            description: Transfer fee amount
+          - name: market_value_in_eur
+            description: Market value at transfer date
+
+      - name: player_valuations
+        description: Raw player market value history data from Transfermarkt
+        columns:
+          - name: player_id
+            description: Player identifier
+            tests:
+              - not_null
+          - name: date
+            description: Market value record date
+            tests:
+              - not_null
+          - name: market_value_in_eur
+            description: Player market value in EUR
+
+      - name: competitions
+        description: Leagues and tournaments tracked in the dataset
+        columns:
+          - name: competition_id
+            description: Unique competition identifier
+            tests:
+              - not_null
+              - unique
+
+      - name: countries
+        description: Countries with confederation and aggregate stats
+        columns:
+          - name: country_id
+            description: Unique country identifier
+            tests:
+              - not_null
+              - unique
+
+      - name: club_games
+        description: Game-level stats from each club's perspective
+        columns:
+          - name: game_id
+            description: Game identifier
+            tests:
+              - not_null
+          - name: club_id
+            description: Club identifier
+            tests:
+              - not_null
+          - name: is_win
+            description: Match result flag
+
+
+      - name: game_events
+        description: In-game events; goals, cards, substitutions
+        columns:
+          - name: game_event_id
+            description: Unique match event identifier
+            tests:
+              - not_null
+              - unique
+
+      - name: game_lineups
+        description: Starting and bench lineups per game
+        columns:
+
+          - name: game_lineups_id
+            description: Unique lineup record identifier
+            tests:
+              - not_null
+              - unique
+
+      - name: national_teams
+        description: National teams with FIFA rankings and squad details
+        columns:
+
+          - name: national_team_id
+            description: Unique national team identifier
+            tests:
+              - not_null
+              - unique
