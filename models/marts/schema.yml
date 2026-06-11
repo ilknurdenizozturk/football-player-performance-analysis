@@ -1,0 +1,19 @@
+models:
+  - name: dim_players
+    description: Player dimension table
+
+    columns:
+      - name: player_id
+        description: Unique player identifier
+        tests:
+          - unique
+          - not_null
+
+      - name: player_name
+        description: Full player name
+
+      - name: position
+        description: Main playing position
+
+      - name: country_of_citizenship
+        description: Player nationality

@@ -23,6 +23,7 @@ select
     trim(current_club_name) as current_club_name,
     market_value_in_eur,
     highest_market_value_in_eur
+    last_season
 
 
 from {{ source('football_raw', 'players') }}
