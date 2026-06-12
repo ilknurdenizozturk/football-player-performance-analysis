@@ -13,7 +13,11 @@ select
     mv.current_club_id,
     mv.current_club_name,
 
-    mv.player_club_domestic_competition_id as competition_id
+    mv.player_club_domestic_competition_id as competition_id,
+
+    mv.current_club_id is not null as has_club_context,
+    mv.player_club_domestic_competition_id is not null
+        as has_competition_context
 
 from {{ ref('stg_player_valuations') }} mv
 

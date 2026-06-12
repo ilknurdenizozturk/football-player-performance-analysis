@@ -26,6 +26,31 @@ with expected as (
         on performance.player_id = profile.player_id
 ),
 
+actual as (
+
+    select
+        player_id,
+        player_name,
+        position,
+        sub_position,
+        current_club_id,
+        current_club_name,
+        market_value_in_eur,
+        matches_played,
+        total_goals,
+        total_assists,
+        total_minutes_played,
+        total_yellow_cards,
+        total_red_cards,
+        avg_minutes_per_match,
+        goals_per_match,
+        assists_per_match,
+        goals_per_90,
+        assists_per_90
+
+    from {{ ref('fct_player_performance') }}
+),
+
 differences as (
 
     (
@@ -47,7 +72,7 @@ differences as (
             cast(round(goals_per_90, 2) as numeric) as goals_per_90,
             cast(round(assists_per_90, 2) as numeric) as assists_per_90
         )
-        from {{ ref('fct_player_performance') }}
+        from actual
     )
 
     union all
@@ -60,7 +85,7 @@ differences as (
             cast(round(goals_per_90, 2) as numeric) as goals_per_90,
             cast(round(assists_per_90, 2) as numeric) as assists_per_90
         )
-        from {{ ref('fct_player_performance') }}
+        from actual
 
         except distinct
 

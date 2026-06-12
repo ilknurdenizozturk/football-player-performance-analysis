@@ -42,6 +42,7 @@ The fee comparison baseline follows this priority:
 | Post-transfer valuation | `next_valuation_date`, `next_market_value`, next club and competition fields |
 | Post-transfer outcome | `market_value_change_after_transfer`, `market_value_change_after_transfer_pct`, `market_value_direction_after_transfer` |
 | Career market value | `first_market_value`, `current_market_value`, `highest_market_value`, `career_market_value_growth_pct` |
+| Data availability | `has_known_transfer_fee`, `has_market_value_baseline`, `has_fee_market_value_comparison`, `has_prior_valuation`, `has_next_valuation`, `has_post_transfer_value_change` |
 
 ## Current Coverage
 
@@ -64,6 +65,7 @@ The fee comparison baseline follows this priority:
 - `valuation_context_change` compares competition context from the nearest valuations. It does not independently prove the legal transfer destination or league at the exact transfer time.
 - Future-dated transfers are retained and identified with `is_future_transfer`.
 - Missing source values remain null and are not estimated.
+- Power BI measures should filter with the relevant `has_*` availability field instead of replacing missing monetary values with zero.
 
 ## Example Analyses
 
@@ -76,8 +78,7 @@ select
     round(avg(fee_market_value_difference_pct), 2) as avg_fee_premium_pct,
     round(avg(market_value_change_after_transfer_pct), 2) as avg_post_transfer_value_change_pct
 from `football_mart.fct_transfer_market_value_analysis`
-where transfer_fee is not null
-    and market_value_baseline is not null
+where has_fee_market_value_comparison
     and not is_future_transfer
 group by transfer_season
 order by transfer_season desc;
@@ -98,7 +99,7 @@ select
     market_value_change_after_transfer_pct,
     days_to_next_valuation
 from `football_mart.fct_transfer_market_value_analysis`
-where market_value_change_after_transfer is not null
+where has_post_transfer_value_change
     and days_to_next_valuation <= 365
     and not is_future_transfer
 order by market_value_change_after_transfer desc
@@ -125,5 +126,7 @@ order by transfers desc;
 - Materialization: BigQuery table
 - Partitioning: yearly by `transfer_date`
 - Clustering: `player_id`, `to_club_id`, `from_club_id`
-- Columns: 68, all documented in dbt Docs and BigQuery metadata
-- Model-specific tests: 20
+- Columns: 75, all documented in dbt Docs and BigQuery metadata
+- Direct tests: 30
+
+Power BI relationship and measure recommendations are documented in [Power BI Modeling Guide](POWER_BI_MODELING.md).

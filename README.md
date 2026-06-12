@@ -8,13 +8,13 @@ Validated against BigQuery on June 12, 2026:
 
 | Check | Result |
 | --- | ---: |
-| dbt models | 29 |
-| Full dbt build | 153 passed |
-| Source and data tests | 124 passed |
+| dbt models | 30 |
+| Full dbt build | 190 passed |
+| Source and data tests | 160 passed |
 | Source freshness | 12 of 12 sources passed |
-| Mart build | 10 models and 64 tests passed |
-| Model documentation | 29 of 29 models documented |
-| Column documentation | 444 of 444 model columns documented |
+| Mart build | 11 models and 100 tests passed |
+| Model documentation | 30 of 30 models documented |
+| Column documentation | 486 of 486 model columns documented |
 | Test warnings and errors | 0 |
 | Non-null fact-to-dimension orphan keys | 0 |
 
@@ -36,7 +36,7 @@ flowchart LR
 | Raw | BigQuery source tables | 12 | Original imported dataset |
 | Staging | Views | 12 | Cleaning, normalization, and stable column naming |
 | Intermediate | Views | 7 | Reusable business calculations and aggregations |
-| Marts | Tables | 10 | Analytics-ready dimensions and facts |
+| Marts | Tables | 11 | Analytics-ready dimensions and facts |
 
 Detailed lineage, grains, and model responsibilities are documented in [Architecture and Model Catalog](docs/ARCHITECTURE.md).
 
@@ -47,6 +47,7 @@ Detailed lineage, grains, and model responsibilities are documented in [Architec
 | `dim_players` | One row per player | Current and historical player dimension |
 | `dim_clubs` | One row per club | Current and historical club dimension |
 | `dim_competitions` | One row per competition | Competition reference dimension |
+| `dim_date` | One row per calendar date | Continuous date dimension for Power BI relationships and time intelligence |
 | `fct_player_performance` | One row per player | All-time player performance |
 | `fct_player_career_timeline` | Player, season, competition | Seasonal player performance and market value |
 | `fct_club_performance` | One row per club | All-time club results |
@@ -67,6 +68,8 @@ Detailed lineage, grains, and model responsibilities are documented in [Architec
 - Latest transfer selection uses deterministic tie-breakers.
 - Seasonal market value is the latest valuation on or before the player's last game in that season and competition.
 - Dimensions include historical players and clubs referenced by facts, preventing non-null orphan keys.
+- Canonical source `NULL` values remain `NULL`; Power BI-friendly `*_display`, record type, completeness, and `has_*` fields make them safe to consume without inventing data.
+- `dim_date` covers every date from the earliest source business date through the latest source date or today, whichever is later.
 - Raw source freshness uses BigQuery table last-modified metadata with a 7-day warning and 14-day error SLA.
 
 ## Quick Start
@@ -152,6 +155,7 @@ The project combines:
 - Mart-to-intermediate and mart-to-staging value reconciliation
 - Business-rule checks for age, transfers, market values, and sentinel normalization
 - Complete model and column documentation across staging, intermediate, and mart layers
+- Power BI-safe display fields, explicit data-availability flags, and a tested date dimension
 
 See [Data Quality](docs/DATA_QUALITY.md) for current results and known source limitations.
 
@@ -177,6 +181,7 @@ See [Data Quality](docs/DATA_QUALITY.md) for current results and known source li
 ## Documentation
 
 - [Architecture and Model Catalog](docs/ARCHITECTURE.md)
+- [Power BI Modeling Guide](docs/POWER_BI_MODELING.md)
 - [Transfer and Market Value Analysis](docs/TRANSFER_MARKET_VALUE_ANALYSIS.md)
 - [Data Quality and Validation](docs/DATA_QUALITY.md)
 - [Operations Runbook](docs/RUNBOOK.md)

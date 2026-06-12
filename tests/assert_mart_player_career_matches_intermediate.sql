@@ -26,6 +26,31 @@ with expected as (
         on timeline.player_id = players.player_id
 ),
 
+actual as (
+
+    select
+        player_id,
+        player_name,
+        position,
+        current_club_name,
+        season,
+        competition_id,
+        matches_played,
+        total_goals,
+        total_assists,
+        total_minutes_played,
+        total_yellow_cards,
+        total_red_cards,
+        goals_per_match,
+        assists_per_match,
+        goals_per_90,
+        assists_per_90,
+        season_market_value,
+        season_market_value_date
+
+    from {{ ref('fct_player_career_timeline') }}
+),
+
 differences as (
 
     (
@@ -45,7 +70,7 @@ differences as (
             cast(round(goals_per_90, 2) as numeric) as goals_per_90,
             cast(round(assists_per_90, 2) as numeric) as assists_per_90
         )
-        from {{ ref('fct_player_career_timeline') }}
+        from actual
     )
 
     union all
@@ -57,7 +82,7 @@ differences as (
             cast(round(goals_per_90, 2) as numeric) as goals_per_90,
             cast(round(assists_per_90, 2) as numeric) as assists_per_90
         )
-        from {{ ref('fct_player_career_timeline') }}
+        from actual
 
         except distinct
 

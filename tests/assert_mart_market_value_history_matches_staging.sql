@@ -17,13 +17,29 @@ with expected as (
         on valuations.player_id = players.player_id
 ),
 
+actual as (
+
+    select
+        player_id,
+        player_name,
+        position,
+        sub_position,
+        valuation_date,
+        market_value_in_eur,
+        current_club_id,
+        current_club_name,
+        competition_id
+
+    from {{ ref('fct_market_value_history') }}
+),
+
 differences as (
 
-    (select * from expected except distinct select * from {{ ref('fct_market_value_history') }})
+    (select * from expected except distinct select * from actual)
 
     union all
 
-    (select * from {{ ref('fct_market_value_history') }} except distinct select * from expected)
+    (select * from actual except distinct select * from expected)
 )
 
 select *

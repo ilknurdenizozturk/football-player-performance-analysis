@@ -38,6 +38,36 @@ models:
         description: Best available current or latest club name
       - name: last_season
         description: Latest season associated with the player
+      - name: player_record_type
+        description: Indicates whether the player has a current source profile or exists only as a historical reference
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['current_profile', 'historical_reference']
+      - name: player_profile_completeness_pct
+        description: Percentage of ten key Power BI player profile attributes that are available
+      - name: player_name_display
+        description: Non-null player label for Power BI visuals
+        data_tests:
+          - not_null
+      - name: position_display
+        description: Non-null broad position label for Power BI visuals
+        data_tests:
+          - not_null
+      - name: current_club_name_display
+        description: Non-null current club label for Power BI visuals
+        data_tests:
+          - not_null
+      - name: has_current_profile
+        description: Flag indicating that the player exists in the current player profile source
+        data_tests:
+          - not_null
+      - name: player_profile_completeness_status
+        description: Power BI-friendly player profile completeness category
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['complete', 'partial', 'limited']
 
   - name: dim_clubs
     description: Club dimension containing current and historical clubs referenced by facts
@@ -80,6 +110,32 @@ models:
         description: Best available club coach or manager name
       - name: last_season
         description: Latest season associated with the club
+      - name: club_record_type
+        description: Indicates whether the club has a current source profile or exists only as a historical reference
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['current_profile', 'historical_reference']
+      - name: club_profile_completeness_pct
+        description: Percentage of ten key Power BI club profile attributes that are available
+      - name: club_name_display
+        description: Non-null club label for Power BI visuals
+        data_tests:
+          - not_null
+      - name: has_club_name
+        description: Flag indicating that a recoverable club name is available
+        data_tests:
+          - not_null
+      - name: has_current_profile
+        description: Flag indicating that the club exists in the current club profile source
+        data_tests:
+          - not_null
+      - name: club_profile_completeness_status
+        description: Power BI-friendly club profile completeness category
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['complete', 'partial', 'limited']
 
   - name: dim_competitions
     description: Competition reference dimension
@@ -107,6 +163,58 @@ models:
         description: Football confederation
       - name: total_clubs
         description: Number of clubs reported by the source
+
+  - name: dim_date
+    description: Continuous calendar dimension spanning all football event dates through the latest source or current date
+    columns:
+      - name: date_day
+        description: Calendar date
+        data_tests:
+          - unique
+          - not_null
+      - name: date_key
+        description: Integer date key in YYYYMMDD format
+        data_tests:
+          - unique
+          - not_null
+      - name: calendar_year
+        description: Calendar year
+      - name: calendar_quarter_number
+        description: Calendar quarter number from 1 to 4
+      - name: calendar_quarter_name
+        description: Calendar quarter label
+      - name: calendar_month_number
+        description: Calendar month number from 1 to 12
+      - name: calendar_month_name
+        description: Full calendar month name
+      - name: calendar_month_short_name
+        description: Abbreviated calendar month name
+      - name: calendar_year_month
+        description: Calendar year and month label in YYYY-MM format
+      - name: calendar_year_month_sort
+        description: Integer year-month sorting key in YYYYMM format
+      - name: iso_year
+        description: ISO week-numbering year
+      - name: iso_week_number
+        description: ISO week number
+      - name: iso_day_of_week_number
+        description: ISO day-of-week number where Monday is 1 and Sunday is 7
+      - name: calendar_day_of_month
+        description: Calendar day number within the month
+      - name: calendar_day_name
+        description: Full calendar day name
+      - name: is_weekend
+        description: Flag indicating Saturday or Sunday
+        data_tests:
+          - not_null
+      - name: is_today
+        description: Flag indicating the current date at build time
+        data_tests:
+          - not_null
+      - name: is_future_date
+        description: Flag indicating a date later than the build date
+        data_tests:
+          - not_null
 
   - name: fct_club_performance
     description: All-time club performance fact table at club grain
@@ -200,6 +308,10 @@ models:
         description: Current club name from the player profile
       - name: market_value_in_eur
         description: Current player market value in EUR
+      - name: has_current_market_value
+        description: Flag indicating that the player's current market value is available
+        data_tests:
+          - not_null
       - name: matches_played
         description: Distinct matches with an appearance
       - name: total_goals
@@ -276,6 +388,15 @@ models:
         description: Latest player market value on or before the last game in the group
       - name: season_market_value_date
         description: Date of the selected season market value
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
+      - name: has_season_market_value
+        description: Flag indicating that an eligible season market value is available
+        data_tests:
+          - not_null
 
   - name: fct_market_value_history
     description: Player market value history at player and valuation-date grain
@@ -298,6 +419,10 @@ models:
         description: Market value record date
         data_tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
       - name: market_value_in_eur
         description: Player market value in EUR
       - name: current_club_id
@@ -316,6 +441,14 @@ models:
               arguments:
                 to: ref('dim_competitions')
                 field: competition_id
+      - name: has_club_context
+        description: Flag indicating that valuation-time club context is available
+        data_tests:
+          - not_null
+      - name: has_competition_context
+        description: Flag indicating that valuation-time competition context is available
+        data_tests:
+          - not_null
 
   - name: fct_transfers
     description: Player transfer history with fee-to-market-value comparison
@@ -338,6 +471,10 @@ models:
         description: Transfer date
         data_tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
       - name: transfer_season
         description: Transfer season label
       - name: from_club_id
@@ -399,6 +536,10 @@ models:
         description: Transfer date
         data_tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
       - name: transfer_year
         description: Calendar year extracted from the transfer date
       - name: transfer_month
@@ -457,8 +598,16 @@ models:
           - accepted_values:
               arguments:
                 values: ['unknown', 'zero_fee', 'paid']
+      - name: has_known_transfer_fee
+        description: Flag indicating that the transfer fee is available
+        data_tests:
+          - not_null
       - name: transfer_record_market_value
         description: Player market value recorded directly on the transfer record
+      - name: has_transfer_record_market_value
+        description: Flag indicating that the transfer record contains a market value
+        data_tests:
+          - not_null
       - name: market_value_baseline_date
         description: Date represented by the selected fee comparison market value
       - name: market_value_baseline
@@ -469,6 +618,14 @@ models:
           - accepted_values:
               arguments:
                 values: ['transfer_record', 'latest_prior_valuation', 'unavailable']
+      - name: has_market_value_baseline
+        description: Flag indicating that a fee comparison market value baseline is available
+        data_tests:
+          - not_null
+      - name: has_fee_market_value_comparison
+        description: Flag indicating that both transfer fee and market value baseline are available
+        data_tests:
+          - not_null
       - name: days_since_market_value_baseline
         description: Days between the selected market value baseline date and transfer date
       - name: fee_market_value_difference
@@ -479,6 +636,11 @@ models:
         description: Transfer fee divided by the selected market value baseline
       - name: prior_valuation_date
         description: Latest available player valuation date on or before the transfer date
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
       - name: prior_market_value
         description: Player market value on the latest prior valuation date
       - name: prior_valuation_club_id
@@ -503,10 +665,19 @@ models:
         description: Competition country associated with the latest prior valuation
       - name: prior_competition_confederation
         description: Competition confederation associated with the latest prior valuation
+      - name: has_prior_valuation
+        description: Flag indicating that a valuation exists on or before the transfer date
+        data_tests:
+          - not_null
       - name: days_since_prior_valuation
         description: Days between the latest prior valuation and transfer
       - name: next_valuation_date
         description: First available player valuation date after the transfer date
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
       - name: next_market_value
         description: Player market value on the first valuation date after transfer
       - name: next_valuation_club_id
@@ -531,12 +702,20 @@ models:
         description: Competition country associated with the first valuation after transfer
       - name: next_competition_confederation
         description: Competition confederation associated with the first valuation after transfer
+      - name: has_next_valuation
+        description: Flag indicating that a valuation exists after the transfer date
+        data_tests:
+          - not_null
       - name: days_to_next_valuation
         description: Days between the transfer and first subsequent valuation
       - name: market_value_change_after_transfer
         description: First subsequent market value minus the selected market value baseline in EUR
       - name: market_value_change_after_transfer_pct
         description: Market value change after transfer relative to the selected baseline, in percent
+      - name: has_post_transfer_value_change
+        description: Flag indicating that post-transfer market value change can be calculated
+        data_tests:
+          - not_null
       - name: market_value_direction_after_transfer
         description: Direction of the first subsequent market value change; increase, decrease, unchanged, or unavailable
         data_tests:

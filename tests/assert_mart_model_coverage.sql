@@ -47,6 +47,30 @@ with expected_and_actual as (
     union all
 
     select
+        'dim_date',
+        (
+            select
+                date_diff(
+                    greatest(max(date_day), current_date()),
+                    min(date_day),
+                    day
+                ) + 1
+            from (
+                select game_date as date_day from {{ ref('stg_games') }}
+                union all
+                select appearance_date from {{ ref('stg_appearances') }}
+                union all
+                select transfer_date from {{ ref('stg_transfers') }}
+                union all
+                select valuation_date from {{ ref('stg_player_valuations') }}
+            )
+            where date_day is not null
+        ),
+        (select count(*) from {{ ref('dim_date') }})
+
+    union all
+
+    select
         'fct_club_performance',
         (select count(*) from {{ ref('int_club_performance_summary') }}),
         (select count(*) from {{ ref('fct_club_performance') }})

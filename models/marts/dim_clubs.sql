@@ -123,34 +123,83 @@ historical_clubs as (
     from club_history_events
 
     group by club_id
+),
+
+combined_clubs as (
+
+    select
+        current_clubs.*,
+        'current_profile' as club_record_type
+
+    from current_clubs
+
+    union all
+
+    select
+        historical_clubs.club_id,
+        cast(null as string) as club_code,
+        historical_clubs.club_name,
+        cast(null as string) as domestic_competition_id,
+        cast(null as string) as total_market_value,
+        cast(null as int64) as squad_size,
+        cast(null as float64) as average_age,
+        cast(null as int64) as foreigners_number,
+        cast(null as float64) as foreigners_percentage,
+        cast(null as int64) as national_team_players,
+        cast(null as string) as stadium_name,
+        cast(null as int64) as stadium_seats,
+        cast(null as string) as net_transfer_record,
+        historical_clubs.coach_name,
+        historical_clubs.last_season,
+        'historical_reference' as club_record_type
+
+    from historical_clubs
+
+    left join current_clubs
+        on historical_clubs.club_id = current_clubs.club_id
+
+    where current_clubs.club_id is null
+),
+
+scored_clubs as (
+
+    select
+        *,
+
+        round(
+            (
+                cast(club_name is not null as int64)
+                + cast(domestic_competition_id is not null as int64)
+                + cast(squad_size is not null as int64)
+                + cast(average_age is not null as int64)
+                + cast(foreigners_number is not null as int64)
+                + cast(national_team_players is not null as int64)
+                + cast(stadium_name is not null as int64)
+                + cast(stadium_seats is not null as int64)
+                + cast(coach_name is not null as int64)
+                + cast(last_season is not null as int64)
+            ) / 10 * 100,
+            2
+        ) as club_profile_completeness_pct
+
+    from combined_clubs
 )
 
-select *
-
-from current_clubs
-
-union all
-
 select
-    historical_clubs.club_id,
-    cast(null as string) as club_code,
-    historical_clubs.club_name,
-    cast(null as string) as domestic_competition_id,
-    cast(null as string) as total_market_value,
-    cast(null as int64) as squad_size,
-    cast(null as float64) as average_age,
-    cast(null as int64) as foreigners_number,
-    cast(null as float64) as foreigners_percentage,
-    cast(null as int64) as national_team_players,
-    cast(null as string) as stadium_name,
-    cast(null as int64) as stadium_seats,
-    cast(null as string) as net_transfer_record,
-    historical_clubs.coach_name,
-    historical_clubs.last_season
+    *,
 
-from historical_clubs
+    coalesce(
+        nullif(club_name, ''),
+        concat('Unknown Club #', cast(club_id as string))
+    ) as club_name_display,
 
-left join current_clubs
-    on historical_clubs.club_id = current_clubs.club_id
+    club_name is not null as has_club_name,
+    club_record_type = 'current_profile' as has_current_profile,
 
-where current_clubs.club_id is null
+    case
+        when club_profile_completeness_pct >= 90 then 'complete'
+        when club_profile_completeness_pct >= 60 then 'partial'
+        else 'limited'
+    end as club_profile_completeness_status
+
+from scored_clubs

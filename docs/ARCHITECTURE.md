@@ -59,7 +59,7 @@ With the base profile dataset `football`, dbt creates `football_staging`, `footb
 - Freshness warns after 7 days and errors after 14 days.
 - Batch metadata freshness is enabled to reduce warehouse metadata calls.
 - Relation and column descriptions are persisted to BigQuery.
-- All 29 models and all 444 model columns have descriptions: 153 staging, 103 intermediate, and 188 mart columns.
+- All 30 models and all 486 model columns have descriptions: 153 staging, 103 intermediate, and 230 mart columns.
 - Named selectors support layer builds, upstream mart builds, and raw source freshness.
 - GitHub Actions validates pull requests in isolated BigQuery datasets and deploys `main`.
 
@@ -134,8 +134,11 @@ Post-transfer change compares the selected market value baseline with the first 
 | `dim_players` | Player | Includes current players plus historical players found only in appearances |
 | `dim_clubs` | Club | Includes current clubs plus clubs referenced by games, transfers, valuations, and players |
 | `dim_competitions` | Competition | Preserves staged competition records |
+| `dim_date` | Calendar date | Continuous range from the earliest source date through the latest source date or today |
 
 Historical dimension records can contain `NULL` descriptive attributes when the source data provides only an identifier. This is intentional and preserves fact-table referential integrity.
+
+`dim_players` and `dim_clubs` expose canonical nullable attributes together with Power BI-safe display labels, current-versus-historical record types, and profile completeness metrics. Display labels prevent blank visual categories without replacing or corrupting the canonical source values.
 
 ### Facts
 
@@ -159,6 +162,7 @@ The mart schema tests non-null foreign keys against their dimensions:
 - Club facts and transfer club identifiers to `dim_clubs`
 - Competition facts and career records to `dim_competitions`
 - Player current clubs to `dim_clubs`
+- Transfer, valuation, and seasonal market-value dates to `dim_date`
 
 The June 12, 2026 validation found zero non-null fact-to-dimension orphan keys.
 
@@ -170,3 +174,13 @@ The June 12, 2026 validation found zero non-null fact-to-dimension orphan keys.
 - Historical dimension coverage is preferred over dropping valid fact records.
 - Exact numeric types are used for transfer money to avoid floating-point reconciliation issues.
 - Tests independently recalculate critical metrics rather than only checking row existence.
+- Unknown monetary values remain `NULL`, not zero, so averages and totals do not treat unavailable data as a confirmed zero value.
+- Fact tables expose non-null `has_*` availability flags so BI measures can explicitly select valid comparison populations.
+
+## Power BI Consumption
+
+Power BI should connect to `football_mart`, use the dimension tables on the one-side of relationships, and use `dim_date` for time intelligence. Date relationships that are not the primary reporting date should be inactive role-playing relationships or separate date-dimension aliases in Power BI.
+
+Use `player_name_display`, `position_display`, `current_club_name_display`, and `club_name_display` in visuals. Use canonical nullable columns for data-quality analysis. Before calculating an average, ratio, or comparison from optional monetary values, filter with the corresponding `has_*` field.
+
+The complete relationship, NULL, and measure guidance is documented in [Power BI Modeling Guide](POWER_BI_MODELING.md).

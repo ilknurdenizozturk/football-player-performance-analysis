@@ -24,7 +24,8 @@ select
     t.assists_per_90,
 
     t.season_market_value,
-    t.season_market_value_date
+    t.season_market_value_date,
+    t.season_market_value is not null as has_season_market_value
 
 from {{ ref('int_player_season_performance') }} t
 

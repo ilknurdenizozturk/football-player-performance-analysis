@@ -7,6 +7,7 @@ select
     p.current_club_id,
     p.current_club_name,
     p.market_value_in_eur,
+    p.market_value_in_eur is not null as has_current_market_value,
 
     perf.matches_played,
     perf.total_goals,

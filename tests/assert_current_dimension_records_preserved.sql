@@ -82,12 +82,42 @@ with player_differences as (
 club_differences as (
 
     (
-        select *
+        select
+            club_id,
+            club_code,
+            club_name,
+            domestic_competition_id,
+            total_market_value,
+            squad_size,
+            average_age,
+            foreigners_number,
+            foreigners_percentage,
+            national_team_players,
+            stadium_name,
+            stadium_seats,
+            net_transfer_record,
+            coach_name,
+            last_season
         from {{ ref('stg_clubs') }}
 
         except distinct
 
-        select dimension.*
+        select
+            dimension.club_id,
+            dimension.club_code,
+            dimension.club_name,
+            dimension.domestic_competition_id,
+            dimension.total_market_value,
+            dimension.squad_size,
+            dimension.average_age,
+            dimension.foreigners_number,
+            dimension.foreigners_percentage,
+            dimension.national_team_players,
+            dimension.stadium_name,
+            dimension.stadium_seats,
+            dimension.net_transfer_record,
+            dimension.coach_name,
+            dimension.last_season
         from {{ ref('dim_clubs') }} dimension
         inner join {{ ref('stg_clubs') }} staging
             on dimension.club_id = staging.club_id
@@ -96,14 +126,44 @@ club_differences as (
     union all
 
     (
-        select dimension.*
+        select
+            dimension.club_id,
+            dimension.club_code,
+            dimension.club_name,
+            dimension.domestic_competition_id,
+            dimension.total_market_value,
+            dimension.squad_size,
+            dimension.average_age,
+            dimension.foreigners_number,
+            dimension.foreigners_percentage,
+            dimension.national_team_players,
+            dimension.stadium_name,
+            dimension.stadium_seats,
+            dimension.net_transfer_record,
+            dimension.coach_name,
+            dimension.last_season
         from {{ ref('dim_clubs') }} dimension
         inner join {{ ref('stg_clubs') }} staging
             on dimension.club_id = staging.club_id
 
         except distinct
 
-        select *
+        select
+            club_id,
+            club_code,
+            club_name,
+            domestic_competition_id,
+            total_market_value,
+            squad_size,
+            average_age,
+            foreigners_number,
+            foreigners_percentage,
+            national_team_players,
+            stadium_name,
+            stadium_seats,
+            net_transfer_record,
+            coach_name,
+            last_season
         from {{ ref('stg_clubs') }}
     )
 ),

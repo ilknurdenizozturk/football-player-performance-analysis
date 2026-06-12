@@ -6,21 +6,21 @@ The project was fully validated against BigQuery on June 12, 2026.
 
 | Validation | Result |
 | --- | ---: |
-| Full dbt build | 153 passed |
-| Full project tests | 124 passed |
+| Full dbt build | 190 passed |
+| Full project tests | 160 passed |
 | Source freshness | 12 of 12 sources passed |
-| Model descriptions | 29 of 29 models documented |
-| Column descriptions | 444 of 444 model columns documented |
-| Mart-only build | 74 passed |
-| Mart models rebuilt | 10 |
-| Mart-specific tests | 64 passed |
+| Model descriptions | 30 of 30 models documented |
+| Column descriptions | 486 of 486 model columns documented |
+| Mart-only build | 111 passed |
+| Mart models rebuilt | 11 |
+| Mart-specific tests | 100 passed |
 | Warnings | 0 |
 | Errors | 0 |
 | Non-null fact-to-dimension orphan keys | 0 |
 
-The full build result contains 29 models and 124 tests. The mart-only build result contains 10 table models and 64 tests.
+The full build result contains 30 models and 160 tests. The mart-only build result contains 11 table models and 100 tests.
 
-Documentation coverage is complete across the transformation layers: 153 staging columns, 103 intermediate columns, and 188 mart columns. dbt persists these descriptions to the generated catalog and BigQuery metadata.
+Documentation coverage is complete across the transformation layers: 153 staging columns, 103 intermediate columns, and 230 mart columns. dbt persists these descriptions to the generated catalog and BigQuery metadata.
 
 ## Source Freshness
 
@@ -40,6 +40,7 @@ At the June 12, 2026 validation, all raw sources passed freshness and were appro
 | `dim_players` | 47,702 |
 | `dim_clubs` | 9,032 |
 | `dim_competitions` | 67 |
+| `dim_date` | 13,514 |
 | `fct_player_performance` | 28,736 |
 | `fct_player_career_timeline` | 189,789 |
 | `fct_club_performance` | 3,270 |
@@ -86,7 +87,7 @@ Schema tests validate:
 
 ### Singular Business-Rule Tests
 
-The `tests/` directory contains 32 custom SQL tests covering:
+The `tests/` directory contains 33 custom SQL tests covering:
 
 - Appearance player-game grain
 - Two club-perspective rows per game
@@ -101,6 +102,7 @@ The `tests/` directory contains 32 custom SQL tests covering:
 - Transfer fee calculations
 - Detailed transfer source reconciliation, nearest valuation selection, and value-change calculations
 - Mart values matching intermediate or staging inputs
+- Continuous, gap-free date-dimension coverage
 
 ## Reconciliation Strategy
 
@@ -120,6 +122,7 @@ These issues originate in the raw dataset and are not introduced by dbt:
 | Limitation | Observed count |
 | --- | ---: |
 | Historical clubs without a recoverable name | 451 |
+| Historical-reference club dimension rows with limited source attributes | 8,236 |
 | Historical players without a recoverable name | 1 |
 | Appearance records with minutes above a standard 90-minute match | 3 |
 | Appearance players missing from the current players source | 2 |
@@ -136,6 +139,9 @@ The raw `clubs.total_market_value` field is also entirely null in the current so
 - Missing historical player and club references are retained in dimensions when an identifier exists.
 - Missing descriptive fields remain `NULL`; they are not fabricated.
 - Missing monetary values remain `NULL` and are excluded naturally from calculations that require them.
+- Power BI visuals can use non-null `*_display` fields while canonical source fields remain available for data-quality analysis.
+- Dimension `record_type` and profile-completeness fields distinguish current profiles from limited historical references.
+- Fact `has_*` fields identify rows that are eligible for optional market-value and transfer-fee calculations.
 - Future-dated transfer records are retained and identified by `is_future_transfer`.
 - Appearance minutes are preserved because extra time can exceed 90 minutes.
 - Seasonal market value remains `NULL` when no valuation exists on or before the relevant last game date.
@@ -151,6 +157,19 @@ For this repository, "100% passing" means:
 - No warnings or errors are reported.
 
 It does not mean the external raw dataset has no missing values. Raw source limitations are documented separately so downstream consumers can interpret nulls correctly.
+
+## Power BI NULL Readiness
+
+The mart layer is designed so missing values can be modeled without silently changing their meaning:
+
+- Do not replace unknown fees, market values, or calculated changes with zero. A zero is a real business value; `NULL` means unavailable.
+- Use display fields such as `player_name_display` and `club_name_display` for chart categories and slicers.
+- Filter current-profile reporting with `player_record_type = 'current_profile'` or `club_record_type = 'current_profile'`.
+- Use `has_known_transfer_fee`, `has_market_value_baseline`, `has_fee_market_value_comparison`, and related flags before calculating averages or comparison KPIs.
+- Use `dim_date` for date filtering and Power BI time-intelligence measures.
+- Hide `dim_clubs.total_market_value` from the report view because the current raw source snapshot contains no values for it.
+
+See [Power BI Modeling Guide](POWER_BI_MODELING.md) for the recommended star schema and measure patterns.
 
 ## Recommended Refresh Validation
 

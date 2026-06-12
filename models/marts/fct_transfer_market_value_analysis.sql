@@ -275,11 +275,16 @@ select
         when transfer_fee = 0 then 'zero_fee'
         else 'paid'
     end as fee_status,
+    transfer_fee is not null as has_known_transfer_fee,
 
     market_value_in_eur as transfer_record_market_value,
+    market_value_in_eur is not null as has_transfer_record_market_value,
     market_value_baseline_date,
     market_value_baseline,
     market_value_baseline_source,
+    market_value_baseline is not null as has_market_value_baseline,
+    transfer_fee is not null and market_value_baseline is not null
+        as has_fee_market_value_comparison,
     date_diff(transfer_date, market_value_baseline_date, day)
         as days_since_market_value_baseline,
 
@@ -306,6 +311,7 @@ select
     prior_competition_name,
     prior_competition_country_name,
     prior_competition_confederation,
+    prior_valuation.valuation_date is not null as has_prior_valuation,
     date_diff(transfer_date, prior_valuation.valuation_date, day)
         as days_since_prior_valuation,
 
@@ -317,6 +323,7 @@ select
     next_competition_name,
     next_competition_country_name,
     next_competition_confederation,
+    next_valuation.valuation_date is not null as has_next_valuation,
     date_diff(next_valuation.valuation_date, transfer_date, day)
         as days_to_next_valuation,
 
@@ -330,6 +337,10 @@ select
         ) * 100,
         2
     ) as market_value_change_after_transfer_pct,
+
+    next_valuation.market_value_in_eur is not null
+        and market_value_baseline is not null
+        as has_post_transfer_value_change,
 
     case
         when next_valuation.market_value_in_eur is null
