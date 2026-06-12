@@ -10,6 +10,7 @@ on:
       - "macros/**"
       - "seeds/**"
       - "snapshots/**"
+      - "scripts/**"
       - "dbt_project.yml"
       - "selectors.yml"
   pull_request:
@@ -20,6 +21,7 @@ on:
       - "macros/**"
       - "seeds/**"
       - "snapshots/**"
+      - "scripts/**"
       - "dbt_project.yml"
       - "selectors.yml"
   schedule:
@@ -81,6 +83,10 @@ jobs:
       - name: Generate dbt documentation
         if: github.event_name != 'schedule'
         run: dbt docs generate --no-partial-parse
+
+      - name: Check documentation coverage
+        if: github.event_name != 'schedule'
+        run: python scripts/check_documentation_coverage.py
 
       - name: Clean up pull request datasets
         if: always() && github.event_name == 'pull_request'

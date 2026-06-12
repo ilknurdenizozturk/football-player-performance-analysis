@@ -59,7 +59,7 @@ With the base profile dataset `football`, dbt creates `football_staging`, `footb
 - Freshness warns after 7 days and errors after 14 days.
 - Batch metadata freshness is enabled to reduce warehouse metadata calls.
 - Relation and column descriptions are persisted to BigQuery.
-- All 28 models have model descriptions and all 120 public mart columns have business descriptions.
+- All 28 models and all 376 model columns have descriptions: 153 staging, 103 intermediate, and 120 mart columns.
 - Named selectors support layer builds, upstream mart builds, and raw source freshness.
 - GitHub Actions validates pull requests in isolated BigQuery datasets and deploys `main`.
 

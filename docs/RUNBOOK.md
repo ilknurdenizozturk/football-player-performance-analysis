@@ -100,6 +100,7 @@ dbt docs serve
 ```
 
 Generated files under `target/` are local artifacts and should not be committed.
+After generation, `python scripts/check_documentation_coverage.py` verifies that every model and physical model column has a description.
 
 ## Deployment Procedure
 
@@ -145,7 +146,8 @@ Configure the repository Actions secret `GCP_SERVICE_ACCOUNT_JSON` with the comp
 - Source reconciliation tests pass.
 - `git diff --check` reports no formatting errors.
 - No credentials or generated `target/` artifacts are staged.
-- dbt docs generation succeeds and mart columns remain documented.
+- dbt docs generation succeeds and all staging, intermediate, and mart columns remain documented.
+- `python scripts/check_documentation_coverage.py` passes.
 
 ## Troubleshooting
 

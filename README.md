@@ -13,6 +13,8 @@ Validated against BigQuery on June 12, 2026:
 | Source and data tests | 105 passed |
 | Source freshness | 12 of 12 sources passed |
 | Mart build | 9 models and 45 tests passed |
+| Model documentation | 28 of 28 models documented |
+| Column documentation | 376 of 376 model columns documented |
 | Test warnings and errors | 0 |
 | Non-null fact-to-dimension orphan keys | 0 |
 
@@ -129,6 +131,7 @@ The [`dbt CI`](.github/workflows/dbt-ci.yml) GitHub Actions workflow:
 
 - Runs source freshness daily without rebuilding models
 - Runs freshness, full build, and docs generation on `main`
+- Fails when any model or physical model column lacks documentation
 - Uses isolated temporary BigQuery datasets for pull requests and deletes them afterward
 - Uploads dbt artifacts for 14 days
 
@@ -145,6 +148,7 @@ The project combines:
 - Recalculation checks against staging data
 - Mart-to-intermediate and mart-to-staging value reconciliation
 - Business-rule checks for age, transfers, market values, and sentinel normalization
+- Complete model and column documentation across staging, intermediate, and mart layers
 
 See [Data Quality](docs/DATA_QUALITY.md) for current results and known source limitations.
 

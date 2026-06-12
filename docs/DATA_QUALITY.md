@@ -9,6 +9,8 @@ The project was fully validated against BigQuery on June 12, 2026.
 | Full dbt build | 133 passed |
 | Full project tests | 105 passed |
 | Source freshness | 12 of 12 sources passed |
+| Model descriptions | 28 of 28 models documented |
+| Column descriptions | 376 of 376 model columns documented |
 | Mart-only build | 54 passed |
 | Mart models rebuilt | 9 |
 | Mart-specific tests | 45 passed |
@@ -17,6 +19,8 @@ The project was fully validated against BigQuery on June 12, 2026.
 | Non-null fact-to-dimension orphan keys | 0 |
 
 The full build result contains 28 models and 105 tests. The mart-only build result contains 9 table models and 45 tests.
+
+Documentation coverage is complete across the transformation layers: 153 staging columns, 103 intermediate columns, and 120 mart columns. dbt persists these descriptions to the generated catalog and BigQuery metadata.
 
 ## Source Freshness
 
