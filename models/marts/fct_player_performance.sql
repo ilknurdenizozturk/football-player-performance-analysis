@@ -1,6 +1,6 @@
 select
 
-    p.player_id,
+    perf.player_id,
     p.player_name,
     p.position,
     p.sub_position,

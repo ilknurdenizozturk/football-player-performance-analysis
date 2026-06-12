@@ -6,7 +6,7 @@ select
     player_id,
 
     player_club_id,
-    player_current_club_id,
+    nullif(player_current_club_id, -1) as player_current_club_id,
 
     date as appearance_date,
 

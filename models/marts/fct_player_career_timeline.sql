@@ -23,7 +23,8 @@ select
     t.goals_per_90,
     t.assists_per_90,
 
-    t.season_market_value
+    t.season_market_value,
+    t.season_market_value_date
 
 from {{ ref('int_player_season_performance') }} t
 

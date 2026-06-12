@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: int_club_performance_summary
+    description: One row per club with all-time match performance
+    columns:
+      - name: club_id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_competition_summary
+    description: One row per competition with all-time match metrics
+    columns:
+      - name: competition_id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_player_market_value_summary
+    description: One row per player with market value history metrics
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_player_performance_summary
+    description: One row per player with all-time appearance performance
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_player_profile
+    description: Enriched player profile at player grain
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_transfer_summary
+    description: One row per player with transfer history metrics
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+          - unique

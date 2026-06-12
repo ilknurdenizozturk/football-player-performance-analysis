@@ -12,8 +12,8 @@ select
     trim(from_club_name) as from_club_name,
     trim(to_club_name) as to_club_name,
 
-    transfer_fee,
-    market_value_in_eur,
+    cast(transfer_fee as numeric) as transfer_fee,
+    cast(market_value_in_eur as numeric) as market_value_in_eur,
 
     trim(player_name) as player_name
 

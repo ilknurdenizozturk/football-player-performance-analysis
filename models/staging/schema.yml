@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: stg_players
+    description: Cleaned player profiles from the raw player source
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_appearances
+    description: Cleaned player appearance records at player-game grain
+    columns:
+      - name: game_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_games')
+                field: game_id
+
+  - name: stg_games
+    description: Cleaned game records
+    columns:
+      - name: competition_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_competitions')
+                field: competition_id
+
+  - name: stg_club_games
+    description: Cleaned game records from each participating club's perspective
+    columns:
+      - name: game_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_games')
+                field: game_id
+
+  - name: stg_player_valuations
+    description: Cleaned player market value history
+    columns:
+      - name: player_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_players')
+                field: player_id
+
+  - name: stg_transfers
+    description: Cleaned player transfer history
+    columns:
+      - name: player_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_players')
+                field: player_id

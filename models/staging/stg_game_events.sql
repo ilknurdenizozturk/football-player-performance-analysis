@@ -6,7 +6,7 @@ select
 
     game_id,
 
-    minute,
+    nullif(minute, -1) as minute,
 
     lower(trim(type)) as event_type,
 
@@ -16,7 +16,7 @@ select
 
     player_id,
 
-    trim(description) as event_description,
+    nullif(trim(description), '') as event_description,
 
     player_in_id,
 

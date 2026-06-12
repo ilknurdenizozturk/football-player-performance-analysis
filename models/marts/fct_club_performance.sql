@@ -1,6 +1,6 @@
 select
 
-    c.club_id,
+    perf.club_id,
 
     c.club_name,
     c.domestic_competition_id,

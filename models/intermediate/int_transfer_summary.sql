@@ -13,7 +13,15 @@ with ranked_transfers as (
 
         row_number() over (
             partition by player_id
-            order by transfer_date desc
+            order by
+                transfer_date desc,
+                transfer_season desc,
+                to_club_id desc,
+                from_club_id desc,
+                transfer_fee desc,
+                market_value_in_eur desc,
+                to_club_name desc,
+                from_club_name desc
         ) as latest_transfer_rank
 
     from {{ ref('stg_transfers') }}

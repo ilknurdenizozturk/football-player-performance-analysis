@@ -9,15 +9,27 @@ models:
         tests:
           - unique
           - not_null
+      - name: current_club_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_clubs')
+                field: club_id
 
   - name: dim_clubs
-    description: Club dimension table
+    description: Club dimension containing current and historical clubs referenced by facts
     columns:
       - name: club_id
         description: Unique club identifier
         tests:
           - unique
           - not_null
+      - name: domestic_competition_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_competitions')
+                field: competition_id
 
   - name: dim_competitions
     description: Competition dimension table
@@ -27,3 +39,112 @@ models:
         tests:
           - unique
           - not_null
+
+  - name: fct_club_performance
+    description: Club performance fact table at club grain
+    columns:
+      - name: club_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_clubs')
+                field: club_id
+
+  - name: fct_competition_performance
+    description: Competition performance fact table at competition grain
+    columns:
+      - name: competition_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_competitions')
+                field: competition_id
+
+  - name: fct_player_performance
+    description: Player performance fact table at player grain
+    columns:
+      - name: player_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_players')
+                field: player_id
+
+  - name: fct_player_career_timeline
+    description: Player performance by season and competition
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_players')
+                field: player_id
+      - name: season
+        tests:
+          - not_null
+      - name: competition_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_competitions')
+                field: competition_id
+
+  - name: fct_market_value_history
+    description: Player market value history at player-date grain
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_players')
+                field: player_id
+      - name: valuation_date
+        tests:
+          - not_null
+      - name: competition_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_competitions')
+                field: competition_id
+      - name: current_club_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_clubs')
+                field: club_id
+
+  - name: fct_transfers
+    description: Player transfer history
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_players')
+                field: player_id
+      - name: transfer_date
+        tests:
+          - not_null
+      - name: from_club_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_clubs')
+                field: club_id
+      - name: to_club_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_clubs')
+                field: club_id

@@ -11,7 +11,12 @@ select
 
     p.birth_date,
 
-    date_diff(current_date(), p.birth_date, year) as age,
+    date_diff(current_date(), p.birth_date, year)
+        - if(
+            format_date('%m%d', current_date()) < format_date('%m%d', p.birth_date),
+            1,
+            0
+        ) as age,
 
     p.height_in_cm,
     p.agent_name,

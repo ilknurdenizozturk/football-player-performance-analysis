@@ -14,7 +14,7 @@ select
 
     lower(trim(type)) as lineup_type,
 
-    upper(trim(position)) as position,
+    nullif(upper(trim(position)), '') as position,
 
     trim(number) as squad_number,
 
