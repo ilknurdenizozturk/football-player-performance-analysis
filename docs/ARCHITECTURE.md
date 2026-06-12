@@ -59,7 +59,7 @@ With the base profile dataset `football`, dbt creates `football_staging`, `footb
 - Freshness warns after 7 days and errors after 14 days.
 - Batch metadata freshness is enabled to reduce warehouse metadata calls.
 - Relation and column descriptions are persisted to BigQuery.
-- All 28 models and all 376 model columns have descriptions: 153 staging, 103 intermediate, and 120 mart columns.
+- All 29 models and all 444 model columns have descriptions: 153 staging, 103 intermediate, and 188 mart columns.
 - Named selectors support layer builds, upstream mart builds, and raw source freshness.
 - GitHub Actions validates pull requests in isolated BigQuery datasets and deploys `main`.
 
@@ -117,6 +117,14 @@ For each player-season-competition record, the selected market value is the late
 
 The latest transfer is ordered by transfer date and deterministic secondary fields. This prevents unstable results when multiple transfer rows share a date.
 
+**Transfer market value baseline**
+
+The detailed transfer analysis prefers the market value recorded directly on the transfer row. When that value is unavailable, it uses the latest player valuation on or before the transfer date. The baseline source is exposed on every row.
+
+**Post-transfer market value change**
+
+Post-transfer change compares the selected market value baseline with the first available player valuation after the transfer date. Both valuation dates and the number of days between them are retained for auditability.
+
 ## Mart Models
 
 ### Dimensions
@@ -139,6 +147,9 @@ Historical dimension records can contain `NULL` descriptive attributes when the 
 | `fct_competition_performance` | Competition | `int_competition_summary` |
 | `fct_market_value_history` | Player and valuation date | `stg_player_valuations`, `dim_players` |
 | `fct_transfers` | Transfer record | `stg_transfers`, `dim_players` |
+| `fct_transfer_market_value_analysis` | Transfer record | `stg_transfers`, `stg_player_valuations`, player summaries, dimensions |
+
+Detailed metric definitions, coverage, caveats, and example queries are available in [Transfer and Market Value Analysis](TRANSFER_MARKET_VALUE_ANALYSIS.md).
 
 ## Referential Integrity
 

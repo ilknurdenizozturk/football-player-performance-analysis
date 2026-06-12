@@ -6,21 +6,21 @@ The project was fully validated against BigQuery on June 12, 2026.
 
 | Validation | Result |
 | --- | ---: |
-| Full dbt build | 133 passed |
-| Full project tests | 105 passed |
+| Full dbt build | 153 passed |
+| Full project tests | 124 passed |
 | Source freshness | 12 of 12 sources passed |
-| Model descriptions | 28 of 28 models documented |
-| Column descriptions | 376 of 376 model columns documented |
-| Mart-only build | 54 passed |
-| Mart models rebuilt | 9 |
-| Mart-specific tests | 45 passed |
+| Model descriptions | 29 of 29 models documented |
+| Column descriptions | 444 of 444 model columns documented |
+| Mart-only build | 74 passed |
+| Mart models rebuilt | 10 |
+| Mart-specific tests | 64 passed |
 | Warnings | 0 |
 | Errors | 0 |
 | Non-null fact-to-dimension orphan keys | 0 |
 
-The full build result contains 28 models and 105 tests. The mart-only build result contains 9 table models and 45 tests.
+The full build result contains 29 models and 124 tests. The mart-only build result contains 10 table models and 64 tests.
 
-Documentation coverage is complete across the transformation layers: 153 staging columns, 103 intermediate columns, and 120 mart columns. dbt persists these descriptions to the generated catalog and BigQuery metadata.
+Documentation coverage is complete across the transformation layers: 153 staging columns, 103 intermediate columns, and 188 mart columns. dbt persists these descriptions to the generated catalog and BigQuery metadata.
 
 ## Source Freshness
 
@@ -46,8 +46,24 @@ At the June 12, 2026 validation, all raw sources passed freshness and were appro
 | `fct_competition_performance` | 67 |
 | `fct_market_value_history` | 507,815 |
 | `fct_transfers` | 40,208 |
+| `fct_transfer_market_value_analysis` | 40,208 |
 
 Row counts represent the BigQuery state at validation time and can change when raw data is refreshed.
+
+## Transfer and Market Value Analysis Coverage
+
+The detailed transfer mart preserves every staged transfer and exposes the data availability needed to interpret each calculation.
+
+| Coverage metric | Rows |
+| --- | ---: |
+| Unique transfer records | 40,208 |
+| Transfers with a known fee | 25,821 |
+| Transfers with a selected market value baseline | 24,913 |
+| Transfers with both a known fee and market value baseline | 20,001 |
+| Transfers with a prior valuation | 24,886 |
+| Transfers with a subsequent valuation | 35,077 |
+| Transfers with a calculated post-transfer value change | 21,820 |
+| Future-dated transfer records explicitly flagged | 429 |
 
 ## Test Coverage
 
@@ -70,7 +86,7 @@ Schema tests validate:
 
 ### Singular Business-Rule Tests
 
-The `tests/` directory contains 28 custom SQL tests covering:
+The `tests/` directory contains 32 custom SQL tests covering:
 
 - Appearance player-game grain
 - Two club-perspective rows per game
@@ -83,6 +99,7 @@ The `tests/` directory contains 28 custom SQL tests covering:
 - Player age calculation
 - Staging sentinel normalization
 - Transfer fee calculations
+- Detailed transfer source reconciliation, nearest valuation selection, and value-change calculations
 - Mart values matching intermediate or staging inputs
 
 ## Reconciliation Strategy
@@ -109,6 +126,7 @@ These issues originate in the raw dataset and are not introduced by dbt:
 | Lineup rows whose player is missing from the players source | 326,036 |
 | Transfers with unknown transfer fee | 14,387 |
 | Transfers with unknown market value | 15,849 |
+| Future-dated transfer records | 429 |
 | Player-season records without a prior eligible valuation | 8,655 |
 
 The raw `clubs.total_market_value` field is also entirely null in the current source snapshot.
@@ -118,6 +136,7 @@ The raw `clubs.total_market_value` field is also entirely null in the current so
 - Missing historical player and club references are retained in dimensions when an identifier exists.
 - Missing descriptive fields remain `NULL`; they are not fabricated.
 - Missing monetary values remain `NULL` and are excluded naturally from calculations that require them.
+- Future-dated transfer records are retained and identified by `is_future_transfer`.
 - Appearance minutes are preserved because extra time can exceed 90 minutes.
 - Seasonal market value remains `NULL` when no valuation exists on or before the relevant last game date.
 

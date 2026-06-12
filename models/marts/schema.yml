@@ -366,3 +366,200 @@ models:
         description: Transfer fee minus market value in EUR
       - name: fee_market_value_difference_pct
         description: Transfer fee premium or discount relative to market value, in percent
+
+  - name: fct_transfer_market_value_analysis
+    description: Detailed transfer-level analysis combining fees, nearest valuations, player transfer history, and valuation competition context
+    columns:
+      - name: transfer_key
+        description: Stable MD5 key generated from all source transfer record fields
+        data_tests:
+          - unique
+          - not_null
+      - name: player_id
+        description: Transferred player identifier
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_players')
+                field: player_id
+      - name: player_name
+        description: Best available player name from the transfer record or player dimension
+      - name: position
+        description: Broad player position
+      - name: sub_position
+        description: Detailed player position
+      - name: birth_date
+        description: Player date of birth
+      - name: country_of_citizenship
+        description: Player country of citizenship
+      - name: age_at_transfer
+        description: Player age in completed years on the transfer date
+      - name: transfer_date
+        description: Transfer date
+        data_tests:
+          - not_null
+      - name: transfer_year
+        description: Calendar year extracted from the transfer date
+      - name: transfer_month
+        description: Calendar month number extracted from the transfer date
+      - name: transfer_season
+        description: Source transfer season label
+      - name: is_future_transfer
+        description: Flag indicating that the transfer date is later than the build date
+      - name: transfer_sequence_number
+        description: Chronological transfer sequence number for the player
+      - name: player_transfer_count
+        description: Total number of transfer records for the player
+      - name: known_fee_transfer_count
+        description: Number of player transfer records with a known fee
+      - name: is_latest_transfer
+        description: Flag indicating the chronologically latest transfer record for the player
+      - name: previous_transfer_date
+        description: Chronologically previous transfer date for the player
+      - name: days_since_previous_transfer
+        description: Days between the previous and current transfer
+      - name: next_transfer_date
+        description: Chronologically next transfer date for the player
+      - name: days_to_next_transfer
+        description: Days between the current and next transfer
+      - name: from_club_id
+        description: Origin club identifier
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_clubs')
+                field: club_id
+      - name: from_club_name
+        description: Best available origin club name
+      - name: to_club_id
+        description: Destination club identifier
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_clubs')
+                field: club_id
+      - name: to_club_name
+        description: Best available destination club name
+      - name: transfer_fee
+        description: Transfer fee in EUR when known
+      - name: cumulative_known_transfer_fee
+        description: Running sum of known player transfer fees through the current transfer
+      - name: total_transfer_fee
+        description: Sum of all known transfer fees for the player
+      - name: avg_transfer_fee
+        description: Average known transfer fee for the player
+      - name: max_transfer_fee
+        description: Highest known transfer fee for the player
+      - name: fee_status
+        description: Fee availability category; unknown, zero_fee, or paid
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['unknown', 'zero_fee', 'paid']
+      - name: transfer_record_market_value
+        description: Player market value recorded directly on the transfer record
+      - name: market_value_baseline_date
+        description: Date represented by the selected fee comparison market value
+      - name: market_value_baseline
+        description: Market value used for fee comparison, preferring the transfer record and otherwise the latest prior valuation
+      - name: market_value_baseline_source
+        description: Source of the selected fee comparison market value
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['transfer_record', 'latest_prior_valuation', 'unavailable']
+      - name: days_since_market_value_baseline
+        description: Days between the selected market value baseline date and transfer date
+      - name: fee_market_value_difference
+        description: Transfer fee minus the selected market value baseline in EUR
+      - name: fee_market_value_difference_pct
+        description: Transfer fee premium or discount relative to the selected market value baseline, in percent
+      - name: fee_to_market_value_ratio
+        description: Transfer fee divided by the selected market value baseline
+      - name: prior_valuation_date
+        description: Latest available player valuation date on or before the transfer date
+      - name: prior_market_value
+        description: Player market value on the latest prior valuation date
+      - name: prior_valuation_club_id
+        description: Club identifier recorded on the latest prior valuation
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_clubs')
+                field: club_id
+      - name: prior_valuation_club_name
+        description: Club name recorded on the latest prior valuation
+      - name: prior_valuation_competition_id
+        description: Domestic competition identifier recorded on the latest prior valuation
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_competitions')
+                field: competition_id
+      - name: prior_competition_name
+        description: Competition name associated with the latest prior valuation
+      - name: prior_competition_country_name
+        description: Competition country associated with the latest prior valuation
+      - name: prior_competition_confederation
+        description: Competition confederation associated with the latest prior valuation
+      - name: days_since_prior_valuation
+        description: Days between the latest prior valuation and transfer
+      - name: next_valuation_date
+        description: First available player valuation date after the transfer date
+      - name: next_market_value
+        description: Player market value on the first valuation date after transfer
+      - name: next_valuation_club_id
+        description: Club identifier recorded on the first valuation after transfer
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_clubs')
+                field: club_id
+      - name: next_valuation_club_name
+        description: Club name recorded on the first valuation after transfer
+      - name: next_valuation_competition_id
+        description: Domestic competition identifier recorded on the first valuation after transfer
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_competitions')
+                field: competition_id
+      - name: next_competition_name
+        description: Competition name associated with the first valuation after transfer
+      - name: next_competition_country_name
+        description: Competition country associated with the first valuation after transfer
+      - name: next_competition_confederation
+        description: Competition confederation associated with the first valuation after transfer
+      - name: days_to_next_valuation
+        description: Days between the transfer and first subsequent valuation
+      - name: market_value_change_after_transfer
+        description: First subsequent market value minus the selected market value baseline in EUR
+      - name: market_value_change_after_transfer_pct
+        description: Market value change after transfer relative to the selected baseline, in percent
+      - name: market_value_direction_after_transfer
+        description: Direction of the first subsequent market value change; increase, decrease, unchanged, or unavailable
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['increase', 'decrease', 'unchanged', 'unavailable']
+      - name: valuation_context_change
+        description: Competition context change between the latest prior and first subsequent valuation
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['same_competition', 'competition_change', 'country_change', 'unavailable']
+      - name: first_valuation_date
+        description: Earliest available valuation date in the player's history
+      - name: latest_valuation_date
+        description: Latest available valuation date in the player's history
+      - name: first_market_value
+        description: Player market value on the earliest available valuation date
+      - name: current_market_value
+        description: Player market value on the latest available valuation date
+      - name: highest_market_value
+        description: Highest available player market value
+      - name: career_market_value_growth
+        description: Latest market value minus first market value in EUR
+      - name: career_market_value_growth_pct
+        description: Percentage growth from first to latest player market value

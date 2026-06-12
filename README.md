@@ -8,13 +8,13 @@ Validated against BigQuery on June 12, 2026:
 
 | Check | Result |
 | --- | ---: |
-| dbt models | 28 |
-| Full dbt build | 133 passed |
-| Source and data tests | 105 passed |
+| dbt models | 29 |
+| Full dbt build | 153 passed |
+| Source and data tests | 124 passed |
 | Source freshness | 12 of 12 sources passed |
-| Mart build | 9 models and 45 tests passed |
-| Model documentation | 28 of 28 models documented |
-| Column documentation | 376 of 376 model columns documented |
+| Mart build | 10 models and 64 tests passed |
+| Model documentation | 29 of 29 models documented |
+| Column documentation | 444 of 444 model columns documented |
 | Test warnings and errors | 0 |
 | Non-null fact-to-dimension orphan keys | 0 |
 
@@ -36,7 +36,7 @@ flowchart LR
 | Raw | BigQuery source tables | 12 | Original imported dataset |
 | Staging | Views | 12 | Cleaning, normalization, and stable column naming |
 | Intermediate | Views | 7 | Reusable business calculations and aggregations |
-| Marts | Tables | 9 | Analytics-ready dimensions and facts |
+| Marts | Tables | 10 | Analytics-ready dimensions and facts |
 
 Detailed lineage, grains, and model responsibilities are documented in [Architecture and Model Catalog](docs/ARCHITECTURE.md).
 
@@ -53,6 +53,7 @@ Detailed lineage, grains, and model responsibilities are documented in [Architec
 | `fct_competition_performance` | One row per competition | Competition-level match metrics |
 | `fct_market_value_history` | Player and valuation date | Player market value history |
 | `fct_transfers` | One row per transfer record | Transfer fees and fee-to-value comparisons |
+| `fct_transfer_market_value_analysis` | One row per transfer record | Detailed transfer, fee, nearest valuation, and post-transfer value analysis |
 
 ## Key Transformation Rules
 
@@ -60,6 +61,8 @@ Detailed lineage, grains, and model responsibilities are documented in [Architec
 - Empty event descriptions and lineup positions are normalized to `NULL`.
 - Invalid player heights outside 100-250 cm are rejected.
 - Transfer monetary fields use BigQuery `NUMERIC`.
+- Detailed transfer analysis uses the transfer-record market value when available and otherwise the latest prior valuation as its comparison baseline.
+- Future-dated transfer records are retained and explicitly identified.
 - Player age is calculated as completed years.
 - Latest transfer selection uses deterministic tie-breakers.
 - Seasonal market value is the latest valuation on or before the player's last game in that season and competition.
@@ -174,6 +177,7 @@ See [Data Quality](docs/DATA_QUALITY.md) for current results and known source li
 ## Documentation
 
 - [Architecture and Model Catalog](docs/ARCHITECTURE.md)
+- [Transfer and Market Value Analysis](docs/TRANSFER_MARKET_VALUE_ANALYSIS.md)
 - [Data Quality and Validation](docs/DATA_QUALITY.md)
 - [Operations Runbook](docs/RUNBOOK.md)
 

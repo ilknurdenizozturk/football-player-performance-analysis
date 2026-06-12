@@ -85,6 +85,13 @@ with expected_and_actual as (
         'fct_transfers',
         (select count(*) from {{ ref('stg_transfers') }}),
         (select count(*) from {{ ref('fct_transfers') }})
+
+    union all
+
+    select
+        'fct_transfer_market_value_analysis',
+        (select count(*) from {{ ref('stg_transfers') }}),
+        (select count(*) from {{ ref('fct_transfer_market_value_analysis') }})
 )
 
 select *
