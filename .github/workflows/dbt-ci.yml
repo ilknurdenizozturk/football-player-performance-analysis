@@ -42,7 +42,7 @@ jobs:
       DBT_PROJECT_ID: data-analiz-490513
       DBT_SOURCE_DATABASE: data-analiz-490513
       DBT_DATASET: ${{ github.event_name == 'pull_request' && format('football_ci_pr_{0}', github.run_id) || 'football' }}
-      DBT_KEYFILE: ${{ runner.temp }}/gcp-service-account.json
+      DBT_KEYFILE: ${{ github.workspace }}/.ci/gcp-service-account.json
 
     steps:
       - name: Check out repository
