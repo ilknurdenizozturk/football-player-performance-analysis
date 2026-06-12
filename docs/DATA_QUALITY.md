@@ -6,7 +6,9 @@ The project was fully validated against BigQuery on June 12, 2026.
 
 | Validation | Result |
 | --- | ---: |
+| Full dbt build | 133 passed |
 | Full project tests | 105 passed |
+| Source freshness | 12 of 12 sources passed |
 | Mart-only build | 54 passed |
 | Mart models rebuilt | 9 |
 | Mart-specific tests | 45 passed |
@@ -14,7 +16,18 @@ The project was fully validated against BigQuery on June 12, 2026.
 | Errors | 0 |
 | Non-null fact-to-dimension orphan keys | 0 |
 
-The mart-only build result contains 9 table models and 45 tests. The full project result contains all source, schema, and singular data tests.
+The full build result contains 28 models and 105 tests. The mart-only build result contains 9 table models and 45 tests.
+
+## Source Freshness
+
+All 12 raw sources use BigQuery table last-modified metadata. This is intentionally different from using historical business dates such as game or transfer dates.
+
+| Threshold | SLA |
+| --- | ---: |
+| Warning | More than 7 days since the raw table was modified |
+| Error | More than 14 days since the raw table was modified |
+
+At the June 12, 2026 validation, all raw sources passed freshness and were approximately 41 hours old.
 
 ## Current Mart Row Counts
 
@@ -109,6 +122,7 @@ The raw `clubs.total_market_value` field is also entirely null in the current so
 For this repository, "100% passing" means:
 
 - Every configured dbt test passes.
+- Every configured source freshness check passes.
 - All dbt models build successfully.
 - Defined transformation and relationship rules are satisfied.
 - No warnings or errors are reported.
@@ -121,7 +135,8 @@ After every raw data refresh:
 
 ```bash
 dbt build
-dbt test
+dbt source freshness --selector raw_sources
+dbt docs generate
 ```
 
 Then compare mart row counts and review any changes in known source limitation counts. New failures should be investigated before BI or ML consumers are refreshed.

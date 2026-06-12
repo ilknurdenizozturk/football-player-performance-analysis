@@ -2,149 +2,367 @@ version: 2
 
 models:
   - name: dim_players
-    description: Player dimension table
+    description: Player dimension containing current profiles and historical players referenced by facts
     columns:
       - name: player_id
         description: Unique player identifier
-        tests:
+        data_tests:
           - unique
           - not_null
+      - name: player_name
+        description: Best available player name
+      - name: position
+        description: Broad playing position
+      - name: sub_position
+        description: Detailed playing position
+      - name: birth_date
+        description: Player date of birth
+      - name: country_of_birth
+        description: Player country of birth
+      - name: country_of_citizenship
+        description: Player country of citizenship
+      - name: height_in_cm
+        description: Validated player height in centimeters
+      - name: preferred_foot
+        description: Player preferred foot
+      - name: agent_name
+        description: Player agent name
       - name: current_club_id
-        tests:
+        description: Best available current or latest club identifier
+        data_tests:
           - relationships:
               arguments:
                 to: ref('dim_clubs')
                 field: club_id
+      - name: current_club_name
+        description: Best available current or latest club name
+      - name: last_season
+        description: Latest season associated with the player
 
   - name: dim_clubs
     description: Club dimension containing current and historical clubs referenced by facts
     columns:
       - name: club_id
         description: Unique club identifier
-        tests:
+        data_tests:
           - unique
           - not_null
+      - name: club_code
+        description: Club short code when available
+      - name: club_name
+        description: Best available club name
       - name: domestic_competition_id
-        tests:
+        description: Current domestic competition identifier when available
+        data_tests:
           - relationships:
               arguments:
                 to: ref('dim_competitions')
                 field: competition_id
+      - name: total_market_value
+        description: Raw club total market value field
+      - name: squad_size
+        description: Current squad size
+      - name: average_age
+        description: Current squad average age
+      - name: foreigners_number
+        description: Number of foreign players in the squad
+      - name: foreigners_percentage
+        description: Percentage of foreign players in the squad
+      - name: national_team_players
+        description: Number of national team players in the squad
+      - name: stadium_name
+        description: Club stadium name
+      - name: stadium_seats
+        description: Stadium seating capacity
+      - name: net_transfer_record
+        description: Raw club net transfer record
+      - name: coach_name
+        description: Best available club coach or manager name
+      - name: last_season
+        description: Latest season associated with the club
 
   - name: dim_competitions
-    description: Competition dimension table
+    description: Competition reference dimension
     columns:
       - name: competition_id
         description: Unique competition identifier
-        tests:
+        data_tests:
           - unique
           - not_null
+      - name: competition_code
+        description: Competition short code
+      - name: competition_name
+        description: Competition name
+      - name: competition_sub_type
+        description: Detailed competition subtype
+      - name: competition_type
+        description: Broad competition type
+      - name: country_id
+        description: Host country identifier
+      - name: country_name
+        description: Host country name
+      - name: domestic_league_code
+        description: Domestic league code associated with the competition
+      - name: confederation
+        description: Football confederation
+      - name: total_clubs
+        description: Number of clubs reported by the source
 
   - name: fct_club_performance
-    description: Club performance fact table at club grain
+    description: All-time club performance fact table at club grain
     columns:
       - name: club_id
-        tests:
+        description: Club identifier
+        data_tests:
           - unique
           - not_null
           - relationships:
               arguments:
                 to: ref('dim_clubs')
                 field: club_id
+      - name: club_name
+        description: Club name from the club dimension
+      - name: domestic_competition_id
+        description: Current domestic competition identifier from the club dimension
+      - name: matches_played
+        description: Distinct matches played
+      - name: wins
+        description: Matches won
+      - name: draws
+        description: Matches drawn
+      - name: losses
+        description: Matches lost
+      - name: goals_scored
+        description: Total goals scored
+      - name: goals_conceded
+        description: Total goals conceded
+      - name: goal_difference
+        description: Goals scored minus goals conceded
+      - name: win_rate
+        description: Percentage of matches won, rounded to two decimals
+      - name: avg_goals_scored
+        description: Average goals scored per match, rounded to two decimals
+      - name: avg_goals_conceded
+        description: Average goals conceded per match, rounded to two decimals
 
   - name: fct_competition_performance
-    description: Competition performance fact table at competition grain
+    description: All-time competition performance fact table at competition grain
     columns:
       - name: competition_id
-        tests:
+        description: Competition identifier
+        data_tests:
           - unique
           - not_null
           - relationships:
               arguments:
                 to: ref('dim_competitions')
                 field: competition_id
+      - name: competition_name
+        description: Competition name
+      - name: competition_type
+        description: Broad competition type
+      - name: country_name
+        description: Host country name
+      - name: confederation
+        description: Football confederation
+      - name: matches_played
+        description: Distinct matches played in the competition
+      - name: total_goals
+        description: Total goals scored in the competition
+      - name: avg_goals_per_match
+        description: Average total goals per match, rounded to two decimals
+      - name: club_participation_count
+        description: Distinct clubs that participated in the competition
+      - name: avg_attendance
+        description: Average reported match attendance, rounded to two decimals
 
   - name: fct_player_performance
-    description: Player performance fact table at player grain
+    description: All-time player performance fact table at player grain
     columns:
       - name: player_id
-        tests:
+        description: Player identifier
+        data_tests:
           - unique
           - not_null
           - relationships:
               arguments:
                 to: ref('dim_players')
                 field: player_id
+      - name: player_name
+        description: Player name
+      - name: position
+        description: Broad playing position
+      - name: sub_position
+        description: Detailed playing position
+      - name: current_club_id
+        description: Current club identifier from the player profile
+      - name: current_club_name
+        description: Current club name from the player profile
+      - name: market_value_in_eur
+        description: Current player market value in EUR
+      - name: matches_played
+        description: Distinct matches with an appearance
+      - name: total_goals
+        description: Total goals
+      - name: total_assists
+        description: Total assists
+      - name: total_minutes_played
+        description: Total minutes played
+      - name: total_yellow_cards
+        description: Total yellow cards
+      - name: total_red_cards
+        description: Total red cards
+      - name: avg_minutes_per_match
+        description: Average minutes played per appearance, rounded to two decimals
+      - name: goals_per_match
+        description: Goals per match, rounded to two decimals
+      - name: assists_per_match
+        description: Assists per match, rounded to two decimals
+      - name: goals_per_90
+        description: Goals per 90 minutes, rounded to two decimals
+      - name: assists_per_90
+        description: Assists per 90 minutes, rounded to two decimals
 
   - name: fct_player_career_timeline
-    description: Player performance by season and competition
+    description: Player performance and market value by season and competition
     columns:
       - name: player_id
-        tests:
+        description: Player identifier
+        data_tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('dim_players')
                 field: player_id
+      - name: player_name
+        description: Player name
+      - name: position
+        description: Broad playing position
+      - name: current_club_name
+        description: Current club name from the player dimension
       - name: season
-        tests:
+        description: Match season
+        data_tests:
           - not_null
       - name: competition_id
-        tests:
+        description: Competition identifier
+        data_tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('dim_competitions')
                 field: competition_id
+      - name: matches_played
+        description: Distinct matches with an appearance in the season and competition
+      - name: total_goals
+        description: Total goals in the season and competition
+      - name: total_assists
+        description: Total assists in the season and competition
+      - name: total_minutes_played
+        description: Total minutes played in the season and competition
+      - name: total_yellow_cards
+        description: Total yellow cards in the season and competition
+      - name: total_red_cards
+        description: Total red cards in the season and competition
+      - name: goals_per_match
+        description: Goals per match, rounded to two decimals
+      - name: assists_per_match
+        description: Assists per match, rounded to two decimals
+      - name: goals_per_90
+        description: Goals per 90 minutes, rounded to two decimals
+      - name: assists_per_90
+        description: Assists per 90 minutes, rounded to two decimals
+      - name: season_market_value
+        description: Latest player market value on or before the last game in the group
+      - name: season_market_value_date
+        description: Date of the selected season market value
 
   - name: fct_market_value_history
-    description: Player market value history at player-date grain
+    description: Player market value history at player and valuation-date grain
     columns:
       - name: player_id
-        tests:
+        description: Player identifier
+        data_tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('dim_players')
                 field: player_id
+      - name: player_name
+        description: Player name
+      - name: position
+        description: Broad playing position
+      - name: sub_position
+        description: Detailed playing position
       - name: valuation_date
-        tests:
+        description: Market value record date
+        data_tests:
           - not_null
-      - name: competition_id
-        tests:
-          - relationships:
-              arguments:
-                to: ref('dim_competitions')
-                field: competition_id
+      - name: market_value_in_eur
+        description: Player market value in EUR
       - name: current_club_id
-        tests:
+        description: Club identifier recorded at valuation time
+        data_tests:
           - relationships:
               arguments:
                 to: ref('dim_clubs')
                 field: club_id
+      - name: current_club_name
+        description: Club name recorded at valuation time
+      - name: competition_id
+        description: Domestic competition identifier recorded at valuation time
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_competitions')
+                field: competition_id
 
   - name: fct_transfers
-    description: Player transfer history
+    description: Player transfer history with fee-to-market-value comparison
     columns:
       - name: player_id
-        tests:
+        description: Player identifier
+        data_tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('dim_players')
                 field: player_id
+      - name: position
+        description: Broad playing position
+      - name: sub_position
+        description: Detailed playing position
+      - name: player_name
+        description: Player name recorded by the transfer source
       - name: transfer_date
-        tests:
+        description: Transfer date
+        data_tests:
           - not_null
+      - name: transfer_season
+        description: Transfer season label
       - name: from_club_id
-        tests:
+        description: Origin club identifier
+        data_tests:
           - relationships:
               arguments:
                 to: ref('dim_clubs')
                 field: club_id
       - name: to_club_id
-        tests:
+        description: Destination club identifier
+        data_tests:
           - relationships:
               arguments:
                 to: ref('dim_clubs')
                 field: club_id
+      - name: from_club_name
+        description: Origin club name
+      - name: to_club_name
+        description: Destination club name
+      - name: transfer_fee
+        description: Transfer fee in EUR when known
+      - name: market_value_in_eur
+        description: Player market value in EUR at transfer time when known
+      - name: fee_market_value_difference
+        description: Transfer fee minus market value in EUR
+      - name: fee_market_value_difference_pct
+        description: Transfer fee premium or discount relative to market value, in percent

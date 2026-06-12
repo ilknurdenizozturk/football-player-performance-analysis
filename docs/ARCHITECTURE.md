@@ -51,6 +51,18 @@ flowchart TD
 
 With the base profile dataset `football`, dbt creates `football_staging`, `football_intermediate`, and `football_mart`.
 
+## Operational Controls
+
+- dbt version compatibility is constrained to `>=1.11.0,<2.0.0`.
+- `dbt-bigquery` is pinned to `1.11.1`.
+- Raw freshness uses BigQuery table last-modified metadata.
+- Freshness warns after 7 days and errors after 14 days.
+- Batch metadata freshness is enabled to reduce warehouse metadata calls.
+- Relation and column descriptions are persisted to BigQuery.
+- All 28 models have model descriptions and all 120 public mart columns have business descriptions.
+- Named selectors support layer builds, upstream mart builds, and raw source freshness.
+- GitHub Actions validates pull requests in isolated BigQuery datasets and deploys `main`.
+
 ## Staging Models
 
 Staging models retain source grain while standardizing names, types, whitespace, and known sentinel values.

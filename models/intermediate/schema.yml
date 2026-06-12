@@ -48,3 +48,6 @@ models:
         tests:
           - not_null
           - unique
+
+  - name: int_player_season_performance
+    description: One row per player, season, and competition with performance and the latest eligible market value

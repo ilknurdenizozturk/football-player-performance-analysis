@@ -7,7 +7,7 @@ This runbook describes how to configure, validate, build, and publish the dbt pr
 ## Prerequisites
 
 - Python 3.10+
-- `dbt-bigquery` 1.11+
+- `dbt-bigquery` 1.11.1
 - Google Cloud service account with BigQuery job and dataset permissions
 - Raw tables loaded into `football_raw`
 - BigQuery processing location matching the source datasets
@@ -19,6 +19,12 @@ This runbook describes how to configure, validate, build, and publish the dbt pr
 - Do not place credentials in SQL, YAML model files, README files, logs, or GitHub issues.
 - Use separate development and production targets when multiple environments are available.
 
+Install the pinned adapter:
+
+```bash
+pip install -r requirements.txt
+```
+
 ## Profile Example
 
 ```yaml
@@ -28,14 +34,14 @@ default:
     dev:
       type: bigquery
       method: service-account
-      project: YOUR_GCP_PROJECT_ID
-      dataset: football
-      keyfile: /absolute/path/to/service-account.json
+      project: "{{ env_var('DBT_PROJECT_ID') }}"
+      dataset: "{{ env_var('DBT_DATASET', 'football') }}"
+      keyfile: "{{ env_var('DBT_KEYFILE') }}"
       threads: 4
       location: EU
 ```
 
-The source project is configured in `models/staging/sources.yml`. Update its `database` value when running in another Google Cloud project.
+Copy `profiles.yml.example` outside the repository and set `DBT_PROJECT_ID`, `DBT_KEYFILE`, and optionally `DBT_DATASET` and `DBT_SOURCE_DATABASE`.
 
 ## First-Time Validation
 
@@ -43,6 +49,7 @@ The source project is configured in `models/staging/sources.yml`. Update its `da
 dbt --version
 dbt debug
 dbt parse
+dbt source freshness --selector raw_sources
 ```
 
 Expected outcome:
@@ -61,12 +68,21 @@ Build all models and run their tests:
 dbt build
 ```
 
+### Source Freshness
+
+```bash
+dbt source freshness --selector raw_sources
+```
+
+Freshness is based on BigQuery table last-modified metadata. It warns after 7 days and errors after 14 days.
+
 ### Layer Builds
 
 ```bash
 dbt build --select path:models/staging
 dbt build --select path:models/intermediate
 dbt build --select path:models/marts
+dbt build --selector marts_with_upstream
 ```
 
 ### Tests Only
@@ -87,7 +103,7 @@ Generated files under `target/` are local artifacts and should not be committed.
 
 ## Deployment Procedure
 
-This repository currently has no automated GitHub Actions deployment workflow. Deployment has two explicit parts:
+Deployment has two explicit parts:
 
 1. Build the dbt models in BigQuery.
 2. Publish the validated code to GitHub.
@@ -95,7 +111,9 @@ This repository currently has no automated GitHub Actions deployment workflow. D
 Recommended sequence:
 
 ```bash
+dbt source freshness --selector raw_sources
 dbt build
+dbt docs generate
 git diff --check
 git status
 git add --all
@@ -105,9 +123,21 @@ git push origin main
 
 Do not push a model change when `dbt build` or required tests fail.
 
+## GitHub Actions
+
+The `dbt CI` workflow runs:
+
+- Daily metadata freshness checks
+- Full production build and docs generation after a push to `main`
+- Full pull-request validation in isolated temporary BigQuery datasets
+- Automatic pull-request dataset cleanup
+
+Configure the repository Actions secret `GCP_SERVICE_ACCOUNT_JSON` with the complete service account JSON document. The workflow never prints the secret.
+
 ## Validation Checklist
 
 - `dbt debug` succeeds.
+- `dbt source freshness --selector raw_sources` passes.
 - `dbt build` completes with no errors.
 - `dbt test` completes with no warnings or errors.
 - Mart row coverage tests pass.
@@ -115,6 +145,7 @@ Do not push a model change when `dbt build` or required tests fail.
 - Source reconciliation tests pass.
 - `git diff --check` reports no formatting errors.
 - No credentials or generated `target/` artifacts are staged.
+- dbt docs generation succeeds and mart columns remain documented.
 
 ## Troubleshooting
 
@@ -126,7 +157,7 @@ Ensure the profile `location` matches the raw and target datasets. The validated
 
 Check:
 
-- The `database` value in `models/staging/sources.yml`
+- The `DBT_SOURCE_DATABASE` environment variable
 - The raw dataset name `football_raw`
 - Service account dataset permissions
 
@@ -149,3 +180,7 @@ Business metrics are rounded to two decimal places. Tests normalize these fields
 ### Raw Data Quality Changes
 
 Consult [Data Quality](DATA_QUALITY.md). Missing raw values are acceptable only when documented and intentionally preserved. A new test failure should not be suppressed without understanding the upstream change.
+
+### Freshness Warning or Error
+
+Confirm whether the raw ingestion job ran and inspect the BigQuery table last-modified timestamps. Do not replace metadata freshness with game, transfer, or valuation business dates.

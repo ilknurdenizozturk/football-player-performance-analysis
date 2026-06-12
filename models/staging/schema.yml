@@ -58,3 +58,21 @@ models:
               arguments:
                 to: ref('stg_players')
                 field: player_id
+
+  - name: stg_clubs
+    description: Cleaned current club profiles from the raw club source
+
+  - name: stg_competitions
+    description: Cleaned competition reference records
+
+  - name: stg_countries
+    description: Cleaned country reference records
+
+  - name: stg_game_events
+    description: Cleaned in-game event records with normalized event types and sentinel values
+
+  - name: stg_game_lineups
+    description: Cleaned starting and substitute lineup records
+
+  - name: stg_national_teams
+    description: Cleaned national team profiles and ranking data

@@ -1,0 +1,100 @@
+name: dbt CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/dbt-ci.yml"
+      - "models/**"
+      - "tests/**"
+      - "macros/**"
+      - "seeds/**"
+      - "snapshots/**"
+      - "dbt_project.yml"
+      - "selectors.yml"
+  pull_request:
+    paths:
+      - ".github/workflows/dbt-ci.yml"
+      - "models/**"
+      - "tests/**"
+      - "macros/**"
+      - "seeds/**"
+      - "snapshots/**"
+      - "dbt_project.yml"
+      - "selectors.yml"
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dbt-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DBT_PROFILES_DIR: ${{ github.workspace }}/.ci
+      DBT_PROJECT_ID: data-analiz-490513
+      DBT_SOURCE_DATABASE: data-analiz-490513
+      DBT_DATASET: ${{ github.event_name == 'pull_request' && format('football_ci_pr_{0}', github.run_id) || 'football' }}
+      DBT_KEYFILE: ${{ runner.temp }}/gcp-service-account.json
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dbt
+        run: pip install dbt-bigquery==1.11.1
+
+      - name: Configure BigQuery credentials
+        env:
+          GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
+        run: |
+          test -n "$GCP_SERVICE_ACCOUNT_JSON"
+          mkdir -p "$DBT_PROFILES_DIR"
+          printf '%s' "$GCP_SERVICE_ACCOUNT_JSON" > "$DBT_KEYFILE"
+          cp profiles.yml.example "$DBT_PROFILES_DIR/profiles.yml"
+
+      - name: Validate connection and project
+        run: |
+          dbt debug
+          dbt parse --no-partial-parse
+
+      - name: Check source freshness
+        run: dbt source freshness --selector raw_sources --no-partial-parse
+
+      - name: Build and test project
+        if: github.event_name != 'schedule'
+        run: dbt build --no-partial-parse
+
+      - name: Generate dbt documentation
+        if: github.event_name != 'schedule'
+        run: dbt docs generate --no-partial-parse
+
+      - name: Clean up pull request datasets
+        if: always() && github.event_name == 'pull_request'
+        run: python scripts/cleanup_ci_datasets.py
+
+      - name: Upload dbt artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dbt-artifacts-${{ github.run_id }}
+          path: |
+            target/manifest.json
+            target/catalog.json
+            target/run_results.json
+            target/sources.json
+          if-no-files-found: ignore
+          retention-days: 14

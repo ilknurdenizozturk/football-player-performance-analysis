@@ -9,7 +9,9 @@ Validated against BigQuery on June 12, 2026:
 | Check | Result |
 | --- | ---: |
 | dbt models | 28 |
+| Full dbt build | 133 passed |
 | Source and data tests | 105 passed |
+| Source freshness | 12 of 12 sources passed |
 | Mart build | 9 models and 45 tests passed |
 | Test warnings and errors | 0 |
 | Non-null fact-to-dimension orphan keys | 0 |
@@ -60,19 +62,24 @@ Detailed lineage, grains, and model responsibilities are documented in [Architec
 - Latest transfer selection uses deterministic tie-breakers.
 - Seasonal market value is the latest valuation on or before the player's last game in that season and competition.
 - Dimensions include historical players and clubs referenced by facts, preventing non-null orphan keys.
+- Raw source freshness uses BigQuery table last-modified metadata with a 7-day warning and 14-day error SLA.
 
 ## Quick Start
 
 ### Prerequisites
 
 - Python 3.10+
-- `dbt-bigquery` 1.11+
+- `dbt-bigquery` 1.11.1
 - A Google Cloud project with BigQuery access
 - The raw dataset loaded into a BigQuery dataset named `football_raw`
 
 ### Configure a Local Profile
 
-Create a dbt profile outside the repository. Never commit service account credentials.
+Install the pinned adapter and create a dbt profile outside the repository. Never commit service account credentials.
+
+```bash
+pip install -r requirements.txt
+```
 
 ```yaml
 default:
@@ -94,13 +101,15 @@ The configured base dataset produces:
 - `football_intermediate`
 - `football_mart`
 
-Update the source `database` in [`models/staging/sources.yml`](models/staging/sources.yml) when using a different Google Cloud project.
+The repository includes [`profiles.yml.example`](profiles.yml.example). Set `DBT_PROJECT_ID`, `DBT_KEYFILE`, and optionally `DBT_DATASET` and `DBT_SOURCE_DATABASE`.
 
 ### Run and Validate
 
 ```bash
 dbt debug
+dbt source freshness --selector raw_sources
 dbt build
+dbt docs generate
 ```
 
 Useful scoped commands:
@@ -113,6 +122,17 @@ dbt test
 ```
 
 See the [Runbook](docs/RUNBOOK.md) for deployment and troubleshooting procedures.
+
+## Automation
+
+The [`dbt CI`](.github/workflows/dbt-ci.yml) GitHub Actions workflow:
+
+- Runs source freshness daily without rebuilding models
+- Runs freshness, full build, and docs generation on `main`
+- Uses isolated temporary BigQuery datasets for pull requests and deletes them afterward
+- Uploads dbt artifacts for 14 days
+
+The repository secret `GCP_SERVICE_ACCOUNT_JSON` is required for the workflow.
 
 ## Data Quality Strategy
 
@@ -138,6 +158,8 @@ See [Data Quality](docs/DATA_QUALITY.md) for current results and known source li
 |   `-- marts/
 |-- tests/
 |-- docs/
+|-- scripts/
+|-- .github/workflows/
 |-- analyses/
 |-- macros/
 |-- seeds/
