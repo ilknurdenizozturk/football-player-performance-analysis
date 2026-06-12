@@ -11,6 +11,7 @@ on:
       - "seeds/**"
       - "snapshots/**"
       - "scripts/**"
+      - "requirements*.txt"
       - "dbt_project.yml"
       - "selectors.yml"
   pull_request:
@@ -22,6 +23,7 @@ on:
       - "seeds/**"
       - "snapshots/**"
       - "scripts/**"
+      - "requirements*.txt"
       - "dbt_project.yml"
       - "selectors.yml"
   schedule:
@@ -56,8 +58,8 @@ jobs:
           python-version: "3.11"
           cache: pip
 
-      - name: Install dbt
-        run: pip install dbt-bigquery==1.11.1
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-ml.txt
 
       - name: Configure BigQuery credentials
         env:
@@ -72,6 +74,9 @@ jobs:
         run: |
           dbt debug
           dbt parse --no-partial-parse
+
+      - name: Validate ML pipeline
+        run: python scripts/check_ml_pipeline.py
 
       - name: Check source freshness
         run: dbt source freshness --selector raw_sources --no-partial-parse

@@ -26,3 +26,13 @@ selectors:
     definition:
       method: source
       value: football_raw
+
+  - name: ml
+    description: Machine-learning feature models and their tests
+    definition:
+      method: tag
+      value: ml
+
+  - name: ml_with_upstream
+    description: Machine-learning feature models with all upstream dependencies and tests
+    definition: "+tag:ml"

@@ -8,13 +8,14 @@ Validated against BigQuery on June 12, 2026:
 
 | Check | Result |
 | --- | ---: |
-| dbt models | 30 |
-| Full dbt build | 190 passed |
-| Source and data tests | 160 passed |
+| dbt models | 32 |
+| Full dbt build | 232 passed |
+| Source and data tests | 200 passed |
 | Source freshness | 12 of 12 sources passed |
 | Mart build | 11 models and 100 tests passed |
-| Model documentation | 30 of 30 models documented |
-| Column documentation | 486 of 486 model columns documented |
+| ML feature build | 2 models and 40 tests passed |
+| Model documentation | 32 of 32 models documented |
+| Column documentation | 551 of 551 model columns documented |
 | Test warnings and errors | 0 |
 | Non-null fact-to-dimension orphan keys | 0 |
 
@@ -29,6 +30,8 @@ flowchart LR
     C --> D["dbt intermediate: football_intermediate"]
     D --> E["dbt marts: football_mart"]
     E --> F["BI, reporting, and ML"]
+    E --> G["dbt ML features: football_ml"]
+    G --> H["scikit-learn training and evaluation"]
 ```
 
 | Layer | Materialization | Models | Purpose |
@@ -37,8 +40,31 @@ flowchart LR
 | Staging | Views | 12 | Cleaning, normalization, and stable column naming |
 | Intermediate | Views | 7 | Reusable business calculations and aggregations |
 | Marts | Tables | 11 | Analytics-ready dimensions and facts |
+| ML | Tables | 2 | Leakage-safe training and current-scoring features |
 
 Detailed lineage, grains, and model responsibilities are documented in [Architecture and Model Catalog](docs/ARCHITECTURE.md).
+
+## Player Market Value Prediction
+
+The project includes a reproducible player market value prediction workflow:
+
+- `football_ml.ml_player_market_value_training` creates one leakage-safe row per player and season.
+- `football_ml.ml_player_market_value_scoring` creates one current scoring row per active player in the latest observed season.
+- Match-performance and prior-valuation features use only records strictly before the target valuation date.
+- Training uses seasons 2012-2023, with 2023 reserved internally for ensemble-weight selection.
+- Seasons 2024-2025 are held out as the final time-based test set.
+- The validated ensemble combines a histogram gradient-boosting model with the previous-market-value baseline.
+
+Latest held-out results:
+
+| Metric | Ensemble | Previous-value baseline |
+| --- | ---: | ---: |
+| MAE | EUR 799,222 | EUR 867,156 |
+| RMSE | EUR 2,174,730 | EUR 2,248,309 |
+| R2 | 0.9723 | 0.9704 |
+| WAPE | 12.79% | 13.88% |
+
+The evaluation predictions are published to `football_ml.ml_player_market_value_evaluation_predictions`. Current active-player estimates are published to `football_ml.ml_player_market_value_current_predictions`. See [Player Market Value ML](docs/PLAYER_MARKET_VALUE_ML.md) for methodology, commands, interpretation, and limitations.
 
 ## Analytics Marts
 
@@ -126,6 +152,7 @@ Useful scoped commands:
 dbt build --select path:models/staging
 dbt build --select path:models/intermediate
 dbt build --select path:models/marts
+dbt build --select tag:ml
 dbt test
 ```
 
@@ -137,6 +164,7 @@ The [`dbt CI`](.github/workflows/dbt-ci.yml) GitHub Actions workflow:
 
 - Runs source freshness daily without rebuilding models
 - Runs freshness, full build, and docs generation on `main`
+- Runs a synthetic ML pipeline smoke test before deployment
 - Fails when any model or physical model column lacks documentation
 - Uses isolated temporary BigQuery datasets for pull requests and deletes them afterward
 - Uploads dbt artifacts for 14 days
@@ -182,6 +210,7 @@ See [Data Quality](docs/DATA_QUALITY.md) for current results and known source li
 
 - [Architecture and Model Catalog](docs/ARCHITECTURE.md)
 - [Power BI Modeling Guide](docs/POWER_BI_MODELING.md)
+- [Player Market Value ML](docs/PLAYER_MARKET_VALUE_ML.md)
 - [Transfer and Market Value Analysis](docs/TRANSFER_MARKET_VALUE_ANALYSIS.md)
 - [Data Quality and Validation](docs/DATA_QUALITY.md)
 - [Operations Runbook](docs/RUNBOOK.md)

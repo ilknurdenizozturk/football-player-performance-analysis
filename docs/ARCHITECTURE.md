@@ -8,6 +8,7 @@ This project follows a layered dbt architecture on BigQuery. Each layer has a na
 2. Staging views clean and normalize individual source tables.
 3. Intermediate views calculate reusable business metrics.
 4. Mart tables expose stable analytics-ready dimensions and facts.
+5. The ML feature table converts marts and historical sources into a leakage-safe supervised-learning dataset.
 
 ```mermaid
 flowchart TD
@@ -33,11 +34,17 @@ flowchart TD
         F["Facts"]
     end
 
+    subgraph ML["football_ml - tables"]
+        M["Player market value training and scoring features"]
+    end
+
     Raw --> Staging
     Staging --> Intermediate
     Staging --> Marts
     Intermediate --> Marts
     D --> F
+    Marts --> ML
+    Staging --> ML
 ```
 
 ## Dataset and Materialization Layout
@@ -48,6 +55,7 @@ flowchart TD
 | Staging | `<base>_staging` | Views |
 | Intermediate | `<base>_intermediate` | Views |
 | Marts | `<base>_mart` | Tables |
+| ML | `<base>_ml` | Tables |
 
 With the base profile dataset `football`, dbt creates `football_staging`, `football_intermediate`, and `football_mart`.
 
@@ -59,7 +67,7 @@ With the base profile dataset `football`, dbt creates `football_staging`, `footb
 - Freshness warns after 7 days and errors after 14 days.
 - Batch metadata freshness is enabled to reduce warehouse metadata calls.
 - Relation and column descriptions are persisted to BigQuery.
-- All 30 models and all 486 model columns have descriptions: 153 staging, 103 intermediate, and 230 mart columns.
+- All 32 models and all 551 model columns have descriptions: 153 staging, 103 intermediate, 230 mart, and 65 ML columns.
 - Named selectors support layer builds, upstream mart builds, and raw source freshness.
 - GitHub Actions validates pull requests in isolated BigQuery datasets and deploys `main`.
 
@@ -153,6 +161,17 @@ Historical dimension records can contain `NULL` descriptive attributes when the 
 | `fct_transfer_market_value_analysis` | Transfer record | `stg_transfers`, `stg_player_valuations`, player summaries, dimensions |
 
 Detailed metric definitions, coverage, caveats, and example queries are available in [Transfer and Market Value Analysis](TRANSFER_MARKET_VALUE_ANALYSIS.md).
+
+## ML Feature Model
+
+| Model | Grain | Purpose |
+| --- | --- | --- |
+| `ml_player_market_value_training` | Player and season | Predict a positive season market value using only information available before its valuation date |
+| `ml_player_market_value_scoring` | Active player in latest observed season | Generate current as-of-date feature rows for production scoring |
+
+The ML feature model selects the latest eligible valuation for each player-season and aggregates performance across all competitions strictly before that target date. Prior valuation features also use strict `< target_market_value_date` logic. These rules are enforced by singular dbt tests.
+
+The scikit-learn training pipeline uses a season-based split instead of a random row split. This prevents later seasons from teaching the model about earlier-season test records. Full methodology and results are documented in [Player Market Value ML](PLAYER_MARKET_VALUE_ML.md).
 
 ## Referential Integrity
 

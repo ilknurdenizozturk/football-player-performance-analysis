@@ -76,6 +76,27 @@ dbt source freshness --selector raw_sources
 
 Freshness is based on BigQuery table last-modified metadata. It warns after 7 days and errors after 14 days.
 
+### Player Market Value ML
+
+Build and validate the leakage-safe ML feature table:
+
+```bash
+dbt build --select tag:ml
+```
+
+Install the local zero-cost training dependencies and run the time-based evaluation:
+
+```bash
+pip install -r requirements-ml.txt
+python scripts/train_player_market_value.py \
+  --project-id YOUR_GCP_PROJECT_ID \
+  --credentials /absolute/path/to/service-account.json \
+  --publish-predictions-table ml_player_market_value_evaluation_predictions \
+  --publish-current-predictions-table ml_player_market_value_current_predictions
+```
+
+Local model artifacts and prediction CSV files are written under `artifacts/player_market_value/` and are intentionally excluded from Git. The optional published BigQuery tables support separate evaluation and current-estimate reports in Power BI.
+
 ### Layer Builds
 
 ```bash

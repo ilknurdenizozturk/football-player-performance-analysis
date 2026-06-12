@@ -94,4 +94,16 @@ dbt build
 python scripts/check_documentation_coverage.py
 ```
 
-The latest June 12, 2026 validation passed all 12 freshness checks, all 190 full-build items, all 111 mart-build items, and documentation for all 486 model columns.
+## ML Evaluation Report
+
+For a player market value model evaluation page, connect to `football_ml.ml_player_market_value_evaluation_predictions`. This table contains only the held-out 2024-2025 evaluation seasons and can relate to:
+
+- `dim_players` on `player_id`
+- `dim_competitions` on `competition_id`
+- `dim_date` on `target_market_value_date`
+
+Recommended visuals include actual versus predicted value, absolute error by position, WAPE by season, and the largest over- and under-predictions. Do not present this evaluation table as a live future forecast.
+
+For a current player value estimation page, connect to `football_ml.ml_player_market_value_current_predictions`. This table contains one current estimate for each player active in the latest observed season. Use `prediction_as_of_date` visibly in the report so consumers understand the estimate date.
+
+The latest validation passed all 232 full-build items, all 111 mart-build items, all 42 ML-build items, and documentation for all 551 model columns.
