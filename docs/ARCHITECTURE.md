@@ -8,7 +8,9 @@ This project follows a layered dbt architecture on BigQuery. Each layer has a na
 2. Staging views clean and normalize individual source tables.
 3. Intermediate views calculate reusable business metrics.
 4. Mart tables expose stable analytics-ready dimensions and facts.
-5. The ML feature table converts marts and historical sources into a leakage-safe supervised-learning dataset.
+5. Semantic models, exposures, analyses, and Power BI assets govern decision-facing consumption.
+6. Snapshots preserve changing player and club profile history.
+7. ML feature tables convert marts and historical sources into leakage-safe supervised-learning datasets.
 
 ```mermaid
 flowchart TD
@@ -56,6 +58,7 @@ flowchart TD
 | Intermediate | `<base>_intermediate` | Views |
 | Marts | `<base>_mart` | Tables |
 | ML | `<base>_ml` | Tables |
+| Snapshots | `<base>_snapshots` | Type-2 snapshot tables |
 
 With the base profile dataset `football`, dbt creates `football_staging`, `football_intermediate`, and `football_mart`.
 
@@ -67,7 +70,10 @@ With the base profile dataset `football`, dbt creates `football_staging`, `footb
 - Freshness warns after 7 days and errors after 14 days.
 - Batch metadata freshness is enabled to reduce warehouse metadata calls.
 - Relation and column descriptions are persisted to BigQuery.
-- All 32 models and all 551 model columns have descriptions: 153 staging, 103 intermediate, 230 mart, and 65 ML columns.
+- All 46 models and all 878 physical model columns have descriptions: 153 staging, 103 intermediate, 557 mart, and 65 ML columns.
+- Two semantic models, seven governed metrics, three exposures, and a daily time spine define the consumption contract.
+- Two Type-2 snapshots preserve changing player and club profile attributes.
+- An append-only refresh audit and volume-stability test guard material refresh changes.
 - Named selectors support layer builds, upstream mart builds, and raw source freshness.
 - GitHub Actions validates pull requests in isolated BigQuery datasets and deploys `main`.
 
@@ -142,7 +148,9 @@ Post-transfer change compares the selected market value baseline with the first 
 | `dim_players` | Player | Includes current players plus historical players found only in appearances |
 | `dim_clubs` | Club | Includes current clubs plus clubs referenced by games, transfers, valuations, and players |
 | `dim_competitions` | Competition | Preserves staged competition records |
+| `dim_national_teams` | National team | Preserves staged national-team records |
 | `dim_date` | Calendar date | Continuous range from the earliest source date through the latest source date or today |
+| `time_spine_daily` | Calendar date | Daily MetricFlow Semantic Layer time spine |
 
 Historical dimension records can contain `NULL` descriptive attributes when the source data provides only an identifier. This is intentional and preserves fact-table referential integrity.
 
@@ -159,8 +167,28 @@ Historical dimension records can contain `NULL` descriptive attributes when the 
 | `fct_market_value_history` | Player and valuation date | `stg_player_valuations`, `dim_players` |
 | `fct_transfers` | Transfer record | `stg_transfers`, `dim_players` |
 | `fct_transfer_market_value_analysis` | Transfer record | `stg_transfers`, `stg_player_valuations`, player summaries, dimensions |
+| `fct_transfer_fixed_horizon_outcomes` | Historical transfer | Comparable 90/180/365-day outcomes and pre/post performance |
+| `fct_transfer_cohort_performance` | Cohort and horizon | Robust cohort statistics, coverage, and reliability |
+| `fct_data_coverage_bias` | Coverage segment | Missingness and selection-bias diagnostics |
+| `fct_match` | Match | Match result, score, attendance, manager, and formation context |
+| `fct_player_match_performance` | Appearance | Player-match performance, result, starter, and captain context |
+| `fct_player_rolling_form` | Appearance | Trailing-five-appearance form |
+| `fct_club_season_performance` | Club, season, competition | Seasonal club results and tactical context |
+| `fct_club_transfer_portfolio` | Club and transfer season | Transfer spend, income, premium, outcome, and coverage |
+| `fct_transfer_success_labels` | Observed 365-day transfer | Fixed-horizon binary success labels |
+| `fct_club_risk_profile` | Destination club | Transfer success, coverage, sample-size, and risk profile |
+| `fct_agent_portfolio` | Agent | Current represented-player portfolio |
+| `fct_analytics_refresh_audit` | dbt invocation | Append-only volume and coverage audit |
 
 Detailed metric definitions, coverage, caveats, and example queries are available in [Transfer and Market Value Analysis](TRANSFER_MARKET_VALUE_ANALYSIS.md).
+
+The professional marts, governed metrics, analyses, snapshots, and release rules are documented in [Professional Analytics Layer](PROFESSIONAL_ANALYTICS.md).
+
+## Semantic Layer, Exposures, And Snapshots
+
+`models/semantic.yml` defines governed transfer-outcome and club-season metrics. `time_spine_daily` is the required daily time spine. `models/exposures.yml` records the Power BI and ML consumers and their upstream dependencies.
+
+`snap_player_profiles` and `snap_club_profiles` use the check strategy to preserve changes in profile, club, agent, contract, squad, coach, and transfer-record fields. They are stored in `<base>_snapshots`, and scheduled production CI captures changes before normal model builds.
 
 ## ML Feature Model
 

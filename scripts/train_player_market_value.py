@@ -499,11 +499,22 @@ def evaluation_metrics(predictions: pd.DataFrame, model_version: str) -> pd.Data
     frame = predictions.copy()
     frame["value_band"] = value_band(frame[TARGET])
     frame["has_previous_market_value"] = frame["previous_market_value_eur"].notna()
+    frame["age_band"] = pd.cut(
+        frame["age_at_target_date"],
+        bins=[0, 21, 24, 28, 32, np.inf],
+        labels=["under_21", "21_to_23", "24_to_27", "28_to_31", "32_plus"],
+        include_lowest=True,
+        right=False,
+    ).astype(str)
 
     segments = [("overall", None)]
     for column in [
         "season",
         "position",
+        "sub_position",
+        "age_band",
+        "competition_id",
+        "competition_country_name",
         "value_band",
         "has_previous_market_value",
         "prediction_quality_status",
@@ -530,6 +541,8 @@ def evaluation_metrics(predictions: pd.DataFrame, model_version: str) -> pd.Data
                 "segment_type": segment_type,
                 "segment_value": "all" if segment_value is None else str(segment_value),
                 "row_count": len(segment),
+                "minimum_sample_size": 30,
+                "meets_minimum_sample_size": len(segment) >= 30,
                 **model_metrics,
                 "baseline_mae_eur": baseline_metrics["mae_eur"],
                 "mae_improvement_vs_baseline_pct": (

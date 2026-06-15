@@ -68,6 +68,16 @@ Build all models and run their tests:
 dbt build
 ```
 
+### Type-2 Snapshots
+
+Capture changing player and club profile attributes:
+
+```bash
+dbt snapshot
+```
+
+Snapshots are written to `<base>_snapshots`. CI builds staging prerequisites before PR snapshots, runs snapshot validity tests during the full build, and deletes temporary staging, intermediate, mart, ML, and snapshot datasets after every PR validation.
+
 ### Source Freshness
 
 ```bash
@@ -158,6 +168,7 @@ Recommended sequence:
 
 ```bash
 dbt source freshness --selector raw_sources
+dbt snapshot
 dbt build
 dbt docs generate
 git diff --check
@@ -174,6 +185,7 @@ Do not push a model change when `dbt build` or required tests fail.
 The `dbt CI` workflow runs:
 
 - Daily metadata freshness checks
+- Daily and production Type-2 snapshot capture
 - Full production build and docs generation after a push to `main`
 - Full pull-request validation in isolated temporary BigQuery datasets
 - Automatic pull-request dataset cleanup
@@ -185,11 +197,13 @@ Configure the repository Actions secret `GCP_SERVICE_ACCOUNT_JSON` with the comp
 - `dbt debug` succeeds.
 - `dbt source freshness --selector raw_sources` passes.
 - `dbt build` completes with no errors.
+- `dbt snapshot` succeeds and `assert_snapshot_history_validity` passes.
 - `dbt build --select tag:ml` passes all ML feature and readiness tests.
 - The latest model registry row exists and current predictions contain no invalid intervals or negative values.
 - Every blocking row in `ml_player_market_value_quality_gates` passes.
 - `artifact_manifest.json` contains the model checksum, feature-contract hash, source commit, and runtime versions.
 - Significant PSI drift and `limited` predictions are reviewed before BI refresh.
+- `fct_data_coverage_bias` and `fct_analytics_refresh_audit` are reviewed before decision-facing BI refresh.
 - `dbt test` completes with no warnings or errors.
 - Mart row coverage tests pass.
 - Fact-to-dimension relationship tests pass.

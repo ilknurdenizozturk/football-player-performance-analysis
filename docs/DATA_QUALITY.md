@@ -6,14 +6,14 @@ The project was fully validated against BigQuery on June 15, 2026.
 
 | Validation | Result |
 | --- | ---: |
-| Full dbt build | 235 passed |
-| Full project tests | 203 passed |
+| Full CI validation resources | 292 |
+| Full project tests | 241 passed |
 | Source freshness | 12 of 12 sources passed |
-| Model descriptions | 32 of 32 models documented |
-| Column descriptions | 551 of 551 model columns documented |
-| Mart-only build | 111 passed |
-| Mart models rebuilt | 11 |
-| Mart-specific tests | 100 passed |
+| Model descriptions | 46 of 46 models documented |
+| Column descriptions | 878 of 878 model columns documented |
+| Mart models | 25 |
+| Type-2 snapshots | 2 |
+| Semantic models / metrics / exposures | 2 / 7 / 3 |
 | ML feature build | 45 passed |
 | ML training feature rows | 90,704 |
 | ML current scoring feature rows | 7,841 |
@@ -22,9 +22,9 @@ The project was fully validated against BigQuery on June 15, 2026.
 | Errors | 0 |
 | Non-null fact-to-dimension orphan keys | 0 |
 
-The full build result contains 32 models and 203 tests. The mart-only build result contains 11 table models and 100 tests. The ML-only build contains two table models and 43 tests.
+The full project contains 46 models, 2 snapshots, 5 analyses, 3 exposures, 7 metrics, 2 semantic models, and 241 tests. The ML-only feature build contains two table models and 43 tests.
 
-Documentation coverage is complete across the transformation layers: 153 staging columns, 103 intermediate columns, 230 mart columns, and 65 ML columns. dbt persists these descriptions to the generated catalog and BigQuery metadata.
+Documentation coverage is complete across the transformation layers: 153 staging columns, 103 intermediate columns, 557 mart columns, and 65 ML columns. dbt persists these descriptions to the generated catalog and BigQuery metadata.
 
 ## Source Freshness
 
@@ -52,6 +52,19 @@ At the June 15, 2026 validation, all raw sources passed freshness and were appro
 | `fct_market_value_history` | 507,815 |
 | `fct_transfers` | 40,208 |
 | `fct_transfer_market_value_analysis` | 40,208 |
+| `dim_national_teams` | 118 |
+| `time_spine_daily` | 13,149 |
+| `fct_match` | 88,807 |
+| `fct_player_match_performance` | 1,885,688 |
+| `fct_player_rolling_form` | 1,885,688 |
+| `fct_club_season_performance` | 21,583 |
+| `fct_club_transfer_portfolio` | 30,311 |
+| `fct_transfer_fixed_horizon_outcomes` | 39,780 |
+| `fct_transfer_cohort_performance` | 156 |
+| `fct_data_coverage_bias` | 53 |
+| `fct_agent_portfolio` | 3,849 |
+| `fct_transfer_success_labels` | 8,584 |
+| `fct_club_risk_profile` | 5,714 |
 
 Row counts represent the BigQuery state at validation time and can change when raw data is refreshed.
 
@@ -69,6 +82,8 @@ The detailed transfer mart preserves every staged transfer and exposes the data 
 | Transfers with a subsequent valuation | 35,077 |
 | Transfers with a calculated post-transfer value change | 21,820 |
 | Future-dated transfer records explicitly flagged | 428 |
+
+Comparable fixed-horizon analysis is deliberately more restrictive. Across 39,780 historical transfers, 90-day outcome coverage is 15.86%, 180-day coverage is 24.39%, and 365-day coverage is 21.58%. The overall segment is classified `high_bias_risk`; outcome findings must be shown with coverage and cannot be generalized to missing-follow-up transfers.
 
 ## ML Validation
 
@@ -119,7 +134,7 @@ Schema tests validate:
 
 ### Singular Business-Rule Tests
 
-The `tests/` directory contains 39 custom SQL tests covering:
+The `tests/` directory contains 48 custom SQL tests covering:
 
 - Appearance player-game grain
 - Two club-perspective rows per game
@@ -139,6 +154,11 @@ The `tests/` directory contains 39 custom SQL tests covering:
 - Complete player-season target coverage in the ML feature table
 - Current scoring features not using future appearances or valuations
 - ML feature business rules, model coverage, and scoring-readiness missingness thresholds
+- Fixed-horizon outcome windows, cohort reliability, and coverage-bias rules
+- Match, player-match, rolling-form, club-transfer portfolio, and professional mart grains
+- Snapshot validity and exactly one current version per profile key
+- Refresh-audit row-volume anomaly detection
+- Fixed 365-day transfer-success labels and club-risk sample/coverage governance
 
 ## Reconciliation Strategy
 
@@ -213,6 +233,7 @@ After every raw data refresh:
 
 ```bash
 dbt build
+dbt snapshot
 dbt source freshness --selector raw_sources
 dbt docs generate
 ```

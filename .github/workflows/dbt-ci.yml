@@ -6,6 +6,9 @@ on:
     paths:
       - ".github/workflows/**"
       - "models/**"
+      - "analyses/**"
+      - "docs/**"
+      - "powerbi/**"
       - "tests/**"
       - "macros/**"
       - "seeds/**"
@@ -18,6 +21,9 @@ on:
     paths:
       - ".github/workflows/**"
       - "models/**"
+      - "analyses/**"
+      - "docs/**"
+      - "powerbi/**"
       - "tests/**"
       - "macros/**"
       - "seeds/**"
@@ -81,9 +87,19 @@ jobs:
       - name: Check source freshness
         run: dbt source freshness --selector raw_sources --no-partial-parse
 
+      - name: Build snapshot prerequisites for pull requests
+        if: github.event_name == 'pull_request'
+        run: dbt build --select path:models/staging --no-partial-parse
+
+      - name: Capture slowly changing dimensions
+        run: dbt snapshot --no-partial-parse
+
+      - name: Validate snapshot history
+        run: dbt test --select assert_snapshot_history_validity --no-partial-parse
+
       - name: Build and test project
         if: github.event_name != 'schedule'
-        run: dbt build --no-partial-parse
+        run: dbt build --exclude resource_type:snapshot --no-partial-parse
 
       - name: Generate dbt documentation
         if: github.event_name != 'schedule'

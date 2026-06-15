@@ -1,30 +1,33 @@
+{{ config(
+    partition_by={"field": "transfer_date", "data_type": "date", "granularity": "year"},
+    cluster_by=["to_club_id", "position", "transfer_year"]
+) }}
+
 select
-    transfer_key,
-    player_id,
-    player_name,
-    position,
-    age_at_transfer,
-    transfer_date,
-    transfer_year,
-    transfer_season,
-    from_club_id,
-    from_club_name,
-    to_club_id,
-    to_club_name,
-    transfer_fee,
-    fee_status,
-    has_known_transfer_fee,
-    transfer_record_market_value,
-    fee_to_market_value_ratio,
-    fee_market_value_difference_pct,
-    market_value_change_after_transfer_pct,
-    market_value_direction_after_transfer,
-    case
-        when market_value_change_after_transfer_pct >= 20 then 1
-        when market_value_change_after_transfer_pct is not null then 0
-        else null
-    end as is_successful_transfer
-from {{ ref('fct_transfer_market_value_analysis') }}
-where has_post_transfer_value_change = true
-  and is_future_transfer = false
-  
+    outcomes.transfer_key,
+    outcomes.player_id,
+    outcomes.player_name,
+    outcomes.position,
+    outcomes.age_at_transfer,
+    outcomes.transfer_date,
+    outcomes.transfer_year,
+    outcomes.transfer_season,
+    outcomes.from_club_id,
+    outcomes.from_club_name,
+    outcomes.to_club_id,
+    outcomes.to_club_name,
+    outcomes.transfer_fee,
+    outcomes.has_known_transfer_fee,
+    outcomes.market_value_baseline,
+    outcomes.fee_market_value_difference_pct,
+    365 as label_horizon_days,
+    outcomes.valuation_365d_date as outcome_valuation_date,
+    outcomes.market_value_365d as outcome_market_value,
+    outcomes.market_value_change_365d_pct as market_value_change_at_horizon_pct,
+    outcomes.outcome_365d_status as label_status,
+    20 as success_threshold_pct,
+    if(outcomes.market_value_change_365d_pct >= 20, 1, 0) as is_successful_transfer
+
+from {{ ref('fct_transfer_fixed_horizon_outcomes') }} outcomes
+
+where outcomes.has_365d_outcome

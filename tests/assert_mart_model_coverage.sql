@@ -116,6 +116,63 @@ with expected_and_actual as (
         'fct_transfer_market_value_analysis',
         (select count(*) from {{ ref('stg_transfers') }}),
         (select count(*) from {{ ref('fct_transfer_market_value_analysis') }})
+
+    union all
+
+    select
+        'fct_match',
+        (select count(*) from {{ ref('stg_games') }}),
+        (select count(*) from {{ ref('fct_match') }})
+
+    union all
+
+    select
+        'fct_player_match_performance',
+        (select count(*) from {{ ref('stg_appearances') }}),
+        (select count(*) from {{ ref('fct_player_match_performance') }})
+
+    union all
+
+    select
+        'fct_player_rolling_form',
+        (select count(*) from {{ ref('fct_player_match_performance') }}),
+        (select count(*) from {{ ref('fct_player_rolling_form') }})
+
+    union all
+
+    select
+        'fct_club_season_performance',
+        (
+            select count(*)
+            from (
+                select distinct club_games.club_id, games.season, games.competition_id
+                from {{ ref('stg_club_games') }} club_games
+                inner join {{ ref('stg_games') }} games using (game_id)
+                where games.game_date <= current_date()
+            )
+        ),
+        (select count(*) from {{ ref('fct_club_season_performance') }})
+
+    union all
+
+    select
+        'fct_transfer_fixed_horizon_outcomes',
+        (select count(*) from {{ ref('fct_transfer_market_value_analysis') }} where not is_future_transfer),
+        (select count(*) from {{ ref('fct_transfer_fixed_horizon_outcomes') }})
+
+    union all
+
+    select
+        'fct_transfer_success_labels',
+        (select countif(has_365d_outcome) from {{ ref('fct_transfer_fixed_horizon_outcomes') }}),
+        (select count(*) from {{ ref('fct_transfer_success_labels') }})
+
+    union all
+
+    select
+        'fct_club_risk_profile',
+        (select count(distinct to_club_id) from {{ ref('fct_transfer_fixed_horizon_outcomes') }} where to_club_id is not null),
+        (select count(*) from {{ ref('fct_club_risk_profile') }})
 )
 
 select *

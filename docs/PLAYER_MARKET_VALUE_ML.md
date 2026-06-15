@@ -53,7 +53,7 @@ Random row splitting is not used.
 
 The dbt tests `assert_ml_features_precede_target`, `assert_ml_training_row_coverage`, `assert_ml_feature_business_rules`, `assert_ml_model_coverage`, and `assert_ml_scoring_readiness` enforce date boundaries, target coverage, feature validity, and scoring readiness.
 
-GitHub CI runs a synthetic pipeline smoke test on every relevant change. It validates preprocessing, missing-value handling, fitting, prediction, quality-segment ensemble-weight selection, limited-quality fallback enforcement, and metric calculation without publishing or retraining production predictions.
+GitHub CI runs a synthetic pipeline smoke test on every relevant change. It validates preprocessing, missing-value handling, fitting, prediction, quality-segment ensemble-weight selection, limited-quality fallback enforcement, governed segment metrics, sample-size controls, and metric calculation without publishing or retraining production predictions.
 
 The separate `ML Production` workflow runs weekly and on demand. It refreshes the dbt ML models, trains and evaluates the model, blocks publication on release-gate failure, publishes approved outputs, and retains governed artifacts for 30 days.
 
@@ -194,7 +194,7 @@ Published BigQuery output:
 - `football_ml.ml_player_market_value_feature_importance`
 - `football_ml.ml_player_market_value_quality_gates`
 
-The evaluation table contains 12,380 temporal-backtest historical predictions and must not be presented as a live forecast. The current-predictions table contains 7,841 as-of-date estimates. The metrics table contains overall and segment-level evaluation. The drift table compares current scoring features with the latest labeled season. The importance table supports predictive-driver analysis. The gate table explains release decisions. The append-only registry preserves model versions, checksums, source versions, and evaluation metadata.
+The evaluation table contains 12,380 temporal-backtest historical predictions and must not be presented as a live forecast. The current-predictions table contains 7,841 as-of-date estimates. The metrics table contains overall and governed season, position, sub-position, age-band, competition, country, value-band, previous-value-availability, and quality-segment evaluation. Every segment row exposes a 30-row minimum-sample rule. The drift table compares current scoring features with the latest labeled season. The importance table supports predictive-driver analysis. The gate table explains release decisions. The append-only registry preserves model versions, checksums, source versions, and evaluation metadata.
 
 ## Power BI Usage
 

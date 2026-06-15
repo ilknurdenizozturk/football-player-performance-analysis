@@ -4,6 +4,8 @@
 
 Connect Power BI to the BigQuery `football_mart` dataset. The mart layer is materialized as tables and is the supported BI interface. Do not build report relationships directly against staging or intermediate views.
 
+Use `powerbi/MODEL_SPEC.md` and `powerbi/MEASURES.dax` as the version-controlled report contract. Use `docs/KPI_DICTIONARY.md` for metric definitions and population rules.
+
 ## Recommended Star Schema
 
 | Dimension | Recommended fact relationships |
@@ -90,9 +92,12 @@ Refresh Power BI only after these commands pass:
 
 ```bash
 dbt source freshness --selector raw_sources
+dbt snapshot
 dbt build
 python scripts/check_documentation_coverage.py
 ```
+
+Review `fct_analytics_refresh_audit` for volume changes and `fct_data_coverage_bias` for coverage risk. Every transfer-outcome page must show transfer population, observed outcomes, outcome coverage, and reliability or bias status.
 
 ## ML Evaluation Report
 
@@ -108,8 +113,8 @@ For a current player value estimation page, connect to `football_ml.ml_player_ma
 
 For decision-facing visuals, filter `prediction_quality_status` to `high` or `medium`. Display `prediction_interval_band`, `prediction_lower_eur`, and `prediction_upper_eur` with the point estimate. Limited-quality rows intentionally use the governed previous-value baseline fallback; keep them on a separate data-quality page rather than mixing them into model-led rankings.
 
-Use `football_ml.ml_player_market_value_evaluation_metrics` for position, season, value-band, and quality-segment performance. Use `football_ml.ml_player_market_value_feature_drift` as a refresh gate and review every `significant` PSI status. Use `football_ml.ml_player_market_value_model_registry` to identify the model version behind each refresh.
+Use `football_ml.ml_player_market_value_evaluation_metrics` for season, position, sub-position, age-band, competition, country, value-band, prior-value availability, and quality-segment performance. Filter decision-facing segment results to `meets_minimum_sample_size = TRUE`. Use `football_ml.ml_player_market_value_feature_drift` as a refresh gate and review every `significant` PSI status. Use `football_ml.ml_player_market_value_model_registry` to identify the model version behind each refresh.
 
 Use `football_ml.ml_player_market_value_quality_gates` on the model-monitoring page. Decision-facing reports should only refresh when all `blocking` rows pass. Use `football_ml.ml_player_market_value_feature_importance` for predictive-driver visuals, and label them as model dependence rather than causal explanation.
 
-The latest validation passed all 235 full-build items, all 111 mart-build items, all 45 ML-build items, and documentation for all 551 model columns.
+The latest validation passed all 241 project tests, all 43 ML-feature tests, and documentation for all 878 model columns.

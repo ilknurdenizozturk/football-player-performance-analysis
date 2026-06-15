@@ -87,6 +87,13 @@ def main() -> None:
             ) as metric_version_mismatches,
             (
                 select count(*)
+                from {prefix}.ml_player_market_value_evaluation_metrics`
+                where row_count <= 0
+                    or minimum_sample_size != 30
+                    or meets_minimum_sample_size != (row_count >= minimum_sample_size)
+            ) as invalid_segment_metrics,
+            (
+                select count(*)
                 from {prefix}.ml_player_market_value_feature_drift`
                 where model_version != latest.model_version
             ) as drift_version_mismatches,
@@ -119,6 +126,7 @@ def main() -> None:
         "invalid_evaluation_predictions",
         "evaluation_version_mismatches",
         "metric_version_mismatches",
+        "invalid_segment_metrics",
         "drift_version_mismatches",
         "importance_version_mismatches",
         "gate_version_mismatches",

@@ -118,6 +118,20 @@ validate_predictions(frame, "training_row_key", "predicted_market_value_eur")
 segment_metrics = evaluation_metrics(frame, "synthetic")
 if segment_metrics.empty:
     raise SystemExit("ML smoke test produced no segment metrics.")
+required_segment_types = {
+    "overall",
+    "position",
+    "sub_position",
+    "age_band",
+    "competition_id",
+    "competition_country_name",
+    "value_band",
+    "prediction_quality_status",
+}
+if not required_segment_types.issubset(set(segment_metrics["segment_type"])):
+    raise SystemExit("ML smoke test did not produce all governed segment metrics.")
+if segment_metrics["meets_minimum_sample_size"].isna().any():
+    raise SystemExit("ML smoke test produced invalid segment sample-size governance.")
 
 drift = feature_drift_report(frame.iloc[:250], frame.iloc[250:], "synthetic")
 if drift.empty or not np.isfinite(drift["psi"]).all():

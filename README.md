@@ -8,14 +8,16 @@ Validated against BigQuery on June 15, 2026:
 
 | Check | Result |
 | --- | ---: |
-| dbt models | 32 |
-| Full dbt build | 235 passed |
-| Source and data tests | 203 passed |
+| dbt models | 46 |
+| Full CI validation resources | 292 |
+| Source and data tests | 241 |
 | Source freshness | 12 of 12 sources passed |
-| Mart build | 11 models and 100 tests passed |
+| Mart models | 25 |
 | ML feature build | 2 models and 43 tests passed |
-| Model documentation | 32 of 32 models documented |
-| Column documentation | 551 of 551 model columns documented |
+| Snapshots / analyses / exposures | 2 / 5 / 3 |
+| Semantic models / governed metrics | 2 / 7 |
+| Model documentation | 46 of 46 models documented |
+| Column documentation | 878 of 878 model columns documented |
 | Test warnings and errors | 0 |
 | Non-null fact-to-dimension orphan keys | 0 |
 
@@ -29,9 +31,10 @@ flowchart LR
     B --> C["dbt staging: football_staging"]
     C --> D["dbt intermediate: football_intermediate"]
     D --> E["dbt marts: football_mart"]
-    E --> F["BI, reporting, and ML"]
+    E --> F["Power BI, governed metrics, and analyses"]
     E --> G["dbt ML features: football_ml"]
     G --> H["scikit-learn training and evaluation"]
+    C --> I["Type-2 profile snapshots"]
 ```
 
 | Layer | Materialization | Models | Purpose |
@@ -39,7 +42,7 @@ flowchart LR
 | Raw | BigQuery source tables | 12 | Original imported dataset |
 | Staging | Views | 12 | Cleaning, normalization, and stable column naming |
 | Intermediate | Views | 7 | Reusable business calculations and aggregations |
-| Marts | Tables | 11 | Analytics-ready dimensions and facts |
+| Marts | Tables | 25 | Analytics-ready dimensions, facts, cohorts, labels, coverage, and audit |
 | ML | Tables | 2 | Leakage-safe training and current-scoring features |
 
 Detailed lineage, grains, and model responsibilities are documented in [Architecture and Model Catalog](docs/ARCHITECTURE.md).
@@ -76,7 +79,9 @@ The workflow publishes evaluation predictions, current estimates, segment metric
 | `dim_players` | One row per player | Current and historical player dimension |
 | `dim_clubs` | One row per club | Current and historical club dimension |
 | `dim_competitions` | One row per competition | Competition reference dimension |
+| `dim_national_teams` | One row per national team | National-team reference dimension |
 | `dim_date` | One row per calendar date | Continuous date dimension for Power BI relationships and time intelligence |
+| `time_spine_daily` | One row per calendar date | Governed Semantic Layer time spine |
 | `fct_player_performance` | One row per player | All-time player performance |
 | `fct_player_career_timeline` | Player, season, competition | Seasonal player performance and market value |
 | `fct_club_performance` | One row per club | All-time club results |
@@ -84,6 +89,18 @@ The workflow publishes evaluation predictions, current estimates, segment metric
 | `fct_market_value_history` | Player and valuation date | Player market value history |
 | `fct_transfers` | One row per transfer record | Transfer fees and fee-to-value comparisons |
 | `fct_transfer_market_value_analysis` | One row per transfer record | Detailed transfer, fee, nearest valuation, and post-transfer value analysis |
+| `fct_transfer_fixed_horizon_outcomes` | One historical transfer | Comparable 90/180/365-day outcomes and performance context |
+| `fct_transfer_cohort_performance` | Cohort and horizon | Cohort statistics, confidence intervals, coverage, and reliability |
+| `fct_data_coverage_bias` | Coverage segment | Missingness and selection-bias risk |
+| `fct_match` | One match | Match result and context |
+| `fct_player_match_performance` | One appearance | Player-match performance and result |
+| `fct_player_rolling_form` | One appearance | Trailing-five-appearance form |
+| `fct_club_season_performance` | Club, season, competition | Seasonal club performance |
+| `fct_club_transfer_portfolio` | Club and transfer season | Spend, income, premium, and outcome portfolio |
+| `fct_transfer_success_labels` | One observed 365-day transfer | Fixed-horizon binary success label |
+| `fct_club_risk_profile` | One destination club | Transfer success, coverage, and risk profile |
+| `fct_agent_portfolio` | One agent | Current represented-player portfolio |
+| `fct_analytics_refresh_audit` | One dbt invocation | Append-only volume and coverage audit |
 
 ## Key Transformation Rules
 
@@ -166,6 +183,7 @@ See the [Runbook](docs/RUNBOOK.md) for deployment and troubleshooting procedures
 The [`dbt CI`](.github/workflows/dbt-ci.yml) GitHub Actions workflow:
 
 - Runs source freshness daily without rebuilding models
+- Captures player and club Type-2 snapshots on scheduled and production runs
 - Runs freshness, full build, and docs generation on `main`
 - Runs a synthetic ML pipeline smoke test before deployment
 - Runs a separate governed ML Production workflow weekly or on demand
@@ -188,6 +206,8 @@ The project combines:
 - Business-rule checks for age, transfers, market values, and sentinel normalization
 - Complete model and column documentation across staging, intermediate, and mart layers
 - Power BI-safe display fields, explicit data-availability flags, and a tested date dimension
+- Fixed-horizon transfer outcomes, cohort reliability, coverage-bias diagnostics, and volume anomaly detection
+- Governed Semantic Layer metrics, exposures, Type-2 snapshots, and version-controlled Power BI measures
 
 See [Data Quality](docs/DATA_QUALITY.md) for current results and known source limitations.
 
@@ -216,6 +236,9 @@ See [Data Quality](docs/DATA_QUALITY.md) for current results and known source li
 - [Power BI Modeling Guide](docs/POWER_BI_MODELING.md)
 - [Player Market Value ML](docs/PLAYER_MARKET_VALUE_ML.md)
 - [Transfer and Market Value Analysis](docs/TRANSFER_MARKET_VALUE_ANALYSIS.md)
+- [Professional Analytics Layer](docs/PROFESSIONAL_ANALYTICS.md)
+- [KPI Dictionary](docs/KPI_DICTIONARY.md)
+- [Experimentation and Causal Analysis](docs/EXPERIMENTATION_AND_CAUSAL_ANALYSIS.md)
 - [Data Quality and Validation](docs/DATA_QUALITY.md)
 - [Operations Runbook](docs/RUNBOOK.md)
 

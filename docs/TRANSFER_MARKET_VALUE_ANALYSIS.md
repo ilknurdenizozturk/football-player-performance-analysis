@@ -130,3 +130,5 @@ order by transfers desc;
 - Direct tests: 30
 
 Power BI relationship and measure recommendations are documented in [Power BI Modeling Guide](POWER_BI_MODELING.md).
+
+For comparable 90, 180, and 365-day outcomes, cohort reliability, and selection-bias controls, use `fct_transfer_fixed_horizon_outcomes`, `fct_transfer_cohort_performance`, and `fct_data_coverage_bias`. Their governance and current coverage are documented in [Professional Analytics Layer](PROFESSIONAL_ANALYTICS.md).
