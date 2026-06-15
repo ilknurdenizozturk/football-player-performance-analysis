@@ -211,6 +211,8 @@ The project combines:
 
 See [Data Quality](docs/DATA_QUALITY.md) for current results and known source limitations.
 
+For a Turkish end-to-end summary prepared for project handoff and team communication, see [Ekip Proje Raporu](docs/EKIP_PROJE_RAPORU_TR.md).
+
 ## Repository Structure
 
 ```text
