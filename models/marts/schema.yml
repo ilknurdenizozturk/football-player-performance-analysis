@@ -749,16 +749,41 @@ models:
         description: "Unique transfer identifier"
       - name: player_id
         description: "Player identifier"
+      - name: player_name
+        description: "Player name"
+      - name: position
+        description: "Player position"
+      - name: age_at_transfer
+        description: "Player age at time of transfer"
+      - name: transfer_date
+        description: "Date of transfer"
+      - name: transfer_year
+        description: "Year of transfer"
+      - name: transfer_season
+        description: "Season of transfer"
+      - name: from_club_id
+        description: "Source club identifier"
+      - name: from_club_name
+        description: "Source club name"
+      - name: to_club_id
+        description: "Destination club identifier"
+      - name: to_club_name
+        description: "Destination club name"
+      - name: transfer_fee
+        description: "Transfer fee in EUR"
+      - name: fee_status
+        description: "Whether fee is known or unknown"
+      - name: has_known_transfer_fee
+        description: "Flag indicating if transfer fee is known"
+      - name: transfer_record_market_value
+        description: "Market value from transfer record"
+      - name: fee_to_market_value_ratio
+        description: "Ratio of transfer fee to market value"
+      - name: fee_market_value_difference_pct
+        description: "Percentage difference between fee and market value"
+      - name: market_value_change_after_transfer_pct
+        description: "Percentage change in market value after transfer"
+      - name: market_value_direction_after_transfer
+        description: "Direction of market value change after transfer"
       - name: is_successful_transfer
-        description: "Binary label: 1 if market value grew 20%+ post-transfer, 0 otherwise, null if no post-transfer data"
-
-  - name: fct_club_risk_profile
-    description: "Club-level transfer risk profile aggregating fee vs market value comparisons and post-transfer value changes."
-    columns:
-      - name: club_id
-        description: "Club identifier"
-      - name: club_name
-        description: "Club name"
-      - name: transfer_risk_category
-        description: "Risk category: High Risk, Medium Risk, or Low Risk based on overpay and success rate"
-     
+        description: "Binary label: 1 if market value grew 20%+ post-transfer, 0 otherwise"    
