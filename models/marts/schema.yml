@@ -742,3 +742,22 @@ models:
         description: Latest market value minus first market value in EUR
       - name: career_market_value_growth_pct
         description: Percentage growth from first to latest player market value
+        - name: fct_transfer_success_labels
+    description: "Transfer success labels for ML binary classification. is_successful_transfer=1 if market value increased 20%+ after transfer."
+    columns:
+      - name: transfer_key
+        description: "Unique transfer identifier"
+      - name: player_id
+        description: "Player identifier"
+      - name: is_successful_transfer
+        description: "Binary label: 1 if market value grew 20%+ post-transfer, 0 otherwise, null if no post-transfer data"
+
+  - name: fct_club_risk_profile
+    description: "Club-level transfer risk profile aggregating fee vs market value comparisons and post-transfer value changes."
+    columns:
+      - name: club_id
+        description: "Club identifier"
+      - name: club_name
+        description: "Club name"
+      - name: transfer_risk_category
+        description: "Risk category: High Risk, Medium Risk, or Low Risk based on overpay and success rate"
