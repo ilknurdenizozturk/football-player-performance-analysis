@@ -6,23 +6,23 @@ The project was fully validated against BigQuery on June 12, 2026.
 
 | Validation | Result |
 | --- | ---: |
-| Full dbt build | 232 passed |
-| Full project tests | 200 passed |
+| Full dbt build | 235 passed |
+| Full project tests | 203 passed |
 | Source freshness | 12 of 12 sources passed |
 | Model descriptions | 32 of 32 models documented |
 | Column descriptions | 551 of 551 model columns documented |
 | Mart-only build | 111 passed |
 | Mart models rebuilt | 11 |
 | Mart-specific tests | 100 passed |
-| ML feature build | 42 passed |
+| ML feature build | 45 passed |
 | ML training feature rows | 90,704 |
 | ML current scoring feature rows | 7,841 |
-| ML-specific tests | 40 passed |
+| ML-specific tests | 43 passed |
 | Warnings | 0 |
 | Errors | 0 |
 | Non-null fact-to-dimension orphan keys | 0 |
 
-The full build result contains 32 models and 200 tests. The mart-only build result contains 11 table models and 100 tests. The ML-only build contains two table models and 40 tests.
+The full build result contains 32 models and 203 tests. The mart-only build result contains 11 table models and 100 tests. The ML-only build contains two table models and 43 tests.
 
 Documentation coverage is complete across the transformation layers: 153 staging columns, 103 intermediate columns, 230 mart columns, and 65 ML columns. dbt persists these descriptions to the generated catalog and BigQuery metadata.
 
@@ -76,21 +76,25 @@ The player market value model is evaluated with a time-based holdout:
 
 | Split | Rows |
 | --- | ---: |
-| Training seasons 2012-2023 | 78,324 |
-| Internal validation season | 2023 |
+| Evaluation training seasons 2012-2023 | 78,324 |
+| Ensemble tuning season | 2022 |
+| Interval calibration season | 2023 |
 | Held-out test seasons 2024-2025 | 12,380 |
+| Production training rows through 2025 | 90,704 |
 
 | Metric | Ensemble model | Previous-value baseline |
 | --- | ---: | ---: |
-| MAE | EUR 799,222 | EUR 867,156 |
-| RMSE | EUR 2,174,730 | EUR 2,248,309 |
-| R2 | 0.9723 | 0.9704 |
-| WAPE | 12.79% | 13.88% |
-| Median absolute percentage error | 13.37% | 14.29% |
+| MAE | EUR 804,241 | EUR 867,156 |
+| RMSE | EUR 2,239,653 | EUR 2,248,309 |
+| R2 | 0.9706 | 0.9704 |
+| WAPE | 12.88% | 13.88% |
+| Median absolute percentage error | 13.54% | 14.29% |
 
-The ensemble weight is selected only on the 2023 validation season. The 2024-2025 test rows are not used for feature creation, fitting, or weight selection.
+The ensemble weight is selected only on 2022, and predicted-value-band conformal intervals are calibrated only on 2023. The 2024-2025 test rows are not used for fitting, weight selection, or interval calibration. Held-out interval coverage is 89.01% overall and 83.13% for actual EUR 20M+ players, compared with 37.26% for that segment under a single global interval.
 
-GitHub CI also runs `scripts/check_ml_pipeline.py` with synthetic missing and categorical values to detect preprocessing, model-fitting, ensemble, and metric-calculation regressions without retraining against production data.
+The current scoring readiness check passes with 27.09% missing previous values, 28.59% missing competition context, and 0% missing age. Missing optional inputs are preserved and imputed; predictions are labeled `high`, `medium`, or `limited` so downstream reports can filter by readiness.
+
+GitHub CI also runs `scripts/check_ml_pipeline.py` with synthetic missing and categorical values to detect preprocessing, model-fitting, ensemble, prediction-validation, segment-metric, and drift regressions without retraining against production data.
 
 ## Test Coverage
 
@@ -113,7 +117,7 @@ Schema tests validate:
 
 ### Singular Business-Rule Tests
 
-The `tests/` directory contains 36 custom SQL tests covering:
+The `tests/` directory contains 39 custom SQL tests covering:
 
 - Appearance player-game grain
 - Two club-perspective rows per game
@@ -132,6 +136,7 @@ The `tests/` directory contains 36 custom SQL tests covering:
 - ML feature dates strictly preceding their target valuation dates
 - Complete player-season target coverage in the ML feature table
 - Current scoring features not using future appearances or valuations
+- ML feature business rules, model coverage, and scoring-readiness missingness thresholds
 
 ## Reconciliation Strategy
 

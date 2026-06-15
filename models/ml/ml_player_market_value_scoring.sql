@@ -116,12 +116,20 @@ select
     competitions.country_name as competition_country_name,
     competitions.confederation,
 
-    date_diff(current_date(), players.birth_date, year)
-        - cast(
-            format_date('%m%d', current_date())
-                < format_date('%m%d', players.birth_date)
-            as int64
-        ) as age_at_target_date,
+    case
+        when date_diff(current_date(), players.birth_date, year)
+            - cast(
+                format_date('%m%d', current_date())
+                    < format_date('%m%d', players.birth_date)
+                as int64
+            ) between 10 and 60
+            then date_diff(current_date(), players.birth_date, year)
+                - cast(
+                    format_date('%m%d', current_date())
+                        < format_date('%m%d', players.birth_date)
+                    as int64
+                )
+    end as age_at_target_date,
 
     performance.matches_before_target,
     performance.competitions_played_before_target,

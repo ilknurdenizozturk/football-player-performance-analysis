@@ -51,7 +51,7 @@ models:
       - name: confederation
         description: Football confederation of the competition
       - name: age_at_target_date
-        description: Player age in completed years on the target valuation date
+        description: Player age in completed years on the target valuation date; implausible source ages outside 10-60 are normalized to NULL
       - name: matches_before_target
         description: Distinct matches across all competitions in the season strictly before the target valuation date
         data_tests:
@@ -165,7 +165,7 @@ models:
       - name: confederation
         description: Football confederation of the latest valuation competition
       - name: age_at_target_date
-        description: Player age in completed years on the prediction build date
+        description: Player age in completed years on the prediction build date; implausible source ages outside 10-60 are normalized to NULL
       - name: matches_before_target
         description: Distinct matches in the latest observed season through the prediction build date
         data_tests:

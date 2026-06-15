@@ -106,4 +106,8 @@ Recommended visuals include actual versus predicted value, absolute error by pos
 
 For a current player value estimation page, connect to `football_ml.ml_player_market_value_current_predictions`. This table contains one current estimate for each player active in the latest observed season. Use `prediction_as_of_date` visibly in the report so consumers understand the estimate date.
 
-The latest validation passed all 232 full-build items, all 111 mart-build items, all 42 ML-build items, and documentation for all 551 model columns.
+For decision-facing visuals, filter `prediction_quality_status` to `high` or `medium`. Display `prediction_interval_band`, `prediction_lower_eur`, and `prediction_upper_eur` with the point estimate. Keep `limited` predictions on a separate data-quality page rather than mixing them into rankings.
+
+Use `football_ml.ml_player_market_value_evaluation_metrics` for position, season, value-band, and quality-segment performance. Use `football_ml.ml_player_market_value_feature_drift` as a refresh gate and review every `significant` PSI status. Use `football_ml.ml_player_market_value_model_registry` to identify the model version behind each refresh.
+
+The latest validation passed all 235 full-build items, all 111 mart-build items, all 45 ML-build items, and documentation for all 551 model columns.

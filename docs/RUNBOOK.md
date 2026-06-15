@@ -92,10 +92,15 @@ python scripts/train_player_market_value.py \
   --project-id YOUR_GCP_PROJECT_ID \
   --credentials /absolute/path/to/service-account.json \
   --publish-predictions-table ml_player_market_value_evaluation_predictions \
-  --publish-current-predictions-table ml_player_market_value_current_predictions
+  --publish-current-predictions-table ml_player_market_value_current_predictions \
+  --publish-evaluation-metrics-table ml_player_market_value_evaluation_metrics \
+  --publish-drift-table ml_player_market_value_feature_drift \
+  --publish-model-registry-table ml_player_market_value_model_registry
 ```
 
-Local model artifacts and prediction CSV files are written under `artifacts/player_market_value/` and are intentionally excluded from Git. The optional published BigQuery tables support separate evaluation and current-estimate reports in Power BI.
+Local model artifacts and prediction CSV files are written under `artifacts/player_market_value/` and are intentionally excluded from Git. The published BigQuery tables support evaluation, current estimates, segment metrics, drift monitoring, and model-version audit history.
+
+Before a Power BI refresh, confirm that `assert_ml_scoring_readiness` passes, review `ml_player_market_value_feature_drift`, and filter decision-facing predictions to `prediction_quality_status in ('high', 'medium')`.
 
 ### Layer Builds
 
@@ -161,6 +166,9 @@ Configure the repository Actions secret `GCP_SERVICE_ACCOUNT_JSON` with the comp
 - `dbt debug` succeeds.
 - `dbt source freshness --selector raw_sources` passes.
 - `dbt build` completes with no errors.
+- `dbt build --select tag:ml` passes all ML feature and readiness tests.
+- The latest model registry row exists and current predictions contain no invalid intervals or negative values.
+- Significant PSI drift and `limited` predictions are reviewed before BI refresh.
 - `dbt test` completes with no warnings or errors.
 - Mart row coverage tests pass.
 - Fact-to-dimension relationship tests pass.

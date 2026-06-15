@@ -16,6 +16,7 @@ flowchart LR
     D --> E["Local model artifact"]
     D --> F["BigQuery evaluation predictions"]
     D --> H["BigQuery current predictions"]
+    D --> J["Segment metrics, drift, and model registry"]
     F --> G["Power BI evaluation report"]
     H --> I["Power BI current estimates"]
 ```
@@ -42,11 +43,13 @@ Random row splitting is not used.
 - Performance features include appearances strictly before `target_market_value_date`.
 - Previous-value features include valuations strictly before `target_market_value_date`.
 - Current club identifiers, current market value, transfer outcomes, and future valuations are excluded.
+- Season 2022 is used only to select the ensemble weight.
+- Season 2023 is used only to calibrate the 90% conformal prediction interval.
 - Seasons 2024 and 2025 are fully held out for final testing.
-- Season 2023 is used to select the ensemble weight.
-- The test seasons are not used for fitting or ensemble-weight selection.
+- The test seasons are not used for fitting, weight selection, or interval calibration.
+- The final production artifact is retrained on all 90,704 labeled rows after evaluation.
 
-The dbt tests `assert_ml_features_precede_target` and `assert_ml_training_row_coverage` enforce the date boundary and target coverage.
+The dbt tests `assert_ml_features_precede_target`, `assert_ml_training_row_coverage`, `assert_ml_feature_business_rules`, `assert_ml_model_coverage`, and `assert_ml_scoring_readiness` enforce date boundaries, target coverage, feature validity, and scoring readiness.
 
 GitHub CI runs a synthetic pipeline smoke test on every relevant change. It validates preprocessing, missing-value handling, fitting, prediction, ensemble-weight selection, and metric calculation without publishing or retraining production predictions.
 
@@ -61,30 +64,50 @@ Profile attributes such as position, preferred foot, citizenship, and height com
 | Performance before target | Matches, competitions, minutes, goals, assists, cards, goals and assists per 90 |
 | Valuation history before target | Previous value, days since previous value, prior valuation count, prior highest value |
 
-Missing optional values are imputed inside the scikit-learn pipeline. Unknown monetary values are not converted to zero in dbt.
+Missing optional values are imputed inside the scikit-learn pipeline. Unknown monetary values are not converted to zero in dbt. Implausible ages outside 10-60 are normalized to `NULL` in the ML feature layer before imputation.
 
 ## Model
 
 The validated prediction is an ensemble:
 
 ```text
-prediction = 0.75 * histogram_gradient_boosting_prediction
-           + 0.25 * previous_market_value_baseline
+prediction = 0.90 * histogram_gradient_boosting_prediction
+           + 0.10 * previous_market_value_baseline
 ```
 
-The `0.75` weight was selected by minimizing MAE on the 2023 validation season. The model is then retrained on all seasons through 2023 before evaluating 2024-2025.
+The `0.90` weight was selected by minimizing MAE on the 2022 tuning season. Absolute residuals from the separate 2023 calibration season produce 90% conformal intervals by predicted-value band. The evaluation model is then retrained through 2023 before testing 2024-2025.
 
 ## Latest Results
 
 | Metric | Ensemble model | ML-only model | Previous-value baseline |
 | --- | ---: | ---: | ---: |
-| MAE | EUR 799,222 | EUR 812,197 | EUR 867,156 |
-| RMSE | EUR 2,174,730 | EUR 2,296,134 | EUR 2,248,309 |
-| R2 | 0.9723 | 0.9691 | 0.9704 |
-| WAPE | 12.79% | 13.00% | 13.88% |
-| Median absolute percentage error | 13.37% | 13.88% | 14.29% |
+| MAE | EUR 804,241 | EUR 812,197 | EUR 867,156 |
+| RMSE | EUR 2,239,653 | EUR 2,296,134 | EUR 2,248,309 |
+| R2 | 0.9706 | 0.9691 | 0.9704 |
+| WAPE | 12.88% | 13.00% | 13.88% |
+| Median absolute percentage error | 13.54% | 13.88% | 14.29% |
+| Predictions within 25% of actual | 71.66% | 71.20% | 74.71% |
 
-The ensemble improves every reported metric over the previous-value baseline on the held-out 2024-2025 seasons.
+The ensemble reduces held-out MAE by 7.26% and WAPE by 1.01 percentage points versus the previous-value baseline. The band-calibrated 90% prediction intervals cover 89.01% of held-out targets overall.
+
+| Predicted-value band | Interval half-width |
+| --- | ---: |
+| Under EUR 1M | EUR 232,464 |
+| EUR 1M-5M | EUR 962,924 |
+| EUR 5M-20M | EUR 3,393,265 |
+| EUR 20M+ | EUR 7,894,426 |
+
+Band calibration raises held-out coverage for actual EUR 20M+ players from 37.26% under a single global interval to 83.13%.
+
+Current predictions are classified by feature readiness:
+
+| Quality status | Rows |
+| --- | ---: |
+| `high` | 4,393 |
+| `medium` | 1,324 |
+| `limited` | 2,124 |
+
+Use `high` and `medium` for decision-facing reports. Keep `limited` visible only for completeness and data-quality review.
 
 ## Run Locally
 
@@ -96,7 +119,10 @@ python scripts/train_player_market_value.py \
   --credentials /absolute/path/to/service-account.json \
   --test-seasons 2 \
   --publish-predictions-table ml_player_market_value_evaluation_predictions \
-  --publish-current-predictions-table ml_player_market_value_current_predictions
+  --publish-current-predictions-table ml_player_market_value_current_predictions \
+  --publish-evaluation-metrics-table ml_player_market_value_evaluation_metrics \
+  --publish-drift-table ml_player_market_value_feature_drift \
+  --publish-model-registry-table ml_player_market_value_model_registry
 ```
 
 Local outputs:
@@ -105,13 +131,18 @@ Local outputs:
 - `artifacts/player_market_value/metrics.json`
 - `artifacts/player_market_value/test_predictions.csv`
 - `artifacts/player_market_value/current_predictions.csv`
+- `artifacts/player_market_value/evaluation_metrics.csv`
+- `artifacts/player_market_value/feature_drift.csv`
 
-Published evaluation output:
+Published BigQuery output:
 
 - `football_ml.ml_player_market_value_evaluation_predictions`
 - `football_ml.ml_player_market_value_current_predictions`
+- `football_ml.ml_player_market_value_evaluation_metrics`
+- `football_ml.ml_player_market_value_feature_drift`
+- `football_ml.ml_player_market_value_model_registry`
 
-The evaluation table contains held-out historical predictions and must not be presented as a live forecast. The current-predictions table contains as-of-date estimates for players active in the latest observed season.
+The evaluation table contains 12,380 held-out historical predictions and must not be presented as a live forecast. The current-predictions table contains 7,841 as-of-date estimates. The metrics table contains overall and segment-level evaluation. The drift table compares current scoring features with the latest labeled season. The append-only registry preserves model versions and evaluation metadata.
 
 ## Power BI Usage
 
@@ -125,7 +156,14 @@ Use the published evaluation table to analyze:
 
 Relate it to `dim_players`, `dim_competitions`, and `dim_date` using `player_id`, `competition_id`, and `target_market_value_date`.
 
-Use the current-predictions table for player value rankings, estimated-versus-last-known-value comparisons, and position or competition-level current estimates. Always display `prediction_as_of_date`.
+Use the current-predictions table for player value rankings, estimated-versus-last-known-value comparisons, and position or competition-level current estimates. Always display `prediction_as_of_date`, `prediction_quality_status`, `prediction_interval_band`, `prediction_lower_eur`, and `prediction_upper_eur`.
+
+## Monitoring Rules
+
+- dbt fails when scoring previous-value or competition-context missingness exceeds 35%, or age missingness exceeds 5%.
+- PSI below `0.10` is stable, `0.10-0.25` requires monitoring, and `0.25+` is significant drift.
+- Current scoring has 27.09% missing previous values, 28.59% missing competition context, and 0% missing age.
+- Significant drift is retained as an operational signal, not suppressed. Review it before retraining or publishing decision-facing reports.
 
 ## Limitations and Next Scale Trigger
 
@@ -134,5 +172,7 @@ Use the current-predictions table for player value rankings, estimated-versus-la
 - The model estimates observed valuation records and does not prove causal player value drivers.
 - Rare elite-player values remain harder to predict because they have few comparable examples.
 - Current estimates use the latest observed season and are not guaranteed next-transfer prices.
+- Prediction intervals vary by predicted-value band but do not yet vary by position, competition, or feature-readiness segment.
+- Significant feature drift and `limited` quality predictions require analyst review.
 
-The next scale trigger is to version prediction runs and add drift plus segment-level error monitoring before automating scheduled retraining.
+The next scale trigger is automated scheduled retraining with approval gates based on segment MAE, interval coverage, and drift status.

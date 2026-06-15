@@ -9,11 +9,11 @@ Validated against BigQuery on June 12, 2026:
 | Check | Result |
 | --- | ---: |
 | dbt models | 32 |
-| Full dbt build | 232 passed |
-| Source and data tests | 200 passed |
+| Full dbt build | 235 passed |
+| Source and data tests | 203 passed |
 | Source freshness | 12 of 12 sources passed |
 | Mart build | 11 models and 100 tests passed |
-| ML feature build | 2 models and 40 tests passed |
+| ML feature build | 2 models and 43 tests passed |
 | Model documentation | 32 of 32 models documented |
 | Column documentation | 551 of 551 model columns documented |
 | Test warnings and errors | 0 |
@@ -51,20 +51,21 @@ The project includes a reproducible player market value prediction workflow:
 - `football_ml.ml_player_market_value_training` creates one leakage-safe row per player and season.
 - `football_ml.ml_player_market_value_scoring` creates one current scoring row per active player in the latest observed season.
 - Match-performance and prior-valuation features use only records strictly before the target valuation date.
-- Training uses seasons 2012-2023, with 2023 reserved internally for ensemble-weight selection.
+- Season 2022 selects the ensemble weight; season 2023 independently calibrates the 90% prediction interval.
 - Seasons 2024-2025 are held out as the final time-based test set.
 - The validated ensemble combines a histogram gradient-boosting model with the previous-market-value baseline.
+- Production scoring retrains on all 90,704 labeled rows through 2025 and publishes quality status, prediction intervals, drift metrics, and model-version metadata.
 
 Latest held-out results:
 
 | Metric | Ensemble | Previous-value baseline |
 | --- | ---: | ---: |
-| MAE | EUR 799,222 | EUR 867,156 |
-| RMSE | EUR 2,174,730 | EUR 2,248,309 |
-| R2 | 0.9723 | 0.9704 |
-| WAPE | 12.79% | 13.88% |
+| MAE | EUR 804,241 | EUR 867,156 |
+| RMSE | EUR 2,239,653 | EUR 2,248,309 |
+| R2 | 0.9706 | 0.9704 |
+| WAPE | 12.88% | 13.88% |
 
-The evaluation predictions are published to `football_ml.ml_player_market_value_evaluation_predictions`. Current active-player estimates are published to `football_ml.ml_player_market_value_current_predictions`. See [Player Market Value ML](docs/PLAYER_MARKET_VALUE_ML.md) for methodology, commands, interpretation, and limitations.
+The workflow publishes evaluation predictions, current estimates, segment metrics, feature drift, and an append-only model registry in `football_ml`. See [Player Market Value ML](docs/PLAYER_MARKET_VALUE_ML.md) for methodology, commands, interpretation, and limitations.
 
 ## Analytics Marts
 
