@@ -64,6 +64,7 @@ PREDICTION_QUALITY_BLEND_WEIGHT_OVERRIDES = {"limited": 0.0}
 METADATA_COLUMNS = [
     "position",
     "sub_position",
+    "age_at_target_date",
     "competition_country_name",
 ]
 BLOCKING_GATE_THRESHOLDS = {

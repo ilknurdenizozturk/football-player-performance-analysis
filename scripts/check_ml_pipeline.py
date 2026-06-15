@@ -5,6 +5,7 @@ import pandas as pd
 
 from train_player_market_value import (
     CATEGORICAL_FEATURES,
+    METADATA_COLUMNS,
     NUMERIC_FEATURES,
     TARGET,
     apply_blend_weights_by_quality_status,
@@ -24,6 +25,15 @@ from train_player_market_value import (
     validate_input_frame,
     validate_predictions,
 )
+
+required_evaluation_metadata = {
+    "position",
+    "sub_position",
+    "age_at_target_date",
+    "competition_country_name",
+}
+if not required_evaluation_metadata.issubset(METADATA_COLUMNS):
+    raise SystemExit("ML evaluation publishing contract omits required segment metadata.")
 
 
 rng = np.random.default_rng(42)
