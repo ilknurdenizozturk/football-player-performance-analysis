@@ -4,7 +4,7 @@ An end-to-end football analytics transformation project built with BigQuery and 
 
 ## Project Status
 
-Validated against BigQuery on June 12, 2026:
+Validated against BigQuery on June 15, 2026:
 
 | Check | Result |
 | --- | ---: |

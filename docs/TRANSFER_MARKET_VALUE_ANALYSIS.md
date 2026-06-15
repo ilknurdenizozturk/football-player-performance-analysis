@@ -55,7 +55,7 @@ The fee comparison baseline follows this priority:
 | Transfers with a prior valuation | 24,886 |
 | Transfers with a subsequent valuation | 35,077 |
 | Transfers with a calculated post-transfer value change | 21,820 |
-| Future-dated transfer records | 429 |
+| Future-dated transfer records | 428 |
 
 ## Interpretation Rules
 

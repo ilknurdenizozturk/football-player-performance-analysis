@@ -183,7 +183,7 @@ The mart schema tests non-null foreign keys against their dimensions:
 - Player current clubs to `dim_clubs`
 - Transfer, valuation, and seasonal market-value dates to `dim_date`
 
-The June 12, 2026 validation found zero non-null fact-to-dimension orphan keys.
+The June 15, 2026 validation found zero non-null fact-to-dimension orphan keys.
 
 ## Design Decisions
 

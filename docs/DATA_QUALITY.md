@@ -2,7 +2,7 @@
 
 ## Validation Status
 
-The project was fully validated against BigQuery on June 12, 2026.
+The project was fully validated against BigQuery on June 15, 2026.
 
 | Validation | Result |
 | --- | ---: |
@@ -35,7 +35,7 @@ All 12 raw sources use BigQuery table last-modified metadata. This is intentiona
 | Warning | More than 7 days since the raw table was modified |
 | Error | More than 14 days since the raw table was modified |
 
-At the June 12, 2026 validation, all raw sources passed freshness and were approximately 41 hours old.
+At the June 15, 2026 validation, all raw sources passed freshness and were approximately five days old.
 
 ## Current Mart Row Counts
 
@@ -68,7 +68,7 @@ The detailed transfer mart preserves every staged transfer and exposes the data 
 | Transfers with a prior valuation | 24,886 |
 | Transfers with a subsequent valuation | 35,077 |
 | Transfers with a calculated post-transfer value change | 21,820 |
-| Future-dated transfer records explicitly flagged | 429 |
+| Future-dated transfer records explicitly flagged | 428 |
 
 ## ML Validation
 
@@ -165,7 +165,7 @@ These issues originate in the raw dataset and are not introduced by dbt:
 | Lineup rows whose player is missing from the players source | 326,036 |
 | Transfers with unknown transfer fee | 14,387 |
 | Transfers with unknown market value | 15,849 |
-| Future-dated transfer records | 429 |
+| Future-dated transfer records | 428 |
 | Player-season records without a prior eligible valuation | 8,655 |
 
 The raw `clubs.total_market_value` field is also entirely null in the current source snapshot.
