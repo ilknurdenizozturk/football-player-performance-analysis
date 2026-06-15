@@ -171,7 +171,7 @@ Detailed metric definitions, coverage, caveats, and example queries are availabl
 
 The ML feature model selects the latest eligible valuation for each player-season and aggregates performance across all competitions strictly before that target date. Prior valuation features also use strict `< target_market_value_date` logic. These rules are enforced by singular dbt tests.
 
-The scikit-learn pipeline separates ensemble tuning, interval calibration, and held-out testing by season instead of using a random row split. After evaluation, the production artifact retrains on all labeled rows. It publishes versioned current predictions, segment metrics, feature-drift monitoring, and an append-only model registry. Full methodology and results are documented in [Player Market Value ML](PLAYER_MARKET_VALUE_ML.md).
+The scikit-learn pipeline separates ensemble tuning, interval calibration, and held-out testing by season instead of using a random row split. After evaluation, the production artifact retrains on all labeled rows. A feature contract validates required inputs, blocking release gates prevent weak models from publishing, and artifact checksums plus source/runtime metadata support reproducibility. It publishes versioned current predictions, segment metrics, permutation importance, quality gates, feature-drift monitoring, and an append-only model registry. Full methodology and results are documented in [Player Market Value ML](PLAYER_MARKET_VALUE_ML.md).
 
 ## Referential Integrity
 

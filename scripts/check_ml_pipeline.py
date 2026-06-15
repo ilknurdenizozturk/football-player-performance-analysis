@@ -7,14 +7,19 @@ from train_player_market_value import (
     CATEGORICAL_FEATURES,
     NUMERIC_FEATURES,
     TARGET,
+    assert_blocking_quality_gates,
     build_pipeline,
     calibrate_prediction_intervals,
     evaluation_metrics,
+    feature_contract_hash,
     feature_drift_report,
     prediction_interval_widths,
     prediction_quality_status,
+    quality_gate_report,
     regression_metrics,
+    release_status,
     select_blend_weight,
+    validate_input_frame,
     validate_predictions,
 )
 
@@ -38,7 +43,11 @@ frame["player_name"] = "Synthetic Player"
 frame["target_market_value_date"] = pd.Timestamp("2025-01-01")
 frame["previous_market_value_eur"] = frame["previous_market_value_eur"].abs()
 frame["season"] = rng.choice([2022, 2023, 2024], size=row_count)
-frame.loc[::20, NUMERIC_FEATURES[0]] = np.nan
+frame.loc[::20, "height_in_cm"] = np.nan
+validate_input_frame(frame, "training")
+
+if len(feature_contract_hash()) != 64:
+    raise SystemExit("ML feature contract hash is invalid.")
 
 pipeline = build_pipeline()
 pipeline.fit(frame[NUMERIC_FEATURES + CATEGORICAL_FEATURES], frame[TARGET])
@@ -83,5 +92,37 @@ if segment_metrics.empty:
 drift = feature_drift_report(frame.iloc[:250], frame.iloc[250:], "synthetic")
 if drift.empty or not np.isfinite(drift["psi"]).all():
     raise SystemExit("ML smoke test produced invalid drift metrics.")
+
+quality_gates = quality_gate_report(
+    {
+        "ensemble_model": metrics,
+        "previous_value_baseline": regression_metrics(
+            frame[TARGET].to_numpy(),
+            frame["baseline_prediction_eur"].to_numpy(),
+        ),
+    },
+    segment_metrics,
+    "synthetic",
+    pd.Timestamp("2026-01-01", tz="UTC").to_pydatetime(),
+    current_predictions=frame,
+    drift=drift,
+)
+if quality_gates.empty or release_status(quality_gates) not in {
+    "approved",
+    "approved_with_monitoring",
+    "rejected",
+}:
+    raise SystemExit("ML smoke test produced invalid quality gates.")
+
+blocking_failure = quality_gates.copy()
+blocking_failure.loc[
+    blocking_failure["severity"].eq("blocking"), "passed"
+] = False
+try:
+    assert_blocking_quality_gates(blocking_failure)
+except ValueError:
+    pass
+else:
+    raise SystemExit("ML smoke test did not reject failed blocking gates.")
 
 print("ML pipeline smoke test passed.")

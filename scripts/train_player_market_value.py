@@ -5,17 +5,22 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import platform
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
 import joblib
 import numpy as np
 import pandas as pd
+import sklearn
 from google.cloud import bigquery
+from google.api_core.exceptions import NotFound
 from google.oauth2 import service_account
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.impute import SimpleImputer
+from sklearn.inspection import permutation_importance
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder
@@ -52,11 +57,21 @@ CATEGORICAL_FEATURES = [
 ]
 
 TARGET = "target_market_value_eur"
+MODEL_NAME = "player_market_value_hgbr"
+MODEL_VERSION = "v4"
 METADATA_COLUMNS = [
     "position",
     "sub_position",
     "competition_country_name",
 ]
+BLOCKING_GATE_THRESHOLDS = {
+    "mae_improvement_vs_baseline_pct": 0.0,
+    "wape_pct": 15.0,
+    "r2": 0.95,
+    "overall_interval_coverage_pct": 85.0,
+    "elite_interval_coverage_pct": 80.0,
+    "champion_mae_regression_pct": 2.0,
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -87,7 +102,15 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--publish-model-registry-table",
-        help="Optional BigQuery table name for the latest model-run metadata.",
+        help="Optional BigQuery table name for append-only model-run metadata.",
+    )
+    parser.add_argument(
+        "--publish-feature-importance-table",
+        help="Optional BigQuery table name for held-out permutation importance.",
+    )
+    parser.add_argument(
+        "--publish-quality-gates-table",
+        help="Optional BigQuery table name for model release quality gates.",
     )
     return parser.parse_args()
 
@@ -151,6 +174,111 @@ def load_scoring_data(args: argparse.Namespace) -> pd.DataFrame:
     for column in CATEGORICAL_FEATURES:
         frame[column] = frame[column].astype(object).where(frame[column].notna(), np.nan)
     return frame
+
+
+def load_latest_approved_model(args: argparse.Namespace) -> dict[str, object] | None:
+    destination = (
+        f"{args.project_id}.{args.dataset}."
+        f"{args.publish_model_registry_table or 'ml_player_market_value_model_registry'}"
+    )
+    query = f"""
+        select model_version, test_mae_eur
+        from `{destination}`
+        where release_status in ('approved', 'approved_with_monitoring')
+        order by model_generated_at_utc desc
+        limit 1
+    """
+    try:
+        rows = list(bigquery_client(args).query(query, location="EU").result())
+    except NotFound:
+        return None
+    return dict(rows[0].items()) if rows else None
+
+
+def validate_input_frame(frame: pd.DataFrame, frame_type: str) -> None:
+    if frame_type not in {"training", "scoring"}:
+        raise ValueError(f"Unknown frame type: {frame_type}.")
+
+    key_column = "training_row_key" if frame_type == "training" else "scoring_row_key"
+    required_columns = {
+        key_column,
+        "player_id",
+        "season",
+        *NUMERIC_FEATURES,
+        *CATEGORICAL_FEATURES,
+    }
+    if frame_type == "training":
+        required_columns.add(TARGET)
+
+    missing_columns = sorted(required_columns.difference(frame.columns))
+    if missing_columns:
+        raise ValueError(f"{frame_type} frame is missing columns: {missing_columns}.")
+    if frame.empty:
+        raise ValueError(f"{frame_type} frame is empty.")
+    if frame[key_column].isna().any() or frame[key_column].duplicated().any():
+        raise ValueError(f"{frame_type} frame has invalid keys in {key_column}.")
+    if frame["player_id"].isna().any() or frame["season"].isna().any():
+        raise ValueError(f"{frame_type} frame has missing player_id or season.")
+
+    numeric_columns = [*NUMERIC_FEATURES]
+    if frame_type == "training":
+        numeric_columns.append(TARGET)
+    numeric_values = frame[numeric_columns].to_numpy(dtype=float)
+    if np.isinf(numeric_values).any():
+        raise ValueError(f"{frame_type} frame contains infinite numeric values.")
+    if frame_type == "training" and (frame[TARGET] <= 0).any():
+        raise ValueError("Training frame contains a non-positive target.")
+
+
+def feature_contract() -> dict[str, object]:
+    return {
+        "target": TARGET,
+        "numeric_features": NUMERIC_FEATURES,
+        "categorical_features": CATEGORICAL_FEATURES,
+        "prediction_quality_statuses": ["high", "medium", "limited"],
+        "prediction_interval_bands": [
+            "under_1m",
+            "1m_to_5m",
+            "5m_to_20m",
+            "20m_plus",
+        ],
+    }
+
+
+def feature_contract_hash() -> str:
+    serialized = json.dumps(feature_contract(), sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(serialized.encode()).hexdigest()
+
+
+def runtime_versions() -> dict[str, str]:
+    return {
+        "python": platform.python_version(),
+        "pandas": pd.__version__,
+        "numpy": np.__version__,
+        "scikit_learn": sklearn.__version__,
+        "joblib": joblib.__version__,
+    }
+
+
+def git_commit_sha() -> str | None:
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        return result.stdout.strip()
+    except (OSError, subprocess.CalledProcessError):
+        return None
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as file_handle:
+        for chunk in iter(lambda: file_handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def split_by_season(
@@ -373,6 +501,204 @@ def evaluation_metrics(predictions: pd.DataFrame, model_version: str) -> pd.Data
     return pd.DataFrame(rows)
 
 
+def feature_importance_report(
+    pipeline: Pipeline,
+    test: pd.DataFrame,
+    model_version: str,
+) -> pd.DataFrame:
+    features = NUMERIC_FEATURES + CATEGORICAL_FEATURES
+    result = permutation_importance(
+        pipeline,
+        test[features],
+        test[TARGET],
+        scoring="neg_mean_absolute_error",
+        n_repeats=3,
+        random_state=42,
+        n_jobs=-1,
+    )
+    report = pd.DataFrame(
+        {
+            "model_version": model_version,
+            "feature": features,
+            "feature_type": [
+                "numeric" if feature in NUMERIC_FEATURES else "categorical"
+                for feature in features
+            ],
+            "mae_increase_eur_mean": result.importances_mean,
+            "mae_increase_eur_std": result.importances_std,
+        }
+    ).sort_values("mae_increase_eur_mean", ascending=False)
+    report["importance_rank"] = np.arange(1, len(report) + 1)
+    return report
+
+
+def quality_gate_report(
+    metrics: dict[str, object],
+    segment_metrics: pd.DataFrame,
+    model_version: str,
+    generated_at: datetime,
+    champion: dict[str, object] | None = None,
+    current_predictions: pd.DataFrame | None = None,
+    drift: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    ensemble = metrics["ensemble_model"]
+    baseline = metrics["previous_value_baseline"]
+    overall_interval_coverage = float(
+        segment_metrics.loc[
+            segment_metrics["segment_type"].eq("overall"),
+            "interval_coverage_pct",
+        ].iloc[0]
+    )
+    elite_rows = segment_metrics[
+        segment_metrics["segment_type"].eq("value_band")
+        & segment_metrics["segment_value"].eq("20m_plus")
+    ]
+    elite_interval_coverage = (
+        float(elite_rows["interval_coverage_pct"].iloc[0])
+        if not elite_rows.empty
+        else 0.0
+    )
+    mae_improvement = (
+        (baseline["mae_eur"] - ensemble["mae_eur"]) / baseline["mae_eur"] * 100
+    )
+
+    rows: list[dict[str, object]] = []
+
+    def add_gate(
+        gate_name: str,
+        actual_value: float,
+        threshold_operator: str,
+        threshold_value: float,
+        passed: bool,
+        severity: str,
+        details: str,
+    ) -> None:
+        rows.append(
+            {
+                "model_version": model_version,
+                "model_generated_at_utc": generated_at,
+                "gate_name": gate_name,
+                "actual_value": float(actual_value),
+                "threshold_operator": threshold_operator,
+                "threshold_value": float(threshold_value),
+                "passed": bool(passed),
+                "severity": severity,
+                "details": details,
+            }
+        )
+
+    add_gate(
+        "mae_improvement_vs_baseline_pct",
+        mae_improvement,
+        ">",
+        BLOCKING_GATE_THRESHOLDS["mae_improvement_vs_baseline_pct"],
+        mae_improvement > BLOCKING_GATE_THRESHOLDS["mae_improvement_vs_baseline_pct"],
+        "blocking",
+        "The ensemble must improve held-out MAE versus the previous-value baseline.",
+    )
+    add_gate(
+        "held_out_wape_pct",
+        ensemble["wape_pct"],
+        "<=",
+        BLOCKING_GATE_THRESHOLDS["wape_pct"],
+        ensemble["wape_pct"] <= BLOCKING_GATE_THRESHOLDS["wape_pct"],
+        "blocking",
+        "Held-out WAPE must remain within the production error budget.",
+    )
+    add_gate(
+        "held_out_r2",
+        ensemble["r2"],
+        ">=",
+        BLOCKING_GATE_THRESHOLDS["r2"],
+        ensemble["r2"] >= BLOCKING_GATE_THRESHOLDS["r2"],
+        "blocking",
+        "Held-out R2 must meet the minimum explanatory-performance threshold.",
+    )
+    add_gate(
+        "overall_interval_coverage_pct",
+        overall_interval_coverage,
+        ">=",
+        BLOCKING_GATE_THRESHOLDS["overall_interval_coverage_pct"],
+        overall_interval_coverage
+        >= BLOCKING_GATE_THRESHOLDS["overall_interval_coverage_pct"],
+        "blocking",
+        "Overall held-out prediction interval coverage must remain reliable.",
+    )
+    add_gate(
+        "elite_interval_coverage_pct",
+        elite_interval_coverage,
+        ">=",
+        BLOCKING_GATE_THRESHOLDS["elite_interval_coverage_pct"],
+        elite_interval_coverage
+        >= BLOCKING_GATE_THRESHOLDS["elite_interval_coverage_pct"],
+        "blocking",
+        "Actual EUR 20M+ player interval coverage must remain reliable.",
+    )
+    if champion is not None:
+        champion_mae_regression_pct = (
+            (ensemble["mae_eur"] - champion["test_mae_eur"])
+            / champion["test_mae_eur"]
+            * 100
+        )
+        add_gate(
+            "champion_mae_regression_pct",
+            champion_mae_regression_pct,
+            "<=",
+            BLOCKING_GATE_THRESHOLDS["champion_mae_regression_pct"],
+            champion_mae_regression_pct
+            <= BLOCKING_GATE_THRESHOLDS["champion_mae_regression_pct"],
+            "blocking",
+            f"Candidate MAE must not regress materially versus {champion['model_version']}.",
+        )
+
+    if current_predictions is not None:
+        limited_pct = float(
+            current_predictions["prediction_quality_status"].eq("limited").mean() * 100
+        )
+        add_gate(
+            "current_limited_prediction_pct",
+            limited_pct,
+            "<=",
+            25.0,
+            limited_pct <= 25.0,
+            "warning",
+            "A high limited-quality share requires analyst review before BI refresh.",
+        )
+    if drift is not None:
+        significant_drift_count = int(drift["drift_status"].eq("significant").sum())
+        add_gate(
+            "significant_drift_feature_count",
+            significant_drift_count,
+            "<=",
+            0.0,
+            significant_drift_count == 0,
+            "warning",
+            "Significant feature drift requires analyst review but does not auto-reject.",
+        )
+    return pd.DataFrame(rows)
+
+
+def release_status(quality_gates: pd.DataFrame) -> str:
+    blocking_failed = (
+        quality_gates["severity"].eq("blocking") & ~quality_gates["passed"]
+    ).any()
+    warning_failed = (
+        quality_gates["severity"].eq("warning") & ~quality_gates["passed"]
+    ).any()
+    if blocking_failed:
+        return "rejected"
+    return "approved_with_monitoring" if warning_failed else "approved"
+
+
+def assert_blocking_quality_gates(quality_gates: pd.DataFrame) -> None:
+    failed = quality_gates[
+        quality_gates["severity"].eq("blocking") & ~quality_gates["passed"]
+    ]
+    if not failed.empty:
+        gate_names = ", ".join(failed["gate_name"].tolist())
+        raise ValueError(f"Blocking model quality gates failed: {gate_names}.")
+
+
 def population_stability_index(
     reference: pd.Series, current: pd.Series, numeric: bool
 ) -> float:
@@ -479,6 +805,13 @@ def main() -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     frame = load_training_data(args)
+    validate_input_frame(frame, "training")
+    contract_hash = feature_contract_hash()
+    source_commit_sha = git_commit_sha()
+    package_versions = runtime_versions()
+    champion = (
+        load_latest_approved_model(args) if args.publish_model_registry_table else None
+    )
     train, test, held_out_seasons = split_by_season(frame, args.test_seasons)
     pre_test_seasons = sorted(int(season) for season in train["season"].unique())
     if len(pre_test_seasons) < 3:
@@ -543,10 +876,10 @@ def main() -> None:
     generated_at = datetime.now(timezone.utc)
     version_input = (
         f"{generated_at.isoformat()}-{len(frame)}-{frame[TARGET].sum()}-"
-        f"{tuning_season}-{calibration_season}-{blend_weight}"
+        f"{tuning_season}-{calibration_season}-{blend_weight}-{contract_hash}"
     )
     model_version = (
-        f"player_market_value_hgbr_v3_"
+        f"{MODEL_NAME}_{MODEL_VERSION}_"
         f"{generated_at:%Y%m%dT%H%M%SZ}_"
         f"{hashlib.sha256(version_input.encode()).hexdigest()[:8]}"
     )
@@ -587,6 +920,11 @@ def main() -> None:
             conformal_interval_by_predicted_value_band
         ),
         "model_version": model_version,
+        "feature_contract_hash": contract_hash,
+        "source_commit_sha": source_commit_sha,
+        "runtime_versions": package_versions,
+        "champion_model_version": champion["model_version"] if champion else None,
+        "champion_test_mae_eur": champion["test_mae_eur"] if champion else None,
         "ensemble_model": regression_metrics(actual, predicted),
         "ml_only_model": regression_metrics(actual, model_prediction),
         "previous_value_baseline": regression_metrics(actual, baseline_prediction),
@@ -623,12 +961,110 @@ def main() -> None:
         predictions, "training_row_key", "predicted_market_value_eur"
     )
     segment_metrics = evaluation_metrics(predictions, model_version)
+    feature_importance = feature_importance_report(pipeline, test, model_version)
 
     final_pipeline = build_pipeline()
     final_pipeline.fit(
         frame[NUMERIC_FEATURES + CATEGORICAL_FEATURES],
         frame[TARGET],
     )
+
+    current_predictions = None
+    drift = None
+    should_score_current = any(
+        [
+            args.publish_current_predictions_table,
+            args.publish_drift_table,
+            args.publish_quality_gates_table,
+        ]
+    )
+    if should_score_current:
+        current_predictions = load_scoring_data(args)
+        validate_input_frame(current_predictions, "scoring")
+        scoring_ml_prediction = np.maximum(
+            final_pipeline.predict(
+                current_predictions[NUMERIC_FEATURES + CATEGORICAL_FEATURES]
+            ),
+            0,
+        )
+        scoring_baseline = (
+            current_predictions["previous_market_value_eur"]
+            .fillna(float(frame[TARGET].median()))
+            .to_numpy()
+        )
+        current_predictions["ml_only_prediction_eur"] = scoring_ml_prediction.round(0)
+        current_predictions["baseline_prediction_eur"] = scoring_baseline.round(0)
+        current_predictions["predicted_market_value_eur"] = (
+            blend_weight * scoring_ml_prediction
+            + (1 - blend_weight) * scoring_baseline
+        ).round(0)
+        scoring_interval_band, scoring_interval_eur = prediction_interval_widths(
+            current_predictions["predicted_market_value_eur"].to_numpy(dtype=float),
+            conformal_interval_eur,
+            conformal_interval_by_predicted_value_band,
+        )
+        current_predictions["prediction_interval_band"] = scoring_interval_band
+        current_predictions["prediction_interval_eur"] = scoring_interval_eur.round(0)
+        current_predictions["prediction_lower_eur"] = np.maximum(
+            current_predictions["predicted_market_value_eur"] - scoring_interval_eur, 0
+        ).round(0)
+        current_predictions["prediction_upper_eur"] = (
+            current_predictions["predicted_market_value_eur"] + scoring_interval_eur
+        ).round(0)
+        current_predictions["prediction_delta_vs_previous_eur"] = (
+            current_predictions["predicted_market_value_eur"]
+            - current_predictions["previous_market_value_eur"]
+        ).round(0)
+        current_predictions["prediction_delta_vs_previous_pct"] = (
+            current_predictions["prediction_delta_vs_previous_eur"]
+            / current_predictions["previous_market_value_eur"].replace(0, np.nan)
+            * 100
+        ).round(2)
+        current_predictions["prediction_quality_status"] = prediction_quality_status(
+            current_predictions
+        )
+        current_predictions["prediction_is_out_of_time"] = (
+            current_predictions["season"] > frame["season"].max()
+        )
+        current_predictions["selected_ml_blend_weight"] = blend_weight
+        current_predictions["model_version"] = model_version
+        current_predictions["model_generated_at_utc"] = generated_at
+        validate_predictions(
+            current_predictions, "scoring_row_key", "predicted_market_value_eur"
+        )
+        drift_reference = frame[frame["season"] == frame["season"].max()]
+        drift = feature_drift_report(
+            drift_reference,
+            current_predictions,
+            model_version,
+        )
+
+    quality_gates = quality_gate_report(
+        metrics,
+        segment_metrics,
+        model_version,
+        generated_at,
+        champion=champion,
+        current_predictions=current_predictions,
+        drift=drift,
+    )
+    status = release_status(quality_gates)
+    metrics["release_status"] = status
+    metrics["blocking_quality_gates_passed"] = bool(
+        (
+            quality_gates.loc[
+                quality_gates["severity"].eq("blocking"),
+                "passed",
+            ]
+        ).all()
+    )
+    metrics["warning_quality_gates_failed"] = int(
+        (
+            quality_gates["severity"].eq("warning")
+            & ~quality_gates["passed"]
+        ).sum()
+    )
+
     model_bundle = {
         "pipeline": final_pipeline,
         "evaluation_pipeline": pipeline,
@@ -641,87 +1077,90 @@ def main() -> None:
         "conformal_prediction_interval_by_predicted_value_band_eur_90": (
             conformal_interval_by_predicted_value_band
         ),
+        "model_name": MODEL_NAME,
         "model_version": model_version,
+        "release_status": status,
+        "feature_contract": feature_contract(),
+        "feature_contract_hash": contract_hash,
+        "blocking_gate_thresholds": BLOCKING_GATE_THRESHOLDS,
+        "runtime_versions": package_versions,
+        "source_commit_sha": source_commit_sha,
+        "model_generated_at_utc": generated_at.isoformat(),
     }
-    joblib.dump(model_bundle, output_dir / "model.joblib")
+    model_path = output_dir / "model.joblib"
+    joblib.dump(model_bundle, model_path)
+    model_artifact_sha256 = file_sha256(model_path)
+    metrics["model_artifact_sha256"] = model_artifact_sha256
+
     predictions.to_csv(output_dir / "test_predictions.csv", index=False)
     segment_metrics.to_csv(output_dir / "evaluation_metrics.csv", index=False)
-    published_table = publish_predictions(
+    feature_importance.to_csv(output_dir / "feature_importance.csv", index=False)
+    quality_gates.to_csv(output_dir / "quality_gates.csv", index=False)
+    if current_predictions is not None:
+        current_predictions.to_csv(output_dir / "current_predictions.csv", index=False)
+    if drift is not None:
+        drift.to_csv(output_dir / "feature_drift.csv", index=False)
+    (output_dir / "feature_contract.json").write_text(
+        json.dumps(feature_contract(), indent=2), encoding="utf-8"
+    )
+    artifact_manifest = {
+        "model_name": MODEL_NAME,
+        "model_version": model_version,
+        "release_status": status,
+        "model_generated_at_utc": generated_at.isoformat(),
+        "model_artifact_sha256": model_artifact_sha256,
+        "feature_contract_hash": contract_hash,
+        "source_commit_sha": source_commit_sha,
+        "runtime_versions": package_versions,
+        "production_training_rows": len(frame),
+        "production_train_season_min": int(frame["season"].min()),
+        "production_train_season_max": int(frame["season"].max()),
+    }
+    (output_dir / "artifact_manifest.json").write_text(
+        json.dumps(artifact_manifest, indent=2), encoding="utf-8"
+    )
+    (output_dir / "metrics.json").write_text(
+        json.dumps(metrics, indent=2), encoding="utf-8"
+    )
+
+    assert_blocking_quality_gates(quality_gates)
+
+    metrics["published_predictions_table"] = publish_predictions(
         args, predictions, args.publish_predictions_table
     )
-    metrics["published_predictions_table"] = published_table
     metrics["published_evaluation_metrics_table"] = publish_predictions(
         args, segment_metrics, args.publish_evaluation_metrics_table
     )
+    metrics["published_current_predictions_table"] = publish_predictions(
+        args, current_predictions, args.publish_current_predictions_table
+    )
+    metrics["published_drift_table"] = publish_predictions(
+        args, drift, args.publish_drift_table
+    )
+    metrics["published_feature_importance_table"] = publish_predictions(
+        args, feature_importance, args.publish_feature_importance_table
+    )
+    metrics["published_quality_gates_table"] = publish_predictions(
+        args, quality_gates, args.publish_quality_gates_table
+    )
 
-    current_predictions_table = None
-    drift_table = None
-    if args.publish_current_predictions_table:
-        scoring = load_scoring_data(args)
-        scoring_ml_prediction = np.maximum(
-            final_pipeline.predict(scoring[NUMERIC_FEATURES + CATEGORICAL_FEATURES]),
-            0,
-        )
-        scoring_baseline = (
-            scoring["previous_market_value_eur"]
-            .fillna(float(frame[TARGET].median()))
-            .to_numpy()
-        )
-        scoring["ml_only_prediction_eur"] = scoring_ml_prediction.round(0)
-        scoring["baseline_prediction_eur"] = scoring_baseline.round(0)
-        scoring["predicted_market_value_eur"] = (
-            blend_weight * scoring_ml_prediction
-            + (1 - blend_weight) * scoring_baseline
-        ).round(0)
-        scoring_interval_band, scoring_interval_eur = prediction_interval_widths(
-            scoring["predicted_market_value_eur"].to_numpy(dtype=float),
-            conformal_interval_eur,
-            conformal_interval_by_predicted_value_band,
-        )
-        scoring["prediction_interval_band"] = scoring_interval_band
-        scoring["prediction_interval_eur"] = scoring_interval_eur.round(0)
-        scoring["prediction_lower_eur"] = np.maximum(
-            scoring["predicted_market_value_eur"] - scoring_interval_eur, 0
-        ).round(0)
-        scoring["prediction_upper_eur"] = (
-            scoring["predicted_market_value_eur"] + scoring_interval_eur
-        ).round(0)
-        scoring["prediction_delta_vs_previous_eur"] = (
-            scoring["predicted_market_value_eur"]
-            - scoring["previous_market_value_eur"]
-        ).round(0)
-        scoring["prediction_delta_vs_previous_pct"] = (
-            scoring["prediction_delta_vs_previous_eur"]
-            / scoring["previous_market_value_eur"].replace(0, np.nan)
-            * 100
-        ).round(2)
-        scoring["prediction_quality_status"] = prediction_quality_status(scoring)
-        scoring["prediction_is_out_of_time"] = scoring["season"] > frame["season"].max()
-        scoring["selected_ml_blend_weight"] = blend_weight
-        scoring["model_version"] = model_version
-        scoring["model_generated_at_utc"] = generated_at
-        validate_predictions(
-            scoring, "scoring_row_key", "predicted_market_value_eur"
-        )
-        scoring.to_csv(output_dir / "current_predictions.csv", index=False)
-        current_predictions_table = publish_predictions(
-            args, scoring, args.publish_current_predictions_table
-        )
-        drift_reference = frame[frame["season"] == frame["season"].max()]
-        drift = feature_drift_report(
-            drift_reference,
-            scoring,
-            model_version,
-        )
-        drift.to_csv(output_dir / "feature_drift.csv", index=False)
-        drift_table = publish_predictions(args, drift, args.publish_drift_table)
-    metrics["published_current_predictions_table"] = current_predictions_table
-    metrics["published_drift_table"] = drift_table
     registry = pd.DataFrame(
         [
             {
+                "model_name": MODEL_NAME,
                 "model_version": model_version,
                 "model_generated_at_utc": generated_at,
+                "release_status": status,
+                "blocking_quality_gates_passed": metrics[
+                    "blocking_quality_gates_passed"
+                ],
+                "warning_quality_gates_failed": metrics[
+                    "warning_quality_gates_failed"
+                ],
+                "model_artifact_sha256": model_artifact_sha256,
+                "feature_contract_hash": contract_hash,
+                "source_commit_sha": source_commit_sha,
+                "runtime_versions": json.dumps(package_versions, sort_keys=True),
                 "training_rows": len(train),
                 "test_rows": len(test),
                 "train_season_min": int(train["season"].min()),

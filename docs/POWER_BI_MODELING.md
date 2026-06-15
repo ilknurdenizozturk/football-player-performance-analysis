@@ -110,4 +110,6 @@ For decision-facing visuals, filter `prediction_quality_status` to `high` or `me
 
 Use `football_ml.ml_player_market_value_evaluation_metrics` for position, season, value-band, and quality-segment performance. Use `football_ml.ml_player_market_value_feature_drift` as a refresh gate and review every `significant` PSI status. Use `football_ml.ml_player_market_value_model_registry` to identify the model version behind each refresh.
 
+Use `football_ml.ml_player_market_value_quality_gates` on the model-monitoring page. Decision-facing reports should only refresh when all `blocking` rows pass. Use `football_ml.ml_player_market_value_feature_importance` for predictive-driver visuals, and label them as model dependence rather than causal explanation.
+
 The latest validation passed all 235 full-build items, all 111 mart-build items, all 45 ML-build items, and documentation for all 551 model columns.

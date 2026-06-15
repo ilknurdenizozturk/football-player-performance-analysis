@@ -96,6 +96,8 @@ The current scoring readiness check passes with 27.09% missing previous values, 
 
 GitHub CI also runs `scripts/check_ml_pipeline.py` with synthetic missing and categorical values to detect preprocessing, model-fitting, ensemble, prediction-validation, segment-metric, and drift regressions without retraining against production data.
 
+The v4 production release passes all six blocking model gates: baseline MAE improvement, latest-approved-champion MAE regression, WAPE, R2, overall interval coverage, and EUR 20M+ interval coverage. Its status remains `approved_with_monitoring` because the limited-quality prediction share is 27.09% and ten features show significant PSI drift. These warnings are exposed rather than suppressed.
+
 ## Test Coverage
 
 ### Source Tests

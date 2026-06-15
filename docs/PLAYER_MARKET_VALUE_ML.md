@@ -17,11 +17,12 @@ flowchart LR
     D --> F["BigQuery evaluation predictions"]
     D --> H["BigQuery current predictions"]
     D --> J["Segment metrics, drift, and model registry"]
+    D --> K["Release gates and permutation importance"]
     F --> G["Power BI evaluation report"]
     H --> I["Power BI current estimates"]
 ```
 
-The dbt model owns feature engineering and data-quality tests. The Python pipeline owns time splitting, fitting, baseline comparison, evaluation, and optional prediction publishing.
+The dbt model owns feature engineering and data-quality tests. The Python pipeline owns feature-contract validation, time splitting, fitting, baseline comparison, interval calibration, release gating, explainability, artifact governance, and prediction publishing.
 
 ## Training Grain and Target
 
@@ -52,6 +53,8 @@ Random row splitting is not used.
 The dbt tests `assert_ml_features_precede_target`, `assert_ml_training_row_coverage`, `assert_ml_feature_business_rules`, `assert_ml_model_coverage`, and `assert_ml_scoring_readiness` enforce date boundaries, target coverage, feature validity, and scoring readiness.
 
 GitHub CI runs a synthetic pipeline smoke test on every relevant change. It validates preprocessing, missing-value handling, fitting, prediction, ensemble-weight selection, and metric calculation without publishing or retraining production predictions.
+
+The separate `ML Production` workflow runs weekly and on demand. It refreshes the dbt ML models, trains and evaluates the model, blocks publication on release-gate failure, publishes approved outputs, and retains governed artifacts for 30 days.
 
 Profile attributes such as position, preferred foot, citizenship, and height come from the current player profile source. They are relatively stable attributes but remain a known historical-modeling limitation.
 
@@ -99,6 +102,37 @@ The ensemble reduces held-out MAE by 7.26% and WAPE by 1.01 percentage points ve
 
 Band calibration raises held-out coverage for actual EUR 20M+ players from 37.26% under a single global interval to 83.13%.
 
+## Production Release Gates
+
+The pipeline evaluates every candidate before publishing any BigQuery prediction output:
+
+| Blocking gate | Requirement | Latest |
+| --- | ---: | ---: |
+| MAE improvement versus baseline | `> 0%` | `7.26%` |
+| Held-out WAPE | `<= 15%` | `12.88%` |
+| Held-out R2 | `>= 0.95` | `0.9706` |
+| Overall interval coverage | `>= 85%` | `89.01%` |
+| EUR 20M+ interval coverage | `>= 80%` | `83.13%` |
+| MAE regression versus latest approved champion | `<= 2%` | `0.00%` |
+
+The latest v4 release status is `approved_with_monitoring`. All blocking gates pass. Two warning gates require review but do not reject the release:
+
+- Current `limited` prediction share is 27.09%, above the 25% warning threshold.
+- Ten features show significant PSI drift versus the latest labeled season.
+
+## Explainability and Reproducibility
+
+Held-out permutation importance is published for the ML component. The strongest current signals are previous market value, age, minutes, goals, and competition. Importance describes predictive dependence, not causal impact.
+
+Every production artifact records:
+
+- Feature contract and SHA-256 contract hash
+- Model artifact SHA-256 checksum
+- Source Git commit SHA
+- Python, pandas, NumPy, scikit-learn, and joblib versions
+- Training, tuning, calibration, and test season boundaries
+- Release status and quality-gate outcomes
+
 Current predictions are classified by feature readiness:
 
 | Quality status | Rows |
@@ -122,7 +156,9 @@ python scripts/train_player_market_value.py \
   --publish-current-predictions-table ml_player_market_value_current_predictions \
   --publish-evaluation-metrics-table ml_player_market_value_evaluation_metrics \
   --publish-drift-table ml_player_market_value_feature_drift \
-  --publish-model-registry-table ml_player_market_value_model_registry
+  --publish-model-registry-table ml_player_market_value_model_registry \
+  --publish-feature-importance-table ml_player_market_value_feature_importance \
+  --publish-quality-gates-table ml_player_market_value_quality_gates
 ```
 
 Local outputs:
@@ -133,6 +169,10 @@ Local outputs:
 - `artifacts/player_market_value/current_predictions.csv`
 - `artifacts/player_market_value/evaluation_metrics.csv`
 - `artifacts/player_market_value/feature_drift.csv`
+- `artifacts/player_market_value/feature_importance.csv`
+- `artifacts/player_market_value/quality_gates.csv`
+- `artifacts/player_market_value/feature_contract.json`
+- `artifacts/player_market_value/artifact_manifest.json`
 
 Published BigQuery output:
 
@@ -141,8 +181,10 @@ Published BigQuery output:
 - `football_ml.ml_player_market_value_evaluation_metrics`
 - `football_ml.ml_player_market_value_feature_drift`
 - `football_ml.ml_player_market_value_model_registry`
+- `football_ml.ml_player_market_value_feature_importance`
+- `football_ml.ml_player_market_value_quality_gates`
 
-The evaluation table contains 12,380 held-out historical predictions and must not be presented as a live forecast. The current-predictions table contains 7,841 as-of-date estimates. The metrics table contains overall and segment-level evaluation. The drift table compares current scoring features with the latest labeled season. The append-only registry preserves model versions and evaluation metadata.
+The evaluation table contains 12,380 held-out historical predictions and must not be presented as a live forecast. The current-predictions table contains 7,841 as-of-date estimates. The metrics table contains overall and segment-level evaluation. The drift table compares current scoring features with the latest labeled season. The importance table supports predictive-driver analysis. The gate table explains release decisions. The append-only registry preserves model versions, checksums, source versions, and evaluation metadata.
 
 ## Power BI Usage
 
@@ -164,6 +206,7 @@ Use the current-predictions table for player value rankings, estimated-versus-la
 - PSI below `0.10` is stable, `0.10-0.25` requires monitoring, and `0.25+` is significant drift.
 - Current scoring has 27.09% missing previous values, 28.59% missing competition context, and 0% missing age.
 - Significant drift is retained as an operational signal, not suppressed. Review it before retraining or publishing decision-facing reports.
+- BigQuery prediction outputs are published only after all blocking quality gates pass.
 
 ## Limitations and Next Scale Trigger
 
@@ -175,4 +218,4 @@ Use the current-predictions table for player value rankings, estimated-versus-la
 - Prediction intervals vary by predicted-value band but do not yet vary by position, competition, or feature-readiness segment.
 - Significant feature drift and `limited` quality predictions require analyst review.
 
-The next scale trigger is automated scheduled retraining with approval gates based on segment MAE, interval coverage, and drift status.
+The next scale trigger is shadow evaluation of alternative algorithms plus segment-specific calibration by position or competition once data volume supports stable estimates.

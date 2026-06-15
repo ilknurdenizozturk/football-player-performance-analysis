@@ -95,12 +95,31 @@ python scripts/train_player_market_value.py \
   --publish-current-predictions-table ml_player_market_value_current_predictions \
   --publish-evaluation-metrics-table ml_player_market_value_evaluation_metrics \
   --publish-drift-table ml_player_market_value_feature_drift \
-  --publish-model-registry-table ml_player_market_value_model_registry
+  --publish-model-registry-table ml_player_market_value_model_registry \
+  --publish-feature-importance-table ml_player_market_value_feature_importance \
+  --publish-quality-gates-table ml_player_market_value_quality_gates
 ```
 
 Local model artifacts and prediction CSV files are written under `artifacts/player_market_value/` and are intentionally excluded from Git. The published BigQuery tables support evaluation, current estimates, segment metrics, drift monitoring, and model-version audit history.
 
 Before a Power BI refresh, confirm that `assert_ml_scoring_readiness` passes, review `ml_player_market_value_feature_drift`, and filter decision-facing predictions to `prediction_quality_status in ('high', 'medium')`.
+
+The pipeline validates all blocking release gates before publishing any prediction table. Run the GitHub Actions `ML Production` workflow for the governed production path; it runs weekly on Monday at 05:00 UTC and can also be started manually.
+
+Verify a local or downloaded governed artifact with:
+
+```bash
+python scripts/verify_ml_artifact.py
+```
+
+Verify published BigQuery outputs and cross-table model-version consistency with:
+
+```bash
+python scripts/verify_published_ml_outputs.py \
+  --project-id YOUR_GCP_PROJECT_ID \
+  --dataset football_ml \
+  --credentials /absolute/path/to/service-account.json
+```
 
 ### Layer Builds
 
@@ -168,6 +187,8 @@ Configure the repository Actions secret `GCP_SERVICE_ACCOUNT_JSON` with the comp
 - `dbt build` completes with no errors.
 - `dbt build --select tag:ml` passes all ML feature and readiness tests.
 - The latest model registry row exists and current predictions contain no invalid intervals or negative values.
+- Every blocking row in `ml_player_market_value_quality_gates` passes.
+- `artifact_manifest.json` contains the model checksum, feature-contract hash, source commit, and runtime versions.
 - Significant PSI drift and `limited` predictions are reviewed before BI refresh.
 - `dbt test` completes with no warnings or errors.
 - Mart row coverage tests pass.

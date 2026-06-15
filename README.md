@@ -55,6 +55,8 @@ The project includes a reproducible player market value prediction workflow:
 - Seasons 2024-2025 are held out as the final time-based test set.
 - The validated ensemble combines a histogram gradient-boosting model with the previous-market-value baseline.
 - Production scoring retrains on all 90,704 labeled rows through 2025 and publishes quality status, prediction intervals, drift metrics, and model-version metadata.
+- Blocking release gates prevent publication when held-out performance or interval coverage falls below production thresholds.
+- A governed weekly/manual ML Production workflow rebuilds features, trains, validates, scores, publishes, and retains auditable artifacts.
 
 Latest held-out results:
 
@@ -65,7 +67,7 @@ Latest held-out results:
 | R2 | 0.9706 | 0.9704 |
 | WAPE | 12.88% | 13.88% |
 
-The workflow publishes evaluation predictions, current estimates, segment metrics, feature drift, and an append-only model registry in `football_ml`. See [Player Market Value ML](docs/PLAYER_MARKET_VALUE_ML.md) for methodology, commands, interpretation, and limitations.
+The workflow publishes evaluation predictions, current estimates, segment metrics, feature drift, permutation importance, release gates, and an append-only model registry in `football_ml`. The latest v4 release is `approved_with_monitoring`: all six blocking gates, including champion-model regression control, pass while limited-quality share and significant drift require analyst review. See [Player Market Value ML](docs/PLAYER_MARKET_VALUE_ML.md) for methodology, commands, interpretation, and limitations.
 
 ## Analytics Marts
 
@@ -166,6 +168,7 @@ The [`dbt CI`](.github/workflows/dbt-ci.yml) GitHub Actions workflow:
 - Runs source freshness daily without rebuilding models
 - Runs freshness, full build, and docs generation on `main`
 - Runs a synthetic ML pipeline smoke test before deployment
+- Runs a separate governed ML Production workflow weekly or on demand
 - Fails when any model or physical model column lacks documentation
 - Uses isolated temporary BigQuery datasets for pull requests and deletes them afterward
 - Uploads dbt artifacts for 14 days

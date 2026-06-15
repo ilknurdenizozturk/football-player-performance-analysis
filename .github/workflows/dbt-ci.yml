@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - ".github/workflows/dbt-ci.yml"
+      - ".github/workflows/**"
       - "models/**"
       - "tests/**"
       - "macros/**"
@@ -16,7 +16,7 @@ on:
       - "selectors.yml"
   pull_request:
     paths:
-      - ".github/workflows/dbt-ci.yml"
+      - ".github/workflows/**"
       - "models/**"
       - "tests/**"
       - "macros/**"
