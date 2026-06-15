@@ -51,23 +51,23 @@ The project includes a reproducible player market value prediction workflow:
 - `football_ml.ml_player_market_value_training` creates one leakage-safe row per player and season.
 - `football_ml.ml_player_market_value_scoring` creates one current scoring row per active player in the latest observed season.
 - Match-performance and prior-valuation features use only records strictly before the target valuation date.
-- Season 2022 selects the ensemble weight; season 2023 independently calibrates the 90% prediction interval.
-- Seasons 2024-2025 are held out as the final time-based test set.
-- The validated ensemble combines a histogram gradient-boosting model with the previous-market-value baseline.
+- Season 2022 selects quality-segment ensemble weights; season 2023 independently calibrates the 90% prediction interval.
+- Seasons 2024-2025 form the time-based backtest and release-gating set.
+- The validated ensemble combines a histogram gradient-boosting model with the previous-market-value baseline and conservatively routes `limited` predictions to the baseline.
 - Production scoring retrains on all 90,704 labeled rows through 2025 and publishes quality status, prediction intervals, drift metrics, and model-version metadata.
-- Blocking release gates prevent publication when held-out performance or interval coverage falls below production thresholds.
+- Blocking release gates prevent publication when backtest performance or interval coverage falls below production thresholds.
 - A governed weekly/manual ML Production workflow rebuilds features, trains, validates, scores, publishes, and retains auditable artifacts.
 
-Latest held-out results:
+Latest temporal backtest results:
 
 | Metric | Ensemble | Previous-value baseline |
 | --- | ---: | ---: |
-| MAE | EUR 804,241 | EUR 867,156 |
-| RMSE | EUR 2,239,653 | EUR 2,248,309 |
-| R2 | 0.9706 | 0.9704 |
-| WAPE | 12.88% | 13.88% |
+| MAE | EUR 781,409 | EUR 867,156 |
+| RMSE | EUR 2,039,156 | EUR 2,248,309 |
+| R2 | 0.9756 | 0.9704 |
+| WAPE | 12.51% | 13.88% |
 
-The workflow publishes evaluation predictions, current estimates, segment metrics, feature drift, permutation importance, release gates, and an append-only model registry in `football_ml`. The latest v4 release is `approved_with_monitoring`: all six blocking gates, including champion-model regression control, pass while limited-quality share and significant drift require analyst review. See [Player Market Value ML](docs/PLAYER_MARKET_VALUE_ML.md) for methodology, commands, interpretation, and limitations.
+The workflow publishes evaluation predictions, current estimates, segment metrics, feature drift, permutation importance, release gates, and an append-only model registry in `football_ml`. The latest v5 release is `approved_with_monitoring`: all seven blocking gates, including champion-model regression and quality-segment baseline controls, pass while limited-quality share and significant drift require analyst review. See [Player Market Value ML](docs/PLAYER_MARKET_VALUE_ML.md) for methodology, commands, interpretation, and limitations.
 
 ## Analytics Marts
 

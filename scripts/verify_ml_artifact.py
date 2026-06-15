@@ -49,6 +49,7 @@ def main() -> None:
     required_bundle_keys = {
         "pipeline",
         "selected_ml_blend_weight",
+        "selected_ml_blend_weights_by_quality_status",
         "baseline_fill_value_eur",
         "numeric_features",
         "categorical_features",
@@ -58,6 +59,12 @@ def main() -> None:
     missing_keys = sorted(required_bundle_keys.difference(model_bundle))
     if missing_keys:
         raise ValueError(f"Model bundle is missing required keys: {missing_keys}.")
+
+    blend_weights = model_bundle["selected_ml_blend_weights_by_quality_status"]
+    if blend_weights.get("limited") != 0:
+        raise ValueError("Limited-quality predictions must use the baseline fallback.")
+    if any(not 0 <= weight <= 1 for weight in blend_weights.values()):
+        raise ValueError("Model artifact contains an invalid blend weight.")
 
     print(
         f"ML artifact verified: {manifest['model_version']} "

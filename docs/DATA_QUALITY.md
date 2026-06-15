@@ -79,24 +79,24 @@ The player market value model is evaluated with a time-based holdout:
 | Evaluation training seasons 2012-2023 | 78,324 |
 | Ensemble tuning season | 2022 |
 | Interval calibration season | 2023 |
-| Held-out test seasons 2024-2025 | 12,380 |
+| Temporal backtest seasons 2024-2025 | 12,380 |
 | Production training rows through 2025 | 90,704 |
 
 | Metric | Ensemble model | Previous-value baseline |
 | --- | ---: | ---: |
-| MAE | EUR 804,241 | EUR 867,156 |
-| RMSE | EUR 2,239,653 | EUR 2,248,309 |
-| R2 | 0.9706 | 0.9704 |
-| WAPE | 12.88% | 13.88% |
-| Median absolute percentage error | 13.54% | 14.29% |
+| MAE | EUR 781,409 | EUR 867,156 |
+| RMSE | EUR 2,039,156 | EUR 2,248,309 |
+| R2 | 0.9756 | 0.9704 |
+| WAPE | 12.51% | 13.88% |
+| Median absolute percentage error | 13.23% | 14.29% |
 
-The ensemble weight is selected only on 2022, and predicted-value-band conformal intervals are calibrated only on 2023. The 2024-2025 test rows are not used for fitting, weight selection, or interval calibration. Held-out interval coverage is 89.01% overall and 83.13% for actual EUR 20M+ players, compared with 37.26% for that segment under a single global interval.
+High- and medium-quality ensemble weights are selected only on 2022. Limited-quality rows use a governed baseline fallback because sparse-context ML estimates are not reliable enough for model-led publishing. Predicted-value-band conformal intervals are calibrated only on 2023. The code uses the 2024-2025 backtest rows only for evaluation and release gating, not fitting, automated weight selection, or interval calibration. Backtest interval coverage is 89.63% overall and 83.66% for actual EUR 20M+ players.
 
 The current scoring readiness check passes with 27.09% missing previous values, 28.59% missing competition context, and 0% missing age. Missing optional inputs are preserved and imputed; predictions are labeled `high`, `medium`, or `limited` so downstream reports can filter by readiness.
 
 GitHub CI also runs `scripts/check_ml_pipeline.py` with synthetic missing and categorical values to detect preprocessing, model-fitting, ensemble, prediction-validation, segment-metric, and drift regressions without retraining against production data.
 
-The v4 production release passes all six blocking model gates: baseline MAE improvement, latest-approved-champion MAE regression, WAPE, R2, overall interval coverage, and EUR 20M+ interval coverage. Its status remains `approved_with_monitoring` because the limited-quality prediction share is 27.09% and ten features show significant PSI drift. These warnings are exposed rather than suppressed.
+The v5 production release passes all seven blocking model gates: baseline MAE improvement, latest-approved-champion MAE regression, WAPE, R2, overall interval coverage, EUR 20M+ interval coverage, and no prediction-quality segment performing below its baseline. Its status remains `approved_with_monitoring` because the limited-quality prediction share is 27.09% and ten features show significant PSI drift. These warnings are exposed rather than suppressed.
 
 ## Test Coverage
 

@@ -7,6 +7,7 @@ from train_player_market_value import (
     CATEGORICAL_FEATURES,
     NUMERIC_FEATURES,
     TARGET,
+    apply_blend_weights_by_quality_status,
     assert_blocking_quality_gates,
     build_pipeline,
     calibrate_prediction_intervals,
@@ -19,6 +20,7 @@ from train_player_market_value import (
     regression_metrics,
     release_status,
     select_blend_weight,
+    select_blend_weights_by_quality_status,
     validate_input_frame,
     validate_predictions,
 )
@@ -63,6 +65,34 @@ baseline = np.full(row_count, frame[TARGET].median())
 weight = select_blend_weight(frame[TARGET].to_numpy(), prediction, baseline)
 if not 0 <= weight <= 1:
     raise SystemExit("ML smoke test selected an invalid ensemble weight.")
+
+segment_test = frame.iloc[:6].copy()
+segment_test["previous_market_value_eur"] = [1, 1, 1, np.nan, np.nan, np.nan]
+segment_test["age_at_target_date"] = 25
+segment_test["competition_id"] = ["a", "a", "a", None, None, None]
+segment_test["minutes_before_target"] = [900, 900, 900, 0, 0, 0]
+segment_actual = np.array([10, 20, 30, 40, 50, 60], dtype=float)
+segment_model = np.array([10, 20, 30, 400, 500, 600], dtype=float)
+segment_baseline = np.array([100, 200, 300, 40, 50, 60], dtype=float)
+segment_weights = select_blend_weights_by_quality_status(
+    segment_test,
+    segment_actual,
+    segment_model,
+    segment_baseline,
+    minimum_segment_rows=1,
+)
+segment_prediction, selected_weights = apply_blend_weights_by_quality_status(
+    segment_test,
+    segment_model,
+    segment_baseline,
+    segment_weights,
+)
+if segment_weights["high"] != 1 or segment_weights["limited"] != 0:
+    raise SystemExit("ML smoke test selected incorrect quality-segment weights.")
+if not np.allclose(segment_prediction, segment_actual):
+    raise SystemExit("ML smoke test applied incorrect quality-segment weights.")
+if not set(selected_weights).issubset(set(segment_weights.values())):
+    raise SystemExit("ML smoke test emitted an unknown quality-segment weight.")
 
 metrics = regression_metrics(frame[TARGET].to_numpy(), prediction)
 if not all(np.isfinite(value) for value in metrics.values()):
@@ -113,6 +143,10 @@ if quality_gates.empty or release_status(quality_gates) not in {
     "rejected",
 }:
     raise SystemExit("ML smoke test produced invalid quality gates.")
+if not quality_gates["gate_name"].eq(
+    "worst_quality_segment_mae_improvement_vs_baseline_pct"
+).any():
+    raise SystemExit("ML smoke test did not produce the quality-segment gate.")
 
 blocking_failure = quality_gates.copy()
 blocking_failure.loc[

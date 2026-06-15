@@ -102,7 +102,7 @@ python scripts/train_player_market_value.py \
 
 Local model artifacts and prediction CSV files are written under `artifacts/player_market_value/` and are intentionally excluded from Git. The published BigQuery tables support evaluation, current estimates, segment metrics, drift monitoring, and model-version audit history.
 
-Before a Power BI refresh, confirm that `assert_ml_scoring_readiness` passes, review `ml_player_market_value_feature_drift`, and filter decision-facing predictions to `prediction_quality_status in ('high', 'medium')`.
+Before a Power BI refresh, confirm that `assert_ml_scoring_readiness` passes, review `ml_player_market_value_feature_drift`, and filter decision-facing predictions to `prediction_quality_status in ('high', 'medium')`. Limited-quality rows intentionally publish the governed baseline fallback and belong on the data-quality page.
 
 The pipeline validates all blocking release gates before publishing any prediction table. Run the GitHub Actions `ML Production` workflow for the governed production path; it runs weekly on Monday at 05:00 UTC and can also be started manually.
 

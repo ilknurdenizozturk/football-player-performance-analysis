@@ -44,15 +44,16 @@ Random row splitting is not used.
 - Performance features include appearances strictly before `target_market_value_date`.
 - Previous-value features include valuations strictly before `target_market_value_date`.
 - Current club identifiers, current market value, transfer outcomes, and future valuations are excluded.
-- Season 2022 is used only to select the ensemble weight.
+- Season 2022 is used only to select high- and medium-quality ensemble weights.
+- Limited-quality predictions use a governed previous-value baseline fallback.
 - Season 2023 is used only to calibrate the 90% conformal prediction interval.
-- Seasons 2024 and 2025 are fully held out for final testing.
-- The test seasons are not used for fitting, weight selection, or interval calibration.
+- Seasons 2024 and 2025 form the temporal backtest and release-gating set.
+- The code does not use the backtest seasons for fitting, automated weight selection, or interval calibration.
 - The final production artifact is retrained on all 90,704 labeled rows after evaluation.
 
 The dbt tests `assert_ml_features_precede_target`, `assert_ml_training_row_coverage`, `assert_ml_feature_business_rules`, `assert_ml_model_coverage`, and `assert_ml_scoring_readiness` enforce date boundaries, target coverage, feature validity, and scoring readiness.
 
-GitHub CI runs a synthetic pipeline smoke test on every relevant change. It validates preprocessing, missing-value handling, fitting, prediction, ensemble-weight selection, and metric calculation without publishing or retraining production predictions.
+GitHub CI runs a synthetic pipeline smoke test on every relevant change. It validates preprocessing, missing-value handling, fitting, prediction, quality-segment ensemble-weight selection, limited-quality fallback enforcement, and metric calculation without publishing or retraining production predictions.
 
 The separate `ML Production` workflow runs weekly and on demand. It refreshes the dbt ML models, trains and evaluates the model, blocks publication on release-gate failure, publishes approved outputs, and retains governed artifacts for 30 days.
 
@@ -71,36 +72,44 @@ Missing optional values are imputed inside the scikit-learn pipeline. Unknown mo
 
 ## Model
 
-The validated prediction is an ensemble:
+The validated prediction uses quality-aware routing:
 
 ```text
-prediction = 0.90 * histogram_gradient_boosting_prediction
-           + 0.10 * previous_market_value_baseline
+high prediction    = 0.80 * histogram_gradient_boosting_prediction
+                   + 0.20 * previous_market_value_baseline
+medium prediction  = 1.00 * histogram_gradient_boosting_prediction
+limited prediction = 1.00 * previous_market_value_baseline
 ```
 
-The `0.90` weight was selected by minimizing MAE on the 2022 tuning season. Absolute residuals from the separate 2023 calibration season produce 90% conformal intervals by predicted-value band. The evaluation model is then retrained through 2023 before testing 2024-2025.
+High- and medium-quality weights were selected by minimizing MAE on the 2022 tuning season. Limited-quality predictions deliberately use the auditable baseline because sparse-context rows are not reliable enough for model-led publishing. A blocking release gate prevents any quality segment from performing below its baseline in the temporal backtest. Absolute residuals from the separate 2023 calibration season produce 90% conformal intervals by predicted-value band. The evaluation model is then retrained through 2023 before backtesting 2024-2025.
 
 ## Latest Results
 
 | Metric | Ensemble model | ML-only model | Previous-value baseline |
 | --- | ---: | ---: | ---: |
-| MAE | EUR 804,241 | EUR 812,197 | EUR 867,156 |
-| RMSE | EUR 2,239,653 | EUR 2,296,134 | EUR 2,248,309 |
-| R2 | 0.9706 | 0.9691 | 0.9704 |
-| WAPE | 12.88% | 13.00% | 13.88% |
-| Median absolute percentage error | 13.54% | 13.88% | 14.29% |
-| Predictions within 25% of actual | 71.66% | 71.20% | 74.71% |
+| MAE | EUR 781,409 | EUR 812,197 | EUR 867,156 |
+| RMSE | EUR 2,039,156 | EUR 2,296,134 | EUR 2,248,309 |
+| R2 | 0.9756 | 0.9691 | 0.9704 |
+| WAPE | 12.51% | 13.00% | 13.88% |
+| Median absolute percentage error | 13.23% | 13.88% | 14.29% |
+| Predictions within 25% of actual | 74.71% | 71.20% | 74.71% |
 
-The ensemble reduces held-out MAE by 7.26% and WAPE by 1.01 percentage points versus the previous-value baseline. The band-calibrated 90% prediction intervals cover 89.01% of held-out targets overall.
+The quality-aware ensemble reduces backtest MAE by 9.89% and WAPE by 1.37 percentage points versus the previous-value baseline. It also reduces MAE by 2.84% versus the previous v4 production champion. The band-calibrated 90% prediction intervals cover 89.63% of backtest targets overall.
+
+| Prediction quality | Held-out rows | MAE improvement versus baseline |
+| --- | ---: | ---: |
+| `high` | 5,198 | 12.90% |
+| `medium` | 1,967 | 18.22% |
+| `limited` | 5,215 | 0.00% baseline fallback |
 
 | Predicted-value band | Interval half-width |
 | --- | ---: |
-| Under EUR 1M | EUR 232,464 |
-| EUR 1M-5M | EUR 962,924 |
-| EUR 5M-20M | EUR 3,393,265 |
-| EUR 20M+ | EUR 7,894,426 |
+| Under EUR 1M | EUR 200,000 |
+| EUR 1M-5M | EUR 968,857 |
+| EUR 5M-20M | EUR 3,501,271 |
+| EUR 20M+ | EUR 7,790,810 |
 
-Band calibration raises held-out coverage for actual EUR 20M+ players from 37.26% under a single global interval to 83.13%.
+Band calibration produces 83.66% backtest coverage for actual EUR 20M+ players.
 
 ## Production Release Gates
 
@@ -108,14 +117,15 @@ The pipeline evaluates every candidate before publishing any BigQuery prediction
 
 | Blocking gate | Requirement | Latest |
 | --- | ---: | ---: |
-| MAE improvement versus baseline | `> 0%` | `7.26%` |
-| Held-out WAPE | `<= 15%` | `12.88%` |
-| Held-out R2 | `>= 0.95` | `0.9706` |
-| Overall interval coverage | `>= 85%` | `89.01%` |
-| EUR 20M+ interval coverage | `>= 80%` | `83.13%` |
-| MAE regression versus latest approved champion | `<= 2%` | `0.00%` |
+| MAE improvement versus baseline | `> 0%` | `9.89%` |
+| Held-out WAPE | `<= 15%` | `12.51%` |
+| Held-out R2 | `>= 0.95` | `0.9756` |
+| Overall interval coverage | `>= 85%` | `89.63%` |
+| EUR 20M+ interval coverage | `>= 80%` | `83.66%` |
+| Worst quality-segment improvement versus baseline | `>= 0%` | `0.00%` |
+| MAE regression versus latest approved champion | `<= 2%` | `-2.84%` |
 
-The latest v4 release status is `approved_with_monitoring`. All blocking gates pass. Two warning gates require review but do not reject the release:
+The latest v5 release status is `approved_with_monitoring`. All blocking gates pass. Two warning gates require review but do not reject the release:
 
 - Current `limited` prediction share is 27.09%, above the 25% warning threshold.
 - Ten features show significant PSI drift versus the latest labeled season.
@@ -141,7 +151,7 @@ Current predictions are classified by feature readiness:
 | `medium` | 1,324 |
 | `limited` | 2,124 |
 
-Use `high` and `medium` for decision-facing reports. Keep `limited` visible only for completeness and data-quality review.
+Use `high` and `medium` for decision-facing reports. Limited-quality point estimates are the governed baseline fallback, while `ml_only_prediction_eur` remains available for audit. Keep `limited` visible only for completeness and data-quality review.
 
 ## Run Locally
 
@@ -184,7 +194,7 @@ Published BigQuery output:
 - `football_ml.ml_player_market_value_feature_importance`
 - `football_ml.ml_player_market_value_quality_gates`
 
-The evaluation table contains 12,380 held-out historical predictions and must not be presented as a live forecast. The current-predictions table contains 7,841 as-of-date estimates. The metrics table contains overall and segment-level evaluation. The drift table compares current scoring features with the latest labeled season. The importance table supports predictive-driver analysis. The gate table explains release decisions. The append-only registry preserves model versions, checksums, source versions, and evaluation metadata.
+The evaluation table contains 12,380 temporal-backtest historical predictions and must not be presented as a live forecast. The current-predictions table contains 7,841 as-of-date estimates. The metrics table contains overall and segment-level evaluation. The drift table compares current scoring features with the latest labeled season. The importance table supports predictive-driver analysis. The gate table explains release decisions. The append-only registry preserves model versions, checksums, source versions, and evaluation metadata.
 
 ## Power BI Usage
 
@@ -207,6 +217,7 @@ Use the current-predictions table for player value rankings, estimated-versus-la
 - Current scoring has 27.09% missing previous values, 28.59% missing competition context, and 0% missing age.
 - Significant drift is retained as an operational signal, not suppressed. Review it before retraining or publishing decision-facing reports.
 - BigQuery prediction outputs are published only after all blocking quality gates pass.
+- A blocking gate rejects any candidate whose backtest prediction-quality segment performs below its baseline.
 
 ## Limitations and Next Scale Trigger
 
@@ -216,6 +227,6 @@ Use the current-predictions table for player value rankings, estimated-versus-la
 - Rare elite-player values remain harder to predict because they have few comparable examples.
 - Current estimates use the latest observed season and are not guaranteed next-transfer prices.
 - Prediction intervals vary by predicted-value band but do not yet vary by position, competition, or feature-readiness segment.
-- Significant feature drift and `limited` quality predictions require analyst review.
+- Significant feature drift and the large `limited` quality share require analyst review; limited point estimates intentionally fall back to the baseline.
 
 The next scale trigger is shadow evaluation of alternative algorithms plus segment-specific calibration by position or competition once data volume supports stable estimates.

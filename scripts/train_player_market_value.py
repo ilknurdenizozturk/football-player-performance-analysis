@@ -58,7 +58,9 @@ CATEGORICAL_FEATURES = [
 
 TARGET = "target_market_value_eur"
 MODEL_NAME = "player_market_value_hgbr"
-MODEL_VERSION = "v4"
+MODEL_VERSION = "v5"
+PREDICTION_QUALITY_STATUSES = ["high", "medium", "limited"]
+PREDICTION_QUALITY_BLEND_WEIGHT_OVERRIDES = {"limited": 0.0}
 METADATA_COLUMNS = [
     "position",
     "sub_position",
@@ -71,6 +73,7 @@ BLOCKING_GATE_THRESHOLDS = {
     "overall_interval_coverage_pct": 85.0,
     "elite_interval_coverage_pct": 80.0,
     "champion_mae_regression_pct": 2.0,
+    "quality_segment_mae_improvement_vs_baseline_pct": 0.0,
 }
 
 
@@ -235,7 +238,9 @@ def feature_contract() -> dict[str, object]:
         "target": TARGET,
         "numeric_features": NUMERIC_FEATURES,
         "categorical_features": CATEGORICAL_FEATURES,
-        "prediction_quality_statuses": ["high", "medium", "limited"],
+        "prediction_quality_statuses": PREDICTION_QUALITY_STATUSES,
+        "blend_strategy": "tuning_season_quality_status_weights",
+        "blend_weight_overrides": PREDICTION_QUALITY_BLEND_WEIGHT_OVERRIDES,
         "prediction_interval_bands": [
             "under_1m",
             "1m_to_5m",
@@ -361,6 +366,51 @@ def select_blend_weight(
             ),
         )
     )
+
+
+def select_blend_weights_by_quality_status(
+    frame: pd.DataFrame,
+    actual: np.ndarray,
+    model_prediction: np.ndarray,
+    baseline_prediction: np.ndarray,
+    minimum_segment_rows: int = 100,
+) -> dict[str, float]:
+    statuses = prediction_quality_status(frame)
+    weights = {
+        "default": select_blend_weight(actual, model_prediction, baseline_prediction)
+    }
+    for status in PREDICTION_QUALITY_STATUSES:
+        mask = statuses.eq(status).to_numpy()
+        weights[status] = (
+            select_blend_weight(
+                actual[mask],
+                model_prediction[mask],
+                baseline_prediction[mask],
+            )
+            if mask.sum() >= minimum_segment_rows
+            else weights["default"]
+        )
+    weights.update(PREDICTION_QUALITY_BLEND_WEIGHT_OVERRIDES)
+    return weights
+
+
+def apply_blend_weights_by_quality_status(
+    frame: pd.DataFrame,
+    model_prediction: np.ndarray,
+    baseline_prediction: np.ndarray,
+    blend_weights: dict[str, float],
+) -> tuple[np.ndarray, np.ndarray]:
+    selected_weights = (
+        prediction_quality_status(frame)
+        .map(blend_weights)
+        .fillna(blend_weights["default"])
+        .to_numpy(dtype=float)
+    )
+    predictions = (
+        selected_weights * model_prediction
+        + (1 - selected_weights) * baseline_prediction
+    )
+    return predictions, selected_weights
 
 
 def prediction_quality_status(frame: pd.DataFrame) -> pd.Series:
@@ -634,6 +684,28 @@ def quality_gate_report(
         "blocking",
         "Actual EUR 20M+ player interval coverage must remain reliable.",
     )
+    quality_segments = segment_metrics[
+        segment_metrics["segment_type"].eq("prediction_quality_status")
+    ]
+    worst_quality_segment_improvement = (
+        float(quality_segments["mae_improvement_vs_baseline_pct"].min())
+        if not quality_segments.empty
+        else -100.0
+    )
+    add_gate(
+        "worst_quality_segment_mae_improvement_vs_baseline_pct",
+        worst_quality_segment_improvement,
+        ">=",
+        BLOCKING_GATE_THRESHOLDS[
+            "quality_segment_mae_improvement_vs_baseline_pct"
+        ],
+        worst_quality_segment_improvement
+        >= BLOCKING_GATE_THRESHOLDS[
+            "quality_segment_mae_improvement_vs_baseline_pct"
+        ],
+        "blocking",
+        "No prediction-quality segment may underperform its previous-value baseline.",
+    )
     if champion is not None:
         champion_mae_regression_pct = (
             (ensemble["mae_eur"] - champion["test_mae_eur"])
@@ -840,7 +912,8 @@ def main() -> None:
         .fillna(tuning_baseline_fill)
         .to_numpy()
     )
-    blend_weight = select_blend_weight(
+    blend_weights = select_blend_weights_by_quality_status(
+        tuning,
         tuning[TARGET].to_numpy(),
         tuning_model_prediction,
         tuning_baseline_prediction,
@@ -862,9 +935,11 @@ def main() -> None:
         .fillna(float(calibration_training[TARGET].median()))
         .to_numpy()
     )
-    calibration_prediction = (
-        blend_weight * calibration_model_prediction
-        + (1 - blend_weight) * calibration_baseline
+    calibration_prediction, _ = apply_blend_weights_by_quality_status(
+        calibration,
+        calibration_model_prediction,
+        calibration_baseline,
+        blend_weights,
     )
     conformal_interval_eur, conformal_interval_by_predicted_value_band = (
         calibrate_prediction_intervals(
@@ -876,7 +951,8 @@ def main() -> None:
     generated_at = datetime.now(timezone.utc)
     version_input = (
         f"{generated_at.isoformat()}-{len(frame)}-{frame[TARGET].sum()}-"
-        f"{tuning_season}-{calibration_season}-{blend_weight}-{contract_hash}"
+        f"{tuning_season}-{calibration_season}-"
+        f"{json.dumps(blend_weights, sort_keys=True)}-{contract_hash}"
     )
     model_version = (
         f"{MODEL_NAME}_{MODEL_VERSION}_"
@@ -894,9 +970,11 @@ def main() -> None:
     baseline_prediction = (
         test["previous_market_value_eur"].fillna(baseline_fill).to_numpy()
     )
-    predicted = (
-        blend_weight * model_prediction
-        + (1 - blend_weight) * baseline_prediction
+    predicted, test_blend_weights = apply_blend_weights_by_quality_status(
+        test,
+        model_prediction,
+        baseline_prediction,
+        blend_weights,
     )
     prediction_interval_band, prediction_interval_eur = prediction_interval_widths(
         predicted,
@@ -914,7 +992,8 @@ def main() -> None:
         "calibration_season": calibration_season,
         "held_out_test_seasons": held_out_seasons,
         "target_transform": "none",
-        "selected_ml_blend_weight": blend_weight,
+        "selected_ml_blend_weight": blend_weights["default"],
+        "selected_ml_blend_weights_by_quality_status": blend_weights,
         "conformal_prediction_interval_eur_90": conformal_interval_eur,
         "conformal_prediction_interval_by_predicted_value_band_eur_90": (
             conformal_interval_by_predicted_value_band
@@ -954,7 +1033,7 @@ def main() -> None:
     ).round(0)
     predictions["prediction_upper_eur"] = (predicted + prediction_interval_eur).round(0)
     predictions["prediction_quality_status"] = prediction_quality_status(test)
-    predictions["selected_ml_blend_weight"] = blend_weight
+    predictions["selected_ml_blend_weight"] = test_blend_weights
     predictions["model_version"] = model_version
     predictions["model_generated_at_utc"] = generated_at
     validate_predictions(
@@ -994,10 +1073,15 @@ def main() -> None:
         )
         current_predictions["ml_only_prediction_eur"] = scoring_ml_prediction.round(0)
         current_predictions["baseline_prediction_eur"] = scoring_baseline.round(0)
-        current_predictions["predicted_market_value_eur"] = (
-            blend_weight * scoring_ml_prediction
-            + (1 - blend_weight) * scoring_baseline
-        ).round(0)
+        scoring_prediction, scoring_blend_weights = (
+            apply_blend_weights_by_quality_status(
+                current_predictions,
+                scoring_ml_prediction,
+                scoring_baseline,
+                blend_weights,
+            )
+        )
+        current_predictions["predicted_market_value_eur"] = scoring_prediction.round(0)
         scoring_interval_band, scoring_interval_eur = prediction_interval_widths(
             current_predictions["predicted_market_value_eur"].to_numpy(dtype=float),
             conformal_interval_eur,
@@ -1026,7 +1110,7 @@ def main() -> None:
         current_predictions["prediction_is_out_of_time"] = (
             current_predictions["season"] > frame["season"].max()
         )
-        current_predictions["selected_ml_blend_weight"] = blend_weight
+        current_predictions["selected_ml_blend_weight"] = scoring_blend_weights
         current_predictions["model_version"] = model_version
         current_predictions["model_generated_at_utc"] = generated_at
         validate_predictions(
@@ -1068,7 +1152,8 @@ def main() -> None:
     model_bundle = {
         "pipeline": final_pipeline,
         "evaluation_pipeline": pipeline,
-        "selected_ml_blend_weight": blend_weight,
+        "selected_ml_blend_weight": blend_weights["default"],
+        "selected_ml_blend_weights_by_quality_status": blend_weights,
         "baseline_fill_value_eur": float(frame[TARGET].median()),
         "numeric_features": NUMERIC_FEATURES,
         "categorical_features": CATEGORICAL_FEATURES,
@@ -1174,7 +1259,11 @@ def main() -> None:
                 "tuning_season": tuning_season,
                 "calibration_season": calibration_season,
                 "test_seasons": ",".join(str(season) for season in held_out_seasons),
-                "selected_ml_blend_weight": blend_weight,
+                "selected_ml_blend_weight": blend_weights["default"],
+                "selected_ml_blend_weights_by_quality_status": json.dumps(
+                    blend_weights,
+                    sort_keys=True,
+                ),
                 "conformal_prediction_interval_eur_90": conformal_interval_eur,
                 "conformal_prediction_interval_by_predicted_value_band_eur_90": (
                     json.dumps(

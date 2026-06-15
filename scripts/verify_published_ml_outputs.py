@@ -56,7 +56,25 @@ def main() -> None:
                     or prediction_interval_eur <= 0
                     or prediction_lower_eur > predicted_market_value_eur
                     or prediction_upper_eur < predicted_market_value_eur
+                    or selected_ml_blend_weight not between 0 and 1
+                    or (
+                        prediction_quality_status = 'limited'
+                        and selected_ml_blend_weight != 0
+                    )
             ) as invalid_current_predictions,
+            (
+                select count(*)
+                from {prefix}.ml_player_market_value_evaluation_predictions`
+                where predicted_market_value_eur < 0
+                    or prediction_interval_eur <= 0
+                    or prediction_lower_eur > predicted_market_value_eur
+                    or prediction_upper_eur < predicted_market_value_eur
+                    or selected_ml_blend_weight not between 0 and 1
+                    or (
+                        prediction_quality_status = 'limited'
+                        and selected_ml_blend_weight != 0
+                    )
+            ) as invalid_evaluation_predictions,
             (
                 select count(*)
                 from {prefix}.ml_player_market_value_evaluation_predictions`
@@ -98,6 +116,7 @@ def main() -> None:
     failure_fields = [
         "blocking_gate_failures",
         "invalid_current_predictions",
+        "invalid_evaluation_predictions",
         "evaluation_version_mismatches",
         "metric_version_mismatches",
         "drift_version_mismatches",
