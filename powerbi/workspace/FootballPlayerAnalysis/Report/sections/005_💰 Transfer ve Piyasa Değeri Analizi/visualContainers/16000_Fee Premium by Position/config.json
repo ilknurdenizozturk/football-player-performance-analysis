@@ -1,5 +1,5 @@
 {
-  "name": "af7a2b7528d55de3892c",
+  "name": "0839d8ed3d7479a01f32",
   "layouts": [
     {
       "id": 0,
@@ -126,7 +126,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -178,7 +178,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -205,7 +205,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -255,92 +255,6 @@
                       "Value": "'#119A91'"
                     }
                   }
-                }
-              }
-            }
-          }
-        }
-      ],
-      "referenceLine": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Constant'"
-                }
-              }
-            },
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            },
-            "label": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Denge Noktası (%0)'"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#E63946'"
-                    }
-                  }
-                }
-              }
-            },
-            "lineStyle": {
-              "expr": {
-                "Literal": {
-                  "Value": "'dashed'"
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "40D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "tooltip": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'VisualsPage'"
-                }
-              }
-            },
-            "reportsPageId": {
-              "expr": {
-                "Literal": {
-                  "Value": "'tooltip_transfer_p011'"
                 }
               }
             }
@@ -476,7 +390,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Prim / İskonto % — Pozisyon Bazlı'"
+                  "Value": "'Prim/İskonto % (Poz.)'"
                 }
               }
             },
@@ -497,7 +411,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             },

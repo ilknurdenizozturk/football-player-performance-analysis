@@ -1,5 +1,5 @@
-﻿{
-  "name": "c92326739ce566bd2c0c",
+{
+  "name": "cf652160ede9f0b73bfe",
   "layouts": [
     {
       "id": 0,
@@ -86,7 +86,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "20D"
+                  "Value": "18D"
                 }
               }
             },
@@ -175,7 +175,7 @@
             "radius": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             }
@@ -206,14 +206,14 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "60D"
+                  "Value": "70D"
                 }
               }
             },
             "blur": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "6D"
                 }
               }
             },
@@ -268,7 +268,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },

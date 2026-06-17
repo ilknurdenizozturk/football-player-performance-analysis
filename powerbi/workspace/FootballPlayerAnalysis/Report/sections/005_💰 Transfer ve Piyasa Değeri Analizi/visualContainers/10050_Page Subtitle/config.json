@@ -1,5 +1,5 @@
 {
-  "name": "c20b4dd1dac59a1a823f",
+  "name": "e7c73867bb304fc4319a",
   "layouts": [
     {
       "id": 0,
@@ -24,10 +24,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "Transfer ücreti analizi  ·  Piyasa değeri prim / iskonto profili  ·  2010–2024 sezon trendleri  ·  Pozisyon bazlı fiyatlama dinamikleri",
+                    "value": "Tarihsel transfer ücretleri  |  Piyasa değeri hareketleri  |  Sezon & pozisyon analizi",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
+                      "fontSize": "7.5pt",
                       "color": "#C8F5C0"
                     }
                   }

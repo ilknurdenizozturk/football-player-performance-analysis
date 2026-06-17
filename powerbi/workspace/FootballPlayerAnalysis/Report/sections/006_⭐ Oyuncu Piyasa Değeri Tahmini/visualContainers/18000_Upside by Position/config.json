@@ -1,5 +1,5 @@
-﻿{
-  "name": "2971fb7e9b0a0496e558",
+{
+  "name": "4d304949cba7dd247021",
   "layouts": [
     {
       "id": 0,
@@ -126,7 +126,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -178,7 +178,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -205,7 +205,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -319,33 +319,6 @@
             }
           }
         }
-      ],
-      "tooltip": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'VisualsPage'"
-                }
-              }
-            },
-            "reportsPageId": {
-              "expr": {
-                "Literal": {
-                  "Value": "'tooltip_pred_p012'"
-                }
-              }
-            }
-          }
-        }
       ]
     },
     "vcObjects": {
@@ -404,7 +377,7 @@
             "radius": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             }
@@ -435,14 +408,14 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "60D"
+                  "Value": "70D"
                 }
               }
             },
             "blur": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "6D"
                 }
               }
             },
@@ -476,7 +449,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Değer Artışı % — Pozisyon Bazlı'"
+                  "Value": "'Tahmin Artışı % (Poz.)'"
                 }
               }
             },
@@ -497,7 +470,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             },

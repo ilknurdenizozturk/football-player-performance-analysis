@@ -1,5 +1,5 @@
 {
-  "name": "da95066295b41c2f2124",
+  "name": "5bbe3e0865c55bbeade1",
   "layouts": [
     {
       "id": 0,
@@ -14,7 +14,7 @@
     }
   ],
   "singleVisual": {
-    "visualType": "lineAndClusteredColumnChart",
+    "visualType": "clusteredColumnChart",
     "projections": {
       "Category": [
         {
@@ -25,11 +25,6 @@
       "Y": [
         {
           "queryRef": "fct_transfer_market_value_analysis.Average Known Transfer Fee"
-        }
-      ],
-      "Y2": [
-        {
-          "queryRef": "fct_transfer_market_value_analysis.Average Fee Premium Discount %"
         }
       ]
     },
@@ -66,32 +61,18 @@
           },
           "Name": "fct_transfer_market_value_analysis.Average Known Transfer Fee",
           "NativeReferenceName": "Ort. Ücret (Sezon)"
-        },
+        }
+      ],
+      "OrderBy": [
         {
-          "Measure": {
+          "Direction": 2,
+          "Expression": {
             "Expression": {
               "SourceRef": {
                 "Source": "ftmva"
               }
             },
-            "Property": "Average Fee Premium Discount %"
-          },
-          "Name": "fct_transfer_market_value_analysis.Average Fee Premium Discount %",
-          "NativeReferenceName": "Prim % (Trend)"
-        }
-      ],
-      "OrderBy": [
-        {
-          "Direction": 1,
-          "Expression": {
-            "Column": {
-              "Expression": {
-                "SourceRef": {
-                  "Source": "ftmva"
-                }
-              },
-              "Property": "transfer_season"
-            }
+            "Property": "Average Known Transfer Fee"
           }
         }
       ]
@@ -102,13 +83,10 @@
       },
       "fct_transfer_market_value_analysis.Average Known Transfer Fee": {
         "displayName": "Ort. Ücret (Sezon)"
-      },
-      "fct_transfer_market_value_analysis.Average Fee Premium Discount %": {
-        "displayName": "Prim % (Trend)"
       }
     },
     "drillFilterOtherVisuals": true,
-    "hasDefaultSort": false,
+    "hasDefaultSort": true,
     "objects": {
       "categoryAxis": [
         {
@@ -148,7 +126,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -200,7 +178,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -208,51 +186,6 @@
               "expr": {
                 "Literal": {
                   "Value": "1000000D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "valueAxis2": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "labelColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#536A60'"
-                    }
-                  }
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "9D"
-                }
-              }
-            },
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
                 }
               }
             }
@@ -272,7 +205,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -322,33 +255,6 @@
                       "Value": "'#119A91'"
                     }
                   }
-                }
-              }
-            }
-          }
-        }
-      ],
-      "tooltip": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'VisualsPage'"
-                }
-              }
-            },
-            "reportsPageId": {
-              "expr": {
-                "Literal": {
-                  "Value": "'tooltip_transfer_p011'"
                 }
               }
             }
@@ -412,7 +318,7 @@
             "radius": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             }
@@ -443,14 +349,14 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "60D"
+                  "Value": "70D"
                 }
               }
             },
             "blur": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "6D"
                 }
               }
             },
@@ -483,13 +389,8 @@
             },
             "text": {
               "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Source": "ftmva"
-                    }
-                  },
-                  "Property": "Page 005 Dynamic Title"
+                "Literal": {
+                  "Value": "'Ort. Ücret (Sezon)'"
                 }
               }
             },
@@ -510,7 +411,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             },

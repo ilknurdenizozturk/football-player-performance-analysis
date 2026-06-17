@@ -1,5 +1,5 @@
 {
-  "name": "4895fdc10f6b0b2c2615",
+  "name": "aad67df1af591a835827",
   "layouts": [
     {
       "id": 0,
@@ -247,7 +247,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Aktif Filtre'"
+                  "Value": "'Aktif Seçim'"
                 }
               }
             },
@@ -268,7 +268,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },

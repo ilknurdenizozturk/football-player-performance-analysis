@@ -1,5 +1,5 @@
-﻿{
-  "name": "5457d58ae7bb70e54c08",
+{
+  "name": "13ccac612fab8060cf67",
   "layouts": [
     {
       "id": 0,
@@ -126,7 +126,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -178,7 +178,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -205,7 +205,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -255,33 +255,6 @@
                       "Value": "'#119A91'"
                     }
                   }
-                }
-              }
-            }
-          }
-        }
-      ],
-      "tooltip": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'VisualsPage'"
-                }
-              }
-            },
-            "reportsPageId": {
-              "expr": {
-                "Literal": {
-                  "Value": "'tooltip_transfer_p011'"
                 }
               }
             }
@@ -345,7 +318,7 @@
             "radius": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             }
@@ -376,14 +349,14 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "60D"
+                  "Value": "70D"
                 }
               }
             },
             "blur": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "6D"
                 }
               }
             },
@@ -417,7 +390,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Transfer Hacmi — Pozisyon Bazlı'"
+                  "Value": "'Transfer Hacmi'"
                 }
               }
             },
@@ -438,7 +411,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             },

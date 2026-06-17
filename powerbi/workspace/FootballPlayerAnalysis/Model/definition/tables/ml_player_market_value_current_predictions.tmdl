@@ -1,4 +1,4 @@
-﻿table ml_player_market_value_current_predictions
+table ml_player_market_value_current_predictions
 
 	/// Distinct players with a current market-value prediction.
 	measure 'Scored Player Count' = DISTINCTCOUNT(ml_player_market_value_current_predictions[player_id])
@@ -437,7 +437,7 @@
 
 		annotation SummarizationSetBy = Automatic
 
-	column kalite_etiketi_tr = SWITCH([prediction_quality_status], "high", "Yüksek Kalite", "medium", "Orta Kalite", "low", "Düşük Kalite", "insufficient_data", "Yetersiz Veri", "Bilinmiyor")
+	column kalite_etiketi_tr = SWITCH([prediction_quality_status], "high", "Yüksek", "medium", "Orta", "limited", "Sınırlı", "Bilinmiyor")
 		dataType: string
 		summarizeBy: none
 

@@ -144,7 +144,7 @@ def patch_pbix(source: pathlib.Path, target: pathlib.Path, report_sections: path
             with zipfile.ZipFile(temp_path, "w") as output_zip:
                 for item in input_zip.infolist():
                     if item.filename == "SecurityBindings":
-                        continue
+                        output_zip.writestr(item, input_zip.read(item.filename))
                     elif item.filename == "Report/Layout":
                         continue
                     elif item.filename == "DataMashup":

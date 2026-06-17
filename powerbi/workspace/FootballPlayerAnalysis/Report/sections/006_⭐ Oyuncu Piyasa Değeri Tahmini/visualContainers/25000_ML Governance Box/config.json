@@ -1,5 +1,5 @@
 {
-  "name": "fa9d9c44e1a2134f2725",
+  "name": "8750cd592dd7e9595f60",
   "layouts": [
     {
       "id": 0,
@@ -24,10 +24,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "🤖 ML MODEL NOTLARI",
+                    "value": "ANALİTİK BULGULAR",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "10pt",
+                      "fontSize": "11pt",
                       "color": "#FFFFFF"
                     }
                   }
@@ -48,53 +48,67 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Ensemble yönlendirmesi: Yüksek kalitede %80 model + %20 baseline. Orta kalitede %100 model. Yetersiz veri → baseline (önceki değer) ile tahmin.",
+                    "value": "• Forvetler en yüksek piyasa değerini taşır; model bu eşitsizliği pozisyon bazında doğru yakalar.",
                     "textStyle": {
-                      "fontSize": "8.5pt",
-                      "color": "#E8F5E9"
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ],
-                "horizontalAlignment": "Left",
-                "paragraphStyle": {
-                  "fontFamily": "Segoe UI",
-                  "fontSize": "8.5pt"
-                },
-                "spacingAfter": 60
+                "spaceAfter": 2
               },
               {
                 "textRuns": [
                   {
-                    "value": "• R²: 0.9756 | MAE: €781K | WAPE: %12.51 — v5 ensemble, üretim onaylı (approved_with_monitoring).",
+                    "value": "• 'Karar Hazır %' oranı, modelin güvenilir tahmin ürettiği oyuncu kapsamını gösterir.",
                     "textStyle": {
-                      "fontSize": "8.5pt",
-                      "color": "#E8F5E9"
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ],
-                "horizontalAlignment": "Left",
-                "paragraphStyle": {
-                  "fontFamily": "Segoe UI",
-                  "fontSize": "8.5pt"
-                },
-                "spacingAfter": 60
+                "spaceAfter": 2
               },
               {
                 "textRuns": [
                   {
-                    "value": "• Güven aralığı >%50 ise tahmin gürültülüdür. \"Yüksek Kalite\" filtresini kullanarak karar destek listesini daraltın.",
+                    "value": "• Kırmızı referans çizgisinin solundaki pozisyonlar ortalama değer kaybı riski taşır.",
                     "textStyle": {
-                      "fontSize": "8.5pt",
-                      "color": "#E8F5E9"
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ],
-                "horizontalAlignment": "Left",
-                "paragraphStyle": {
-                  "fontFamily": "Segoe UI",
-                  "fontSize": "8.5pt"
-                },
-                "spacingAfter": 60
+                "spaceAfter": 2
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Tahmin kalitesi 'Yüksek' filtresi: müzakereler için en güvenilir veri tabanını izole eder.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 2
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Dar güven aralığı = modelin o oyuncuya yüksek özgüveni; geniş aralık = daha fazla belirsizlik.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 2
               }
             ]
           }
@@ -158,58 +172,6 @@
               "expr": {
                 "Literal": {
                   "Value": "8D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "dropShadow": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#6FA56D'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "60D"
-                }
-              }
-            },
-            "blur": {
-              "expr": {
-                "Literal": {
-                  "Value": "8D"
-                }
-              }
-            },
-            "angle": {
-              "expr": {
-                "Literal": {
-                  "Value": "45D"
-                }
-              }
-            },
-            "distance": {
-              "expr": {
-                "Literal": {
-                  "Value": "4D"
                 }
               }
             }

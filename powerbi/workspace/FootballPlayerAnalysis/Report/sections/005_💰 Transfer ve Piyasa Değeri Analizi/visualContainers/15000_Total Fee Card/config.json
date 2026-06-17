@@ -1,5 +1,5 @@
 {
-  "name": "10938d7c8e1a31a6c425",
+  "name": "e55be8bdbcb32fe34d4a",
   "layouts": [
     {
       "id": 0,
@@ -86,7 +86,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "20D"
+                  "Value": "18D"
                 }
               }
             },
@@ -175,7 +175,7 @@
             "radius": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             }
@@ -206,14 +206,14 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "60D"
+                  "Value": "70D"
                 }
               }
             },
             "blur": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "6D"
                 }
               }
             },
@@ -247,7 +247,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Toplam Transfer Hacmi'"
+                  "Value": "'Toplam Hacim'"
                 }
               }
             },
@@ -268,7 +268,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },

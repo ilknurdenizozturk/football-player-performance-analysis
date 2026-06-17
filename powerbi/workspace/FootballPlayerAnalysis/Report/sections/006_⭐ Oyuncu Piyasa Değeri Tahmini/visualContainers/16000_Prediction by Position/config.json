@@ -1,5 +1,5 @@
 {
-  "name": "48d50b88d125e111feb5",
+  "name": "8b67c00a69b995fd3db6",
   "layouts": [
     {
       "id": 0,
@@ -126,7 +126,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -178,7 +178,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -205,7 +205,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -255,85 +255,6 @@
                       "Value": "'#119A91'"
                     }
                   }
-                }
-              }
-            }
-          }
-        }
-      ],
-      "referenceLine": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Mean'"
-                }
-              }
-            },
-            "label": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Ortalama Tahmin'"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#119A91'"
-                    }
-                  }
-                }
-              }
-            },
-            "lineStyle": {
-              "expr": {
-                "Literal": {
-                  "Value": "'dashed'"
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "30D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "tooltip": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'VisualsPage'"
-                }
-              }
-            },
-            "reportsPageId": {
-              "expr": {
-                "Literal": {
-                  "Value": "'tooltip_pred_p012'"
                 }
               }
             }
@@ -469,7 +390,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ortalama Tahmin Değeri — Pozisyon Bazlı'"
+                  "Value": "'Tahmin Değeri (Poz.)'"
                 }
               }
             },
@@ -490,7 +411,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             },

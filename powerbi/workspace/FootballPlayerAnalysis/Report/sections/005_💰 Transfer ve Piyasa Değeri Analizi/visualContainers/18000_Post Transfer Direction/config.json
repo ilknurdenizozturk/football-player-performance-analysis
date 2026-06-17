@@ -1,5 +1,5 @@
-﻿{
-  "name": "5d4f378a6929c9a4928c",
+{
+  "name": "1c4d73ece1a64f57c0fc",
   "layouts": [
     {
       "id": 0,
@@ -129,7 +129,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -181,34 +181,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "tooltip": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'VisualsPage'"
-                }
-              }
-            },
-            "reportsPageId": {
-              "expr": {
-                "Literal": {
-                  "Value": "'tooltip_transfer_p011'"
+                  "Value": "8D"
                 }
               }
             }
@@ -272,7 +245,7 @@
             "radius": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             }
@@ -303,14 +276,14 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "60D"
+                  "Value": "70D"
                 }
               }
             },
             "blur": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "6D"
                 }
               }
             },
@@ -344,7 +317,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Transfer Sonrası Değer Değişimi — Yön'"
+                  "Value": "'Değer Yönü'"
                 }
               }
             },
@@ -365,7 +338,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             },

@@ -1,5 +1,5 @@
 {
-  "name": "e7998a269f9d2b68fe3c",
+  "name": "45ad90a446759ceed355",
   "layouts": [
     {
       "id": 0,
@@ -24,10 +24,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "v5 Ensemble  ·  R² = 0.976  ·  MAE = €781K  ·  WAPE = %12.5  ·  7.841 aktif oyuncu  ·  Kalite tabanlı yönlendirme",
+                    "value": "ML v5 Ensemble  |  R2=0.976, WAPE=%12.5  |  %90 güven aralığı  |  Kalite tabanlı yönlendirme",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
+                      "fontSize": "7.5pt",
                       "color": "#C8F5C0"
                     }
                   }

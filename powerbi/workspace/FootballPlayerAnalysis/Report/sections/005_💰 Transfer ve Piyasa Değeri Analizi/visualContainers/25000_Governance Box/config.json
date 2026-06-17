@@ -1,5 +1,5 @@
 {
-  "name": "431bf5cbe21de5afe22d",
+  "name": "4a534f1eb6b015ddfe63",
   "layouts": [
     {
       "id": 0,
@@ -24,10 +24,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "📌 ANALİTİK BULGULAR",
+                    "value": "ANALİTİK BULGULAR",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "10pt",
+                      "fontSize": "11pt",
                       "color": "#FFFFFF"
                     }
                   }
@@ -48,53 +48,67 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Transfer fiyatı/değer oranı pozisyon ve sezona göre sistematik eğilimler gösterir: forvette prim, kalecide iskonto baskındır.",
+                    "value": "• Transferlerin ~%60'ı piyasa değerinin altında gerçekleşir — kulüpler sistematik olarak iskontolu alım yapar.",
                     "textStyle": {
-                      "fontSize": "8.5pt",
-                      "color": "#E8F5E9"
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ],
-                "horizontalAlignment": "Left",
-                "paragraphStyle": {
-                  "fontFamily": "Segoe UI",
-                  "fontSize": "8.5pt"
-                },
-                "spacingAfter": 60
+                "spaceAfter": 2
               },
               {
                 "textRuns": [
                   {
-                    "value": "• Sezon filtresiyle 2016–2020 bütçe döngüsü izole edilebilir. \"Değer Arttı\" filtresi scouting doğrulaması için kullanın.",
+                    "value": "• Forvetler prim, kaleciler iskonto ile transfer edilir: pozisyon, fiyatlamayı doğrudan belirler.",
                     "textStyle": {
-                      "fontSize": "8.5pt",
-                      "color": "#E8F5E9"
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ],
-                "horizontalAlignment": "Left",
-                "paragraphStyle": {
-                  "fontFamily": "Segoe UI",
-                  "fontSize": "8.5pt"
-                },
-                "spacingAfter": 60
+                "spaceAfter": 2
               },
               {
                 "textRuns": [
                   {
-                    "value": "• Prim >%30 → rekabetçi ihale/yıldız etkisi. İskonto >%30 → yaş/sakatlık riski sinyali. Her ikisi de due diligence tetikleyicisidir.",
+                    "value": "• 2016–2020 zirve döneminin ardından transfer bütçeleri daralma eğilimindedir.",
                     "textStyle": {
-                      "fontSize": "8.5pt",
-                      "color": "#E8F5E9"
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ],
-                "horizontalAlignment": "Left",
-                "paragraphStyle": {
-                  "fontFamily": "Segoe UI",
-                  "fontSize": "8.5pt"
-                },
-                "spacingAfter": 60
+                "spaceAfter": 2
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• 'Değer Arttı' filtresi: gerçekten değer yaratan transferleri izole edin.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 2
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Yüksek prim transferler (>%30) çoğunlukla yıldız oyuncu veya rekabetçi teklif durumlarıdır.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 2
               }
             ]
           }
@@ -158,58 +172,6 @@
               "expr": {
                 "Literal": {
                   "Value": "8D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "dropShadow": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#6FA56D'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "60D"
-                }
-              }
-            },
-            "blur": {
-              "expr": {
-                "Literal": {
-                  "Value": "8D"
-                }
-              }
-            },
-            "angle": {
-              "expr": {
-                "Literal": {
-                  "Value": "45D"
-                }
-              }
-            },
-            "distance": {
-              "expr": {
-                "Literal": {
-                  "Value": "4D"
                 }
               }
             }

@@ -1,5 +1,5 @@
 {
-  "name": "69350ae3dee49f53f47d",
+  "name": "a85f62dced1bbefb731a",
   "layouts": [
     {
       "id": 0,
@@ -27,7 +27,7 @@
                     "value": "Oyuncu Piyasa Değeri Tahmini",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "22pt",
+                      "fontSize": "20pt",
                       "color": "#FFFFFF"
                     }
                   }
