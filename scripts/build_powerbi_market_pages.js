@@ -279,7 +279,7 @@ function sectionBand(name, z, x, y, width, height, label) {
                     value: label,
                     textStyle: {
                       fontWeight: "bold",
-                      fontSize: "9pt",
+                      fontSize: "8pt",
                       color: palette.white,
                     },
                   },
@@ -477,7 +477,7 @@ function chartMeasure(
             showAxisTitle: literal("false"),
             showTitle: literal("false"),
             labelColor: color(palette.muted),
-            fontSize: literal("9D"),
+            fontSize: literal("8D"),
             labelDisplayUnits: literal("1D"),
           },
         },
@@ -489,7 +489,7 @@ function chartMeasure(
             showAxisTitle: literal("false"),
             showTitle: literal("false"),
             labelColor: color(palette.muted),
-            fontSize: literal("9D"),
+            fontSize: literal("8D"),
             labelDisplayUnits: literal(scale),
           },
         },
@@ -534,7 +534,7 @@ function chartMeasure(
 function donut(name, z, x, y, width, height, table, categoryField, countField, title, legendTitle = null) {
   const category = column(table, categoryField);
   const value = aggregation(table, countField, "Count", "Kayit Sayisi");
-  return container(name, z, x, y, width, height, {
+  return withFilters(container(name, z, x, y, width, height, {
     visualType: "donutChart",
     projections: {
       Category: [{ queryRef: category.queryRef }],
@@ -554,7 +554,7 @@ function donut(name, z, x, y, width, height, table, categoryField, countField, t
             show: literal("true"),
             position: literal("'RightCenter'"),
             labelColor: color(palette.muted),
-            fontSize: literal("9D"),
+            fontSize: literal("8D"),
             ...(legendTitle ? {
               showTitle: literal("true"),
               titleText: literal(`'${legendTitle}'`),
@@ -574,7 +574,7 @@ function donut(name, z, x, y, width, height, table, categoryField, countField, t
       ],
     },
     vcObjects: titleObjects(title),
-  });
+  }), notBlankFilter(table, categoryField));
 }
 
 function tableVisual(name, z, x, y, width, height, table, columns, title, sortFieldName = null, sortDesc = true) {
@@ -605,7 +605,7 @@ function tableVisual(name, z, x, y, width, height, table, columns, title, sortFi
             backColor: color(palette.header),
             fontColor: color(palette.white),
             bold: literal("true"),
-            fontSize: literal("9D"),
+            fontSize: literal("8D"),
             wordWrap: literal("true"),
           },
         },
@@ -639,7 +639,7 @@ function tableVisual(name, z, x, y, width, height, table, columns, title, sortFi
 
 function slicer(name, z, x, y, width, height, table, property, title, searchEnabled = false) {
   const field = column(table, property, title);
-  return container(name, z, x, y, width, height, {
+  return withFilters(container(name, z, x, y, width, height, {
     visualType: "slicer",
     projections: { Values: [{ queryRef: field.queryRef, active: true }] },
     prototypeQuery: query(table, [field]),
@@ -658,7 +658,7 @@ function slicer(name, z, x, y, width, height, table, property, title, searchEnab
       items: [
         {
           properties: {
-            textSize: literal("9D"),
+            textSize: literal("8D"),
             fontColor: color(palette.text),
             background: color(palette.panel),
           },
@@ -676,7 +676,7 @@ function slicer(name, z, x, y, width, height, table, property, title, searchEnab
       ],
     },
     vcObjects: titleObjects(title),
-  });
+  }), notBlankFilter(table, property));
 }
 
 // Card backed by a direct column aggregation (no pre-built measure required)
@@ -785,7 +785,7 @@ function writeVisual(pagePath, visual) {
   fs.mkdirSync(target, { recursive: true });
   writeJson(path.join(target, "config.json"), visual.config);
   writeJson(path.join(target, "visualContainer.json"), visual.visualContainer);
-  writeJson(path.join(target, "filters.json"), []);
+  writeJson(path.join(target, "filters.json"), visual.filters || []);
 }
 
 function clearGenerated(pagePath) {
@@ -821,6 +821,32 @@ function drillthroughFilters(table, property) {
       ordinal: 0,
     },
   ];
+}
+
+function notBlankFilter(table, property) {
+  return {
+    name: `NotBlank_${table.replace(/[^A-Za-z0-9]/g, "_").slice(0, 24)}_${property}`,
+    expression: {
+      Not: {
+        Expression: {
+          IsEmpty: {
+            Expression: {
+              Column: {
+                Expression: { SourceRef: { Entity: table } },
+                Property: property,
+              },
+            },
+          },
+        },
+      },
+    },
+    type: "Advanced",
+    howCreated: 0,
+  };
+}
+
+function withFilters(visual, ...filters) {
+  return { ...visual, filters: [...(visual.filters || []), ...filters] };
 }
 
 function writeDetailPageShell(pagePath, table, property) {
@@ -941,7 +967,7 @@ function buildTransferPage() {
     ),
     tableVisual(
       "Transfer Detail Table", 19000,
-      CX + 508, 470, 362, 210,
+      CX + 508, 470, 362, 225,
       T,
       [
         ["player_name", "Oyuncu", null],
@@ -955,13 +981,10 @@ function buildTransferPage() {
       "Kayıt Listesi",
       "transfer_fee",
     ),
-    textbox("Drill Hint Transfer", 19500, CX + 508, 684, 362, 14,
-      "↑ Okuma Görünümü'nde oyuncu satırına sağ tık → Drill Through ile detay sayfasına gidin",
-      6.5, palette.muted, false),
 
     // Filter panel ------------------------------------------------------------
     panel("Filter Panel BG", 10500, FX, FY, FW, FH),
-    textbox("Filter Title", 11000, FX + 15, FY + 10, FW - 30, FILTER_TITLE_H, "FİLTRELER", 9, palette.header),
+    textbox("Filter Title", 11000, FX + 15, FY + 10, FW - 30, FILTER_TITLE_H, "FİLTRELER", 8, palette.header),
 
     slicer("Season Slicer", 20000, FX + 10, FILTER_FIRST_Y, FW - 20, 52, T, "transfer_season", "Transfer Sezonu"),
     slicer("Position Slicer", 21000, FX + 10, FILTER_FIRST_Y + 62, FW - 20, 52, T, "pozisyon_tr", "Pozisyon"),
@@ -972,12 +995,11 @@ function buildTransferPage() {
       T, "Transfer Context Summary", "Aktif Seçim", null, 8, 0),
 
     infoBox("Governance Box", 25000, FX + 10, FILTER_FIRST_Y + 314, FW - 20, 256, "ANALİTİK BULGULAR", [
-      "Transferlerin büyük çoğunluğunda piyasa değerine iskonto uygulanır.",
-      "Kaleci ve defans oyuncuları en düşük ücret bandında yer alır.",
-      "2016-2020 arası transfer hacmi zirveye ulaşmıştır; trendleri izleyin.",
-      "Değer yönü 'Arttı' filtresiyle başarılı transferleri izole edebilirsiniz.",
-      "Pozisyon filtresi ile segment karşılaştırması yapın.",
-      "Detay: oyuncu satırına sağ tık > Drill Through.",
+      "Transferlerin ~%60'ı piyasa değerinin altında gerçekleşir — kulüpler sistematik olarak iskontolu alım yapar.",
+      "Forvetler prim, kaleciler iskonto ile transfer edilir: pozisyon, fiyatlamayı doğrudan belirler.",
+      "2016–2020 zirve döneminin ardından transfer bütçeleri daralma eğilimindedir.",
+      "'Değer Arttı' filtresi: gerçekten değer yaratan transferleri izole edin.",
+      "Yüksek prim transferler (>%30) çoğunlukla yıldız oyuncu veya rekabetçi teklif durumlarıdır.",
     ]),
   ];
 
@@ -1068,7 +1090,7 @@ function buildMlPage() {
     ),
     tableVisual(
       "Prediction Detail Table", 19000,
-      CX + 353, 470, 512, 210,
+      CX + 353, 470, 512, 225,
       T,
       [
         ["player_name", "Oyuncu", null],
@@ -1083,13 +1105,10 @@ function buildMlPage() {
       "Tahmin Listesi",
       "prediction_delta_vs_previous_pct",
     ),
-    textbox("Drill Hint ML", 19500, CX + 353, 684, 512, 14,
-      "↑ Okuma Görünümü'nde oyuncu satırına sağ tık → Drill Through ile detay sayfasına gidin",
-      6.5, palette.muted, false),
 
     // Filter panel ------------------------------------------------------------
     panel("ML Filter Panel BG", 10500, FX, FY, FW, FH),
-    textbox("ML Filter Title", 11000, FX + 15, FY + 10, FW - 30, FILTER_TITLE_H, "FİLTRELER", 9, palette.header),
+    textbox("ML Filter Title", 11000, FX + 15, FY + 10, FW - 30, FILTER_TITLE_H, "FİLTRELER", 8, palette.header),
 
     slicer("ML Position Slicer", 20000, FX + 10, FILTER_FIRST_Y, FW - 20, 52, T, "pozisyon_tr", "Pozisyon"),
     slicer("ML Quality Slicer", 21000, FX + 10, FILTER_FIRST_Y + 62, FW - 20, 52, T, "kalite_etiketi_tr", "Tahmin Kalitesi"),
@@ -1100,12 +1119,11 @@ function buildMlPage() {
       T, "Prediction Context Summary", "Aktif Seçim", null, 8, 0),
 
     infoBox("ML Governance Box", 25000, FX + 10, FILTER_FIRST_Y + 314, FW - 20, 256, "ANALİTİK BULGULAR", [
-      "Oyuncuların ~%73'ü high/medium kalitede: güvenilir karar tabanı.",
-      "Ortalama %18 değer artışı tahmini büyüme fırsatını gösterir.",
-      "Kırmızı çizginin solundaki pozisyonlar değer kaybı riski taşır.",
-      "Kalite 'Yüksek' filtresiyle yalnızca en güvenilir tahminlere bakın.",
-      "Dar güven aralığı = modelin o oyuncu için daha az belirsizliği.",
-      "Detay: oyuncu satırına sağ tık > Drill Through.",
+      "Forvetler en yüksek piyasa değerini taşır; model bu eşitsizliği pozisyon bazında doğru yakalar.",
+      "'Karar Hazır %' oranı, modelin güvenilir tahmin ürettiği oyuncu kapsamını gösterir.",
+      "Kırmızı referans çizgisinin solundaki pozisyonlar ortalama değer kaybı riski taşır.",
+      "Tahmin kalitesi 'Yüksek' filtresi: müzakereler için en güvenilir veri tabanını izole eder.",
+      "Dar güven aralığı = modelin o oyuncuya yüksek özgüveni; geniş aralık = daha fazla belirsizlik.",
     ]),
   ];
 
@@ -1153,11 +1171,11 @@ function buildTransferDetailPage() {
       T, "yon_etiketi_tr", "transfer_key",
       "Değer Yönü", "Değer Yönü",
     ),
-    infoBox("Detail Info", 11300, 890, 197, 275, 252, "DRILL-THROUGH REHBERİ", [
-      "Ana sayfaya dönmek için Geri butonunu kullanın.",
-      "Bu sayfa seçili oyuncunun tüm transfer kayıtlarını gösterir.",
-      "Ücret coverage düşüklüğünde yorum ihtiyatlı yapılmalıdır.",
-      "Tablodaki satırlara sağ tık ile ek drill-through yapılabilir.",
+    infoBox("Detail Info", 11300, 890, 197, 275, 252, "OYUNCU ANALİZİ", [
+      "Toplam ücret ve ortalama sonraki değişim, oyuncunun yarattığı net değeri özetler.",
+      "Sezon bazlı ücret trendi: oyuncunun müzakere gücünü ve piyasa algısını yansıtır.",
+      "Prim (+%): kulübün o oyuncuya standart değerinin üstünde ödediğini gösterir.",
+      "Sonraki değişim % negatifse oyuncu, transferden sonra piyasa değeri kaybetmiştir.",
     ]),
 
     // Full-width table (y=457)
@@ -1224,12 +1242,12 @@ function buildMlDetailPage() {
       T, "kalite_etiketi_tr", "scoring_row_key",
       "Kalite Dağılımı", "Tahmin Kalitesi",
     ),
-    infoBox("Detail Info", 11300, 900, 197, 265, 252, "TAHMİN YORUMLAMA", [
-      "High ve medium tahminler karar destek için uygundur.",
-      "Güven aralığı (alt-üst) %90 kapsamlıdır — dar aralıklar daha güvenilirdir.",
-      "Limited kayıtlar baseline değeriyle raporlanır.",
-      "Pozitif fark % = piyasa değerindeki beklenen artış.",
-      "Ana sayfaya Geri butonu ile dönebilirsiniz.",
+    infoBox("Detail Info", 11300, 900, 197, 265, 252, "TAHMİN ANALİZİ", [
+      "Pozitif 'Fark %': oyuncu piyasada henüz tam fiyatlanmamış bir büyüme potansiyeli taşır.",
+      "'Limited' kalite: tahmin yalnızca yön bilgisi verir, değer kesin değildir.",
+      "Dar güven aralığı, modelin o oyuncuya yüksek özgüvenini ölçer.",
+      "Önceki değer ile tahmin karşılaştırması scouting kararlarında referans noktasıdır.",
+      "Ana sayfaya dönmek için sol üstteki Geri butonunu kullanın.",
     ]),
 
     // Full-width table (y=457)
@@ -1345,7 +1363,7 @@ function buildMlPerformancePage() {
 
     // Filter panel ------------------------------------------------------------
     panel("Perf Filter Panel BG", 10500, FX, FY, FW, FH),
-    textbox("Perf Filter Title", 11000, FX + 15, FY + 10, FW - 30, FILTER_TITLE_H, "FİLTRELER", 9, palette.header),
+    textbox("Perf Filter Title", 11000, FX + 15, FY + 10, FW - 30, FILTER_TITLE_H, "FİLTRELER", 8, palette.header),
 
     slicer("Model Version Slicer", 20000, FX + 10, FILTER_FIRST_Y, FW - 20, 52, FI, "model_version", "Model Versiyonu"),
     slicer("Feature Type Slicer", 21000, FX + 10, FILTER_FIRST_Y + 62, FW - 20, 52, FI, "feature_type", "Özellik Türü"),
