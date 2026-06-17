@@ -358,6 +358,98 @@
         }
       ]
     },
+    "conditionalFormatting": [
+      {
+        "selector": {
+          "metadata": {
+            "roles": {"Values": true},
+            "queryName": "ml_player_market_value_current_predictions.prediction_delta_vs_previous_pct"
+          }
+        },
+        "properties": {
+          "fontColorSeries": [
+            {
+              "properties": {
+                "show": {"expr": {"Literal": {"Value": "true"}}},
+                "isDefault": {"expr": {"Literal": {"Value": "false"}}},
+                "conditionFormatting": {
+                  "conditions": [
+                    {
+                      "operator": "GreaterThan",
+                      "value": {"expr": {"Literal": {"Value": "0D"}}},
+                      "color": {"solid": {"color": {"expr": {"Literal": {"Value": "'#119A91'"}}}}}
+                    },
+                    {
+                      "operator": "LessThan",
+                      "value": {"expr": {"Literal": {"Value": "0D"}}},
+                      "color": {"solid": {"color": {"expr": {"Literal": {"Value": "'#E63946'"}}}}}
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "selector": {
+          "metadata": {
+            "roles": {"Values": true},
+            "queryName": "ml_player_market_value_current_predictions.predicted_market_value_eur"
+          }
+        },
+        "properties": {
+          "dataBarSeries": [
+            {
+              "properties": {
+                "show": {"expr": {"Literal": {"Value": "true"}}},
+                "isDefault": {"expr": {"Literal": {"Value": "false"}}},
+                "showDataBarOnly": {"expr": {"Literal": {"Value": "false"}}},
+                "positiveColor": {"solid": {"color": {"expr": {"Literal": {"Value": "'#119A91'"}}}}},
+                "negativeColor": {"solid": {"color": {"expr": {"Literal": {"Value": "'#E63946'"}}}}}
+              }
+            }
+          ]
+        }
+      },
+      {
+        "selector": {
+          "metadata": {
+            "roles": {"Values": true},
+            "queryName": "ml_player_market_value_current_predictions.kalite_etiketi_tr"
+          }
+        },
+        "properties": {
+          "backgroundColorSeries": [
+            {
+              "properties": {
+                "show": {"expr": {"Literal": {"Value": "true"}}},
+                "isDefault": {"expr": {"Literal": {"Value": "false"}}},
+                "conditionFormatting": {
+                  "conditions": [
+                    {
+                      "operator": "Equals",
+                      "value": {"expr": {"Literal": {"Value": "'Yüksek'"}}},
+                      "color": {"solid": {"color": {"expr": {"Literal": {"Value": "'#E8F5E9'"}}}}}
+                    },
+                    {
+                      "operator": "Equals",
+                      "value": {"expr": {"Literal": {"Value": "'Orta'"}}},
+                      "color": {"solid": {"color": {"expr": {"Literal": {"Value": "'#FFF8E1'"}}}}}
+                    },
+                    {
+                      "operator": "Equals",
+                      "value": {"expr": {"Literal": {"Value": "'Sınırlı'"}}},
+                      "color": {"solid": {"color": {"expr": {"Literal": {"Value": "'#FBE9E7'"}}}}}
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
     "vcObjects": {
       "background": [
         {

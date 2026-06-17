@@ -1,9 +1,40 @@
 import argparse
+import io
 import json
 import pathlib
+import re
 import shutil
 import tempfile
 import zipfile
+
+
+def patch_data_mashup(mashup_bytes: bytes) -> bytes:
+    """Patch DataMashup ZIP to add UseStorageApi=false to all BigQuery connections."""
+    buf = io.BytesIO(mashup_bytes)
+    with zipfile.ZipFile(buf, "r") as mz:
+        files = {name: mz.read(name) for name in mz.namelist()}
+
+    replacements = 0
+    for name in list(files):
+        if name.endswith(".m"):
+            text = files[name].decode("utf-8")
+            patched, count = re.subn(
+                r"GoogleBigQuery\.Database\(\s*\)",
+                "GoogleBigQuery.Database([UseStorageApi=false])",
+                text,
+            )
+            if count:
+                files[name] = patched.encode("utf-8")
+                replacements += count
+
+    if replacements:
+        print(f"  DataMashup: patched {replacements} BigQuery connection(s) → UseStorageApi=false")
+
+    out = io.BytesIO()
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as mz:
+        for name, data in files.items():
+            mz.writestr(name, data)
+    return out.getvalue()
 
 
 TARGET_PAGES = {
@@ -112,9 +143,14 @@ def patch_pbix(source: pathlib.Path, target: pathlib.Path, report_sections: path
         try:
             with zipfile.ZipFile(temp_path, "w") as output_zip:
                 for item in input_zip.infolist():
-                    if item.filename in {"Report/Layout", "SecurityBindings"}:
+                    if item.filename == "SecurityBindings":
                         continue
-                    output_zip.writestr(item, input_zip.read(item.filename))
+                    elif item.filename == "Report/Layout":
+                        continue
+                    elif item.filename == "DataMashup":
+                        output_zip.writestr(item, patch_data_mashup(input_zip.read(item.filename)))
+                    else:
+                        output_zip.writestr(item, input_zip.read(item.filename))
 
                 output_zip.writestr("Report/Layout", layout_bytes)
 

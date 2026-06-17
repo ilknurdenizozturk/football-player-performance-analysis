@@ -319,6 +319,33 @@
             }
           }
         }
+      ],
+      "tooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'VisualsPage'"
+                }
+              }
+            },
+            "reportsPageId": {
+              "expr": {
+                "Literal": {
+                  "Value": "'tooltip_pred_p012'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "vcObjects": {

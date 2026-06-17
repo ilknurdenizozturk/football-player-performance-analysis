@@ -5,6 +5,7 @@
 
 $tum  = 'T' + [char]0x00FC + 'm'          # Tüm
 $ulke = [char]0x00FC + 'lkeler'            # ülkeler
+$Ulke = [char]0x00DC + 'lkeler'            # Ülkeler (capital)
 
 $bin = 'C:\Program Files\WindowsApps\Microsoft.MicrosoftPowerBIDesktop_2.155.756.0_x64__8wekyb3d8bbwe\bin'
 Add-Type -Path (Join-Path $bin 'Microsoft.AnalysisServices.Server.Core.dll')
@@ -234,6 +235,91 @@ $measures = @(
         Format = '#,0'
         Folder = 'ML Model Quality\01 Gates'
         Description = 'Total number of quality gates evaluated.'
+    },
+
+    # --- NEW measures added in session 2026-06-17 ---
+
+    @{
+        Table = 'fct_transfer_market_value_analysis'
+        Name = 'Page 005 Dynamic Title'
+        Expression = ('VAR s = SELECTEDVALUE(fct_transfer_market_value_analysis[transfer_season], "' + $tum + ' Sezonlar") ' +
+                      'VAR p = SELECTEDVALUE(fct_transfer_market_value_analysis[pozisyon_tr], "' + $tum + ' Pozisyonlar") ' +
+                      'RETURN "' + [char]::ConvertFromUtf32(0x1F4B0) +
+                      ' Transfer & Piyasa De' + [char]0x011F + 'eri  ' + [char]0x2502 +
+                      '  " & s & "  ' + [char]0x2502 + '  " & p')
+        Format = ''
+        Folder = 'Market Value Analysis\05 Dynamic Context'
+        Description = 'Dynamic page title driven by active slicer selections.'
+    },
+    @{
+        Table = 'fct_transfer_market_value_analysis'
+        Name = 'High Premium Transfer Count'
+        Expression = 'CALCULATE([Transfer Count], fct_transfer_market_value_analysis[fee_market_value_difference_pct] > 30)'
+        Format = '#,0 "transfer"'
+        Folder = 'Market Value Analysis\03 Commercial Value'
+        Description = 'Transfers where the fee exceeds market value by more than 30 percent — competitive bidding signal.'
+    },
+    @{
+        Table = 'fct_transfer_market_value_analysis'
+        Name = 'Transfer Value Index'
+        Expression = 'DIVIDE(CALCULATE(SUM(fct_transfer_market_value_analysis[transfer_fee]), fct_transfer_market_value_analysis[has_known_transfer_fee] = TRUE()), CALCULATE(SUM(fct_transfer_market_value_analysis[market_value_baseline]), fct_transfer_market_value_analysis[has_market_value_baseline] = TRUE()))'
+        Format = '0.00x'
+        Folder = 'Market Value Analysis\03 Commercial Value'
+        Description = 'Ratio of total known fees to total market value baselines — market efficiency index.'
+    },
+    @{
+        Table = 'fct_transfer_market_value_analysis'
+        Name = 'YoY Avg Fee Change %'
+        Expression = ('VAR CY = CALCULATE([Average Known Transfer Fee]) ' +
+                      'VAR PY = CALCULATE([Average Known Transfer Fee], FILTER(ALL(fct_transfer_market_value_analysis[transfer_year]), fct_transfer_market_value_analysis[transfer_year] = MAX(fct_transfer_market_value_analysis[transfer_year]) - 1)) ' +
+                      'RETURN DIVIDE(CY - PY, PY)')
+        Format = '+0.0%;-0.0%;0.0%'
+        Folder = 'Market Value Analysis\03 Commercial Value'
+        Description = 'Year-over-year change in average known transfer fee.'
+    },
+    @{
+        Table = 'fct_transfer_market_value_analysis'
+        Name = 'Max Known Transfer Fee'
+        Expression = 'CALCULATE(MAX(fct_transfer_market_value_analysis[transfer_fee]), fct_transfer_market_value_analysis[has_known_transfer_fee] = TRUE())'
+        Format = ([char]0x20AC + '0.0')
+        Folder = 'Market Value Analysis\03 Commercial Value'
+        Description = 'Maximum known transfer fee in the active filter context.'
+    },
+    @{
+        Table = 'ml_player_market_value_current_predictions'
+        Name = 'ML Page Dynamic Title'
+        Expression = ('VAR p = SELECTEDVALUE(ml_player_market_value_current_predictions[pozisyon_tr], "' + $tum + ' Pozisyonlar") ' +
+                      'VAR c = SELECTEDVALUE(ml_player_market_value_current_predictions[competition_country_name], "' + $tum + ' ' + $Ulke + '") ' +
+                      'RETURN "' + [char]0x2B50 +
+                      ' Piyasa De' + [char]0x011F + 'eri Tahmini  ' + [char]0x2502 +
+                      '  " & p & "  ' + [char]0x2502 + '  " & c')
+        Format = ''
+        Folder = 'Market Value Prediction\05 Dynamic Context'
+        Description = 'Dynamic page title driven by active slicer selections.'
+    },
+    @{
+        Table = 'ml_player_market_value_current_predictions'
+        Name = ('B' + [char]0x00FC + 'y' + [char]0x00FC + 'k Art' + [char]0x0131 + [char]0x015F + ' Oyuncu Count')
+        Expression = 'CALCULATE([Scored Player Count], ml_player_market_value_current_predictions[prediction_delta_vs_previous_pct] > 20)'
+        Format = '#,0 "oyuncu"'
+        Folder = 'Market Value Prediction\04 Opportunity'
+        Description = 'Players with predicted upside greater than 20 percent — high-opportunity targets.'
+    },
+    @{
+        Table = 'ml_player_market_value_current_predictions'
+        Name = 'Average Prediction Confidence %'
+        Expression = '1 - [Average Relative Prediction Interval %]'
+        Format = '0.0%'
+        Folder = 'Market Value Prediction\02 Trust'
+        Description = 'Inverse of average relative interval — higher means more confident predictions.'
+    },
+    @{
+        Table = 'ml_player_market_value_current_predictions'
+        Name = 'High Upside Decision Ready Count'
+        Expression = 'CALCULATE([Decision Ready Player Count], ml_player_market_value_current_predictions[prediction_delta_vs_previous_pct] > 0)'
+        Format = '#,0 "oyuncu"'
+        Folder = 'Market Value Prediction\04 Opportunity'
+        Description = 'Decision-ready players with positive predicted upside — actionable long list.'
     }
 )
 
@@ -514,6 +600,17 @@ try {
             Table = 'ml_player_market_value_current_predictions'
             Name = 'Pozisyon TR'
             Expression = 'SWITCH(ml_player_market_value_current_predictions[position], "Attack", "Forvet", "Defender", "Defans", "Goalkeeper", "Kaleci", "Midfield", "Orta Saha", "Missing", "Bilinmiyor", ml_player_market_value_current_predictions[position])'
+        },
+        @{
+            Table = 'fct_transfer_market_value_analysis'
+            Name = 'fee_range_category_tr'
+            Expression = ('SWITCH(TRUE(), ' +
+                          '[transfer_fee] >= 50000000, "Mega Transfer (' + [char]0x2265 + '50M' + [char]0x20AC + ')", ' +
+                          '[transfer_fee] >= 20000000, "B' + [char]0x00FC + 'y' + [char]0x00FC + 'k Transfer (20-50M' + [char]0x20AC + ')", ' +
+                          '[transfer_fee] >= 5000000, "Orta Transfer (5-20M' + [char]0x20AC + ')", ' +
+                          '[transfer_fee] > 0, "K' + [char]0x00FC + [char]0x00E7 + [char]0x00FC + 'k Transfer (<5M' + [char]0x20AC + ')", ' +
+                          'NOT([has_known_transfer_fee]), "' + [char]0x00DC + 'cretsiz/Bilinmiyor", ' +
+                          '"Veri Yok")')
         }
     )
 
@@ -541,6 +638,24 @@ try {
     foreach ($tblEntry in $affectedCalcColTables.GetEnumerator()) {
         $tblEntry.Value.RequestRefresh([Microsoft.AnalysisServices.Tabular.RefreshType]::Calculate) | Out-Null
         Write-Output "Recalculate requested: $($tblEntry.Key)"
+    }
+
+    # --- Fix BigQuery Storage API error 131 (UseStorageApi=false) ---
+    $bigqueryFixed = 0
+    foreach ($table in $model.Tables) {
+        foreach ($partition in $table.Partitions) {
+            if ($partition -is [Microsoft.AnalysisServices.Tabular.MPartition]) {
+                $expr = $partition.Expression
+                if ($expr -match 'GoogleBigQuery\.Database\(\s*\)') {
+                    $partition.Expression = $expr -replace 'GoogleBigQuery\.Database\(\s*\)', 'GoogleBigQuery.Database([UseStorageApi=false])'
+                    $bigqueryFixed++
+                    Write-Output "Fixed BigQuery connection: $($table.Name)"
+                }
+            }
+        }
+    }
+    if ($bigqueryFixed -gt 0) {
+        Write-Output "Total BigQuery connections fixed: $bigqueryFixed"
     }
 
     $model.SaveChanges()

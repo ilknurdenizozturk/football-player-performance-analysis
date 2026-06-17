@@ -339,6 +339,61 @@
         }
       ]
     },
+    "conditionalFormatting": [
+      {
+        "selector": {
+          "metadata": {
+            "roles": {"Values": true},
+            "queryName": "fct_transfer_market_value_analysis.fee_market_value_difference_pct"
+          }
+        },
+        "properties": {
+          "fontColorSeries": [
+            {
+              "properties": {
+                "show": {"expr": {"Literal": {"Value": "true"}}},
+                "isDefault": {"expr": {"Literal": {"Value": "false"}}},
+                "conditionFormatting": {
+                  "conditions": [
+                    {
+                      "operator": "GreaterThan",
+                      "value": {"expr": {"Literal": {"Value": "0D"}}},
+                      "color": {"solid": {"color": {"expr": {"Literal": {"Value": "'#119A91'"}}}}}
+                    },
+                    {
+                      "operator": "LessThan",
+                      "value": {"expr": {"Literal": {"Value": "0D"}}},
+                      "color": {"solid": {"color": {"expr": {"Literal": {"Value": "'#E63946'"}}}}}
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "selector": {
+          "metadata": {
+            "roles": {"Values": true},
+            "queryName": "fct_transfer_market_value_analysis.transfer_fee"
+          }
+        },
+        "properties": {
+          "dataBarSeries": [
+            {
+              "properties": {
+                "show": {"expr": {"Literal": {"Value": "true"}}},
+                "isDefault": {"expr": {"Literal": {"Value": "false"}}},
+                "showDataBarOnly": {"expr": {"Literal": {"Value": "false"}}},
+                "positiveColor": {"solid": {"color": {"expr": {"Literal": {"Value": "'#119A91'"}}}}},
+                "negativeColor": {"solid": {"color": {"expr": {"Literal": {"Value": "'#E63946'"}}}}}
+              }
+            }
+          ]
+        }
+      }
+    ],
     "vcObjects": {
       "background": [
         {
