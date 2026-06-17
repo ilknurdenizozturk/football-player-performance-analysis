@@ -443,12 +443,6 @@ table ml_player_market_value_current_predictions
 
 		annotation SummarizationSetBy = Automatic
 
-	column pozisyon_tr = SWITCH([position], "Attack", "Forvet", "Midfield", "Orta Saha", "Defender", "Defans", "Goalkeeper", "Kaleci", "Bilinmiyor")
-		dataType: string
-		summarizeBy: none
-
-		annotation SummarizationSetBy = Automatic
-
 	column upside_kategori_tr = SWITCH(TRUE(), [prediction_delta_vs_previous_pct] > 20, "🟢 Büyük Artış (>%20)", [prediction_delta_vs_previous_pct] > 5, "🔵 Orta Artış (%5-20)", [prediction_delta_vs_previous_pct] > -5, "⚪ Stabil (±%5)", "🔴 Düşüş")
 		dataType: string
 		summarizeBy: none
