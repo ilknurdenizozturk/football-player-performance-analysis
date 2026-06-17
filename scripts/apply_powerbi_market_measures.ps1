@@ -1,7 +1,16 @@
 ﻿param(
-    [Parameter(Mandatory = $true)]
-    [int]$Port
+    [Parameter(Mandatory = $false)]
+    [int]$Port = 0
 )
+
+if ($Port -eq 0) {
+    $proc = Get-Process msmdsrv -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($null -eq $proc) { throw "Power BI Desktop açık değil veya msmdsrv bulunamadı." }
+    $portLine = netstat -ano | Select-String "LISTENING" | Select-String "\s$($proc.Id)$" | Select-Object -First 1
+    if ($null -eq $portLine) { throw "msmdsrv portu tespit edilemedi (PID $($proc.Id))." }
+    $Port = [int]($portLine.Line.Trim() -split '\s+')[1].Split(':')[-1]
+    Write-Output "msmdsrv otomatik tespit edildi: PID $($proc.Id) → Port $Port"
+}
 
 $tum  = 'T' + [char]0x00FC + 'm'          # Tüm
 $ulke = [char]0x00FC + 'lkeler'            # ülkeler
@@ -644,10 +653,11 @@ try {
     $bigqueryFixed = 0
     foreach ($table in $model.Tables) {
         foreach ($partition in $table.Partitions) {
-            if ($partition -is [Microsoft.AnalysisServices.Tabular.MPartition]) {
-                $expr = $partition.Expression
-                if ($expr -match 'GoogleBigQuery\.Database\(\s*\)') {
-                    $partition.Expression = $expr -replace 'GoogleBigQuery\.Database\(\s*\)', 'GoogleBigQuery.Database([UseStorageApi=false])'
+            $src = $partition.Source
+            if ($null -ne $src -and $src.GetType().Name -eq 'MPartitionSource') {
+                $expr = $src.Expression
+                if ($null -ne $expr -and $expr -match 'GoogleBigQuery\.Database\(\s*\)') {
+                    $src.Expression = $expr -replace 'GoogleBigQuery\.Database\(\s*\)', 'GoogleBigQuery.Database([UseStorageApi=false])'
                     $bigqueryFixed++
                     Write-Output "Fixed BigQuery connection: $($table.Name)"
                 }
@@ -656,6 +666,8 @@ try {
     }
     if ($bigqueryFixed -gt 0) {
         Write-Output "Total BigQuery connections fixed: $bigqueryFixed"
+    } else {
+        Write-Output "BigQuery: zaten düzeltilmiş veya partition bulunamadı."
     }
 
     $model.SaveChanges()
