@@ -1,0 +1,183 @@
+{
+  "name": "431bf5cbe21de5afe22d",
+  "layouts": [
+    {
+      "id": 0,
+      "position": {
+        "x": 985,
+        "y": 436,
+        "z": 25000,
+        "width": 270,
+        "height": 256,
+        "tabOrder": 25000
+      }
+    }
+  ],
+  "singleVisual": {
+    "visualType": "textbox",
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "ANALİTİK BULGULAR",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#FFFFFF"
+                    }
+                  }
+                ],
+                "horizontalAlignment": "Center"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "",
+                    "textStyle": {
+                      "fontSize": "4pt",
+                      "color": "#FFFFFF"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Transfer ücretinin piyasa değerine oranı pozisyon, sezon ve kulüp türüne göre sistematik eğilimler gösterir — fiyatlama verimsizliği tekrarlanabilirdir.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8.5pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 3
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Forvetler tutarlı prim, kaleciler iskonto ile fiyatlanır — pozisyon bilgisi müzakerenin kalibrasyon noktasıdır.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8.5pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 3
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• 2016–2020 bütçe zirvesinin ardından sezon bazlı harcama eğilimini filtre ile izole ederek piyasa döngüsünü gözlemleyebilirsiniz.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8.5pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 3
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• \"Değer Arttı\" filtresi: transferin ardından piyasa değeri artan oyuncuları seçer — scouting doğrulama aracı olarak kullanın.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8.5pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 3
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Prim >%30: rekabetçi ihale ya da yıldız etkisi. İskonto >%30: yaş / sakatlık riski sinyali. Her ikisi de due diligence gerektiren outlier bölgesidir.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8.5pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 3
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "vcObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#285D3D'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2E6B45'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

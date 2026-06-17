@@ -1,0 +1,183 @@
+{
+  "name": "fa9d9c44e1a2134f2725",
+  "layouts": [
+    {
+      "id": 0,
+      "position": {
+        "x": 985,
+        "y": 436,
+        "z": 25000,
+        "width": 270,
+        "height": 256,
+        "tabOrder": 25000
+      }
+    }
+  ],
+  "singleVisual": {
+    "visualType": "textbox",
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "ANALİTİK BULGULAR",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#FFFFFF"
+                    }
+                  }
+                ],
+                "horizontalAlignment": "Center"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "",
+                    "textStyle": {
+                      "fontSize": "4pt",
+                      "color": "#FFFFFF"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Model Performansı: R² = 0.976, MAE = €781K, WAPE = %12.5 — üretim kalitesi onaylanmış v5 ensemble.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8.5pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 3
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Forvetler en yüksek medyan tahmin değerine sahiptir; model bu pozisyon dinamiğini bilinçli kalibre eder.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8.5pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 3
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• \"Karar Hazır\" = %80 model + %20 baseline harmanlama; yüksek veri güveni eşiğindeki oyuncuları işaret eder.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8.5pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 3
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• \"Yüksek Kalite\" filtresi: tahmin güven aralığı dardır — transfer müzakerelerine doğrudan girdi olarak kullanılabilir.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8.5pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 3
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Geniş tahmin aralığı = yüksek belirsizlik; o oyuncu için ek veri toplanması ya da alternatif değerleme önerilir.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8.5pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ],
+                "spaceAfter": 3
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "vcObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#285D3D'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2E6B45'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

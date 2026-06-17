@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Drillthrough_fct_transfer_market_value_analysis_player_name",
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "fct_transfer_market_value_analysis"
+          }
+        },
+        "Property": "player_name"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 5,
+    "ordinal": 0
+  }
+]

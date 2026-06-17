@@ -1,0 +1,102 @@
+{
+  "id": 0,
+  "layoutOptimization": 0,
+  "pods": [
+    {
+      "boundSection": "d2bc1e6a078c5c5b125c",
+      "config": "{}",
+      "name": "0ce4a2fd971eb39022dd"
+    },
+    {
+      "boundSection": "25f58efd2bb140e62be9",
+      "config": "{}",
+      "name": "91aec87da8540bd3167d"
+    },
+    {
+      "boundSection": "292e3d92e92693c05047",
+      "config": "{}",
+      "name": "9a642f68c4ed12a4ada6"
+    },
+    {
+      "boundSection": "1f4c5c8000149b2e2be8",
+      "config": "{}",
+      "name": "846e876fee1a9576852e"
+    },
+    {
+      "boundSection": "24c53960ddc19662d824",
+      "config": "{}",
+      "name": "6dad5fb984063dd4471c"
+    },
+    {
+      "boundSection": "4c63ad904b1db6e0d156",
+      "config": "{}",
+      "name": "a4ab83c21207001485c0"
+    }
+  ],
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY25SU12",
+            "path": "BaseThemes/CY25SU12.json",
+            "type": 202
+          },
+          {
+            "name": "AccessibleTidal",
+            "path": "BuiltInThemes/AccessibleTidal.json",
+            "type": 201
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    },
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "57452169215971814.png",
+            "path": "57452169215971814.png",
+            "type": 100
+          },
+          {
+            "name": "58317669654115695.png",
+            "path": "58317669654115695.png",
+            "type": 100
+          },
+          {
+            "name": "54827512027331907.png",
+            "path": "54827512027331907.png",
+            "type": 100
+          },
+          {
+            "name": "5524522758602528.png",
+            "path": "5524522758602528.png",
+            "type": 100
+          },
+          {
+            "name": "5061175413510348275.png",
+            "path": "5061175413510348275.png",
+            "type": 100
+          },
+          {
+            "name": "FOOTBALL_PLAYER_PERFORMANCE_AN6499681784313924.png",
+            "path": "FOOTBALL_PLAYER_PERFORMANCE_AN6499681784313924.png",
+            "type": 100
+          },
+          {
+            "name": "FOOTBALL_PLAYER_PERFORMANCE_AN4269772881925902.png",
+            "path": "FOOTBALL_PLAYER_PERFORMANCE_AN4269772881925902.png",
+            "type": 100
+          }
+        ],
+        "name": "RegisteredResources",
+        "type": 1
+      }
+    }
+  ],
+  "theme": "AccessibleTidal"
+}

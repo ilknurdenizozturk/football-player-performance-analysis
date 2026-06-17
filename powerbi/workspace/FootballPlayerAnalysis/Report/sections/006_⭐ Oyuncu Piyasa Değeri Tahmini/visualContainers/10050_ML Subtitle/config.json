@@ -1,0 +1,57 @@
+{
+  "name": "e7998a269f9d2b68fe3c",
+  "layouts": [
+    {
+      "id": 0,
+      "position": {
+        "x": 310,
+        "y": 52,
+        "z": 10050,
+        "width": 680,
+        "height": 15,
+        "tabOrder": 10050
+      }
+    }
+  ],
+  "singleVisual": {
+    "visualType": "textbox",
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "v5 Ensemble  ·  R² = 0.976  ·  MAE = €781K  ·  WAPE = %12.5  ·  7.841 aktif oyuncu  ·  Kalite tabanlı yönlendirme",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#C8F5C0"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "vcObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
