@@ -436,7 +436,7 @@
 		mode: import
 		source =
 				let
-				    Source = GoogleBigQuery.Database(),
+				    Source = GoogleBigQuery.Database([UseStorageApi=false]),
 				    #"data-analiz-490513" = Source{[Name="data-analiz-490513"]}[Data],
 				    football_ml_Schema = #"data-analiz-490513"{[Name="football_ml",Kind="Schema"]}[Data],
 				    ml_player_market_value_current_predictions_Table = football_ml_Schema{[Name="ml_player_market_value_current_predictions",Kind="Table"]}[Data]
