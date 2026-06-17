@@ -467,7 +467,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Kayıt Listesi'"
+                  "Value": "'Transfer Detay Listesi'"
                 }
               }
             },

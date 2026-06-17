@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "da95066295b41c2f2124",
   "layouts": [
     {
@@ -14,7 +14,7 @@
     }
   ],
   "singleVisual": {
-    "visualType": "clusteredColumnChart",
+    "visualType": "lineAndClusteredColumnChart",
     "projections": {
       "Category": [
         {
@@ -25,6 +25,11 @@
       "Y": [
         {
           "queryRef": "fct_transfer_market_value_analysis.Average Known Transfer Fee"
+        }
+      ],
+      "Y2": [
+        {
+          "queryRef": "fct_transfer_market_value_analysis.Average Fee Premium Discount %"
         }
       ]
     },
@@ -61,18 +66,32 @@
           },
           "Name": "fct_transfer_market_value_analysis.Average Known Transfer Fee",
           "NativeReferenceName": "Ort. Ücret (Sezon)"
-        }
-      ],
-      "OrderBy": [
+        },
         {
-          "Direction": 2,
-          "Expression": {
+          "Measure": {
             "Expression": {
               "SourceRef": {
                 "Source": "ftmva"
               }
             },
-            "Property": "Average Known Transfer Fee"
+            "Property": "Average Fee Premium Discount %"
+          },
+          "Name": "fct_transfer_market_value_analysis.Average Fee Premium Discount %",
+          "NativeReferenceName": "Prim % (Trend)"
+        }
+      ],
+      "OrderBy": [
+        {
+          "Direction": 1,
+          "Expression": {
+            "Column": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "ftmva"
+                }
+              },
+              "Property": "transfer_season"
+            }
           }
         }
       ]
@@ -83,10 +102,13 @@
       },
       "fct_transfer_market_value_analysis.Average Known Transfer Fee": {
         "displayName": "Ort. Ücret (Sezon)"
+      },
+      "fct_transfer_market_value_analysis.Average Fee Premium Discount %": {
+        "displayName": "Prim % (Trend)"
       }
     },
     "drillFilterOtherVisuals": true,
-    "hasDefaultSort": true,
+    "hasDefaultSort": false,
     "objects": {
       "categoryAxis": [
         {
@@ -192,6 +214,51 @@
           }
         }
       ],
+      "valueAxis2": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#536A60'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
       "labels": [
         {
           "properties": {
@@ -255,6 +322,33 @@
                       "Value": "'#119A91'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "tooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'VisualsPage'"
+                }
+              }
+            },
+            "reportsPageId": {
+              "expr": {
+                "Literal": {
+                  "Value": "'tooltip_transfer_p011'"
                 }
               }
             }
@@ -389,8 +483,13 @@
             },
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'Ort. Transfer Ücreti — Sezon Trendi'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Source": "ftmva"
+                    }
+                  },
+                  "Property": "Page 005 Dynamic Title"
                 }
               }
             },

@@ -24,10 +24,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "ANALİTİK BULGULAR",
+                    "value": "📌 ANALİTİK BULGULAR",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "13pt",
+                      "fontSize": "10pt",
                       "color": "#FFFFFF"
                     }
                   }
@@ -48,67 +48,53 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Transfer ücretinin piyasa değerine oranı pozisyon, sezon ve kulüp türüne göre sistematik eğilimler gösterir — fiyatlama verimsizliği tekrarlanabilirdir.",
+                    "value": "• Transfer fiyatı/değer oranı pozisyon ve sezona göre sistematik eğilimler gösterir: forvette prim, kalecide iskonto baskındır.",
                     "textStyle": {
-                      "fontWeight": "normal",
                       "fontSize": "8.5pt",
-                      "color": "#E6F2E8"
+                      "color": "#E8F5E9"
                     }
                   }
                 ],
-                "spaceAfter": 3
+                "horizontalAlignment": "Left",
+                "paragraphStyle": {
+                  "fontFamily": "Segoe UI",
+                  "fontSize": "8.5pt"
+                },
+                "spacingAfter": 60
               },
               {
                 "textRuns": [
                   {
-                    "value": "• Forvetler tutarlı prim, kaleciler iskonto ile fiyatlanır — pozisyon bilgisi müzakerenin kalibrasyon noktasıdır.",
+                    "value": "• Sezon filtresiyle 2016–2020 bütçe döngüsü izole edilebilir. \"Değer Arttı\" filtresi scouting doğrulaması için kullanın.",
                     "textStyle": {
-                      "fontWeight": "normal",
                       "fontSize": "8.5pt",
-                      "color": "#E6F2E8"
+                      "color": "#E8F5E9"
                     }
                   }
                 ],
-                "spaceAfter": 3
+                "horizontalAlignment": "Left",
+                "paragraphStyle": {
+                  "fontFamily": "Segoe UI",
+                  "fontSize": "8.5pt"
+                },
+                "spacingAfter": 60
               },
               {
                 "textRuns": [
                   {
-                    "value": "• 2016–2020 bütçe zirvesinin ardından sezon bazlı harcama eğilimini filtre ile izole ederek piyasa döngüsünü gözlemleyebilirsiniz.",
+                    "value": "• Prim >%30 → rekabetçi ihale/yıldız etkisi. İskonto >%30 → yaş/sakatlık riski sinyali. Her ikisi de due diligence tetikleyicisidir.",
                     "textStyle": {
-                      "fontWeight": "normal",
                       "fontSize": "8.5pt",
-                      "color": "#E6F2E8"
+                      "color": "#E8F5E9"
                     }
                   }
                 ],
-                "spaceAfter": 3
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "• \"Değer Arttı\" filtresi: transferin ardından piyasa değeri artan oyuncuları seçer — scouting doğrulama aracı olarak kullanın.",
-                    "textStyle": {
-                      "fontWeight": "normal",
-                      "fontSize": "8.5pt",
-                      "color": "#E6F2E8"
-                    }
-                  }
-                ],
-                "spaceAfter": 3
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "• Prim >%30: rekabetçi ihale ya da yıldız etkisi. İskonto >%30: yaş / sakatlık riski sinyali. Her ikisi de due diligence gerektiren outlier bölgesidir.",
-                    "textStyle": {
-                      "fontWeight": "normal",
-                      "fontSize": "8.5pt",
-                      "color": "#E6F2E8"
-                    }
-                  }
-                ],
-                "spaceAfter": 3
+                "horizontalAlignment": "Left",
+                "paragraphStyle": {
+                  "fontFamily": "Segoe UI",
+                  "fontSize": "8.5pt"
+                },
+                "spacingAfter": 60
               }
             ]
           }
@@ -172,6 +158,58 @@
               "expr": {
                 "Literal": {
                   "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#6FA56D'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "60D"
+                }
+              }
+            },
+            "blur": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "angle": {
+              "expr": {
+                "Literal": {
+                  "Value": "45D"
+                }
+              }
+            },
+            "distance": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
                 }
               }
             }

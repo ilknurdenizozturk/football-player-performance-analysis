@@ -486,7 +486,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tahmin Listesi'"
+                  "Value": "'Oyuncu ML Tahmin Listesi'"
                 }
               }
             },

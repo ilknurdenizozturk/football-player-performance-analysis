@@ -55,8 +55,27 @@
 		displayFolder: Market Value Prediction\05 Dynamic Context
 
 	/// Dynamic prediction context summary driven by active filters.
-	measure 'Prediction Context Summary' = VAR PositionLabel = SELECTEDVALUE(ml_player_market_value_current_predictions[position], "Tum pozisyonlar") VAR CountryLabel = SELECTEDVALUE(ml_player_market_value_current_predictions[competition_country_name], "Tum ulkeler") RETURN PositionLabel & " | " & CountryLabel & " | " & FORMAT([Scored Player Count], "#,0") & " oyuncu"
+	measure 'Prediction Context Summary' = VAR PositionLabel = SELECTEDVALUE(ml_player_market_value_current_predictions[pozisyon_tr], "Tüm Pozisyonlar") VAR CountryLabel = SELECTEDVALUE(ml_player_market_value_current_predictions[competition_country_name], "Tüm Ülkeler") RETURN PositionLabel & " | " & CountryLabel & " | " & FORMAT([Scored Player Count], "#,0") & " oyuncu"
 		displayFolder: Market Value Prediction\05 Dynamic Context
+
+	/// Dynamic page title driven by active slicer selections.
+	measure 'ML Page Dynamic Title' = VAR p = SELECTEDVALUE(ml_player_market_value_current_predictions[pozisyon_tr], "Tüm Pozisyonlar") VAR c = SELECTEDVALUE(ml_player_market_value_current_predictions[competition_country_name], "Tüm Ülkeler") RETURN "⭐ Piyasa Değeri Tahmini  │  " & p & "  │  " & c
+		displayFolder: Market Value Prediction\05 Dynamic Context
+
+	/// Players with predicted upside greater than 20% — high-opportunity targets.
+	measure 'Büyük Artış Oyuncu Count' = CALCULATE([Scored Player Count], ml_player_market_value_current_predictions[prediction_delta_vs_previous_pct] > 20)
+		formatString: #,0 "oyuncu"
+		displayFolder: Market Value Prediction\04 Opportunity
+
+	/// Inverse of average relative interval — higher means more confident predictions.
+	measure 'Average Prediction Confidence %' = 1 - [Average Relative Prediction Interval %]
+		formatString: 0.0%
+		displayFolder: Market Value Prediction\02 Trust
+
+	/// Decision-ready players with positive upside — actionable long list.
+	measure 'High Upside Decision Ready Count' = CALCULATE([Decision Ready Player Count], ml_player_market_value_current_predictions[prediction_delta_vs_previous_pct] > 0)
+		formatString: #,0 "oyuncu"
+		displayFolder: Market Value Prediction\04 Opportunity
 
 	column scoring_row_key
 		dataType: string
@@ -418,17 +437,27 @@
 
 		annotation SummarizationSetBy = Automatic
 
-	column kalite_etiketi_tr
+	column kalite_etiketi_tr = SWITCH([prediction_quality_status], "high", "Yüksek Kalite", "medium", "Orta Kalite", "low", "Düşük Kalite", "insufficient_data", "Yetersiz Veri", "Bilinmiyor")
 		dataType: string
 		summarizeBy: none
-		sourceColumn: kalite_etiketi_tr
 
 		annotation SummarizationSetBy = Automatic
 
-	column pozisyon_tr
+	column pozisyon_tr = SWITCH([position], "Attack", "Forvet", "Midfield", "Orta Saha", "Defender", "Defans", "Goalkeeper", "Kaleci", "Bilinmiyor")
 		dataType: string
 		summarizeBy: none
-		sourceColumn: pozisyon_tr
+
+		annotation SummarizationSetBy = Automatic
+
+	column upside_kategori_tr = SWITCH(TRUE(), [prediction_delta_vs_previous_pct] > 20, "🟢 Büyük Artış (>%20)", [prediction_delta_vs_previous_pct] > 5, "🔵 Orta Artış (%5-20)", [prediction_delta_vs_previous_pct] > -5, "⚪ Stabil (±%5)", "🔴 Düşüş")
+		dataType: string
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_group_tr = SWITCH(TRUE(), [age_at_target_date] < 21, "Genç (<21)", [age_at_target_date] < 26, "Yükselen (21-25)", [age_at_target_date] < 30, "Olgun (26-29)", "Tecrübeli (30+)")
+		dataType: string
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 

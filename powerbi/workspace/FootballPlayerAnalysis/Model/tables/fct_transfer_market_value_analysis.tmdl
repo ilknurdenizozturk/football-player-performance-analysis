@@ -65,8 +65,32 @@
 		displayFolder: Market Value Analysis\05 Dynamic Context
 
 	/// Dynamic context summary driven by active filters.
-	measure 'Transfer Context Summary' = VAR SeasonLabel = SELECTEDVALUE(fct_transfer_market_value_analysis[transfer_season], "Tum sezonlar") VAR PositionLabel = SELECTEDVALUE(fct_transfer_market_value_analysis[position], "Tum pozisyonlar") RETURN SeasonLabel & " | " & PositionLabel & " | " & FORMAT([Transfer Count], "#,0") & " transfer"
+	measure 'Transfer Context Summary' = VAR SeasonLabel = SELECTEDVALUE(fct_transfer_market_value_analysis[transfer_season], "Tüm Sezonlar") VAR PositionLabel = SELECTEDVALUE(fct_transfer_market_value_analysis[pozisyon_tr], "Tüm Pozisyonlar") RETURN SeasonLabel & " | " & PositionLabel & " | " & FORMAT([Transfer Count], "#,0") & " transfer"
 		displayFolder: Market Value Analysis\05 Dynamic Context
+
+	/// Dynamic page title driven by active slicer selections.
+	measure 'Page 005 Dynamic Title' = VAR s = SELECTEDVALUE(fct_transfer_market_value_analysis[transfer_season], "Tüm Sezonlar") VAR p = SELECTEDVALUE(fct_transfer_market_value_analysis[pozisyon_tr], "Tüm Pozisyonlar") RETURN "💰 Transfer & Piyasa Değeri  │  " & s & "  │  " & p
+		displayFolder: Market Value Analysis\05 Dynamic Context
+
+	/// Transfers where the fee exceeds market value by more than 30% — competitive bidding or star effect signal.
+	measure 'High Premium Transfer Count' = CALCULATE([Transfer Count], fct_transfer_market_value_analysis[fee_market_value_difference_pct] > 30)
+		formatString: #,0 "transfer"
+		displayFolder: Market Value Analysis\03 Commercial Value
+
+	/// Ratio of total known fees to total market value baselines — overall market efficiency index.
+	measure 'Transfer Value Index' = DIVIDE(CALCULATE(SUM(fct_transfer_market_value_analysis[transfer_fee]), fct_transfer_market_value_analysis[has_known_transfer_fee] = TRUE()), CALCULATE(SUM(fct_transfer_market_value_analysis[market_value_baseline]), fct_transfer_market_value_analysis[has_market_value_baseline] = TRUE()))
+		formatString: 0.00x
+		displayFolder: Market Value Analysis\03 Commercial Value
+
+	/// Year-over-year change in average known transfer fee.
+	measure 'YoY Avg Fee Change %' = VAR CY = CALCULATE([Average Known Transfer Fee]) VAR PY = CALCULATE([Average Known Transfer Fee], FILTER(ALL(fct_transfer_market_value_analysis[transfer_year]), fct_transfer_market_value_analysis[transfer_year] = MAX(fct_transfer_market_value_analysis[transfer_year]) - 1)) RETURN DIVIDE(CY - PY, PY)
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Market Value Analysis\03 Commercial Value
+
+	/// Maximum known transfer fee in the active filter context.
+	measure 'Max Known Transfer Fee' = CALCULATE(MAX(fct_transfer_market_value_analysis[transfer_fee]), fct_transfer_market_value_analysis[has_known_transfer_fee] = TRUE())
+		formatString: €0.0
+		displayFolder: Market Value Analysis\03 Commercial Value
 
 	column transfer_key
 		dataType: string
@@ -733,6 +757,12 @@
 		dataType: string
 		summarizeBy: none
 		sourceColumn: pozisyon_tr
+
+		annotation SummarizationSetBy = Automatic
+
+	column fee_range_category_tr = SWITCH(TRUE(), [transfer_fee] >= 50000000, "Mega Transfer (≥50M€)", [transfer_fee] >= 20000000, "Büyük Transfer (20-50M€)", [transfer_fee] >= 5000000, "Orta Transfer (5-20M€)", [transfer_fee] > 0, "Küçük Transfer (<5M€)", NOT([has_known_transfer_fee]), "Ücretsiz/Bilinmiyor", "Veri Yok")
+		dataType: string
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 

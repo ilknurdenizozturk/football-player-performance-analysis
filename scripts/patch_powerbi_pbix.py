@@ -12,11 +12,13 @@ TARGET_PAGES = {
     "008_": 8,
     "009_": 9,
     "010_": 10,
+    "011_": 11,
+    "012_": 12,
 }
 
 
 def read_json(path: pathlib.Path):
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
 def build_visual_containers(page_path: pathlib.Path):
