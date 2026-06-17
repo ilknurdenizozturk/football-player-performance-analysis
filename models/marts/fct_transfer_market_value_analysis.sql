@@ -232,6 +232,16 @@ select
     player_id,
     coalesce(nullif(player_name, ''), dimension_player_name) as player_name,
     position,
+
+    case position
+        when 'Attack' then 'Forvet'
+        when 'Defender' then 'Defans'
+        when 'Goalkeeper' then 'Kaleci'
+        when 'Midfield' then 'Orta Saha'
+        when 'Missing' then 'Bilinmiyor'
+        else coalesce(position, 'Bilinmiyor')
+    end as pozisyon_tr,
+
     sub_position,
     birth_date,
     country_of_citizenship,
@@ -349,6 +359,14 @@ select
         when next_valuation.market_value_in_eur < market_value_baseline then 'decrease'
         else 'unchanged'
     end as market_value_direction_after_transfer,
+
+    case
+        when next_valuation.market_value_in_eur is null
+            or market_value_baseline is null then 'Belirsiz'
+        when next_valuation.market_value_in_eur > market_value_baseline then 'Arttı'
+        when next_valuation.market_value_in_eur < market_value_baseline then 'Düştü'
+        else 'Değişmedi'
+    end as yon_etiketi_tr,
 
     case
         when prior_valuation.competition_id is null

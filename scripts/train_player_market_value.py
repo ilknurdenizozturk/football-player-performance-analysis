@@ -1121,6 +1121,22 @@ def main() -> None:
         current_predictions["prediction_quality_status"] = prediction_quality_status(
             current_predictions
         )
+        current_predictions["kalite_etiketi_tr"] = (
+            current_predictions["prediction_quality_status"]
+            .map({"high": "Yüksek", "medium": "Orta", "limited": "Sınırlı"})
+            .fillna(current_predictions["prediction_quality_status"])
+        )
+        current_predictions["pozisyon_tr"] = (
+            current_predictions["position"]
+            .map({
+                "Attack": "Forvet",
+                "Defender": "Defans",
+                "Goalkeeper": "Kaleci",
+                "Midfield": "Orta Saha",
+                "Missing": "Bilinmiyor",
+            })
+            .fillna("Bilinmiyor")
+        )
         current_predictions["prediction_is_out_of_time"] = (
             current_predictions["season"] > frame["season"].max()
         )
