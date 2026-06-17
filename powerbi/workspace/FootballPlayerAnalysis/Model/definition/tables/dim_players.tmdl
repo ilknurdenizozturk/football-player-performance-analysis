@@ -158,6 +158,12 @@ table dim_players
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Age Group' = SWITCH(TRUE(), DATEDIFF(dim_players[birth_date], TODAY(), YEAR) < 22, "18-21", DATEDIFF(dim_players[birth_date], TODAY(), YEAR) < 26, "22-25", DATEDIFF(dim_players[birth_date], TODAY(), YEAR) < 30, "26-29", DATEDIFF(dim_players[birth_date], TODAY(), YEAR) < 34, "30-33", "34+")
+		dataType: string
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dim_players = m
 		mode: import
 		source =
