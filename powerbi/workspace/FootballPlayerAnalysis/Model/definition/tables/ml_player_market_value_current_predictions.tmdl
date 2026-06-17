@@ -437,6 +437,34 @@ table ml_player_market_value_current_predictions
 
 		annotation SummarizationSetBy = Automatic
 
+	column pozisyon_tr
+		dataType: string
+		summarizeBy: none
+		sourceColumn: pozisyon_tr
+
+		annotation SummarizationSetBy = Automatic
+
+	column kalite_etiketi_tr
+		dataType: string
+		summarizeBy: none
+		sourceColumn: kalite_etiketi_tr
+
+		annotation SummarizationSetBy = Automatic
+
+	column upside_kategori_tr
+		dataType: string
+		summarizeBy: none
+		sourceColumn: upside_kategori_tr
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_group_tr
+		dataType: string
+		summarizeBy: none
+		sourceColumn: age_group_tr
+
+		annotation SummarizationSetBy = Automatic
+
 	partition ml_player_market_value_current_predictions = m
 		mode: import
 		source =
