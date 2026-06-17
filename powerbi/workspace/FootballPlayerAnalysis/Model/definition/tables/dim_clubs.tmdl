@@ -1,4 +1,4 @@
-﻿table dim_clubs
+table dim_clubs
 
 	column club_id
 		dataType: int64

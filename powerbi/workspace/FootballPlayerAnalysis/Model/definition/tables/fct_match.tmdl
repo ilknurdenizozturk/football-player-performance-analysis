@@ -1,4 +1,4 @@
-﻿table fct_match
+table fct_match
 
 	column game_id
 		dataType: int64

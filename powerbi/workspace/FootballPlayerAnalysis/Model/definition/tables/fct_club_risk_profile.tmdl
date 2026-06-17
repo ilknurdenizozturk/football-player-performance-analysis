@@ -1,4 +1,4 @@
-﻿table fct_club_risk_profile
+table fct_club_risk_profile
 
 	column club_id
 		dataType: int64

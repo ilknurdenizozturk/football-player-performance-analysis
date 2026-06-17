@@ -1,4 +1,4 @@
-﻿table dim_competitions
+table dim_competitions
 
 	column competition_id
 		dataType: string

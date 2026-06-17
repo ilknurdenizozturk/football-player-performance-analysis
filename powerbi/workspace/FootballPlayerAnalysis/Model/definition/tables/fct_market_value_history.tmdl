@@ -1,4 +1,4 @@
-﻿table fct_market_value_history
+table fct_market_value_history
 
 	column player_id
 		dataType: int64

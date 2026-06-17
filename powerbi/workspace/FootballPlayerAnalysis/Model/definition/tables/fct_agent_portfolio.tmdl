@@ -1,4 +1,4 @@
-﻿table fct_agent_portfolio
+table fct_agent_portfolio
 
 	column agent_name
 		dataType: string

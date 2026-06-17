@@ -1,4 +1,4 @@
-﻿table dim_date
+table dim_date
 
 	column date_day
 		dataType: dateTime

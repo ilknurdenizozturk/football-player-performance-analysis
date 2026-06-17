@@ -1,4 +1,4 @@
-﻿table fct_transfer_market_value_analysis
+table fct_transfer_market_value_analysis
 
 	/// Distinct transfer records in the active filter context.
 	measure 'Transfer Count' = DISTINCTCOUNT(fct_transfer_market_value_analysis[transfer_key])

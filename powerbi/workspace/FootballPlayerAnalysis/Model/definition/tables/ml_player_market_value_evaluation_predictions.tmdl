@@ -1,4 +1,4 @@
-﻿table ml_player_market_value_evaluation_predictions
+table ml_player_market_value_evaluation_predictions
 
 	column training_row_key
 		dataType: string

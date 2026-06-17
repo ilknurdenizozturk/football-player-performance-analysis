@@ -1,4 +1,4 @@
-﻿table fct_transfer_fixed_horizon_outcomes
+table fct_transfer_fixed_horizon_outcomes
 
 	column transfer_key
 		dataType: string

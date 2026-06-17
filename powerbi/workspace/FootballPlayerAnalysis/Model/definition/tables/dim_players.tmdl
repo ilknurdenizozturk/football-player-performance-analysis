@@ -1,4 +1,4 @@
-﻿table dim_players
+table dim_players
 
 	measure 'Total Players' = DISTINCTCOUNT(dim_players[player_id])
 		formatString: 0

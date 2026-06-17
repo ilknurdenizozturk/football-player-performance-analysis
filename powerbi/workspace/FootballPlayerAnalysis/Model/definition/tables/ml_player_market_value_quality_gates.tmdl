@@ -1,4 +1,4 @@
-﻿table ml_player_market_value_quality_gates
+table ml_player_market_value_quality_gates
 
 	column model_version
 		dataType: string

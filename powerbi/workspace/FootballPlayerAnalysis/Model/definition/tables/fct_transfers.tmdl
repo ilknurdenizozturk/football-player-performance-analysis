@@ -1,4 +1,4 @@
-﻿table fct_transfers
+table fct_transfers
 
 	column player_id
 		dataType: int64

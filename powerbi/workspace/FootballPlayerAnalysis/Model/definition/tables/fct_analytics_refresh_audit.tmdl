@@ -1,4 +1,4 @@
-﻿table fct_analytics_refresh_audit
+table fct_analytics_refresh_audit
 
 	column audit_key
 		dataType: string

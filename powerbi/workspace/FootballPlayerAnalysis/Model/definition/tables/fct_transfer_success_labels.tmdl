@@ -1,4 +1,4 @@
-﻿table fct_transfer_success_labels
+table fct_transfer_success_labels
 
 	column transfer_key
 		dataType: string

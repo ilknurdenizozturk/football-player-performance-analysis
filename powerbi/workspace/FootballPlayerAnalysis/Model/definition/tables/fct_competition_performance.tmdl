@@ -1,4 +1,4 @@
-﻿table fct_competition_performance
+table fct_competition_performance
 
 	column competition_id
 		dataType: string

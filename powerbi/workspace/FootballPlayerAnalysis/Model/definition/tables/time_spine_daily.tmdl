@@ -1,4 +1,4 @@
-﻿table time_spine_daily
+table time_spine_daily
 
 	column date_day
 		dataType: dateTime

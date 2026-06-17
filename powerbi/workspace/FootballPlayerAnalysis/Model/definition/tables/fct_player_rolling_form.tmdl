@@ -1,4 +1,4 @@
-﻿table fct_player_rolling_form
+table fct_player_rolling_form
 
 	column appearance_id
 		dataType: string

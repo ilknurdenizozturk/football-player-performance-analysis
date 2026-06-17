@@ -1,4 +1,4 @@
-﻿table ml_player_market_value_scoring
+table ml_player_market_value_scoring
 
 	column scoring_row_key
 		dataType: string

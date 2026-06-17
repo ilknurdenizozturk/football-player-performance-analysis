@@ -1,4 +1,4 @@
-﻿table ml_player_market_value_evaluation_metrics
+table ml_player_market_value_evaluation_metrics
 
 	column model_version
 		dataType: string

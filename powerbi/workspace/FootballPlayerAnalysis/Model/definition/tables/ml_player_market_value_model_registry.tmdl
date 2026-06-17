@@ -1,4 +1,4 @@
-﻿table ml_player_market_value_model_registry
+table ml_player_market_value_model_registry
 
 	column model_name
 		dataType: string

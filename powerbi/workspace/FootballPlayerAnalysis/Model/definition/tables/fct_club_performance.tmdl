@@ -1,4 +1,4 @@
-﻿table fct_club_performance
+table fct_club_performance
 
 	column club_id
 		dataType: int64

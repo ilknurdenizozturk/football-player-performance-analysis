@@ -1,4 +1,4 @@
-﻿table fct_transfer_cohort_performance
+table fct_transfer_cohort_performance
 
 	column horizon_days
 		dataType: int64

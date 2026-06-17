@@ -1,4 +1,4 @@
-﻿table fct_club_transfer_portfolio
+table fct_club_transfer_portfolio
 
 	column club_id
 		dataType: int64

@@ -1,4 +1,4 @@
-﻿table ml_player_market_value_feature_importance
+table ml_player_market_value_feature_importance
 
 	column model_version
 		dataType: string

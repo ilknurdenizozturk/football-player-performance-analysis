@@ -1,4 +1,4 @@
-﻿table fct_player_performance
+table fct_player_performance
 
 	measure 'Toplam Gol' = SUM(fct_player_performance[total_goals])
 		formatString: 0

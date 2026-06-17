@@ -1,4 +1,4 @@
-﻿table fct_data_coverage_bias
+table fct_data_coverage_bias
 
 	column segment_type
 		dataType: string

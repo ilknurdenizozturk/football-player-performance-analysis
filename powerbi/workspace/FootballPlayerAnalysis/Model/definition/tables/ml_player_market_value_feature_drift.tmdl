@@ -1,4 +1,4 @@
-﻿table ml_player_market_value_feature_drift
+table ml_player_market_value_feature_drift
 
 	column model_version
 		dataType: string

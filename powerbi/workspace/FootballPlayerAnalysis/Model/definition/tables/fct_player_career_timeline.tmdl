@@ -1,4 +1,4 @@
-﻿table fct_player_career_timeline
+table fct_player_career_timeline
 
 	column player_id
 		dataType: int64
