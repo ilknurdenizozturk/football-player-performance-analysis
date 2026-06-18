@@ -1,6 +1,6 @@
 [
   {
-    "name": "Drillthrough_fct_transfer_market_value_analysis_player_name",
+    "name": "Drillthrough_fct_transfer_player_nm",
     "expression": {
       "Column": {
         "Expression": {

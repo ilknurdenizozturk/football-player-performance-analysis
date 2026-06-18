@@ -1,6 +1,6 @@
 [
   {
-    "name": "NotBlank_ml_player_market_value_c_competition_country_name",
+    "name": "NotBlank_ml_pred_competition_country",
     "expression": {
       "Not": {
         "Expression": {

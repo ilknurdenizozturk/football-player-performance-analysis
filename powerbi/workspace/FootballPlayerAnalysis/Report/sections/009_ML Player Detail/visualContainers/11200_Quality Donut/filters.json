@@ -1,6 +1,6 @@
 [
   {
-    "name": "NotBlank_ml_player_market_value_c_kalite_etiketi_tr",
+    "name": "NotBlank_ml_pred_kalite_etiketi_tr",
     "expression": {
       "Not": {
         "Expression": {
