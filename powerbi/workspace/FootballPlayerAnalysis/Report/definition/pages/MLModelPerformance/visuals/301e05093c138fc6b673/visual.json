@@ -1,0 +1,185 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "301e05093c138fc6b673",
+  "position": {
+    "x": 985,
+    "y": 374,
+    "z": 25000,
+    "height": 344,
+    "width": 270,
+    "tabOrder": 25000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "MODEL REHBERİ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "11pt",
+                      "color": "#FFFFFF"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "",
+                    "textStyle": {
+                      "fontSize": "4pt",
+                      "color": "#FFFFFF"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Düşük WAPE (<%15) modelin yüksek doğruluğunu gösterir.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• R²>0.95 güçlü açıklama gücü anlamına gelir.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Önem sırası 1 = tahmin üzerinde en fazla etkisi olan özellik.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Tüm blocking kalite kapıları geçilmelidir.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Feature drift izlenerek model güncelleme kararı verilir.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Segment performansı pozisyon bazında yorumlanabilir.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#285D3D'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2E6B45'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

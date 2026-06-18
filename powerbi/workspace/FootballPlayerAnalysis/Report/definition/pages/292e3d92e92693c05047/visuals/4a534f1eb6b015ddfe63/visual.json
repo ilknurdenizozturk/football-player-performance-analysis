@@ -1,0 +1,153 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "4a534f1eb6b015ddfe63",
+  "position": {
+    "x": 985,
+    "y": 436,
+    "z": 25000,
+    "height": 256,
+    "width": 270,
+    "tabOrder": 25000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "ANALİTİK BULGULAR",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "11pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Transferlerin ~%60'ı piyasa değerinin altında gerçekleşir — kulüpler sistematik olarak iskontolu alım yapar.",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#e6f2e8"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Forvetler prim, kaleciler iskonto ile transfer edilir: pozisyon, fiyatlamayı doğrudan belirler.",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#e6f2e8"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• 2016–2020 zirve döneminin ardından transfer bütçeleri daralma eğilimindedir.",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#e6f2e8"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Yüksek prim transferler (>%30) çoğunlukla yıldız oyuncu veya rekabetçi teklif durumlarıdır.",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#e6f2e8"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#285D3D'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2E6B45'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
