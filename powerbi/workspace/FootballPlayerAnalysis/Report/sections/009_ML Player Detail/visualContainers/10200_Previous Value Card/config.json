@@ -49,12 +49,14 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "SourceRef": {
-                "Source": "mpmvcp"
-              }
-            },
-            "Property": "Average Previous Market Value"
+            "Measure": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "mpmvcp"
+                }
+              },
+              "Property": "Average Previous Market Value"
+            }
           }
         }
       ]

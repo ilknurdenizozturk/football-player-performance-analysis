@@ -49,12 +49,14 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "SourceRef": {
-                "Source": "mpmvcp"
-              }
-            },
-            "Property": "Scored Player Count"
+            "Measure": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "mpmvcp"
+                }
+              },
+              "Property": "Scored Player Count"
+            }
           }
         }
       ]

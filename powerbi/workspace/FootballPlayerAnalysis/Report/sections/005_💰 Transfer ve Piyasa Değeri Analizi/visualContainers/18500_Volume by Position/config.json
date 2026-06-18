@@ -67,12 +67,14 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "SourceRef": {
-                "Source": "ftmva"
-              }
-            },
-            "Property": "Transfer Count"
+            "Measure": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "ftmva"
+                }
+              },
+              "Property": "Transfer Count"
+            }
           }
         }
       ]

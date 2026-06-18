@@ -154,12 +154,14 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "SourceRef": {
-                "Source": "mpmvem"
-              }
-            },
-            "Property": "wape_pct"
+            "Column": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "mpmvem"
+                }
+              },
+              "Property": "wape_pct"
+            }
           }
         }
       ]

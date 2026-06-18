@@ -49,12 +49,14 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "SourceRef": {
-                "Source": "ftmva"
-              }
-            },
-            "Property": "Selected Transfer Player"
+            "Measure": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "ftmva"
+                }
+              },
+              "Property": "Selected Transfer Player"
+            }
           }
         }
       ]

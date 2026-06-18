@@ -67,12 +67,14 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "SourceRef": {
-                "Source": "ftmva"
-              }
-            },
-            "Property": "Average Fee Premium Discount %"
+            "Measure": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "ftmva"
+                }
+              },
+              "Property": "Average Fee Premium Discount %"
+            }
           }
         }
       ]

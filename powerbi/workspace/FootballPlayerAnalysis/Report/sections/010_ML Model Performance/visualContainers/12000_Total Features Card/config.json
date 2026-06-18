@@ -54,17 +54,19 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Source": "mpmvfi"
-                  }
-                },
-                "Property": "importance_rank"
-              }
-            },
-            "Function": 2
+            "Aggregation": {
+              "Expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Source": "mpmvfi"
+                    }
+                  },
+                  "Property": "importance_rank"
+                }
+              },
+              "Function": 2
+            }
           }
         }
       ]

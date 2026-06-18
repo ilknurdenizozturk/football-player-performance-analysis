@@ -154,12 +154,14 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "SourceRef": {
-                "Source": "mpmvcp"
-              }
-            },
-            "Property": "prediction_delta_vs_previous_pct"
+            "Column": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "mpmvcp"
+                }
+              },
+              "Property": "prediction_delta_vs_previous_pct"
+            }
           }
         }
       ]

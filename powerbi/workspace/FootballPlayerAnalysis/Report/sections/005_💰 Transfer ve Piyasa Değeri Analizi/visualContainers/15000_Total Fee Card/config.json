@@ -49,12 +49,14 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "SourceRef": {
-                "Source": "ftmva"
-              }
-            },
-            "Property": "Total Known Transfer Fee"
+            "Measure": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "ftmva"
+                }
+              },
+              "Property": "Total Known Transfer Fee"
+            }
           }
         }
       ]

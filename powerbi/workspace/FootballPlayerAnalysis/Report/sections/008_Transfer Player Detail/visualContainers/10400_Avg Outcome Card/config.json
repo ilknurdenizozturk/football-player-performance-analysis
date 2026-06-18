@@ -49,12 +49,14 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "SourceRef": {
-                "Source": "ftmva"
-              }
-            },
-            "Property": "Average Post Transfer Value Change %"
+            "Measure": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "ftmva"
+                }
+              },
+              "Property": "Average Post Transfer Value Change %"
+            }
           }
         }
       ]

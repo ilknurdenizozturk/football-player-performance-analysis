@@ -54,17 +54,19 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Source": "mpmvem"
-                  }
-                },
-                "Property": "r2"
-              }
-            },
-            "Function": 4
+            "Aggregation": {
+              "Expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Source": "mpmvem"
+                    }
+                  },
+                  "Property": "r2"
+                }
+              },
+              "Function": 4
+            }
           }
         }
       ]

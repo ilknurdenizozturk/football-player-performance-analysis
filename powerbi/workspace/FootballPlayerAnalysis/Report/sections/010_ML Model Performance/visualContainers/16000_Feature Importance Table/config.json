@@ -94,12 +94,14 @@
         {
           "Direction": 1,
           "Expression": {
-            "Expression": {
-              "SourceRef": {
-                "Source": "mpmvfi"
-              }
-            },
-            "Property": "importance_rank"
+            "Column": {
+              "Expression": {
+                "SourceRef": {
+                  "Source": "mpmvfi"
+                }
+              },
+              "Property": "importance_rank"
+            }
           }
         }
       ]

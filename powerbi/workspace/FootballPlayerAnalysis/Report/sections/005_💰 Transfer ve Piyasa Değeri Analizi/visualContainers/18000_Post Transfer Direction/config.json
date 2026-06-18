@@ -71,17 +71,19 @@
         {
           "Direction": 2,
           "Expression": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Source": "ftmva"
-                  }
-                },
-                "Property": "transfer_key"
-              }
-            },
-            "Function": 2
+            "Aggregation": {
+              "Expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Source": "ftmva"
+                    }
+                  },
+                  "Property": "transfer_key"
+                }
+              },
+              "Function": 2
+            }
           }
         }
       ]
