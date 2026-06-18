@@ -47,8 +47,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Average Predicted Market Value",
-              "nativeQueryRef": "Pozisyon Tahminleri",
-              "displayName": "Pozisyon Tahminleri"
+              "nativeQueryRef": "Position Predictions",
+              "displayName": "Position Predictions"
             }
           ]
         }
@@ -340,7 +340,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pozisyon Tahminleri'"
+                  "Value": "'Position Predictions'"
                 }
               }
             },

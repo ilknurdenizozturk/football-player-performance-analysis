@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Transfer Count",
-              "nativeQueryRef": "Transfer Sayısı",
-              "displayName": "Transfer Sayısı"
+              "nativeQueryRef": "Transfer Count",
+              "displayName": "Transfer Count"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Transfer Sayısı'"
+                  "Value": "'Transfer Count'"
                 }
               }
             },

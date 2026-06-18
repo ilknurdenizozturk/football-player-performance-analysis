@@ -129,7 +129,7 @@
             "titleText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Değer Yönü'"
+                  "Value": "'Value Direction'"
                 }
               }
             }
@@ -289,7 +289,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Değer Yönü'"
+                  "Value": "'Value Direction'"
                 }
               }
             },

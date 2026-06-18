@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Decision Ready Rate %",
-              "nativeQueryRef": "Karar Hazır %",
-              "displayName": "Karar Hazır %"
+              "nativeQueryRef": "Decision Ready %",
+              "displayName": "Decision Ready %"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Karar Hazır %'"
+                  "Value": "'Decision Ready %'"
                 }
               }
             },

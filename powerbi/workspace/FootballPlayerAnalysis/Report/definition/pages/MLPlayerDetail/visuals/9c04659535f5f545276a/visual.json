@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Oyuncu Piyasa Değeri Tahmin Detayı",
+                    "value": "Player Market Value Prediction Detail",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "18pt",

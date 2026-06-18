@@ -1,15 +1,15 @@
 table fct_player_performance
 
-	measure 'Toplam Gol' = SUM(fct_player_performance[total_goals])
+	measure 'Total Goals' = SUM(fct_player_performance[total_goals])
 		formatString: 0
 
-	measure 'Toplam Asist' = SUM(fct_player_performance[total_assists])
+	measure 'Total Assists' = SUM(fct_player_performance[total_assists])
 		formatString: 0
 
-	measure 'Toplam Dakika' = SUM(fct_player_performance[total_minutes_played])
+	measure 'Total Minutes' = SUM(fct_player_performance[total_minutes_played])
 		formatString: 0
 
-	measure 'Toplam Oyuncu' = DISTINCTCOUNT(fct_player_performance[player_id])
+	measure 'Total Players Count' = DISTINCTCOUNT(fct_player_performance[player_id])
 		formatString: 0
 
 	measure 'Player G+A per 90' = MAX(fct_player_performance[goals_per_90]) + MAX(fct_player_performance[assists_per_90])
@@ -25,7 +25,7 @@ table fct_player_performance
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Ortalama Dakika' =
+	measure 'Average Minutes' =
 			
 			AVERAGE(fct_player_performance[avg_minutes_per_match])
 

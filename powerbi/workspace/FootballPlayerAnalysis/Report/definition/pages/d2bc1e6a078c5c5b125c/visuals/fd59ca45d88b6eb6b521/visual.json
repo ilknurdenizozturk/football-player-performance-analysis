@@ -23,7 +23,7 @@
                       "Entity": "fct_player_performance"
                     }
                   },
-                  "Property": "Toplam Asist"
+                  "Property": "Total Assists"
                 }
               },
               "queryRef": "fct_player_performance.Toplam Asist",
@@ -42,7 +42,7 @@
                     "Entity": "fct_player_performance"
                   }
                 },
-                "Property": "Toplam Asist"
+                "Property": "Total Assists"
               }
             },
             "direction": "Descending"

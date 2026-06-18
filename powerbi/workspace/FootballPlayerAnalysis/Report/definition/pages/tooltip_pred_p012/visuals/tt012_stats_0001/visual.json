@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Average Predicted Market Value",
-              "nativeQueryRef": "Ort. Tahmin Değeri",
-              "displayName": "Ort. Tahmin Değeri",
+              "nativeQueryRef": "Avg. Prediction Değeri",
+              "displayName": "Avg. Prediction Değeri",
               "format": "€0.0M"
             },
             {
@@ -43,8 +43,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Average Prediction Upside %",
-              "nativeQueryRef": "Ort. Artış %",
-              "displayName": "Ort. Artış %",
+              "nativeQueryRef": "Avg. Upside %",
+              "displayName": "Avg. Upside %",
               "format": "+0.0%;-0.0%;0.0%"
             },
             {
@@ -59,8 +59,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Scored Player Count",
-              "nativeQueryRef": "Toplam Oyuncu",
-              "displayName": "Toplam Oyuncu",
+              "nativeQueryRef": "Total Players",
+              "displayName": "Total Players Count",
               "format": "#,0"
             },
             {
@@ -71,12 +71,12 @@
                       "Entity": "ml_player_market_value_current_predictions"
                     }
                   },
-                  "Property": "Büyük Artış Oyuncu Count"
+                  "Property": "High Upside Player Count"
                 }
               },
-              "queryRef": "ml_player_market_value_current_predictions.Büyük Artış Oyuncu Count",
-              "nativeQueryRef": "Büyük Artış Oyuncuları",
-              "displayName": "Büyük Artış (>%20)",
+              "queryRef": "ml_player_market_value_current_predictions.Büyük Artış Player Count",
+              "nativeQueryRef": "High Upside Players",
+              "displayName": "High Upside (>20%)",
               "format": "#,0"
             }
           ]
@@ -186,7 +186,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'ML Tahmin İstatistikleri'"
+                  "Value": "'ML Prediction İstatistikleri'"
                 }
               }
             },

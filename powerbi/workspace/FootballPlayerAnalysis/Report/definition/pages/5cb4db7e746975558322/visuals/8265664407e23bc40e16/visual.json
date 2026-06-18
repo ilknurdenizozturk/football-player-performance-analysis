@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "8265664407e23bc40e16",
   "position": {
-    "x": 71.200905229669232,
-    "y": 508.95960999986562,
+    "x": 71.20090522966923,
+    "y": 508.9596099998656,
     "z": 2000,
-    "height": 40.302399186605228,
-    "width": 275.39972777513572,
+    "height": 40.30239918660523,
+    "width": 275.3997277751357,
     "tabOrder": 1000
   },
   "visual": {
@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'🏆 Kulüp ve Lig Analizi'"
+                  "Value": "'🏆 Club & League Analysis'"
                 }
               }
             },
@@ -124,7 +124,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'🏆 Kulüp ve Lig Analizi'"
+                  "Value": "'🏆 Club & League Analysis'"
                 }
               }
             },
@@ -297,7 +297,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Kariyer Analizi'"
+                  "Value": "'Career Analysis'"
                 }
               }
             }

@@ -129,7 +129,7 @@
             "titleText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tahmin Kalitesi'"
+                  "Value": "'Prediction Quality'"
                 }
               }
             }
@@ -289,7 +289,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Kalite Dağılımı'"
+                  "Value": "'Quality Distribution'"
                 }
               }
             },

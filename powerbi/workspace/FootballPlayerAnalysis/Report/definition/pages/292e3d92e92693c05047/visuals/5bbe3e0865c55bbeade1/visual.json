@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "5bbe3e0865c55bbeade1",
   "position": {
-    "x": 545.14820592823708,
+    "x": 545.1482059282371,
     "y": 213.00052002080082,
     "z": 17000,
     "height": 230.30681227249087,
-    "width": 424.66978679147161,
+    "width": 424.6697867914716,
     "tabOrder": 17000
   },
   "visual": {
@@ -47,8 +47,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Average Known Transfer Fee",
-              "nativeQueryRef": "Ort. Ücret (Sezon)",
-              "displayName": "Ort. Ücret (Sezon)"
+              "nativeQueryRef": "Avg. Fee (Season)",
+              "displayName": "Avg. Fee (Season)"
             }
           ]
         }
@@ -340,7 +340,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ort. Ücret (Sezon)'"
+                  "Value": "'Avg. Fee (Season)'"
                 }
               }
             },

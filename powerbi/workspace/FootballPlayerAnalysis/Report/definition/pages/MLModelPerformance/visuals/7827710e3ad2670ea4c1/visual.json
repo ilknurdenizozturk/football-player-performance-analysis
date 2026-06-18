@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "ml_player_market_value_quality_gates.severity",
-              "nativeQueryRef": "Önem Seviyesi",
+              "nativeQueryRef": "Importance Level",
               "active": true,
-              "displayName": "Önem Seviyesi"
+              "displayName": "Importance Level"
             }
           ]
         }
@@ -261,7 +261,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Önem Seviyesi'"
+                  "Value": "'Importance Level'"
                 }
               }
             },

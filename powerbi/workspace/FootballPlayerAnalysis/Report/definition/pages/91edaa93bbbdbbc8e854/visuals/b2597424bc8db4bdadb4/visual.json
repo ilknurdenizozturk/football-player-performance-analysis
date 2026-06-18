@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "OYUNCU ANALİZİ",
+                    "value": "PLAYER ANALYSIS",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "11pt",
@@ -42,7 +42,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Toplam ücret ve ortalama sonraki değişim, oyuncunun yarattığı net değeri özetler.",
+                    "value": "• Total fee and average post-transfer change summarize the net value created by the player.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -54,7 +54,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Sezon bazlı ücret trendi: oyuncunun müzakere gücünü ve piyasa algısını yansıtır.",
+                    "value": "• Season-level fee trend reflects the player's negotiating power and market perception.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -66,7 +66,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Prim (+%): kulübün o oyuncuya standart değerinin üstünde ödediğini gösterir.",
+                    "value": "• Premium (+%): indicates the club paid above standard value for that player.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -78,7 +78,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Sonraki değişim % negatifse oyuncu, transferden sonra piyasa değeri kaybetmiştir.",
+                    "value": "• If post-transfer change % is negative, the player lost market value after the transfer.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",

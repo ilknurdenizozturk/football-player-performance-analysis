@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Özellik önemi  |  Kalite kapıları  |  Segment bazlı performans metrikleri",
+                    "value": "Feature önemi  |  Quality kapıları  |  Segment bazlı performans metrikleri",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "7.5pt",

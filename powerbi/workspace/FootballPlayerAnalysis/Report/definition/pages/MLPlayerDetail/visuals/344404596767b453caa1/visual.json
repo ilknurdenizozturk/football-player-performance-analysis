@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Average Previous Market Value",
-              "nativeQueryRef": "Önceki Değer",
-              "displayName": "Önceki Değer"
+              "nativeQueryRef": "Previous Value",
+              "displayName": "Previous Value"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Önceki Değer'"
+                  "Value": "'Previous Value'"
                 }
               }
             },

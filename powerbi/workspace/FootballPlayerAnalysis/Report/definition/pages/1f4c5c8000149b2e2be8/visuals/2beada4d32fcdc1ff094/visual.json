@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.pozisyon_tr",
-              "nativeQueryRef": "Pozisyon",
+              "nativeQueryRef": "Position",
               "active": true,
-              "displayName": "Pozisyon"
+              "displayName": "Position"
             }
           ]
         }
@@ -261,7 +261,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pozisyon'"
+                  "Value": "'Position'"
                 }
               }
             },

@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "MODEL REHBERİ",
+                    "value": "MODEL GUIDE",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "11pt",
@@ -42,7 +42,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Düşük WAPE (<%15) modelin yüksek doğruluğunu gösterir.",
+                    "value": "• Low WAPE (<15%) indicates high model accuracy.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -54,7 +54,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• R²>0.95 güçlü açıklama gücü anlamına gelir.",
+                    "value": "• R²>0.95 means strong explanatory power.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -66,7 +66,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Önem sırası 1 = tahmin üzerinde en fazla etkisi olan özellik.",
+                    "value": "• Importance sırası 1 = tahmin üzerinde en fazla etkisi olan özellik.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -78,7 +78,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Tüm blocking kalite kapıları geçilmelidir.",
+                    "value": "• All blocking quality gates must pass.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -90,7 +90,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Feature drift izlenerek model güncelleme kararı verilir.",
+                    "value": "• Feature drift is monitored to inform model update decisions.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -102,7 +102,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Segment performansı pozisyon bazında yorumlanabilir.",
+                    "value": "• Segment performance can be interpreted by position.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",

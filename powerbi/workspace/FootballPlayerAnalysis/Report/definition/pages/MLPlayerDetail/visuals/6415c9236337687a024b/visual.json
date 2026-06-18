@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "TAHMİN ANALİZİ",
+                    "value": "PREDICTION ANALYSIS",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "11pt",
@@ -42,7 +42,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Pozitif 'Fark %': oyuncu piyasada henüz tam fiyatlanmamış bir büyüme potansiyeli taşır.",
+                    "value": "• Positive 'Delta %': indicates growth potential not yet fully priced in the market.li taşır.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -54,7 +54,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• 'Limited' kalite: tahmin yalnızca yön bilgisi verir, değer kesin değildir.",
+                    "value": "• 'Limited' quality: prediction provides direction only; the value is not precise.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -66,7 +66,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Dar güven aralığı, modelin o oyuncuya yüksek özgüvenini ölçer.",
+                    "value": "• Narrow confidence interval measures the model's high confidence about that player.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -78,7 +78,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Önceki değer ile tahmin karşılaştırması scouting kararlarında referans noktasıdır.",
+                    "value": "• Previous değer ile tahmin karşılaştırması scouting kararlarında referans noktasıdır.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -90,7 +90,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Ana sayfaya dönmek için sol üstteki Geri butonunu kullanın.",
+                    "value": "• Use the Back button in the top-left to return to the home page.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",

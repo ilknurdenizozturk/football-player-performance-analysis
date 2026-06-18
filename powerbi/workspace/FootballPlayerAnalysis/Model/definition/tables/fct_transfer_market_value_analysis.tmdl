@@ -2,12 +2,12 @@ table fct_transfer_market_value_analysis
 
 	/// Distinct transfer records in the active filter context.
 	measure 'Transfer Count' = DISTINCTCOUNT(fct_transfer_market_value_analysis[transfer_key])
-		formatString: #,0 "transfer"
+		formatString: #,0 "transfers"
 		displayFolder: Market Value Analysis\01 Scope
 
 	/// Transfers with a known transfer fee.
 	measure 'Known Fee Transfer Count' = CALCULATE([Transfer Count], fct_transfer_market_value_analysis[has_known_transfer_fee] = TRUE())
-		formatString: #,0 "transfer"
+		formatString: #,0 "transfers"
 		displayFolder: Market Value Analysis\01 Scope
 
 	/// Share of transfer records with a known transfer fee.
@@ -27,7 +27,7 @@ table fct_transfer_market_value_analysis
 
 	/// Transfers with both a known fee and a market-value baseline.
 	measure 'Comparable Transfer Count' = CALCULATE([Transfer Count], fct_transfer_market_value_analysis[has_fee_market_value_comparison] = TRUE())
-		formatString: #,0 "transfer"
+		formatString: #,0 "transfers"
 		displayFolder: Market Value Analysis\02 Data Trust
 
 	/// Share of transfer records eligible for fee versus market-value comparison.
@@ -42,7 +42,7 @@ table fct_transfer_market_value_analysis
 
 	/// Transfers with an observable post-transfer market-value outcome.
 	measure 'Post Transfer Outcome Count' = CALCULATE([Transfer Count], fct_transfer_market_value_analysis[has_post_transfer_value_change] = TRUE())
-		formatString: #,0 "transfer"
+		formatString: #,0 "transfers"
 		displayFolder: Market Value Analysis\02 Data Trust
 
 	/// Share of transfers with an observable post-transfer value outcome.
@@ -65,16 +65,16 @@ table fct_transfer_market_value_analysis
 		displayFolder: Market Value Analysis\05 Dynamic Context
 
 	/// Dynamic context summary driven by active filters.
-	measure 'Transfer Context Summary' = VAR SeasonLabel = SELECTEDVALUE(fct_transfer_market_value_analysis[transfer_season], "Tüm Sezonlar") VAR PositionLabel = SELECTEDVALUE(fct_transfer_market_value_analysis[pozisyon_tr], "Tüm Pozisyonlar") RETURN SeasonLabel & " | " & PositionLabel & " | " & FORMAT([Transfer Count], "#,0") & " transfer"
+	measure 'Transfer Context Summary' = VAR SeasonLabel = SELECTEDVALUE(fct_transfer_market_value_analysis[transfer_season], "Tüm Sezonlar") VAR PositionLabel = SELECTEDVALUE(fct_transfer_market_value_analysis[position_tr], "All Positions") RETURN SeasonLabel & " | " & PositionLabel & " | " & FORMAT([Transfer Count], "#,0") & " transfer"
 		displayFolder: Market Value Analysis\05 Dynamic Context
 
 	/// Dynamic page title driven by active slicer selections.
-	measure 'Page 005 Dynamic Title' = VAR s = SELECTEDVALUE(fct_transfer_market_value_analysis[transfer_season], "Tüm Sezonlar") VAR p = SELECTEDVALUE(fct_transfer_market_value_analysis[pozisyon_tr], "Tüm Pozisyonlar") RETURN "💰 Transfer & Piyasa Değeri  │  " & s & "  │  " & p
+	measure 'Page 005 Dynamic Title' = VAR s = SELECTEDVALUE(fct_transfer_market_value_analysis[transfer_season], "Tüm Sezonlar") VAR p = SELECTEDVALUE(fct_transfer_market_value_analysis[position_tr], "All Positions") RETURN "💰 Transfer & Piyasa Değeri  │  " & s & "  │  " & p
 		displayFolder: Market Value Analysis\05 Dynamic Context
 
 	/// Transfers where the fee exceeds market value by more than 30% — competitive bidding or star effect signal.
 	measure 'High Premium Transfer Count' = CALCULATE([Transfer Count], fct_transfer_market_value_analysis[fee_market_value_difference_pct] > 30)
-		formatString: #,0 "transfer"
+		formatString: #,0 "transfers"
 		displayFolder: Market Value Analysis\03 Commercial Value
 
 	/// Ratio of total known fees to total market value baselines — overall market efficiency index.
@@ -753,10 +753,10 @@ table fct_transfer_market_value_analysis
 
 		annotation SummarizationSetBy = Automatic
 
-	column pozisyon_tr
+	column position_tr
 		dataType: string
 		summarizeBy: none
-		sourceColumn: pozisyon_tr
+		sourceColumn: position_tr
 
 		annotation SummarizationSetBy = Automatic
 

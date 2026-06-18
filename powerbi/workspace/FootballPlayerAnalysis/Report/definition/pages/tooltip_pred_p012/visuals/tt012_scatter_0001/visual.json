@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.pozisyon_tr",
-              "nativeQueryRef": "Pozisyon",
-              "displayName": "Pozisyon"
+              "nativeQueryRef": "Position",
+              "displayName": "Position"
             }
           ]
         },
@@ -46,9 +46,9 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Average Predicted Market Value",
-              "nativeQueryRef": "Ort. Tahmin Değeri",
+              "nativeQueryRef": "Avg. Prediction Değeri",
               "active": true,
-              "displayName": "Ort. Tahmin Değeri"
+              "displayName": "Avg. Prediction Değeri"
             }
           ]
         },
@@ -66,8 +66,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Average Prediction Upside %",
-              "nativeQueryRef": "Ort. Artış %",
-              "displayName": "Ort. Artış %"
+              "nativeQueryRef": "Avg. Upside %",
+              "displayName": "Avg. Upside %"
             }
           ]
         }
@@ -274,7 +274,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tahmin Değeri vs Artış % — Pozisyon Bazlı'"
+                  "Value": "'Prediction Value vs Artış % — Position Bazlı'"
                 }
               }
             },

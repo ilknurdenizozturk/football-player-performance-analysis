@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.transfer_season",
-              "nativeQueryRef": "Transfer Sezonu",
+              "nativeQueryRef": "Transfer Season",
               "active": true,
-              "displayName": "Transfer Sezonu"
+              "displayName": "Transfer Season"
             }
           ]
         }
@@ -266,7 +266,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Transfer Sezonu'"
+                  "Value": "'Transfer Season'"
                 }
               }
             },

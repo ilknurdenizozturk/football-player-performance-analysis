@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Average Fee Premium Discount %",
-              "nativeQueryRef": "Prim/İskonto %",
-              "displayName": "Prim/İskonto %"
+              "nativeQueryRef": "Premium / Discount %",
+              "displayName": "Premium / Discount %"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Prim/İskonto %'"
+                  "Value": "'Premium / Discount %'"
                 }
               }
             },

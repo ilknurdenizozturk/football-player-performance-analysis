@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Average Predicted Market Value",
-              "nativeQueryRef": "Tahmin Değeri",
-              "displayName": "Tahmin Değeri"
+              "nativeQueryRef": "Prediction Value",
+              "displayName": "Prediction Value"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tahmin Değeri'"
+                  "Value": "'Prediction Value'"
                 }
               }
             },

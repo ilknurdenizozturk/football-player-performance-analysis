@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "4d304949cba7dd247021",
   "position": {
-    "x": 105.16900676027041,
+    "x": 105.1690067602704,
     "y": 471.26365054602184,
     "z": 18000,
     "height": 224.98179927197086,
@@ -47,8 +47,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Average Prediction Upside %",
-              "nativeQueryRef": "Tahmin Artışı % (Poz.)",
-              "displayName": "Tahmin Artışı % (Poz.)"
+              "nativeQueryRef": "Prediction Upside % (Position)",
+              "displayName": "Prediction Upside % (Position)"
             }
           ]
         }
@@ -367,7 +367,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tahmin Artışı % (Poz.)'"
+                  "Value": "'Prediction Upside % (Position)'"
                 }
               }
             },

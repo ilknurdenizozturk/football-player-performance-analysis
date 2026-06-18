@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "aeddbee09d07129e30b0",
   "position": {
-    "x": 400.74996948242188,
-    "y": 9.5000076293945313,
+    "x": 400.7499694824219,
+    "y": 9.500007629394531,
     "z": 14000,
     "height": 50,
     "width": 411.25,
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Oyuncu Performans Analizi",
+                    "value": "Player Performance Analysis",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "20pt",

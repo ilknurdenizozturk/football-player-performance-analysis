@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "ANALİTİK BULGULAR",
+                    "value": "KEY FINDINGS",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "11pt",
@@ -42,7 +42,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Forvetler en yüksek piyasa değerini taşır; model bu eşitsizliği pozisyon bazında doğru yakalar.",
+                    "value": "• Forwards carry the highest market value; the model correctly captures this by position.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -54,7 +54,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• 'Karar Hazır %' oranı, modelin güvenilir tahmin ürettiği oyuncu kapsamını gösterir.",
+                    "value": "• 'Decision Ready %' oranı, modelin güvenilir tahmin ürettiği oyuncu kapsamını gösterir.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -66,7 +66,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Kırmızı referans çizgisinin solundaki pozisyonlar ortalama değer kaybı riski taşır.",
+                    "value": "• Positions to the left of the red reference line carry average value loss risk.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -78,7 +78,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Tahmin kalitesi 'Yüksek' filtresi: müzakereler için en güvenilir veri tabanını izole eder.",
+                    "value": "• Prediction kalitesi 'Yüksek' filtresi: müzakereler için en güvenilir veri tabanını izole eder.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -90,7 +90,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Dar güven aralığı = modelin o oyuncuya yüksek özgüveni; geniş aralık = daha fazla belirsizlik.",
+                    "value": "• Narrow CI = model is highly confident about that player; wide CI = more uncertainty.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",

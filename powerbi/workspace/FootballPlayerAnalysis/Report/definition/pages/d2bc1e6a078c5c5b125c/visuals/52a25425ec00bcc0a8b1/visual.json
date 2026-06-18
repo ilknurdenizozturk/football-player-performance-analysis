@@ -23,7 +23,7 @@
                       "Entity": "fct_player_performance"
                     }
                   },
-                  "Property": "Toplam Gol"
+                  "Property": "Total Goals"
                 }
               },
               "queryRef": "fct_player_performance.Toplam Gol",
@@ -42,7 +42,7 @@
                     "Entity": "fct_player_performance"
                   }
                 },
-                "Property": "Toplam Gol"
+                "Property": "Total Goals"
               }
             },
             "direction": "Descending"

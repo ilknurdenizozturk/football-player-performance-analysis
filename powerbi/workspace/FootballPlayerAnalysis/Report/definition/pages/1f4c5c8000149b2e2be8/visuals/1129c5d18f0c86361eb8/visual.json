@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.kalite_etiketi_tr",
-              "nativeQueryRef": "Tahmin Kalitesi",
+              "nativeQueryRef": "Prediction Quality",
               "active": true,
-              "displayName": "Tahmin Kalitesi"
+              "displayName": "Prediction Quality"
             }
           ]
         }
@@ -261,7 +261,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tahmin Kalitesi'"
+                  "Value": "'Prediction Quality'"
                 }
               }
             },

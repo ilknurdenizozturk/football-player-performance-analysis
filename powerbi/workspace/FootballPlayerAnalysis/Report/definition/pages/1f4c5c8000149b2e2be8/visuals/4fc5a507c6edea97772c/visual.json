@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.preferred_foot",
-              "nativeQueryRef": "Dominant Ayak",
+              "nativeQueryRef": "Dominant Foot",
               "active": true,
-              "displayName": "Dominant Ayak"
+              "displayName": "Dominant Foot"
             }
           ]
         }
@@ -261,7 +261,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Dominant Ayak'"
+                  "Value": "'Dominant Foot'"
                 }
               }
             },

@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Average Prediction Upside %",
-              "nativeQueryRef": "Değer Artışı %",
-              "displayName": "Değer Artışı %"
+              "nativeQueryRef": "Value Upside %",
+              "displayName": "Value Upside %"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Değer Artışı %'"
+                  "Value": "'Value Upside %'"
                 }
               }
             },

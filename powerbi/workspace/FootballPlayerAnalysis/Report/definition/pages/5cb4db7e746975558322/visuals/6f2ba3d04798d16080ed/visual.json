@@ -3,10 +3,10 @@
   "name": "6f2ba3d04798d16080ed",
   "position": {
     "x": 71.0595395532045,
-    "y": 589.44470514625368,
+    "y": 589.4447051462537,
     "z": 3000,
-    "height": 40.771866956756682,
-    "width": 393.97270452056938,
+    "height": 40.77186695675668,
+    "width": 393.9727045205694,
     "tabOrder": 2000
   },
   "visual": {
@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'💰 Transfer ve Piyasa Değeri Analizi'"
+                  "Value": "'💰 Transfer & Market Value Analysis'"
                 }
               }
             },
@@ -117,7 +117,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'💰 Transfer ve Piyasa Değeri Analizi'"
+                  "Value": "'💰 Transfer & Market Value Analysis'"
                 }
               }
             }
@@ -131,7 +131,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'💰 Transfer ve Piyasa Değeri Analizi'"
+                  "Value": "'💰 Transfer & Market Value Analysis'"
                 }
               }
             },
@@ -304,7 +304,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Kariyer Analizi'"
+                  "Value": "'Career Analysis'"
                 }
               }
             }

@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "ml_player_market_value_evaluation_metrics.segment_type",
-              "nativeQueryRef": "Segment Türü",
+              "nativeQueryRef": "Segment Type",
               "active": true,
-              "displayName": "Segment Türü"
+              "displayName": "Segment Type"
             }
           ]
         }
@@ -261,7 +261,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Segment Türü'"
+                  "Value": "'Segment Type'"
                 }
               }
             },

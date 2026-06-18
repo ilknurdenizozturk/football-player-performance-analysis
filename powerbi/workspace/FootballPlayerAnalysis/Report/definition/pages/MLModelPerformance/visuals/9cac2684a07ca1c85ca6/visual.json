@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_quality_gates.gate_name",
-              "nativeQueryRef": "Kalite Kapısı",
-              "displayName": "Kalite Kapısı"
+              "nativeQueryRef": "Quality Gate",
+              "displayName": "Quality Gate"
             },
             {
               "field": {
@@ -42,8 +42,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_quality_gates.actual_value",
-              "nativeQueryRef": "Gerçek Değer",
-              "displayName": "Gerçek Değer",
+              "nativeQueryRef": "Actual Value",
+              "displayName": "Actual Value",
               "format": "0.000"
             },
             {
@@ -58,8 +58,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_quality_gates.threshold_value",
-              "nativeQueryRef": "Eşik Değer",
-              "displayName": "Eşik Değer",
+              "nativeQueryRef": "Threshold Value",
+              "displayName": "Threshold Value",
               "format": "0.000"
             },
             {
@@ -74,8 +74,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_quality_gates.passed",
-              "nativeQueryRef": "Geçti?",
-              "displayName": "Geçti?"
+              "nativeQueryRef": "Passed?",
+              "displayName": "Passed?"
             },
             {
               "field": {
@@ -89,8 +89,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_quality_gates.severity",
-              "nativeQueryRef": "Önem",
-              "displayName": "Önem"
+              "nativeQueryRef": "Importance",
+              "displayName": "Importance"
             }
           ]
         }
@@ -369,7 +369,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Kalite Kapıları'"
+                  "Value": "'Quality Gates'"
                 }
               }
             },

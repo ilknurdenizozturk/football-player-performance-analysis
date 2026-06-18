@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.fee_status",
-              "nativeQueryRef": "Ücret Durumu",
+              "nativeQueryRef": "Fee Status",
               "active": true,
-              "displayName": "Ücret Durumu"
+              "displayName": "Fee Status"
             }
           ]
         }
@@ -261,7 +261,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ücret Durumu'"
+                  "Value": "'Fee Status'"
                 }
               }
             },

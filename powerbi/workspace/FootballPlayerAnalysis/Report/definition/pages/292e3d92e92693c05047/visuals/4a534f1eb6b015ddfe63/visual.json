@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "ANALİTİK BULGULAR",
+                    "value": "KEY FINDINGS",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "11pt",
@@ -38,7 +38,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Transferlerin ~%60'ı piyasa değerinin altında gerçekleşir — kulüpler sistematik olarak iskontolu alım yapar.",
+                    "value": "• ~60% of transfers occur below market value — clubs systematically buy at a discount.",
                     "textStyle": {
                       "fontSize": "8pt",
                       "color": "#e6f2e8"
@@ -49,7 +49,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Forvetler prim, kaleciler iskonto ile transfer edilir: pozisyon, fiyatlamayı doğrudan belirler.",
+                    "value": "• Forwards are transferred at a premium, goalkeepers at a discount: position directly determines pricing.",
                     "textStyle": {
                       "fontSize": "8pt",
                       "color": "#e6f2e8"
@@ -60,7 +60,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• 2016–2020 zirve döneminin ardından transfer bütçeleri daralma eğilimindedir.",
+                    "value": "• Transfer budgets have been on a declining trend since the 2016–2020 peak period.",
                     "textStyle": {
                       "fontSize": "8pt",
                       "color": "#e6f2e8"
@@ -71,7 +71,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "• Yüksek prim transferler (>%30) çoğunlukla yıldız oyuncu veya rekabetçi teklif durumlarıdır.",
+                    "value": "• High premium transfers (>30%) are mostly star-player or competitive-bid situations.",
                     "textStyle": {
                       "fontSize": "8pt",
                       "color": "#e6f2e8"

@@ -3,10 +3,10 @@
   "name": "5a3d44c6a9d52a4dc801",
   "position": {
     "x": 17.473657267181434,
-    "y": 556.82721158084837,
+    "y": 556.8272115808484,
     "z": 3000,
-    "height": 51.256061317065537,
-    "width": 41.936777441235442,
+    "height": 51.25606131706554,
+    "width": 41.93677744123544,
     "tabOrder": 2000
   },
   "visual": {
@@ -304,7 +304,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Kariyer Analizi'"
+                  "Value": "'Career Analysis'"
                 }
               }
             }

@@ -32,8 +32,8 @@
                 }
               },
               "queryRef": "Min(ml_player_market_value_evaluation_metrics.wape_pct)",
-              "nativeQueryRef": "En Düşük WAPE",
-              "displayName": "En Düşük WAPE",
+              "nativeQueryRef": "Lowest WAPE",
+              "displayName": "Lowest WAPE",
               "format": "0.0"
             }
           ]
@@ -230,7 +230,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'En Düşük WAPE'"
+                  "Value": "'Lowest WAPE'"
                 }
               }
             },

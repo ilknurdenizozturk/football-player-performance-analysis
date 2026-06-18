@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.player_name",
-              "nativeQueryRef": "Oyuncu",
-              "displayName": "Oyuncu"
+              "nativeQueryRef": "Player",
+              "displayName": "Player"
             },
             {
               "field": {
@@ -42,8 +42,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.pozisyon_tr",
-              "nativeQueryRef": "Pozisyon",
-              "displayName": "Pozisyon"
+              "nativeQueryRef": "Position",
+              "displayName": "Position"
             },
             {
               "field": {
@@ -57,8 +57,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.competition_country_name",
-              "nativeQueryRef": "Ülke / Lig",
-              "displayName": "Ülke / Lig"
+              "nativeQueryRef": "Country / League",
+              "displayName": "Country / League"
             },
             {
               "field": {
@@ -72,8 +72,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.previous_market_value_eur",
-              "nativeQueryRef": "Önceki Değer",
-              "displayName": "Önceki Değer",
+              "nativeQueryRef": "Previous Value",
+              "displayName": "Previous Value",
               "format": "€#,0"
             },
             {
@@ -88,8 +88,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.predicted_market_value_eur",
-              "nativeQueryRef": "Tahmin Değeri",
-              "displayName": "Tahmin Değeri",
+              "nativeQueryRef": "Prediction Value",
+              "displayName": "Prediction Value",
               "format": "€#,0"
             },
             {
@@ -120,8 +120,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.prediction_lower_eur",
-              "nativeQueryRef": "Alt Sınır (%90)",
-              "displayName": "Alt Sınır (%90)",
+              "nativeQueryRef": "Lower Bound (90%)",
+              "displayName": "Lower Bound (90%)",
               "format": "€#,0"
             },
             {
@@ -136,8 +136,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.prediction_upper_eur",
-              "nativeQueryRef": "Üst Sınır (%90)",
-              "displayName": "Üst Sınır (%90)",
+              "nativeQueryRef": "Upper Bound (90%)",
+              "displayName": "Upper Bound (90%)",
               "format": "€#,0"
             },
             {
@@ -152,8 +152,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.kalite_etiketi_tr",
-              "nativeQueryRef": "Kalite",
-              "displayName": "Kalite"
+              "nativeQueryRef": "Quality",
+              "displayName": "Quality"
             },
             {
               "field": {
@@ -447,7 +447,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Oyuncu Tahmin Kaydı — Tüm Detaylar'"
+                  "Value": "'Player Prediction Kaydı — Tüm Detaylar'"
                 }
               }
             },

@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Scored Player Count",
-              "nativeQueryRef": "Tahmin Oyuncusu",
-              "displayName": "Tahmin Oyuncusu"
+              "nativeQueryRef": "Predicted Players",
+              "displayName": "Predicted Players"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tahmin Oyuncusu'"
+                  "Value": "'Predicted Players'"
                 }
               }
             },

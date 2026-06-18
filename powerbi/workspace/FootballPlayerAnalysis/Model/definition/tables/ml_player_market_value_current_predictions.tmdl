@@ -2,12 +2,12 @@ table ml_player_market_value_current_predictions
 
 	/// Distinct players with a current market-value prediction.
 	measure 'Scored Player Count' = DISTINCTCOUNT(ml_player_market_value_current_predictions[player_id])
-		formatString: #,0 "oyuncu"
+		formatString: #,0 "players"
 		displayFolder: Market Value Prediction\01 Scope
 
 	/// Players with high or medium prediction quality.
 	measure 'Decision Ready Player Count' = CALCULATE([Scored Player Count], ml_player_market_value_current_predictions[prediction_quality_status] IN {"high", "medium"})
-		formatString: #,0 "oyuncu"
+		formatString: #,0 "players"
 		displayFolder: Market Value Prediction\02 Trust
 
 	/// Share of scored players suitable for decision support.
@@ -32,7 +32,7 @@ table ml_player_market_value_current_predictions
 
 	/// Players with positive predicted upside versus previous market value.
 	measure 'Positive Upside Player Count' = CALCULATE([Scored Player Count], ml_player_market_value_current_predictions[prediction_delta_vs_previous_pct] > 0)
-		formatString: #,0 "oyuncu"
+		formatString: #,0 "players"
 		displayFolder: Market Value Prediction\04 Opportunity
 
 	/// Share of scored players with positive predicted upside.
@@ -55,16 +55,16 @@ table ml_player_market_value_current_predictions
 		displayFolder: Market Value Prediction\05 Dynamic Context
 
 	/// Dynamic prediction context summary driven by active filters.
-	measure 'Prediction Context Summary' = VAR PositionLabel = SELECTEDVALUE(ml_player_market_value_current_predictions[pozisyon_tr], "Tüm Pozisyonlar") VAR CountryLabel = SELECTEDVALUE(ml_player_market_value_current_predictions[competition_country_name], "Tüm Ülkeler") RETURN PositionLabel & " | " & CountryLabel & " | " & FORMAT([Scored Player Count], "#,0") & " oyuncu"
+	measure 'Prediction Context Summary' = VAR PositionLabel = SELECTEDVALUE(ml_player_market_value_current_predictions[position_tr], "All Positions") VAR CountryLabel = SELECTEDVALUE(ml_player_market_value_current_predictions[competition_country_name], "All Countries") RETURN PositionLabel & " | " & CountryLabel & " | " & FORMAT([Scored Player Count], "#,0") & " player"
 		displayFolder: Market Value Prediction\05 Dynamic Context
 
 	/// Dynamic page title driven by active slicer selections.
-	measure 'ML Page Dynamic Title' = VAR p = SELECTEDVALUE(ml_player_market_value_current_predictions[pozisyon_tr], "Tüm Pozisyonlar") VAR c = SELECTEDVALUE(ml_player_market_value_current_predictions[competition_country_name], "Tüm Ülkeler") RETURN "⭐ Piyasa Değeri Tahmini  │  " & p & "  │  " & c
+	measure 'ML Page Dynamic Title' = VAR p = SELECTEDVALUE(ml_player_market_value_current_predictions[position_tr], "All Positions") VAR c = SELECTEDVALUE(ml_player_market_value_current_predictions[competition_country_name], "All Countries") RETURN "⭐ Market Value Prediction  │  " & p & "  │  " & c
 		displayFolder: Market Value Prediction\05 Dynamic Context
 
 	/// Players with predicted upside greater than 20% — high-opportunity targets.
-	measure 'Büyük Artış Oyuncu Count' = CALCULATE([Scored Player Count], ml_player_market_value_current_predictions[prediction_delta_vs_previous_pct] > 20)
-		formatString: #,0 "oyuncu"
+	measure 'High Upside Player Count' = CALCULATE([Scored Player Count], ml_player_market_value_current_predictions[prediction_delta_vs_previous_pct] > 20)
+		formatString: #,0 "players"
 		displayFolder: Market Value Prediction\04 Opportunity
 
 	/// Inverse of average relative interval — higher means more confident predictions.
@@ -74,7 +74,7 @@ table ml_player_market_value_current_predictions
 
 	/// Decision-ready players with positive upside — actionable long list.
 	measure 'High Upside Decision Ready Count' = CALCULATE([Decision Ready Player Count], ml_player_market_value_current_predictions[prediction_delta_vs_previous_pct] > 0)
-		formatString: #,0 "oyuncu"
+		formatString: #,0 "players"
 		displayFolder: Market Value Prediction\04 Opportunity
 
 	column scoring_row_key
@@ -437,10 +437,10 @@ table ml_player_market_value_current_predictions
 
 		annotation SummarizationSetBy = Automatic
 
-	column pozisyon_tr
+	column position_tr
 		dataType: string
 		summarizeBy: none
-		sourceColumn: pozisyon_tr
+		sourceColumn: position_tr
 
 		annotation SummarizationSetBy = Automatic
 

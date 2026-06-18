@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Transfer Context Summary",
-              "nativeQueryRef": "Aktif Seçim",
-              "displayName": "Aktif Seçim"
+              "nativeQueryRef": "Active Selection",
+              "displayName": "Active Selection"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Aktif Seçim'"
+                  "Value": "'Active Selection'"
                 }
               }
             },

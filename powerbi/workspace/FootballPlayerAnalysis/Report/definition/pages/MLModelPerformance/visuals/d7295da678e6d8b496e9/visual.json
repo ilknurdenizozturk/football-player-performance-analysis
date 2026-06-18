@@ -32,8 +32,8 @@
                 }
               },
               "queryRef": "Max(ml_player_market_value_evaluation_metrics.r2)",
-              "nativeQueryRef": "En Yüksek R²",
-              "displayName": "En Yüksek R²"
+              "nativeQueryRef": "Highest R²",
+              "displayName": "Highest R²"
             }
           ]
         }
@@ -229,7 +229,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'En Yüksek R²'"
+                  "Value": "'Highest R²'"
                 }
               }
             },

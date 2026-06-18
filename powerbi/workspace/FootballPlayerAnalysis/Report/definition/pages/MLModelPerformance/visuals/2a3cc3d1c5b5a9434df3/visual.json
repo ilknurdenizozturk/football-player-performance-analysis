@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "ml_player_market_value_feature_importance.feature_type",
-              "nativeQueryRef": "Özellik Türü",
+              "nativeQueryRef": "Feature Type",
               "active": true,
-              "displayName": "Özellik Türü"
+              "displayName": "Feature Type"
             }
           ]
         }
@@ -261,7 +261,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Özellik Türü'"
+                  "Value": "'Feature Type'"
                 }
               }
             },

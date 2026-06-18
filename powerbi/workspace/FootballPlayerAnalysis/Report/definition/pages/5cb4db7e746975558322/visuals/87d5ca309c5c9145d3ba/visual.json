@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "87d5ca309c5c9145d3ba",
   "position": {
-    "x": 71.200905229669232,
-    "y": 629.86680755968155,
+    "x": 71.20090522966923,
+    "y": 629.8668075596815,
     "z": 6000,
-    "height": 40.302399186605228,
+    "height": 40.30239918660523,
     "width": 349.2874596172453,
     "tabOrder": 6000
   },
@@ -45,7 +45,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'⭐ Oyuncu Piyasa Değeri Tahmini'"
+                  "Value": "'⭐ Player Market Value Prediction'"
                 }
               }
             },
@@ -117,7 +117,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'⭐ Oyuncu Piyasa Değeri Tahmini'"
+                  "Value": "'⭐ Player Market Value Prediction'"
                 }
               }
             }
@@ -131,7 +131,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'⭐ Oyuncu Piyasa Değeri Tahmini'"
+                  "Value": "'⭐ Player Market Value Prediction'"
                 }
               }
             },
@@ -304,7 +304,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Kariyer Analizi'"
+                  "Value": "'Career Analysis'"
                 }
               }
             }

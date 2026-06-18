@@ -6,7 +6,7 @@
     "y": 110.66649602548242,
     "z": 4000,
     "height": 52.420971801544304,
-    "width": 44.266598410192962,
+    "width": 44.26659841019296,
     "tabOrder": 3000
   },
   "visual": {
@@ -290,7 +290,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Kariyer Analizi'"
+                  "Value": "'Career Analysis'"
                 }
               }
             }

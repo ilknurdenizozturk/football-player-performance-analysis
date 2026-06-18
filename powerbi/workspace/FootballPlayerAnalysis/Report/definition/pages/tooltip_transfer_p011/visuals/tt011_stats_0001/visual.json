@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Average Known Transfer Fee",
-              "nativeQueryRef": "Ort. Transfer Ücreti",
-              "displayName": "Ort. Transfer Ücreti",
+              "nativeQueryRef": "Ort. Transfer Fee",
+              "displayName": "Ort. Transfer Fee",
               "format": "€0.0M"
             },
             {
@@ -43,8 +43,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Average Fee Premium Discount %",
-              "nativeQueryRef": "Ort. Prim %",
-              "displayName": "Ort. Prim %",
+              "nativeQueryRef": "Ort. Premium %",
+              "displayName": "Ort. Premium %",
               "format": "+0.0%;-0.0%;0.0%"
             },
             {
@@ -59,8 +59,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Transfer Count",
-              "nativeQueryRef": "Transfer Sayısı",
-              "displayName": "Transfer Sayısı",
+              "nativeQueryRef": "Transfer Count",
+              "displayName": "Transfer Count",
               "format": "#,0"
             },
             {
@@ -75,8 +75,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.High Premium Transfer Count",
-              "nativeQueryRef": "Yüksek Prim",
-              "displayName": "Yüksek Prim (>%30)",
+              "nativeQueryRef": "High Premium",
+              "displayName": "High Premium (>30%)",
               "format": "#,0"
             }
           ]
@@ -191,7 +191,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Transfer İstatistikleri'"
+                  "Value": "'Transfer Statistics'"
                 }
               }
             },

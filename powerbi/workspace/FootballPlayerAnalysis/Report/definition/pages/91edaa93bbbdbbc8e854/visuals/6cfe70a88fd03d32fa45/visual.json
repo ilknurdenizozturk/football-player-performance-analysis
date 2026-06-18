@@ -47,8 +47,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Average Known Transfer Fee",
-              "nativeQueryRef": "Ücret (Sezon)",
-              "displayName": "Ücret (Sezon)"
+              "nativeQueryRef": "Fee (Season)",
+              "displayName": "Fee (Season)"
             }
           ]
         }
@@ -340,7 +340,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ücret (Sezon)'"
+                  "Value": "'Fee (Season)'"
                 }
               }
             },

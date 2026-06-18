@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Total Known Transfer Fee",
-              "nativeQueryRef": "Toplam Hacim",
-              "displayName": "Toplam Hacim"
+              "nativeQueryRef": "Total Volume",
+              "displayName": "Total Volume"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Toplam Hacim'"
+                  "Value": "'Total Volume'"
                 }
               }
             },

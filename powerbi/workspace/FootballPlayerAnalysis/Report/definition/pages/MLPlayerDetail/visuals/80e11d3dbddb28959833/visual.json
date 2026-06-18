@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Average Prediction Upside %",
-              "nativeQueryRef": "Tahmin Farkı %",
-              "displayName": "Tahmin Farkı %"
+              "nativeQueryRef": "Prediction Delta %",
+              "displayName": "Prediction Delta %"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tahmin Farkı %'"
+                  "Value": "'Prediction Delta %'"
                 }
               }
             },

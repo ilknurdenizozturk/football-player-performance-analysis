@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Average Post Transfer Value Change %",
-              "nativeQueryRef": "Ort. Sonraki Değişim",
-              "displayName": "Ort. Sonraki Değişim"
+              "nativeQueryRef": "Avg. Post-Transfer Change",
+              "displayName": "Avg. Post-Transfer Change"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ort. Sonraki Değişim'"
+                  "Value": "'Avg. Post-Transfer Change'"
                 }
               }
             },

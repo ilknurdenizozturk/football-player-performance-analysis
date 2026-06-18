@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.pozisyon_tr",
-              "nativeQueryRef": "Pozisyon",
+              "nativeQueryRef": "Position",
               "active": true,
-              "displayName": "Pozisyon"
+              "displayName": "Position"
             }
           ]
         }
@@ -266,7 +266,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pozisyon'"
+                  "Value": "'Position'"
                 }
               }
             },

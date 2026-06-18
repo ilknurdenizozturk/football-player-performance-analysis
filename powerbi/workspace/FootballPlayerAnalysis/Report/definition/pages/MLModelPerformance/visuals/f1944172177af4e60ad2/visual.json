@@ -32,8 +32,8 @@
                 }
               },
               "queryRef": "Count(ml_player_market_value_quality_gates.gate_name)",
-              "nativeQueryRef": "Toplam Kapı",
-              "displayName": "Toplam Kapı"
+              "nativeQueryRef": "Total Gates",
+              "displayName": "Total Gates"
             }
           ]
         }
@@ -229,7 +229,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Toplam Kapı'"
+                  "Value": "'Total Gates'"
                 }
               }
             },

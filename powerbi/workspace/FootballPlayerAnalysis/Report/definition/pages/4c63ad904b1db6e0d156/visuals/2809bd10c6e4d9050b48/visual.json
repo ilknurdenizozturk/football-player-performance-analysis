@@ -124,7 +124,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'🏆 Kulüp ve Lig Analizi'"
+                  "Value": "'🏆 Club & League Analysis'"
                 }
               }
             },
@@ -297,7 +297,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Kariyer Analizi'"
+                  "Value": "'Career Analysis'"
                 }
               }
             }

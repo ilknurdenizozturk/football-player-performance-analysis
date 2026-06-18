@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.yon_etiketi_tr",
-              "nativeQueryRef": "Değer Yönü",
+              "nativeQueryRef": "Value Direction",
               "active": true,
-              "displayName": "Değer Yönü"
+              "displayName": "Value Direction"
             }
           ]
         }
@@ -261,7 +261,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Değer Yönü'"
+                  "Value": "'Value Direction'"
                 }
               }
             },

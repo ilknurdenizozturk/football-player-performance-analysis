@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "ML v5 Ensemble  |  R2=0.976, WAPE=%12.5  |  %90 güven aralığı  |  Kalite tabanlı yönlendirme",
+                    "value": "ML v5 Ensemble  |  R2=0.976, WAPE=%12.5  |  %90 güven aralığı  |  Quality tabanlı yönlendirme",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "7.5pt",

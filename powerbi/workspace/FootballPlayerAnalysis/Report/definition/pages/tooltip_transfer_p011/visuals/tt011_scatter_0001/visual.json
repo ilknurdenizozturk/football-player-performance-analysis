@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.pozisyon_tr",
-              "nativeQueryRef": "Pozisyon",
-              "displayName": "Pozisyon"
+              "nativeQueryRef": "Position",
+              "displayName": "Position"
             }
           ]
         },
@@ -46,9 +46,9 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Average Known Transfer Fee",
-              "nativeQueryRef": "Ort. Transfer Ücreti",
+              "nativeQueryRef": "Ort. Transfer Fee",
               "active": true,
-              "displayName": "Ort. Transfer Ücreti"
+              "displayName": "Ort. Transfer Fee"
             }
           ]
         },
@@ -66,8 +66,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Average Fee Premium Discount %",
-              "nativeQueryRef": "Prim/İskonto %",
-              "displayName": "Prim/İskonto %"
+              "nativeQueryRef": "Premium / Discount %",
+              "displayName": "Premium / Discount %"
             }
           ]
         }
@@ -274,7 +274,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ücret vs Prim Dağılımı'"
+                  "Value": "'Fee vs Premium Distribution'"
                 }
               }
             },

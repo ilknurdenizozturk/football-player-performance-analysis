@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "fct_transfer_market_value_analysis.Selected Transfer Player",
-              "nativeQueryRef": "Seçili Oyuncu",
-              "displayName": "Seçili Oyuncu"
+              "nativeQueryRef": "Selected Player",
+              "displayName": "Selected Player"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Seçili Oyuncu'"
+                  "Value": "'Selected Player'"
                 }
               }
             },

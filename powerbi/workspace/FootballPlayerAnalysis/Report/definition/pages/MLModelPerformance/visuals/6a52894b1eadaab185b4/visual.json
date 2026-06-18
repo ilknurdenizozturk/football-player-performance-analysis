@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_feature_importance.importance_rank",
-              "nativeQueryRef": "Sıra",
-              "displayName": "Sıra",
+              "nativeQueryRef": "Rank",
+              "displayName": "Rank",
               "format": "0"
             },
             {
@@ -43,8 +43,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_feature_importance.feature",
-              "nativeQueryRef": "Özellik",
-              "displayName": "Özellik"
+              "nativeQueryRef": "Feature",
+              "displayName": "Feature"
             },
             {
               "field": {
@@ -73,8 +73,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_feature_importance.mae_increase_eur_mean",
-              "nativeQueryRef": "MAE Artışı (€)",
-              "displayName": "MAE Artışı (€)",
+              "nativeQueryRef": "MAE Increase (€)",
+              "displayName": "MAE Increase (€)",
               "format": "€#,0"
             }
           ]
@@ -371,7 +371,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Özellik Önemi'"
+                  "Value": "'Feature Importance'"
                 }
               }
             },

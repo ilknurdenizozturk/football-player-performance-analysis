@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Prediction Context Summary",
-              "nativeQueryRef": "Aktif Seçim",
-              "displayName": "Aktif Seçim"
+              "nativeQueryRef": "Active Selection",
+              "displayName": "Active Selection"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Aktif Seçim'"
+                  "Value": "'Active Selection'"
                 }
               }
             },

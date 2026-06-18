@@ -32,8 +32,8 @@
                 }
               },
               "queryRef": "Count(ml_player_market_value_feature_importance.importance_rank)",
-              "nativeQueryRef": "Özellik Sayısı",
-              "displayName": "Özellik Sayısı"
+              "nativeQueryRef": "Feature Count",
+              "displayName": "Feature Count"
             }
           ]
         }
@@ -229,7 +229,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Özellik Sayısı'"
+                  "Value": "'Feature Count'"
                 }
               }
             },

@@ -32,8 +32,8 @@
                 }
               },
               "queryRef": "Max(ml_player_market_value_evaluation_metrics.within_25_pct)",
-              "nativeQueryRef": "±%25 İçinde",
-              "displayName": "±%25 İçinde",
+              "nativeQueryRef": "Within ±25%",
+              "displayName": "Within ±25%",
               "format": "0.0"
             }
           ]
@@ -230,7 +230,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'±%25 İçinde'"
+                  "Value": "'Within ±25%'"
                 }
               }
             },

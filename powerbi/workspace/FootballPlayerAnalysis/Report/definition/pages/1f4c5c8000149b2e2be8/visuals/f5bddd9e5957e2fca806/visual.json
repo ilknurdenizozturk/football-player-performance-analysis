@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.competition_country_name",
-              "nativeQueryRef": "Rekabet Ülkesi",
+              "nativeQueryRef": "Competition Country",
               "active": true,
-              "displayName": "Rekabet Ülkesi"
+              "displayName": "Competition Country"
             }
           ]
         }
@@ -261,7 +261,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Rekabet Ülkesi'"
+                  "Value": "'Competition Country'"
                 }
               }
             },

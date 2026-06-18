@@ -27,8 +27,8 @@
                 }
               },
               "queryRef": "ml_player_market_value_current_predictions.Average Predicted Market Value",
-              "nativeQueryRef": "Ort. Tahmin",
-              "displayName": "Ort. Tahmin"
+              "nativeQueryRef": "Avg. Prediction",
+              "displayName": "Avg. Prediction"
             }
           ]
         }
@@ -219,7 +219,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ort. Tahmin'"
+                  "Value": "'Avg. Prediction'"
                 }
               }
             },
