@@ -3,10 +3,10 @@
   "name": "750474d7071b93a004b5",
   "position": {
     "x": 420.33106699301965,
-    "y": 451.5217115402049,
+    "y": 451.52171154020488,
     "z": 23000,
     "height": 249.52515637748164,
-    "width": 326.7591333514641,
+    "width": 326.75913335146407,
     "tabOrder": 23000
   },
   "visual": {
@@ -262,32 +262,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
-                }
-              }
-            },
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#285D3D'"
-                    }
-                  }
-                }
-              }
-            },
-            "bold": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'center'"
+                  "Value": "12D"
                 }
               }
             }
@@ -303,24 +278,6 @@
                   "Value": "true"
                 }
               }
-            },
-            "radius": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#8BC99A'"
-                    }
-                  }
-                }
-              }
             }
           }
         }
@@ -332,44 +289,6 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "60D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "background": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#F6FBF5'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
                 }
               }
             }

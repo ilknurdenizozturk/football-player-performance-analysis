@@ -23,8 +23,7 @@
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "11pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "color": "#FFFFFF"
                     }
                   }
                 ]
@@ -35,8 +34,7 @@
                     "value": "",
                     "textStyle": {
                       "fontSize": "4pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "color": "#FFFFFF"
                     }
                   }
                 ]
@@ -47,9 +45,8 @@
                     "value": "• Forvetler en yüksek piyasa değerini taşır; model bu eşitsizliği pozisyon bazında doğru yakalar.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ]
@@ -60,9 +57,8 @@
                     "value": "• 'Karar Hazır %' oranı, modelin güvenilir tahmin ürettiği oyuncu kapsamını gösterir.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ]
@@ -73,9 +69,8 @@
                     "value": "• Kırmızı referans çizgisinin solundaki pozisyonlar ortalama değer kaybı riski taşır.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ]
@@ -86,9 +81,8 @@
                     "value": "• Tahmin kalitesi 'Yüksek' filtresi: müzakereler için en güvenilir veri tabanını izole eder.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ]
@@ -99,9 +93,8 @@
                     "value": "• Dar güven aralığı = modelin o oyuncuya yüksek özgüveni; geniş aralık = daha fazla belirsizlik.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ]

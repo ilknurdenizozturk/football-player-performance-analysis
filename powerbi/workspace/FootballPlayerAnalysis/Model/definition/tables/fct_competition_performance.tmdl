@@ -1,9 +1,7 @@
 table fct_competition_performance
-	lineageTag: 4b837f78-9e55-464a-9462-53c16c07377c
 
 	column competition_id
 		dataType: string
-		lineageTag: 0a6ae1bf-504a-47ca-a9a2-95227a33d920
 		summarizeBy: none
 		sourceColumn: competition_id
 
@@ -11,7 +9,6 @@ table fct_competition_performance
 
 	column competition_name
 		dataType: string
-		lineageTag: 80b48552-4007-491d-9498-56dfb068f842
 		summarizeBy: none
 		sourceColumn: competition_name
 
@@ -19,7 +16,6 @@ table fct_competition_performance
 
 	column competition_type
 		dataType: string
-		lineageTag: 84333e3e-7739-48a3-ad2d-0e0a2b85a565
 		summarizeBy: none
 		sourceColumn: competition_type
 
@@ -27,7 +23,6 @@ table fct_competition_performance
 
 	column country_name
 		dataType: string
-		lineageTag: a4d80afa-7311-47d4-bea8-318215e37a51
 		summarizeBy: none
 		sourceColumn: country_name
 
@@ -35,7 +30,6 @@ table fct_competition_performance
 
 	column confederation
 		dataType: string
-		lineageTag: 55cb86ab-77c0-473e-87b3-8f550c189fe6
 		summarizeBy: none
 		sourceColumn: confederation
 
@@ -44,7 +38,6 @@ table fct_competition_performance
 	column matches_played
 		dataType: int64
 		formatString: 0
-		lineageTag: 317b03de-2a4e-48bb-99a1-cbbf34c13ba5
 		summarizeBy: sum
 		sourceColumn: matches_played
 
@@ -53,7 +46,6 @@ table fct_competition_performance
 	column total_goals
 		dataType: int64
 		formatString: 0
-		lineageTag: 94b346fa-1277-420a-85d7-137fb0033c5e
 		summarizeBy: sum
 		sourceColumn: total_goals
 
@@ -61,7 +53,6 @@ table fct_competition_performance
 
 	column avg_goals_per_match
 		dataType: double
-		lineageTag: c7a40995-8643-44a9-a647-8254337875b9
 		summarizeBy: sum
 		sourceColumn: avg_goals_per_match
 
@@ -72,7 +63,6 @@ table fct_competition_performance
 	column club_participation_count
 		dataType: int64
 		formatString: 0
-		lineageTag: eb6fc412-9123-4ec3-9179-5bf73daa4d90
 		summarizeBy: sum
 		sourceColumn: club_participation_count
 
@@ -80,7 +70,6 @@ table fct_competition_performance
 
 	column avg_attendance
 		dataType: double
-		lineageTag: 89996282-dc68-444a-8192-d1efe799f310
 		summarizeBy: sum
 		sourceColumn: avg_attendance
 

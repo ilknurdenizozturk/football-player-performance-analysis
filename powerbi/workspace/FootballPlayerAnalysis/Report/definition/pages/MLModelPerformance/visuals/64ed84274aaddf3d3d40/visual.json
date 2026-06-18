@@ -22,9 +22,8 @@
                     "value": "ÖZELLİK ETKİ ANALİZİ",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#FFFFFF"
                     }
                   }
                 ]

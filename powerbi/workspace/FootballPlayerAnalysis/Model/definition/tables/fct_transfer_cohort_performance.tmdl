@@ -1,10 +1,8 @@
 table fct_transfer_cohort_performance
-	lineageTag: c2c67ff2-6c03-4913-938f-c35a7dcbc35d
 
 	column horizon_days
 		dataType: int64
 		formatString: 0
-		lineageTag: bb504e82-056f-44de-83ea-8033f3f01594
 		summarizeBy: sum
 		sourceColumn: horizon_days
 
@@ -12,7 +10,6 @@ table fct_transfer_cohort_performance
 
 	column cohort_type
 		dataType: string
-		lineageTag: 17a0151a-9318-412e-ab96-10821624e5de
 		summarizeBy: none
 		sourceColumn: cohort_type
 
@@ -20,7 +17,6 @@ table fct_transfer_cohort_performance
 
 	column cohort_value
 		dataType: string
-		lineageTag: 31e6d467-9ee9-45fa-82cf-90c03ec865cf
 		summarizeBy: none
 		sourceColumn: cohort_value
 
@@ -29,7 +25,6 @@ table fct_transfer_cohort_performance
 	column transfer_count
 		dataType: int64
 		formatString: 0
-		lineageTag: abbf9bef-2499-40b4-b597-b482a93ed599
 		summarizeBy: sum
 		sourceColumn: transfer_count
 
@@ -38,7 +33,6 @@ table fct_transfer_cohort_performance
 	column observed_outcome_count
 		dataType: int64
 		formatString: 0
-		lineageTag: 95753014-a852-42b4-90b8-ee4578c7f240
 		summarizeBy: sum
 		sourceColumn: observed_outcome_count
 
@@ -47,7 +41,6 @@ table fct_transfer_cohort_performance
 	column missing_baseline_count
 		dataType: int64
 		formatString: 0
-		lineageTag: 79a9cb87-18a9-491a-b358-74d83f17a00d
 		summarizeBy: sum
 		sourceColumn: missing_baseline_count
 
@@ -56,7 +49,6 @@ table fct_transfer_cohort_performance
 	column not_yet_observable_count
 		dataType: int64
 		formatString: 0
-		lineageTag: a62b2c85-f24b-4d70-a8f6-3d484d611e2c
 		summarizeBy: sum
 		sourceColumn: not_yet_observable_count
 
@@ -65,7 +57,6 @@ table fct_transfer_cohort_performance
 	column missing_followup_count
 		dataType: int64
 		formatString: 0
-		lineageTag: c24bfcf6-7570-4623-951d-86feaafde965
 		summarizeBy: sum
 		sourceColumn: missing_followup_count
 
@@ -73,7 +64,6 @@ table fct_transfer_cohort_performance
 
 	column outcome_coverage_pct
 		dataType: double
-		lineageTag: 916a47d1-2c84-443e-add9-bb55a32246aa
 		summarizeBy: sum
 		sourceColumn: outcome_coverage_pct
 
@@ -83,7 +73,6 @@ table fct_transfer_cohort_performance
 
 	column avg_market_value_change_pct
 		dataType: double
-		lineageTag: af9004e4-b543-497d-aa3b-4bc9bdb0a532
 		summarizeBy: sum
 		sourceColumn: avg_market_value_change_pct
 
@@ -93,7 +82,6 @@ table fct_transfer_cohort_performance
 
 	column median_market_value_change_pct
 		dataType: double
-		lineageTag: e14f9564-7284-4092-b0c4-bb560a0b493a
 		summarizeBy: sum
 		sourceColumn: median_market_value_change_pct
 
@@ -103,7 +91,6 @@ table fct_transfer_cohort_performance
 
 	column p25_market_value_change_pct
 		dataType: double
-		lineageTag: 336b7e1a-9e08-4014-965f-baebe3427635
 		summarizeBy: sum
 		sourceColumn: p25_market_value_change_pct
 
@@ -113,7 +100,6 @@ table fct_transfer_cohort_performance
 
 	column p75_market_value_change_pct
 		dataType: double
-		lineageTag: eb04592b-05e2-44d7-930d-f49a21ee0abf
 		summarizeBy: sum
 		sourceColumn: p75_market_value_change_pct
 
@@ -123,7 +109,6 @@ table fct_transfer_cohort_performance
 
 	column stddev_market_value_change_pct
 		dataType: double
-		lineageTag: c51e3bc4-70c0-4b15-b959-cf0903236a5c
 		summarizeBy: sum
 		sourceColumn: stddev_market_value_change_pct
 
@@ -133,7 +118,6 @@ table fct_transfer_cohort_performance
 
 	column positive_outcome_rate_pct
 		dataType: double
-		lineageTag: d850101b-516b-4e42-9c0e-d1ed618cb384
 		summarizeBy: sum
 		sourceColumn: positive_outcome_rate_pct
 
@@ -143,7 +127,6 @@ table fct_transfer_cohort_performance
 
 	column avg_fee_premium_pct
 		dataType: double
-		lineageTag: 97732298-b28e-4f62-836d-90d3ea679574
 		summarizeBy: sum
 		sourceColumn: avg_fee_premium_pct
 
@@ -153,7 +136,6 @@ table fct_transfer_cohort_performance
 
 	column avg_change_ci95_lower_pct
 		dataType: double
-		lineageTag: 724315b0-4751-4fa8-bd1b-d9022d2e31c8
 		summarizeBy: sum
 		sourceColumn: avg_change_ci95_lower_pct
 
@@ -163,7 +145,6 @@ table fct_transfer_cohort_performance
 
 	column avg_change_ci95_upper_pct
 		dataType: double
-		lineageTag: 01457be2-a5af-4ed0-8a30-2d308299d82b
 		summarizeBy: sum
 		sourceColumn: avg_change_ci95_upper_pct
 
@@ -174,7 +155,6 @@ table fct_transfer_cohort_performance
 	column meets_minimum_sample_size
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 62635984-2899-4100-bbea-792421728b07
 		summarizeBy: none
 		sourceColumn: meets_minimum_sample_size
 
@@ -182,7 +162,6 @@ table fct_transfer_cohort_performance
 
 	column analytical_reliability
 		dataType: string
-		lineageTag: 260c3f81-9f41-454a-a16f-1a3505b8bf77
 		summarizeBy: none
 		sourceColumn: analytical_reliability
 

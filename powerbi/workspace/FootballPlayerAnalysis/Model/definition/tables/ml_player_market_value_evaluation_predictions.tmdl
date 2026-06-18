@@ -1,9 +1,7 @@
 table ml_player_market_value_evaluation_predictions
-	lineageTag: 32141770-b6b4-41df-8ef8-b62c16c7387e
 
 	column training_row_key
 		dataType: string
-		lineageTag: 7b303654-a4cd-42dc-9eab-854b5799811c
 		summarizeBy: none
 		sourceColumn: training_row_key
 
@@ -12,7 +10,6 @@ table ml_player_market_value_evaluation_predictions
 	column player_id
 		dataType: int64
 		formatString: 0
-		lineageTag: b41c53c7-5e17-4c9e-9956-d07c37379b1d
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -20,7 +17,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column player_name
 		dataType: string
-		lineageTag: 3a19901e-4d5f-4a2a-af9d-4b9679ad5836
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -28,7 +24,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column season
 		dataType: double
-		lineageTag: 978ac1b4-d332-4080-8935-cc980e5abe64
 		summarizeBy: sum
 		sourceColumn: season
 
@@ -38,7 +33,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column competition_id
 		dataType: string
-		lineageTag: 0838044c-5962-444c-b47e-1f8815152535
 		summarizeBy: none
 		sourceColumn: competition_id
 
@@ -47,7 +41,6 @@ table ml_player_market_value_evaluation_predictions
 	column target_market_value_date
 		dataType: dateTime
 		formatString: Long Date
-		lineageTag: 5e171d9b-7eb7-47a2-a034-a1273f679572
 		summarizeBy: none
 		sourceColumn: target_market_value_date
 
@@ -62,7 +55,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column target_market_value_eur
 		dataType: double
-		lineageTag: ee154ba4-acbd-4da4-8d87-121f15657e63
 		summarizeBy: sum
 		sourceColumn: target_market_value_eur
 
@@ -72,7 +64,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column previous_market_value_eur
 		dataType: double
-		lineageTag: 674c6fc1-2d2b-40d5-ac38-927b3c71b90b
 		summarizeBy: sum
 		sourceColumn: previous_market_value_eur
 
@@ -82,7 +73,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column position
 		dataType: string
-		lineageTag: 262dc0b3-d199-41a7-b0d4-7fca03369689
 		summarizeBy: none
 		sourceColumn: position
 
@@ -90,7 +80,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column sub_position
 		dataType: string
-		lineageTag: 085c269b-ab59-4e8c-86ea-a93914a60b99
 		summarizeBy: none
 		sourceColumn: sub_position
 
@@ -98,7 +87,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column age_at_target_date
 		dataType: double
-		lineageTag: 339c78cb-3bc7-447d-8807-d7096455f5fc
 		summarizeBy: sum
 		sourceColumn: age_at_target_date
 
@@ -108,7 +96,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column competition_country_name
 		dataType: string
-		lineageTag: cc7f5774-9f1f-4982-9337-ed54405f4acb
 		summarizeBy: none
 		sourceColumn: competition_country_name
 
@@ -116,7 +103,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column ml_only_prediction_eur
 		dataType: double
-		lineageTag: f5f62f6e-96be-4fc8-9db6-1dfab312e6da
 		summarizeBy: sum
 		sourceColumn: ml_only_prediction_eur
 
@@ -126,7 +112,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column baseline_prediction_eur
 		dataType: double
-		lineageTag: 21cc76d4-04c0-4633-8244-67c0d80bbc03
 		summarizeBy: sum
 		sourceColumn: baseline_prediction_eur
 
@@ -136,7 +121,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column predicted_market_value_eur
 		dataType: double
-		lineageTag: ef159603-164a-4e92-a2e4-94a077ad1094
 		summarizeBy: sum
 		sourceColumn: predicted_market_value_eur
 
@@ -146,7 +130,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column absolute_error_eur
 		dataType: double
-		lineageTag: 2ebc1c16-df2e-48e3-afdb-756c3931dee8
 		summarizeBy: sum
 		sourceColumn: absolute_error_eur
 
@@ -156,7 +139,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column prediction_interval_band
 		dataType: string
-		lineageTag: 01ba7012-01f8-4a06-9eb4-0e21acd2f167
 		summarizeBy: none
 		sourceColumn: prediction_interval_band
 
@@ -164,7 +146,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column prediction_interval_eur
 		dataType: double
-		lineageTag: 6aab3d33-b515-4a9e-89a8-444554b17ca1
 		summarizeBy: sum
 		sourceColumn: prediction_interval_eur
 
@@ -174,7 +155,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column prediction_lower_eur
 		dataType: double
-		lineageTag: 01ec56c1-41d0-4f97-81a1-6269b456f75a
 		summarizeBy: sum
 		sourceColumn: prediction_lower_eur
 
@@ -184,7 +164,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column prediction_upper_eur
 		dataType: double
-		lineageTag: dfe472f8-cabc-4d18-8073-615bcfc67e7b
 		summarizeBy: sum
 		sourceColumn: prediction_upper_eur
 
@@ -194,7 +173,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column prediction_quality_status
 		dataType: string
-		lineageTag: 922496b0-a05f-4e6c-93a8-3468c74694a9
 		summarizeBy: none
 		sourceColumn: prediction_quality_status
 
@@ -202,7 +180,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column selected_ml_blend_weight
 		dataType: double
-		lineageTag: 4c67e125-cb52-4821-a914-b6aabe8b445b
 		summarizeBy: sum
 		sourceColumn: selected_ml_blend_weight
 
@@ -212,7 +189,6 @@ table ml_player_market_value_evaluation_predictions
 
 	column model_version
 		dataType: string
-		lineageTag: 1009b4c0-9ad7-4cb4-aca3-56ef797bdffa
 		summarizeBy: none
 		sourceColumn: model_version
 
@@ -221,7 +197,6 @@ table ml_player_market_value_evaluation_predictions
 	column model_generated_at_utc
 		dataType: dateTime
 		formatString: General Date
-		lineageTag: 16ef6b93-6c5a-4ee4-8f45-fc4dfdec6753
 		summarizeBy: none
 		sourceColumn: model_generated_at_utc
 

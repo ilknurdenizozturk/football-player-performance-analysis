@@ -1,9 +1,7 @@
 table fct_analytics_refresh_audit
-	lineageTag: aa2be767-fe03-4beb-9acf-50525cc8b985
 
 	column audit_key
 		dataType: string
-		lineageTag: ea9981c6-51a0-4a7d-981d-4bf632b50ea1
 		summarizeBy: none
 		sourceColumn: audit_key
 
@@ -12,7 +10,6 @@ table fct_analytics_refresh_audit
 	column audit_generated_at_utc
 		dataType: dateTime
 		formatString: General Date
-		lineageTag: 62c91ee2-39ae-49ee-a3ae-10ace54da083
 		summarizeBy: none
 		sourceColumn: audit_generated_at_utc
 
@@ -25,7 +22,6 @@ table fct_analytics_refresh_audit
 
 	column dbt_target_name
 		dataType: string
-		lineageTag: 18cdca4d-4964-4cc4-a969-8e59ad6c89c3
 		summarizeBy: none
 		sourceColumn: dbt_target_name
 
@@ -34,7 +30,6 @@ table fct_analytics_refresh_audit
 	column source_game_rows
 		dataType: int64
 		formatString: 0
-		lineageTag: a7c34d0b-32b5-4107-b1b8-ce43c17f42ef
 		summarizeBy: sum
 		sourceColumn: source_game_rows
 
@@ -43,7 +38,6 @@ table fct_analytics_refresh_audit
 	column source_appearance_rows
 		dataType: int64
 		formatString: 0
-		lineageTag: 2d58a9bf-4666-4a72-ad15-3b613088a8de
 		summarizeBy: sum
 		sourceColumn: source_appearance_rows
 
@@ -52,7 +46,6 @@ table fct_analytics_refresh_audit
 	column source_transfer_rows
 		dataType: int64
 		formatString: 0
-		lineageTag: 36dd1e5e-9732-4e37-ae70-3f192e2029b1
 		summarizeBy: sum
 		sourceColumn: source_transfer_rows
 
@@ -61,7 +54,6 @@ table fct_analytics_refresh_audit
 	column source_valuation_rows
 		dataType: int64
 		formatString: 0
-		lineageTag: 42d79107-952f-48c9-87e7-fc4aaf2aa67a
 		summarizeBy: sum
 		sourceColumn: source_valuation_rows
 
@@ -70,7 +62,6 @@ table fct_analytics_refresh_audit
 	column match_rows
 		dataType: int64
 		formatString: 0
-		lineageTag: f43d8706-e610-4736-b05b-fe54362126b8
 		summarizeBy: sum
 		sourceColumn: match_rows
 
@@ -79,7 +70,6 @@ table fct_analytics_refresh_audit
 	column player_match_rows
 		dataType: int64
 		formatString: 0
-		lineageTag: 238ab8db-1280-40e1-b7b1-e14591e90a7a
 		summarizeBy: sum
 		sourceColumn: player_match_rows
 
@@ -88,7 +78,6 @@ table fct_analytics_refresh_audit
 	column historical_transfer_rows
 		dataType: int64
 		formatString: 0
-		lineageTag: 54755b50-fc16-40ed-96e8-d2dbac45463b
 		summarizeBy: sum
 		sourceColumn: historical_transfer_rows
 
@@ -96,7 +85,6 @@ table fct_analytics_refresh_audit
 
 	column overall_known_fee_coverage_pct
 		dataType: double
-		lineageTag: 54b957d0-28da-4695-a131-589bc4dd0816
 		summarizeBy: sum
 		sourceColumn: overall_known_fee_coverage_pct
 
@@ -106,7 +94,6 @@ table fct_analytics_refresh_audit
 
 	column overall_fee_value_comparison_coverage_pct
 		dataType: double
-		lineageTag: fa781d3d-db6a-4fa8-ab5c-e8a1645607a5
 		summarizeBy: sum
 		sourceColumn: overall_fee_value_comparison_coverage_pct
 
@@ -116,7 +103,6 @@ table fct_analytics_refresh_audit
 
 	column overall_365d_outcome_coverage_pct
 		dataType: double
-		lineageTag: 6e812471-7df3-45db-9952-bf638c514b60
 		summarizeBy: sum
 		sourceColumn: overall_365d_outcome_coverage_pct
 
@@ -127,7 +113,6 @@ table fct_analytics_refresh_audit
 	column high_bias_risk_segment_count
 		dataType: int64
 		formatString: 0
-		lineageTag: 2de4eaf9-f6cd-496e-b364-a2b178d08548
 		summarizeBy: sum
 		sourceColumn: high_bias_risk_segment_count
 
@@ -136,7 +121,6 @@ table fct_analytics_refresh_audit
 	column insufficient_sample_cohort_count
 		dataType: int64
 		formatString: 0
-		lineageTag: 89bdbc57-fb85-4d6d-9dda-313b43dafe0f
 		summarizeBy: sum
 		sourceColumn: insufficient_sample_cohort_count
 

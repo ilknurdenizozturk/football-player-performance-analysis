@@ -1,9 +1,7 @@
 table fct_transfer_success_labels
-	lineageTag: 1b61d157-03d4-4ce8-9d31-b76df492035d
 
 	column transfer_key
 		dataType: string
-		lineageTag: bd7accc8-ffed-4ceb-b3e9-ea74a4b612bb
 		summarizeBy: none
 		sourceColumn: transfer_key
 
@@ -12,7 +10,6 @@ table fct_transfer_success_labels
 	column player_id
 		dataType: int64
 		formatString: 0
-		lineageTag: 5871bc14-b6d3-4c1d-9f45-b958d1f1280a
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -20,7 +17,6 @@ table fct_transfer_success_labels
 
 	column player_name
 		dataType: string
-		lineageTag: d4993b19-4288-42a8-8ab3-6a4adb382d6a
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -28,7 +24,6 @@ table fct_transfer_success_labels
 
 	column position
 		dataType: string
-		lineageTag: 3ad633da-602d-4a48-9823-a020487cd17a
 		summarizeBy: none
 		sourceColumn: position
 
@@ -37,7 +32,6 @@ table fct_transfer_success_labels
 	column age_at_transfer
 		dataType: int64
 		formatString: 0
-		lineageTag: a21df60e-9cd8-4f16-a35d-4d6b2f4ecaa4
 		summarizeBy: sum
 		sourceColumn: age_at_transfer
 
@@ -46,7 +40,6 @@ table fct_transfer_success_labels
 	column transfer_date
 		dataType: dateTime
 		formatString: Long Date
-		lineageTag: cc98dbea-4415-4c50-aeee-b70c70f772e7
 		summarizeBy: none
 		sourceColumn: transfer_date
 
@@ -62,7 +55,6 @@ table fct_transfer_success_labels
 	column transfer_year
 		dataType: int64
 		formatString: 0
-		lineageTag: b9f75f41-6be5-4a38-952f-68b47b4504b4
 		summarizeBy: sum
 		sourceColumn: transfer_year
 
@@ -70,7 +62,6 @@ table fct_transfer_success_labels
 
 	column transfer_season
 		dataType: string
-		lineageTag: cdd2dfb2-3a7b-4d27-8bf3-9c99d67aaf1d
 		summarizeBy: none
 		sourceColumn: transfer_season
 
@@ -79,7 +70,6 @@ table fct_transfer_success_labels
 	column from_club_id
 		dataType: int64
 		formatString: 0
-		lineageTag: 3208fe67-b6b6-4768-a5f3-69e9754ec4e7
 		summarizeBy: sum
 		sourceColumn: from_club_id
 
@@ -87,7 +77,6 @@ table fct_transfer_success_labels
 
 	column from_club_name
 		dataType: string
-		lineageTag: 64cf4ed6-6293-470e-8104-cf6b82bc81bd
 		summarizeBy: none
 		sourceColumn: from_club_name
 
@@ -96,7 +85,6 @@ table fct_transfer_success_labels
 	column to_club_id
 		dataType: int64
 		formatString: 0
-		lineageTag: 18829ec7-5061-42a5-a0d5-22cfa95c6f19
 		summarizeBy: sum
 		sourceColumn: to_club_id
 
@@ -104,7 +92,6 @@ table fct_transfer_success_labels
 
 	column to_club_name
 		dataType: string
-		lineageTag: f5fbe704-9e95-44d2-8ce8-d46a48349b83
 		summarizeBy: none
 		sourceColumn: to_club_name
 
@@ -112,7 +99,6 @@ table fct_transfer_success_labels
 
 	column transfer_fee
 		dataType: double
-		lineageTag: 72778375-1aed-474e-a7a9-decae770529b
 		summarizeBy: sum
 		sourceColumn: transfer_fee
 
@@ -123,7 +109,6 @@ table fct_transfer_success_labels
 	column has_known_transfer_fee
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 0063796b-e8ab-45cb-9d2c-fd81526dff4d
 		summarizeBy: none
 		sourceColumn: has_known_transfer_fee
 
@@ -131,7 +116,6 @@ table fct_transfer_success_labels
 
 	column market_value_baseline
 		dataType: double
-		lineageTag: 89545170-83d1-4c2e-945f-c4e53c503f8f
 		summarizeBy: sum
 		sourceColumn: market_value_baseline
 
@@ -141,7 +125,6 @@ table fct_transfer_success_labels
 
 	column fee_market_value_difference_pct
 		dataType: double
-		lineageTag: b2d661e0-ddc2-4384-aa03-34f6c9a6d055
 		summarizeBy: sum
 		sourceColumn: fee_market_value_difference_pct
 
@@ -152,7 +135,6 @@ table fct_transfer_success_labels
 	column label_horizon_days
 		dataType: int64
 		formatString: 0
-		lineageTag: 8ddd64d4-75e7-4f21-9956-9ce97468b850
 		summarizeBy: sum
 		sourceColumn: label_horizon_days
 
@@ -161,7 +143,6 @@ table fct_transfer_success_labels
 	column outcome_valuation_date
 		dataType: dateTime
 		formatString: Long Date
-		lineageTag: a45376d6-6ac3-4008-8402-b17ee339e24e
 		summarizeBy: none
 		sourceColumn: outcome_valuation_date
 
@@ -177,7 +158,6 @@ table fct_transfer_success_labels
 	column outcome_market_value
 		dataType: int64
 		formatString: 0
-		lineageTag: caa48ce0-cfaa-4062-a26d-6398653b2947
 		summarizeBy: sum
 		sourceColumn: outcome_market_value
 
@@ -185,7 +165,6 @@ table fct_transfer_success_labels
 
 	column market_value_change_at_horizon_pct
 		dataType: double
-		lineageTag: b4d2f35c-e44c-4e18-ae8b-a993c6ca03b4
 		summarizeBy: sum
 		sourceColumn: market_value_change_at_horizon_pct
 
@@ -195,7 +174,6 @@ table fct_transfer_success_labels
 
 	column label_status
 		dataType: string
-		lineageTag: d42a03c6-080f-437e-aeb1-f7a5c4daa8a8
 		summarizeBy: none
 		sourceColumn: label_status
 
@@ -204,7 +182,6 @@ table fct_transfer_success_labels
 	column success_threshold_pct
 		dataType: int64
 		formatString: 0
-		lineageTag: 5552d06f-70f8-4d12-8db6-f3f06605ef06
 		summarizeBy: sum
 		sourceColumn: success_threshold_pct
 
@@ -213,7 +190,6 @@ table fct_transfer_success_labels
 	column is_successful_transfer
 		dataType: int64
 		formatString: 0
-		lineageTag: 0f984bf0-f83e-489c-a836-940ba4e02e99
 		summarizeBy: sum
 		sourceColumn: is_successful_transfer
 

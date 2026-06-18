@@ -23,8 +23,7 @@
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "11pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "color": "#FFFFFF"
                     }
                   }
                 ]
@@ -35,8 +34,7 @@
                     "value": "",
                     "textStyle": {
                       "fontSize": "4pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "color": "#FFFFFF"
                     }
                   }
                 ]
@@ -47,9 +45,8 @@
                     "value": "• Pozitif 'Fark %': oyuncu piyasada henüz tam fiyatlanmamış bir büyüme potansiyeli taşır.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ]
@@ -60,9 +57,8 @@
                     "value": "• 'Limited' kalite: tahmin yalnızca yön bilgisi verir, değer kesin değildir.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ]
@@ -73,9 +69,8 @@
                     "value": "• Dar güven aralığı, modelin o oyuncuya yüksek özgüvenini ölçer.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ]
@@ -86,9 +81,8 @@
                     "value": "• Önceki değer ile tahmin karşılaştırması scouting kararlarında referans noktasıdır.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ]
@@ -99,9 +93,8 @@
                     "value": "• Ana sayfaya dönmek için sol üstteki Geri butonunu kullanın.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#E6F2E8"
                     }
                   }
                 ]

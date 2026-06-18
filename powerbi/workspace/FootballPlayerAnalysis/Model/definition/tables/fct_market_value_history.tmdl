@@ -1,10 +1,8 @@
 table fct_market_value_history
-	lineageTag: a47f0e4e-0bd3-40bd-b808-e00ee635d801
 
 	column player_id
 		dataType: int64
 		formatString: 0
-		lineageTag: d5799d18-f43b-47a6-ae91-394ca3fe261b
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -12,7 +10,6 @@ table fct_market_value_history
 
 	column player_name
 		dataType: string
-		lineageTag: 780217fd-348a-4fd2-b63f-fc1a7726e8aa
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -20,7 +17,6 @@ table fct_market_value_history
 
 	column position
 		dataType: string
-		lineageTag: 0106d90e-c7ce-4d42-944d-7d944643ef81
 		summarizeBy: none
 		sourceColumn: position
 
@@ -28,7 +24,6 @@ table fct_market_value_history
 
 	column sub_position
 		dataType: string
-		lineageTag: 83eaa53a-74e6-4565-bd26-d45b84637557
 		summarizeBy: none
 		sourceColumn: sub_position
 
@@ -37,7 +32,6 @@ table fct_market_value_history
 	column valuation_date
 		dataType: dateTime
 		formatString: Long Date
-		lineageTag: 87389350-0429-4eae-8aa3-526472d06e30
 		summarizeBy: none
 		sourceColumn: valuation_date
 
@@ -53,7 +47,6 @@ table fct_market_value_history
 	column market_value_in_eur
 		dataType: int64
 		formatString: 0
-		lineageTag: ed055332-8079-48e7-980f-d4abec6d5334
 		summarizeBy: sum
 		sourceColumn: market_value_in_eur
 
@@ -62,7 +55,6 @@ table fct_market_value_history
 	column current_club_id
 		dataType: int64
 		formatString: 0
-		lineageTag: 97083b82-8def-4e15-be88-b0b055704b4e
 		summarizeBy: sum
 		sourceColumn: current_club_id
 
@@ -70,7 +62,6 @@ table fct_market_value_history
 
 	column current_club_name
 		dataType: string
-		lineageTag: bb5d5fee-78b6-4637-8c35-042e04e7f6e6
 		summarizeBy: none
 		sourceColumn: current_club_name
 
@@ -78,7 +69,6 @@ table fct_market_value_history
 
 	column competition_id
 		dataType: string
-		lineageTag: e0af3b6e-e1a7-4fb3-bb3a-11998d108be0
 		summarizeBy: none
 		sourceColumn: competition_id
 
@@ -87,7 +77,6 @@ table fct_market_value_history
 	column has_club_context
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: cdd5f374-f60d-42c3-9267-e816806fb548
 		summarizeBy: none
 		sourceColumn: has_club_context
 
@@ -96,7 +85,6 @@ table fct_market_value_history
 	column has_competition_context
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 40fa8d5d-89f6-4972-9d75-778d912371b1
 		summarizeBy: none
 		sourceColumn: has_competition_context
 

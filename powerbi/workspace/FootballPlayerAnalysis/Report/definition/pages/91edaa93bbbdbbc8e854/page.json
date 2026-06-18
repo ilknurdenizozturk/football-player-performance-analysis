@@ -21,22 +21,7 @@
           }
         },
         "type": "Categorical",
-        "howCreated": "Drillthrough",
-        "objects": {
-          "general": [
-            {
-              "properties": {
-                "requireSingleSelect": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "true"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        }
+        "howCreated": "Drillthrough"
       }
     ],
     "filterSortOrder": "Custom"

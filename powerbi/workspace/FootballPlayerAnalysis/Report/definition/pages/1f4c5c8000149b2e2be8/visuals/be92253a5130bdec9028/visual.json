@@ -376,7 +376,7 @@
             "radius": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "8D"
                 }
               }
             }
@@ -407,7 +407,7 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "60D"
+                  "Value": "70D"
                 }
               }
             },
@@ -455,7 +455,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "8D"
                 }
               }
             },
@@ -464,7 +464,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#285D3D'"
+                      "Value": "'#20323F'"
                     }
                   }
                 }

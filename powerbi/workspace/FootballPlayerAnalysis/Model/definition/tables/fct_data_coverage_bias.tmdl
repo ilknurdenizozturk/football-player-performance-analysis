@@ -1,9 +1,7 @@
 table fct_data_coverage_bias
-	lineageTag: 97e7220f-b79c-48fb-9efc-b1af6f299f69
 
 	column segment_type
 		dataType: string
-		lineageTag: 90e6dbbf-e724-4039-92e9-03904386be3f
 		summarizeBy: none
 		sourceColumn: segment_type
 
@@ -11,7 +9,6 @@ table fct_data_coverage_bias
 
 	column segment_value
 		dataType: string
-		lineageTag: eb202c52-d39b-411a-8dc0-b0def7c32d9a
 		summarizeBy: none
 		sourceColumn: segment_value
 
@@ -20,7 +17,6 @@ table fct_data_coverage_bias
 	column transfer_count
 		dataType: int64
 		formatString: 0
-		lineageTag: f1057d7d-fe52-44a4-a0a9-c3df13f23b2a
 		summarizeBy: sum
 		sourceColumn: transfer_count
 
@@ -29,7 +25,6 @@ table fct_data_coverage_bias
 	column known_fee_count
 		dataType: int64
 		formatString: 0
-		lineageTag: 75c587ad-6e62-4f53-b652-1d35d89ba2e8
 		summarizeBy: sum
 		sourceColumn: known_fee_count
 
@@ -37,7 +32,6 @@ table fct_data_coverage_bias
 
 	column known_fee_coverage_pct
 		dataType: double
-		lineageTag: 2636565b-d16a-4ed4-9df2-73641d21f39c
 		summarizeBy: sum
 		sourceColumn: known_fee_coverage_pct
 
@@ -48,7 +42,6 @@ table fct_data_coverage_bias
 	column market_value_baseline_count
 		dataType: int64
 		formatString: 0
-		lineageTag: f074fe15-4edc-44d9-8915-d990cfc353e2
 		summarizeBy: sum
 		sourceColumn: market_value_baseline_count
 
@@ -56,7 +49,6 @@ table fct_data_coverage_bias
 
 	column market_value_baseline_coverage_pct
 		dataType: double
-		lineageTag: 4469b9da-6464-4847-8926-e850e48ec5e9
 		summarizeBy: sum
 		sourceColumn: market_value_baseline_coverage_pct
 
@@ -67,7 +59,6 @@ table fct_data_coverage_bias
 	column fee_value_comparison_count
 		dataType: int64
 		formatString: 0
-		lineageTag: d0b0e5a2-8d92-421f-9e76-2b9f134cd118
 		summarizeBy: sum
 		sourceColumn: fee_value_comparison_count
 
@@ -75,7 +66,6 @@ table fct_data_coverage_bias
 
 	column fee_value_comparison_coverage_pct
 		dataType: double
-		lineageTag: 75a37922-dcb5-491b-8317-138d083bb43a
 		summarizeBy: sum
 		sourceColumn: fee_value_comparison_coverage_pct
 
@@ -86,7 +76,6 @@ table fct_data_coverage_bias
 	column outcome_90d_count
 		dataType: int64
 		formatString: 0
-		lineageTag: cff5024d-43fb-45ad-ad65-4a600db1341f
 		summarizeBy: sum
 		sourceColumn: outcome_90d_count
 
@@ -94,7 +83,6 @@ table fct_data_coverage_bias
 
 	column outcome_90d_coverage_pct
 		dataType: double
-		lineageTag: 3f43cc10-a5b9-461b-a6c5-f21a4bc508a2
 		summarizeBy: sum
 		sourceColumn: outcome_90d_coverage_pct
 
@@ -105,7 +93,6 @@ table fct_data_coverage_bias
 	column outcome_180d_count
 		dataType: int64
 		formatString: 0
-		lineageTag: dc25e22a-1a79-4fce-aac8-17953dc987a5
 		summarizeBy: sum
 		sourceColumn: outcome_180d_count
 
@@ -113,7 +100,6 @@ table fct_data_coverage_bias
 
 	column outcome_180d_coverage_pct
 		dataType: double
-		lineageTag: 8c59c142-6f29-4db3-a9b2-29b03596e314
 		summarizeBy: sum
 		sourceColumn: outcome_180d_coverage_pct
 
@@ -124,7 +110,6 @@ table fct_data_coverage_bias
 	column outcome_365d_count
 		dataType: int64
 		formatString: 0
-		lineageTag: f287350f-338e-43b0-8ea5-30be8db7b17d
 		summarizeBy: sum
 		sourceColumn: outcome_365d_count
 
@@ -132,7 +117,6 @@ table fct_data_coverage_bias
 
 	column outcome_365d_coverage_pct
 		dataType: double
-		lineageTag: 5251580f-c610-4655-8241-e67b39653eb9
 		summarizeBy: sum
 		sourceColumn: outcome_365d_coverage_pct
 
@@ -143,7 +127,6 @@ table fct_data_coverage_bias
 	column pre_180d_performance_count
 		dataType: int64
 		formatString: 0
-		lineageTag: 4152feb4-b8cb-4388-938d-7fd882582655
 		summarizeBy: sum
 		sourceColumn: pre_180d_performance_count
 
@@ -151,7 +134,6 @@ table fct_data_coverage_bias
 
 	column pre_180d_performance_coverage_pct
 		dataType: double
-		lineageTag: 1ccffcbf-e3bb-4e5f-930a-39a4822d1f12
 		summarizeBy: sum
 		sourceColumn: pre_180d_performance_coverage_pct
 
@@ -162,7 +144,6 @@ table fct_data_coverage_bias
 	column post_180d_performance_count
 		dataType: int64
 		formatString: 0
-		lineageTag: 3639908c-d6bf-42e0-9fd5-4c972470eed9
 		summarizeBy: sum
 		sourceColumn: post_180d_performance_count
 
@@ -170,7 +151,6 @@ table fct_data_coverage_bias
 
 	column post_180d_performance_coverage_pct
 		dataType: double
-		lineageTag: 3cf0e8af-2c95-487b-9913-d00a634a1aa1
 		summarizeBy: sum
 		sourceColumn: post_180d_performance_coverage_pct
 
@@ -180,7 +160,6 @@ table fct_data_coverage_bias
 
 	column maximum_material_missingness_pct
 		dataType: double
-		lineageTag: 32052122-a0c8-44d2-9fb2-c68fb956f7c7
 		summarizeBy: sum
 		sourceColumn: maximum_material_missingness_pct
 
@@ -190,7 +169,6 @@ table fct_data_coverage_bias
 
 	column coverage_bias_risk
 		dataType: string
-		lineageTag: bf5a4b5d-2cd7-41c2-bb91-af882bd0b60e
 		summarizeBy: none
 		sourceColumn: coverage_bias_risk
 

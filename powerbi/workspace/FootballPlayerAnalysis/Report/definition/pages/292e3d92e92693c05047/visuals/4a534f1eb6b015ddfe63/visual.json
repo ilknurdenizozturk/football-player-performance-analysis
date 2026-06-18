@@ -23,8 +23,7 @@
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "11pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "color": "#ffffff"
                     }
                   }
                 ]
@@ -32,12 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "",
-                    "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
-                    }
+                    "value": ""
                   }
                 ]
               },
@@ -46,9 +40,8 @@
                   {
                     "value": "• Transferlerin ~%60'ı piyasa değerinin altında gerçekleşir — kulüpler sistematik olarak iskontolu alım yapar.",
                     "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#e6f2e8"
                     }
                   }
                 ]
@@ -58,9 +51,8 @@
                   {
                     "value": "• Forvetler prim, kaleciler iskonto ile transfer edilir: pozisyon, fiyatlamayı doğrudan belirler.",
                     "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#e6f2e8"
                     }
                   }
                 ]
@@ -70,9 +62,8 @@
                   {
                     "value": "• 2016–2020 zirve döneminin ardından transfer bütçeleri daralma eğilimindedir.",
                     "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#e6f2e8"
                     }
                   }
                 ]
@@ -82,9 +73,8 @@
                   {
                     "value": "• Yüksek prim transferler (>%30) çoğunlukla yıldız oyuncu veya rekabetçi teklif durumlarıdır.",
                     "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#e6f2e8"
                     }
                   }
                 ]

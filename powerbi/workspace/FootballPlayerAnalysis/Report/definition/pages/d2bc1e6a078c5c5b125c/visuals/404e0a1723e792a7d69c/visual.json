@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "404e0a1723e792a7d69c",
   "position": {
-    "x": 93.24324324324324,
-    "y": 75.67567567567568,
+    "x": 93.243243243243242,
+    "y": 75.675675675675677,
     "z": 15000,
     "height": 32.432432432432435,
     "width": 338.1081246040963,
@@ -22,9 +22,7 @@
                     "value": "⚽ Oyuncu şu an sahada ne kadar verimli?",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "12pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "12pt"
                     }
                   }
                 ]

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "560d411928208f871d33",
   "position": {
-    "x": 105.1690067602704,
-    "y": 443.3073322932917,
+    "x": 105.16900676027041,
+    "y": 443.30733229329172,
     "z": 17500,
     "height": 24.628185127405096,
-    "width": 869.9739989599583,
+    "width": 869.97399895995829,
     "tabOrder": 17500
   },
   "visual": {
@@ -22,9 +22,8 @@
                     "value": "TRANSFER SONUCU ANALİZİ",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "9pt",
-                      "color": "#285D3D",
-                      "bold": false
+                      "fontSize": "8pt",
+                      "color": "#ffffff"
                     }
                   }
                 ]

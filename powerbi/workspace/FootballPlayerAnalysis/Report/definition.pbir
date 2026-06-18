@@ -3,6 +3,7 @@
   "datasetReference": {
     "byPath": {
       "path": "../Model"
-    }
+    },
+    "byConnection": null
   }
 }

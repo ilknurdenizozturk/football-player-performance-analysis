@@ -1,9 +1,7 @@
 table ml_player_market_value_feature_importance
-	lineageTag: f4a03b83-9213-41fe-b39a-eac5aab7b75d
 
 	column model_version
 		dataType: string
-		lineageTag: e74398ef-1a72-45d9-9272-cf4a4f24b162
 		summarizeBy: none
 		sourceColumn: model_version
 
@@ -11,7 +9,6 @@ table ml_player_market_value_feature_importance
 
 	column feature
 		dataType: string
-		lineageTag: 6e1e1c32-526d-4fae-b368-30297214a0b6
 		summarizeBy: none
 		sourceColumn: feature
 
@@ -19,7 +16,6 @@ table ml_player_market_value_feature_importance
 
 	column feature_type
 		dataType: string
-		lineageTag: 61510c38-482d-4be8-904b-5c0bca7941ab
 		summarizeBy: none
 		sourceColumn: feature_type
 
@@ -27,7 +23,6 @@ table ml_player_market_value_feature_importance
 
 	column mae_increase_eur_mean
 		dataType: double
-		lineageTag: cf215e1b-3932-443b-825e-59f798f27dbb
 		summarizeBy: sum
 		sourceColumn: mae_increase_eur_mean
 
@@ -37,7 +32,6 @@ table ml_player_market_value_feature_importance
 
 	column mae_increase_eur_std
 		dataType: double
-		lineageTag: 2ef1b7c3-4fa4-4ddf-bea7-8e1a3540992f
 		summarizeBy: sum
 		sourceColumn: mae_increase_eur_std
 
@@ -48,7 +42,6 @@ table ml_player_market_value_feature_importance
 	column importance_rank
 		dataType: int64
 		formatString: 0
-		lineageTag: ee663b7c-6330-4715-a2ad-41db5d4b26d0
 		summarizeBy: sum
 		sourceColumn: importance_rank
 

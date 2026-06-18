@@ -1,13 +1,11 @@
 table LocalDateTable_8c7ab90b-e50b-4759-81b0-b489a1d97d36
 	isHidden
 	showAsVariationsOnly
-	lineageTag: 7f2756e0-706f-4186-b1a8-6c747e01b31d
 
 	column Date
 		dataType: dateTime
 		isHidden
 		formatString: General Date
-		lineageTag: 9b8e60e5-6915-442c-8983-3b46786f2129
 		dataCategory: PaddedDateTableDates
 		summarizeBy: none
 		isNameInferred
@@ -19,7 +17,6 @@ table LocalDateTable_8c7ab90b-e50b-4759-81b0-b489a1d97d36
 		dataType: int64
 		isHidden
 		formatString: 0
-		lineageTag: 53220658-f217-48c4-881b-d0dbaf2d0bfd
 		dataCategory: Years
 		summarizeBy: none
 
@@ -31,7 +28,6 @@ table LocalDateTable_8c7ab90b-e50b-4759-81b0-b489a1d97d36
 		dataType: int64
 		isHidden
 		formatString: 0
-		lineageTag: 6f600b74-d8a6-4eec-8c28-e6da06561d5a
 		dataCategory: MonthOfYear
 		summarizeBy: none
 
@@ -42,7 +38,6 @@ table LocalDateTable_8c7ab90b-e50b-4759-81b0-b489a1d97d36
 	column Month = FORMAT([Date], "MMMM")
 		dataType: string
 		isHidden
-		lineageTag: d85bfd34-37a4-41d5-a7c1-214e2cdac7de
 		dataCategory: Months
 		summarizeBy: none
 		sortByColumn: MonthNo
@@ -55,7 +50,6 @@ table LocalDateTable_8c7ab90b-e50b-4759-81b0-b489a1d97d36
 		dataType: int64
 		isHidden
 		formatString: 0
-		lineageTag: 98b689c0-16f3-4eb3-b490-fc09315c2ea5
 		dataCategory: QuarterOfYear
 		summarizeBy: none
 
@@ -66,7 +60,6 @@ table LocalDateTable_8c7ab90b-e50b-4759-81b0-b489a1d97d36
 	column Quarter = "Qtr " & [QuarterNo]
 		dataType: string
 		isHidden
-		lineageTag: 65363675-e14c-47f7-9ced-bbb1c12ef710
 		dataCategory: Quarters
 		summarizeBy: none
 		sortByColumn: QuarterNo
@@ -79,7 +72,6 @@ table LocalDateTable_8c7ab90b-e50b-4759-81b0-b489a1d97d36
 		dataType: int64
 		isHidden
 		formatString: 0
-		lineageTag: 9554ee8c-66b9-4d2d-a49a-0317cfd2ae56
 		dataCategory: DayOfMonth
 		summarizeBy: none
 
@@ -88,22 +80,17 @@ table LocalDateTable_8c7ab90b-e50b-4759-81b0-b489a1d97d36
 		annotation TemplateId = Day
 
 	hierarchy 'Date Hierarchy'
-		lineageTag: b21c49c2-7a66-41a3-9230-fc0bcd9ef6b2
 
 		level Year
-			lineageTag: 1c3571ee-7613-4429-846f-fd0bb745771c
 			column: Year
 
 		level Quarter
-			lineageTag: cdbeafeb-4dfb-4d7c-93a3-f88fc652c7db
 			column: Quarter
 
 		level Month
-			lineageTag: 0e583539-b4a9-439d-96a0-8ced101dbb52
 			column: Month
 
 		level Day
-			lineageTag: a0eb856f-6225-4da8-b12f-001d27565a32
 			column: Day
 
 		annotation TemplateId = DateHierarchy

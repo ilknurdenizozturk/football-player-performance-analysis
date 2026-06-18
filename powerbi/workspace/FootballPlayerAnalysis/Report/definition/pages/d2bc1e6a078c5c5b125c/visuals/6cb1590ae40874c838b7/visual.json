@@ -71,14 +71,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "24D"
-                }
-              }
-            },
-            "bold": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
+                  "Value": "20D"
                 }
               }
             }
@@ -131,7 +124,7 @@
             "radius": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "15D"
                 }
               }
             }
@@ -145,20 +138,6 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "55D"
-                }
-              }
-            },
-            "size": {
-              "expr": {
-                "Literal": {
-                  "Value": "12D"
                 }
               }
             }
@@ -206,7 +185,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "12D"
                 }
               }
             },
@@ -214,8 +193,9 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#20323F'"
+                    "ThemeDataColor": {
+                      "ColorId": 5,
+                      "Percent": -0.5
                     }
                   }
                 }

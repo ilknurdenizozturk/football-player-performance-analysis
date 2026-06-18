@@ -1,10 +1,8 @@
 table fct_club_performance
-	lineageTag: 8321b9ee-75f3-4b60-8b96-59cb9a1dc297
 
 	column club_id
 		dataType: int64
 		formatString: 0
-		lineageTag: 80cfb585-cc55-4a18-a259-029599435266
 		summarizeBy: none
 		sourceColumn: club_id
 
@@ -12,7 +10,6 @@ table fct_club_performance
 
 	column club_name
 		dataType: string
-		lineageTag: e6c8fb5a-7c2b-472a-b957-56b7380090f7
 		summarizeBy: none
 		sourceColumn: club_name
 
@@ -20,7 +17,6 @@ table fct_club_performance
 
 	column domestic_competition_id
 		dataType: string
-		lineageTag: 17e56b79-729e-4ac0-a825-35d274bf74d8
 		summarizeBy: none
 		sourceColumn: domestic_competition_id
 
@@ -29,7 +25,6 @@ table fct_club_performance
 	column matches_played
 		dataType: int64
 		formatString: 0
-		lineageTag: dc4b4b2c-9f4e-4483-8bf1-73338f83e2ef
 		summarizeBy: sum
 		sourceColumn: matches_played
 
@@ -38,7 +33,6 @@ table fct_club_performance
 	column wins
 		dataType: int64
 		formatString: 0
-		lineageTag: 72dd5e08-0245-4186-a487-66e8c4cc16a8
 		summarizeBy: sum
 		sourceColumn: wins
 
@@ -47,7 +41,6 @@ table fct_club_performance
 	column draws
 		dataType: int64
 		formatString: 0
-		lineageTag: b56d8af8-a7b2-4824-a4d4-2916371e22be
 		summarizeBy: sum
 		sourceColumn: draws
 
@@ -56,7 +49,6 @@ table fct_club_performance
 	column losses
 		dataType: int64
 		formatString: 0
-		lineageTag: dc043225-1005-405f-be3a-9999e51aee71
 		summarizeBy: sum
 		sourceColumn: losses
 
@@ -65,7 +57,6 @@ table fct_club_performance
 	column goals_scored
 		dataType: int64
 		formatString: 0
-		lineageTag: 6f9cac5c-ea97-4104-b7dc-d4e8bfaf2548
 		summarizeBy: sum
 		sourceColumn: goals_scored
 
@@ -74,7 +65,6 @@ table fct_club_performance
 	column goals_conceded
 		dataType: int64
 		formatString: 0
-		lineageTag: de718de4-3598-461e-a2c1-2d8d96bccc66
 		summarizeBy: sum
 		sourceColumn: goals_conceded
 
@@ -83,7 +73,6 @@ table fct_club_performance
 	column goal_difference
 		dataType: int64
 		formatString: 0
-		lineageTag: 1fe96878-1894-4abf-962c-1bf9d48569ec
 		summarizeBy: sum
 		sourceColumn: goal_difference
 
@@ -91,7 +80,6 @@ table fct_club_performance
 
 	column win_rate
 		dataType: double
-		lineageTag: a26ede0f-d0df-4549-b40c-da5f5e7456f7
 		summarizeBy: sum
 		sourceColumn: win_rate
 
@@ -101,7 +89,6 @@ table fct_club_performance
 
 	column avg_goals_scored
 		dataType: double
-		lineageTag: cfd4c070-79d7-4f6f-b8bc-63bf58d2fda6
 		summarizeBy: sum
 		sourceColumn: avg_goals_scored
 
@@ -111,7 +98,6 @@ table fct_club_performance
 
 	column avg_goals_conceded
 		dataType: double
-		lineageTag: a9591953-cc5b-4c9a-b776-922248c3d366
 		summarizeBy: sum
 		sourceColumn: avg_goals_conceded
 

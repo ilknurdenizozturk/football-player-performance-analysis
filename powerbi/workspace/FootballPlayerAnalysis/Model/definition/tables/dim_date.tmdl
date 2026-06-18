@@ -1,10 +1,8 @@
 table dim_date
-	lineageTag: 693d3a9a-c419-4359-90d8-b196c862d4ac
 
 	column date_day
 		dataType: dateTime
 		formatString: Long Date
-		lineageTag: 54e318f1-835e-4527-9ad4-990fe0b53015
 		summarizeBy: none
 		sourceColumn: date_day
 
@@ -20,7 +18,6 @@ table dim_date
 	column date_key
 		dataType: int64
 		formatString: 0
-		lineageTag: 2844efbf-8448-471e-a107-50b339ca3e36
 		summarizeBy: sum
 		sourceColumn: date_key
 
@@ -29,7 +26,6 @@ table dim_date
 	column calendar_year
 		dataType: int64
 		formatString: 0
-		lineageTag: 08fe9e30-97bc-4a24-883c-fbb2ab729b2f
 		summarizeBy: sum
 		sourceColumn: calendar_year
 
@@ -38,7 +34,6 @@ table dim_date
 	column calendar_quarter_number
 		dataType: int64
 		formatString: 0
-		lineageTag: 46599ef1-8c21-431d-8c36-e1c9508cc1ec
 		summarizeBy: sum
 		sourceColumn: calendar_quarter_number
 
@@ -46,7 +41,6 @@ table dim_date
 
 	column calendar_quarter_name
 		dataType: string
-		lineageTag: d8dd99b7-406e-4006-afb4-de0c3d4ecd8d
 		summarizeBy: none
 		sourceColumn: calendar_quarter_name
 
@@ -55,7 +49,6 @@ table dim_date
 	column calendar_month_number
 		dataType: int64
 		formatString: 0
-		lineageTag: 657460f7-7888-4f5f-aae3-28bd006005ec
 		summarizeBy: sum
 		sourceColumn: calendar_month_number
 
@@ -63,7 +56,6 @@ table dim_date
 
 	column calendar_month_name
 		dataType: string
-		lineageTag: 26083149-2c96-4ee2-8dc8-0c20b19df900
 		summarizeBy: none
 		sourceColumn: calendar_month_name
 
@@ -71,7 +63,6 @@ table dim_date
 
 	column calendar_month_short_name
 		dataType: string
-		lineageTag: 12bdf0ab-e70e-4a4d-8e5e-562148ffb2cd
 		summarizeBy: none
 		sourceColumn: calendar_month_short_name
 
@@ -79,7 +70,6 @@ table dim_date
 
 	column calendar_year_month
 		dataType: string
-		lineageTag: 80b343b6-df20-4ded-a14e-23901b3fa321
 		summarizeBy: none
 		sourceColumn: calendar_year_month
 
@@ -88,7 +78,6 @@ table dim_date
 	column calendar_year_month_sort
 		dataType: int64
 		formatString: 0
-		lineageTag: 9da62048-0c0e-4602-b54b-bd4454f0ce64
 		summarizeBy: sum
 		sourceColumn: calendar_year_month_sort
 
@@ -97,7 +86,6 @@ table dim_date
 	column iso_year
 		dataType: int64
 		formatString: 0
-		lineageTag: d9d43247-6117-48f2-ad3a-5b0a8ceba4a3
 		summarizeBy: sum
 		sourceColumn: iso_year
 
@@ -106,7 +94,6 @@ table dim_date
 	column iso_week_number
 		dataType: int64
 		formatString: 0
-		lineageTag: a2208d08-ae53-43a2-816a-af0096c6063d
 		summarizeBy: sum
 		sourceColumn: iso_week_number
 
@@ -115,7 +102,6 @@ table dim_date
 	column iso_day_of_week_number
 		dataType: int64
 		formatString: 0
-		lineageTag: 8432cdbd-ffdf-4714-8fa2-5aff1e63c6c3
 		summarizeBy: sum
 		sourceColumn: iso_day_of_week_number
 
@@ -124,7 +110,6 @@ table dim_date
 	column calendar_day_of_month
 		dataType: int64
 		formatString: 0
-		lineageTag: 54697ce5-4b5e-4813-b3d4-77f4976147b8
 		summarizeBy: sum
 		sourceColumn: calendar_day_of_month
 
@@ -132,7 +117,6 @@ table dim_date
 
 	column calendar_day_name
 		dataType: string
-		lineageTag: a7338727-43bf-4197-9f83-2fd5283beceb
 		summarizeBy: none
 		sourceColumn: calendar_day_name
 
@@ -141,7 +125,6 @@ table dim_date
 	column is_weekend
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: c8ac3f90-8258-427f-abab-4aa2592217c4
 		summarizeBy: none
 		sourceColumn: is_weekend
 
@@ -150,7 +133,6 @@ table dim_date
 	column is_today
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 5bedfada-b6fa-429c-be3c-6d236d336212
 		summarizeBy: none
 		sourceColumn: is_today
 
@@ -159,7 +141,6 @@ table dim_date
 	column is_future_date
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 1f35b69d-e616-4339-9ce2-dfbec1e7b57e
 		summarizeBy: none
 		sourceColumn: is_future_date
 

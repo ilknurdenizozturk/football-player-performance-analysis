@@ -1,9 +1,7 @@
 table ml_player_market_value_quality_gates
-	lineageTag: f35ece45-bc65-4ca5-9881-372468afc507
 
 	column model_version
 		dataType: string
-		lineageTag: bb53a9cf-150d-4c58-a4b1-d6bc81baff85
 		summarizeBy: none
 		sourceColumn: model_version
 
@@ -12,7 +10,6 @@ table ml_player_market_value_quality_gates
 	column model_generated_at_utc
 		dataType: dateTime
 		formatString: General Date
-		lineageTag: c8c41b47-eb23-424f-acdb-7b9cdca32be4
 		summarizeBy: none
 		sourceColumn: model_generated_at_utc
 
@@ -25,7 +22,6 @@ table ml_player_market_value_quality_gates
 
 	column gate_name
 		dataType: string
-		lineageTag: 733aba9a-a319-4127-854c-7b3b97193fe9
 		summarizeBy: none
 		sourceColumn: gate_name
 
@@ -33,7 +29,6 @@ table ml_player_market_value_quality_gates
 
 	column actual_value
 		dataType: double
-		lineageTag: 5197cca1-740b-4a81-9b13-71628c509621
 		summarizeBy: sum
 		sourceColumn: actual_value
 
@@ -43,7 +38,6 @@ table ml_player_market_value_quality_gates
 
 	column threshold_operator
 		dataType: string
-		lineageTag: 045f4b1a-17a6-4f86-b562-7682ca35659d
 		summarizeBy: none
 		sourceColumn: threshold_operator
 
@@ -51,7 +45,6 @@ table ml_player_market_value_quality_gates
 
 	column threshold_value
 		dataType: double
-		lineageTag: ae9500aa-7706-4bda-8865-8d5861a06b15
 		summarizeBy: sum
 		sourceColumn: threshold_value
 
@@ -62,7 +55,6 @@ table ml_player_market_value_quality_gates
 	column passed
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 2fb7921e-89b9-4efb-94f1-75e74ec80c16
 		summarizeBy: none
 		sourceColumn: passed
 
@@ -70,7 +62,6 @@ table ml_player_market_value_quality_gates
 
 	column severity
 		dataType: string
-		lineageTag: 58e6303f-cd55-445b-a7ce-f8514da4a59e
 		summarizeBy: none
 		sourceColumn: severity
 
@@ -78,7 +69,6 @@ table ml_player_market_value_quality_gates
 
 	column details
 		dataType: string
-		lineageTag: 7166ba1b-9b1c-4182-8a95-9d731b14c6ee
 		summarizeBy: none
 		sourceColumn: details
 

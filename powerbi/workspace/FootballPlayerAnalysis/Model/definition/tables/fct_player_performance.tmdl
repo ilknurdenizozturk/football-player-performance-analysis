@@ -1,48 +1,39 @@
 table fct_player_performance
-	lineageTag: 0a37321e-52e7-4321-bc1a-c555bcd6bf5f
 
 	measure 'Toplam Gol' = SUM(fct_player_performance[total_goals])
 		formatString: 0
-		lineageTag: 80f1bb6e-59e3-49d9-8cc7-b672bdc054a6
 
 	measure 'Toplam Asist' = SUM(fct_player_performance[total_assists])
 		formatString: 0
-		lineageTag: f080ce88-5b0e-4724-b013-567368dabf73
 
 	measure 'Toplam Dakika' = SUM(fct_player_performance[total_minutes_played])
 		formatString: 0
-		lineageTag: 6bd1fe76-986a-42ce-a9cb-61861b1aa8e8
 
 	measure 'Toplam Oyuncu' = DISTINCTCOUNT(fct_player_performance[player_id])
 		formatString: 0
-		lineageTag: 1948ae2a-18f6-4d67-9720-60cab0dab6f5
 
 	measure 'Player G+A per 90' = MAX(fct_player_performance[goals_per_90]) + MAX(fct_player_performance[assists_per_90])
-		lineageTag: e4070d9f-3e36-471b-8ce7-f8f161c48bf0
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Avg G+A per 90' =
-			
+
 			AVERAGEX(
 			    fct_player_performance,
 			    fct_player_performance[goals_per_90] + fct_player_performance[assists_per_90]
 			)
-		lineageTag: cda0704e-6292-42ef-879d-700fc90e7201
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Ortalama Dakika' =
 			
 			AVERAGE(fct_player_performance[avg_minutes_per_match])
-		lineageTag: eb084a33-e27e-4372-ac41-5649d650b6c5
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column player_id
 		dataType: int64
 		formatString: 0
-		lineageTag: 32cc8e9d-2e9d-436a-95ff-81aa1cf21d43
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -50,7 +41,6 @@ table fct_player_performance
 
 	column player_name
 		dataType: string
-		lineageTag: 6a34e240-782e-42f3-9b53-15500bd42c5e
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -58,7 +48,6 @@ table fct_player_performance
 
 	column position
 		dataType: string
-		lineageTag: aed3324c-84e5-4c0d-929f-5a840b1ea1f6
 		summarizeBy: none
 		sourceColumn: position
 
@@ -66,7 +55,6 @@ table fct_player_performance
 
 	column sub_position
 		dataType: string
-		lineageTag: e7f7d433-616b-49d3-901f-890035375b43
 		summarizeBy: none
 		sourceColumn: sub_position
 
@@ -75,7 +63,6 @@ table fct_player_performance
 	column current_club_id
 		dataType: int64
 		formatString: 0
-		lineageTag: f652df2b-2650-49b9-a21c-2046d7b83fb9
 		summarizeBy: sum
 		sourceColumn: current_club_id
 
@@ -83,7 +70,6 @@ table fct_player_performance
 
 	column current_club_name
 		dataType: string
-		lineageTag: 633b88db-523a-4a8e-9ac1-15a138a19f5c
 		summarizeBy: none
 		sourceColumn: current_club_name
 
@@ -92,7 +78,6 @@ table fct_player_performance
 	column market_value_in_eur
 		dataType: int64
 		formatString: 0
-		lineageTag: 6252d368-5ce5-4c0f-aca6-2ff7be7dbdfa
 		summarizeBy: sum
 		sourceColumn: market_value_in_eur
 
@@ -101,7 +86,6 @@ table fct_player_performance
 	column has_current_market_value
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 8a390edd-05df-475c-ac2e-75e91f366a30
 		summarizeBy: none
 		sourceColumn: has_current_market_value
 
@@ -110,7 +94,6 @@ table fct_player_performance
 	column matches_played
 		dataType: int64
 		formatString: 0
-		lineageTag: fdd6f9e9-2cfe-413a-a00f-9e1fbbb22cc3
 		summarizeBy: sum
 		sourceColumn: matches_played
 
@@ -119,7 +102,6 @@ table fct_player_performance
 	column total_goals
 		dataType: int64
 		formatString: 0
-		lineageTag: 582294b8-bffe-40af-b7f0-ebb385b07baf
 		summarizeBy: sum
 		sourceColumn: total_goals
 
@@ -128,7 +110,6 @@ table fct_player_performance
 	column total_assists
 		dataType: int64
 		formatString: 0
-		lineageTag: 3e9ae1fd-f727-4e84-810d-70d4d8d27798
 		summarizeBy: sum
 		sourceColumn: total_assists
 
@@ -137,7 +118,6 @@ table fct_player_performance
 	column total_minutes_played
 		dataType: int64
 		formatString: 0
-		lineageTag: fc262ebb-ef72-40e1-adf7-83fbcf5f0b3a
 		summarizeBy: sum
 		sourceColumn: total_minutes_played
 
@@ -146,7 +126,6 @@ table fct_player_performance
 	column total_yellow_cards
 		dataType: int64
 		formatString: 0
-		lineageTag: 87a19390-9e86-4acc-aeaf-688d661b695a
 		summarizeBy: sum
 		sourceColumn: total_yellow_cards
 
@@ -155,7 +134,6 @@ table fct_player_performance
 	column total_red_cards
 		dataType: int64
 		formatString: 0
-		lineageTag: a2c04657-a772-4b13-b9a9-365a982057c4
 		summarizeBy: sum
 		sourceColumn: total_red_cards
 
@@ -163,7 +141,6 @@ table fct_player_performance
 
 	column avg_minutes_per_match
 		dataType: double
-		lineageTag: b9b94549-b061-4b6e-8374-99631efea317
 		summarizeBy: sum
 		sourceColumn: avg_minutes_per_match
 
@@ -173,7 +150,6 @@ table fct_player_performance
 
 	column goals_per_match
 		dataType: double
-		lineageTag: 37de57d8-565d-4aef-8a39-ea6f92a019f7
 		summarizeBy: sum
 		sourceColumn: goals_per_match
 
@@ -183,7 +159,6 @@ table fct_player_performance
 
 	column assists_per_match
 		dataType: double
-		lineageTag: d21924fe-5f57-4be5-bed8-8262f2febb74
 		summarizeBy: sum
 		sourceColumn: assists_per_match
 
@@ -193,7 +168,6 @@ table fct_player_performance
 
 	column goals_per_90
 		dataType: double
-		lineageTag: 1d0ea9e3-dc27-47f7-a08b-ad5b9cd1fb40
 		summarizeBy: sum
 		sourceColumn: goals_per_90
 
@@ -203,7 +177,6 @@ table fct_player_performance
 
 	column assists_per_90
 		dataType: double
-		lineageTag: fff59313-e9a7-4b7a-befb-fdf27d57938c
 		summarizeBy: sum
 		sourceColumn: assists_per_90
 
