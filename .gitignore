@@ -229,3 +229,8 @@ dbt_internal_packages/
 
 # Local machine-learning outputs
 artifacts/
+
+# Power BI local cache and binary files
+powerbi/**/.pbi/
+*.abf
+.tools/
