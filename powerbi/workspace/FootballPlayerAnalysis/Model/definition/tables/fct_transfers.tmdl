@@ -1,8 +1,10 @@
 table fct_transfers
+	lineageTag: 9bb72fe4-b44d-43b5-95f6-cf5fdbf10118
 
 	column player_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 185767a1-48c2-4b0d-99c3-2c3be016b65f
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -10,6 +12,7 @@ table fct_transfers
 
 	column position
 		dataType: string
+		lineageTag: efdb9a24-5415-41ac-a70b-37d9beb9cb52
 		summarizeBy: none
 		sourceColumn: position
 
@@ -17,6 +20,7 @@ table fct_transfers
 
 	column sub_position
 		dataType: string
+		lineageTag: 390f5498-2f09-49c4-aa49-ee3050f2c436
 		summarizeBy: none
 		sourceColumn: sub_position
 
@@ -24,6 +28,7 @@ table fct_transfers
 
 	column player_name
 		dataType: string
+		lineageTag: f383e497-762f-4630-8fae-ccf0f244c051
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -32,6 +37,7 @@ table fct_transfers
 	column transfer_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 2c5cb847-d744-4675-b98e-c8ee08eedd2f
 		summarizeBy: none
 		sourceColumn: transfer_date
 
@@ -46,6 +52,7 @@ table fct_transfers
 
 	column transfer_season
 		dataType: string
+		lineageTag: 675fe73a-b2a0-412b-8b61-96ff17fe75d3
 		summarizeBy: none
 		sourceColumn: transfer_season
 
@@ -54,6 +61,7 @@ table fct_transfers
 	column from_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 04aad7e6-06d1-4011-86af-e7431d24702f
 		summarizeBy: sum
 		sourceColumn: from_club_id
 
@@ -62,6 +70,7 @@ table fct_transfers
 	column to_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 2b17fd6f-0f50-4674-ac55-4bd1f56c0a4c
 		summarizeBy: sum
 		sourceColumn: to_club_id
 
@@ -69,6 +78,7 @@ table fct_transfers
 
 	column from_club_name
 		dataType: string
+		lineageTag: 3da13634-11cb-4efb-be34-25e8ce7bf8e0
 		summarizeBy: none
 		sourceColumn: from_club_name
 
@@ -76,6 +86,7 @@ table fct_transfers
 
 	column to_club_name
 		dataType: string
+		lineageTag: b5acebb7-d35b-49f8-a035-e056455d5c02
 		summarizeBy: none
 		sourceColumn: to_club_name
 
@@ -83,6 +94,7 @@ table fct_transfers
 
 	column transfer_fee
 		dataType: double
+		lineageTag: aad6088a-f5bb-458f-9458-666b4cee76e3
 		summarizeBy: sum
 		sourceColumn: transfer_fee
 
@@ -92,6 +104,7 @@ table fct_transfers
 
 	column market_value_in_eur
 		dataType: double
+		lineageTag: 4b1b31f1-8f41-4932-a450-30bc3917e702
 		summarizeBy: sum
 		sourceColumn: market_value_in_eur
 
@@ -101,6 +114,7 @@ table fct_transfers
 
 	column fee_market_value_difference
 		dataType: double
+		lineageTag: 0560ce2a-0f84-4df7-b90a-a6c98f1aa6e9
 		summarizeBy: sum
 		sourceColumn: fee_market_value_difference
 
@@ -110,6 +124,7 @@ table fct_transfers
 
 	column fee_market_value_difference_pct
 		dataType: double
+		lineageTag: f35d4712-ac88-4f70-b0fa-8f389872a533
 		summarizeBy: sum
 		sourceColumn: fee_market_value_difference_pct
 

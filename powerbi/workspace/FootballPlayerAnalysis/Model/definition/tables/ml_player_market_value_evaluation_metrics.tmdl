@@ -1,7 +1,9 @@
 table ml_player_market_value_evaluation_metrics
+	lineageTag: 3812422e-9bd2-43e3-a803-2e3a95cdf795
 
 	column model_version
 		dataType: string
+		lineageTag: f63be520-e8c4-462f-b9ba-69010af536ce
 		summarizeBy: none
 		sourceColumn: model_version
 
@@ -9,6 +11,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column segment_type
 		dataType: string
+		lineageTag: 7bde3011-5541-4d72-8ee8-20ee8498e6ad
 		summarizeBy: none
 		sourceColumn: segment_type
 
@@ -16,6 +19,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column segment_value
 		dataType: string
+		lineageTag: 2f6f357b-1a8b-4cc4-b9dd-a59d60b92365
 		summarizeBy: none
 		sourceColumn: segment_value
 
@@ -24,6 +28,7 @@ table ml_player_market_value_evaluation_metrics
 	column row_count
 		dataType: int64
 		formatString: 0
+		lineageTag: 7378dadc-b403-426d-a072-7ca1bf6b6072
 		summarizeBy: sum
 		sourceColumn: row_count
 
@@ -32,6 +37,7 @@ table ml_player_market_value_evaluation_metrics
 	column minimum_sample_size
 		dataType: int64
 		formatString: 0
+		lineageTag: a97451d7-bc66-4d92-b721-bc0c245dc5c4
 		summarizeBy: sum
 		sourceColumn: minimum_sample_size
 
@@ -40,6 +46,7 @@ table ml_player_market_value_evaluation_metrics
 	column meets_minimum_sample_size
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b672d8d8-cac9-4ccd-878d-f02ff19f446d
 		summarizeBy: none
 		sourceColumn: meets_minimum_sample_size
 
@@ -47,6 +54,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column mae_eur
 		dataType: double
+		lineageTag: 9e7e44b8-c999-4181-8870-7e0632571db4
 		summarizeBy: sum
 		sourceColumn: mae_eur
 
@@ -56,6 +64,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column rmse_eur
 		dataType: double
+		lineageTag: b8c7a524-9fee-4e27-a9b4-732c88e5f8e4
 		summarizeBy: sum
 		sourceColumn: rmse_eur
 
@@ -65,6 +74,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column r2
 		dataType: double
+		lineageTag: be388ed6-81bc-43be-9923-e92b01716996
 		summarizeBy: sum
 		sourceColumn: r2
 
@@ -74,6 +84,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column wape_pct
 		dataType: double
+		lineageTag: 57cd4d55-14b5-4bff-81ec-d8d5fa03993b
 		summarizeBy: sum
 		sourceColumn: wape_pct
 
@@ -83,6 +94,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column median_absolute_percentage_error_pct
 		dataType: double
+		lineageTag: f6328b29-c93c-400a-b332-270c34597f83
 		summarizeBy: sum
 		sourceColumn: median_absolute_percentage_error_pct
 
@@ -92,6 +104,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column mean_error_eur
 		dataType: double
+		lineageTag: 07023b59-b912-4e6c-9e68-3311aca9d0ed
 		summarizeBy: sum
 		sourceColumn: mean_error_eur
 
@@ -101,6 +114,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column within_25_pct
 		dataType: double
+		lineageTag: a9d6d6f4-5b14-4878-b87f-53314da147ae
 		summarizeBy: sum
 		sourceColumn: within_25_pct
 
@@ -110,6 +124,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column baseline_mae_eur
 		dataType: double
+		lineageTag: 9f1d83c1-88b5-4dd1-a06d-7383e0f402cc
 		summarizeBy: sum
 		sourceColumn: baseline_mae_eur
 
@@ -119,6 +134,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column mae_improvement_vs_baseline_pct
 		dataType: double
+		lineageTag: 13bae1cb-e374-4573-a2c9-34267c7e208c
 		summarizeBy: sum
 		sourceColumn: mae_improvement_vs_baseline_pct
 
@@ -128,6 +144,7 @@ table ml_player_market_value_evaluation_metrics
 
 	column interval_coverage_pct
 		dataType: double
+		lineageTag: a2a7444a-cf64-4910-8048-e147b2163f9a
 		summarizeBy: sum
 		sourceColumn: interval_coverage_pct
 

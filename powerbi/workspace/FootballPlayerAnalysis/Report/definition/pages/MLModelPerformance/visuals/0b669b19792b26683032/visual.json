@@ -23,7 +23,8 @@
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "20pt",
-                      "color": "#FFFFFF"
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]

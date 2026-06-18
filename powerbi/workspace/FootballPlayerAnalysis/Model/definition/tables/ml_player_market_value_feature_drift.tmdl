@@ -1,7 +1,9 @@
 table ml_player_market_value_feature_drift
+	lineageTag: 8605f4eb-d36e-471a-8a54-6172cdae72c7
 
 	column model_version
 		dataType: string
+		lineageTag: 42d0c39b-379b-4f1f-89ef-7d91fc131162
 		summarizeBy: none
 		sourceColumn: model_version
 
@@ -9,6 +11,7 @@ table ml_player_market_value_feature_drift
 
 	column feature
 		dataType: string
+		lineageTag: c56e70d1-bad8-46b9-85c1-a640636c63be
 		summarizeBy: none
 		sourceColumn: feature
 
@@ -16,6 +19,7 @@ table ml_player_market_value_feature_drift
 
 	column feature_type
 		dataType: string
+		lineageTag: 711d1558-176b-4321-8f33-79095b2e4ede
 		summarizeBy: none
 		sourceColumn: feature_type
 
@@ -23,6 +27,7 @@ table ml_player_market_value_feature_drift
 
 	column psi
 		dataType: double
+		lineageTag: eb514372-1373-4917-83f3-b4efc60997bc
 		summarizeBy: sum
 		sourceColumn: psi
 
@@ -32,6 +37,7 @@ table ml_player_market_value_feature_drift
 
 	column drift_status
 		dataType: string
+		lineageTag: e7c7d6c3-25df-4f11-872e-0b0afb4143d7
 		summarizeBy: none
 		sourceColumn: drift_status
 
@@ -40,6 +46,7 @@ table ml_player_market_value_feature_drift
 	column reference_row_count
 		dataType: int64
 		formatString: 0
+		lineageTag: 7be1ed9f-58dd-44ba-a25c-52c7a6a4ba61
 		summarizeBy: sum
 		sourceColumn: reference_row_count
 
@@ -48,6 +55,7 @@ table ml_player_market_value_feature_drift
 	column current_row_count
 		dataType: int64
 		formatString: 0
+		lineageTag: 10c4d4ef-e299-4ac4-a02d-94dd94acd8f7
 		summarizeBy: sum
 		sourceColumn: current_row_count
 
@@ -56,6 +64,7 @@ table ml_player_market_value_feature_drift
 	column reference_season_min
 		dataType: int64
 		formatString: 0
+		lineageTag: 62743b1e-de46-40f2-a587-e4c8f48a45cb
 		summarizeBy: sum
 		sourceColumn: reference_season_min
 
@@ -64,6 +73,7 @@ table ml_player_market_value_feature_drift
 	column reference_season_max
 		dataType: int64
 		formatString: 0
+		lineageTag: e1438440-c2a7-40cc-ac03-7be88afb7dde
 		summarizeBy: sum
 		sourceColumn: reference_season_max
 
@@ -72,6 +82,7 @@ table ml_player_market_value_feature_drift
 	column current_season_min
 		dataType: int64
 		formatString: 0
+		lineageTag: 20851a3f-d499-497d-99a9-7fbc01b7a1fa
 		summarizeBy: sum
 		sourceColumn: current_season_min
 
@@ -80,6 +91,7 @@ table ml_player_market_value_feature_drift
 	column current_season_max
 		dataType: int64
 		formatString: 0
+		lineageTag: 7fb65e3c-a4b5-437c-8719-40a91180cd18
 		summarizeBy: sum
 		sourceColumn: current_season_max
 
@@ -87,6 +99,7 @@ table ml_player_market_value_feature_drift
 
 	column reference_missing_pct
 		dataType: double
+		lineageTag: 085454c9-d010-4cc0-a251-d8c0df3eb1cd
 		summarizeBy: sum
 		sourceColumn: reference_missing_pct
 
@@ -96,6 +109,7 @@ table ml_player_market_value_feature_drift
 
 	column current_missing_pct
 		dataType: double
+		lineageTag: 3839788d-57c2-4bc3-904f-4a95b2199505
 		summarizeBy: sum
 		sourceColumn: current_missing_pct
 

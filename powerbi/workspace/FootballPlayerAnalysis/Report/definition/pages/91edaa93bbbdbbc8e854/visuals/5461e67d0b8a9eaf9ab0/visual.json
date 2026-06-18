@@ -72,7 +72,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "16D"
+                  "Value": "24D"
                 }
               }
             },
@@ -98,6 +98,13 @@
               "expr": {
                 "Literal": {
                   "Value": "0D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }
@@ -161,7 +168,7 @@
             "radius": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "10D"
                 }
               }
             }
@@ -192,7 +199,7 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "70D"
+                  "Value": "55D"
                 }
               }
             },
@@ -200,6 +207,13 @@
               "expr": {
                 "Literal": {
                   "Value": "45D"
+                }
+              }
+            },
+            "size": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
                 }
               }
             }

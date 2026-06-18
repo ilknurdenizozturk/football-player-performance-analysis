@@ -1,7 +1,9 @@
 table ml_player_market_value_scoring
+	lineageTag: dc89c574-b743-4765-ab18-aadb918f8802
 
 	column scoring_row_key
 		dataType: string
+		lineageTag: b3e35d43-e7f1-4858-b125-c821feafc9d3
 		summarizeBy: none
 		sourceColumn: scoring_row_key
 
@@ -10,6 +12,7 @@ table ml_player_market_value_scoring
 	column player_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 8465bb41-1542-4234-b0fb-6a492a5aa05a
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -17,6 +20,7 @@ table ml_player_market_value_scoring
 
 	column player_name
 		dataType: string
+		lineageTag: 041b5226-9820-4c75-88f9-a09a6b174a81
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -25,6 +29,7 @@ table ml_player_market_value_scoring
 	column season
 		dataType: int64
 		formatString: 0
+		lineageTag: 50642cc8-14b4-4345-bc21-fbe8bf6fcb4a
 		summarizeBy: sum
 		sourceColumn: season
 
@@ -32,6 +37,7 @@ table ml_player_market_value_scoring
 
 	column competition_id
 		dataType: string
+		lineageTag: e882d000-67ee-45b3-a7a0-f0a1eee7ac39
 		summarizeBy: none
 		sourceColumn: competition_id
 
@@ -40,6 +46,7 @@ table ml_player_market_value_scoring
 	column has_competition_context
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d24c2f94-7ef1-44b7-bd91-ee883656c562
 		summarizeBy: none
 		sourceColumn: has_competition_context
 
@@ -47,6 +54,7 @@ table ml_player_market_value_scoring
 
 	column position
 		dataType: string
+		lineageTag: 9888cbaf-c420-4874-9af9-c6210b295e44
 		summarizeBy: none
 		sourceColumn: position
 
@@ -54,6 +62,7 @@ table ml_player_market_value_scoring
 
 	column sub_position
 		dataType: string
+		lineageTag: bf8f5284-6e74-4638-b9fc-cd5c6aa71660
 		summarizeBy: none
 		sourceColumn: sub_position
 
@@ -61,6 +70,7 @@ table ml_player_market_value_scoring
 
 	column preferred_foot
 		dataType: string
+		lineageTag: 2585aa19-4649-4b06-8790-2c07a5558a20
 		summarizeBy: none
 		sourceColumn: preferred_foot
 
@@ -69,6 +79,7 @@ table ml_player_market_value_scoring
 	column height_in_cm
 		dataType: int64
 		formatString: 0
+		lineageTag: a4ba8ee1-6236-4983-9708-0f5ff45c16d2
 		summarizeBy: sum
 		sourceColumn: height_in_cm
 
@@ -76,6 +87,7 @@ table ml_player_market_value_scoring
 
 	column country_of_citizenship
 		dataType: string
+		lineageTag: 2158251c-4cb5-4ab6-8a0a-4c544e57e94d
 		summarizeBy: none
 		sourceColumn: country_of_citizenship
 
@@ -83,6 +95,7 @@ table ml_player_market_value_scoring
 
 	column competition_type
 		dataType: string
+		lineageTag: 60a0f780-6a1f-4345-8438-421a0d54e407
 		summarizeBy: none
 		sourceColumn: competition_type
 
@@ -90,6 +103,7 @@ table ml_player_market_value_scoring
 
 	column competition_country_name
 		dataType: string
+		lineageTag: 0dca0a9c-a855-4d44-ab01-29d4cf98afdc
 		summarizeBy: none
 		sourceColumn: competition_country_name
 
@@ -97,6 +111,7 @@ table ml_player_market_value_scoring
 
 	column confederation
 		dataType: string
+		lineageTag: 08c0c062-f2b3-400b-9d42-891ef5f8d311
 		summarizeBy: none
 		sourceColumn: confederation
 
@@ -105,6 +120,7 @@ table ml_player_market_value_scoring
 	column age_at_target_date
 		dataType: int64
 		formatString: 0
+		lineageTag: f53777a0-e6d6-4a14-bf7d-fe9b9e65c18e
 		summarizeBy: sum
 		sourceColumn: age_at_target_date
 
@@ -113,6 +129,7 @@ table ml_player_market_value_scoring
 	column matches_before_target
 		dataType: int64
 		formatString: 0
+		lineageTag: d698bea1-94e1-4f33-874e-99d8d1a2d69f
 		summarizeBy: sum
 		sourceColumn: matches_before_target
 
@@ -121,6 +138,7 @@ table ml_player_market_value_scoring
 	column competitions_played_before_target
 		dataType: int64
 		formatString: 0
+		lineageTag: d120c256-ef66-4c86-8a4f-1982e4a14b50
 		summarizeBy: sum
 		sourceColumn: competitions_played_before_target
 
@@ -129,6 +147,7 @@ table ml_player_market_value_scoring
 	column minutes_before_target
 		dataType: int64
 		formatString: 0
+		lineageTag: 8950b18f-0a07-4561-b8c2-5a6e0d536231
 		summarizeBy: sum
 		sourceColumn: minutes_before_target
 
@@ -137,6 +156,7 @@ table ml_player_market_value_scoring
 	column goals_before_target
 		dataType: int64
 		formatString: 0
+		lineageTag: 1e835c2c-22a6-4075-ac07-095f6442c115
 		summarizeBy: sum
 		sourceColumn: goals_before_target
 
@@ -145,6 +165,7 @@ table ml_player_market_value_scoring
 	column assists_before_target
 		dataType: int64
 		formatString: 0
+		lineageTag: 6870d7aa-0e15-4b01-b172-a0b57c48350a
 		summarizeBy: sum
 		sourceColumn: assists_before_target
 
@@ -153,6 +174,7 @@ table ml_player_market_value_scoring
 	column yellow_cards_before_target
 		dataType: int64
 		formatString: 0
+		lineageTag: c4b31d6d-44d0-46c9-a8af-581fcfcab3ea
 		summarizeBy: sum
 		sourceColumn: yellow_cards_before_target
 
@@ -161,6 +183,7 @@ table ml_player_market_value_scoring
 	column red_cards_before_target
 		dataType: int64
 		formatString: 0
+		lineageTag: 34eaf63d-472d-411b-8243-c04acbb4d28d
 		summarizeBy: sum
 		sourceColumn: red_cards_before_target
 
@@ -168,6 +191,7 @@ table ml_player_market_value_scoring
 
 	column goals_per_90_before_target
 		dataType: double
+		lineageTag: 3bd83052-73f7-4ed6-92bb-fe7acb613a3c
 		summarizeBy: sum
 		sourceColumn: goals_per_90_before_target
 
@@ -177,6 +201,7 @@ table ml_player_market_value_scoring
 
 	column assists_per_90_before_target
 		dataType: double
+		lineageTag: 1e46fc7e-96c7-475b-be35-79de9967d511
 		summarizeBy: sum
 		sourceColumn: assists_per_90_before_target
 
@@ -187,6 +212,7 @@ table ml_player_market_value_scoring
 	column feature_last_appearance_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 551712f7-89ae-476e-9ba8-b351c6bd9d85
 		summarizeBy: none
 		sourceColumn: feature_last_appearance_date
 
@@ -202,6 +228,7 @@ table ml_player_market_value_scoring
 	column previous_market_value_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 868a6a85-20bd-40a6-b7cd-e53a93433d22
 		summarizeBy: none
 		sourceColumn: previous_market_value_date
 
@@ -217,6 +244,7 @@ table ml_player_market_value_scoring
 	column previous_market_value_eur
 		dataType: int64
 		formatString: 0
+		lineageTag: dc2a37d7-409a-4e67-879d-eda83684f577
 		summarizeBy: sum
 		sourceColumn: previous_market_value_eur
 
@@ -225,6 +253,7 @@ table ml_player_market_value_scoring
 	column has_previous_market_value
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 4f34ebc5-2c37-4972-8331-4cd3a10526af
 		summarizeBy: none
 		sourceColumn: has_previous_market_value
 
@@ -233,6 +262,7 @@ table ml_player_market_value_scoring
 	column days_since_previous_market_value
 		dataType: int64
 		formatString: 0
+		lineageTag: 9aefd339-62ef-4532-aa23-5e79e8a72ac7
 		summarizeBy: sum
 		sourceColumn: days_since_previous_market_value
 
@@ -241,6 +271,7 @@ table ml_player_market_value_scoring
 	column prior_valuation_count
 		dataType: int64
 		formatString: 0
+		lineageTag: c198a020-e371-4c97-b0c4-38e72fbc7ffc
 		summarizeBy: sum
 		sourceColumn: prior_valuation_count
 
@@ -249,6 +280,7 @@ table ml_player_market_value_scoring
 	column prior_highest_market_value_eur
 		dataType: int64
 		formatString: 0
+		lineageTag: 605b46f7-0e6a-4336-be5d-0d5d2408c731
 		summarizeBy: sum
 		sourceColumn: prior_highest_market_value_eur
 
@@ -257,6 +289,7 @@ table ml_player_market_value_scoring
 	column prediction_as_of_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 174ddbc9-fadc-4c9f-a463-a3972fd26675
 		summarizeBy: none
 		sourceColumn: prediction_as_of_date
 

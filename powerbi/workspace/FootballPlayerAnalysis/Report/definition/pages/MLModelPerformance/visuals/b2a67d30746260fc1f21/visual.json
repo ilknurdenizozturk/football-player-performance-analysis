@@ -22,8 +22,9 @@
                     "value": "FİLTRELER",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "8pt",
-                      "color": "#285D3D"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]

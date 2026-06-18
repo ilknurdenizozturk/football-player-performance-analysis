@@ -1,8 +1,10 @@
 table fct_club_transfer_portfolio
+	lineageTag: b8195b5c-1c97-4f37-8fd1-9212c15f6d08
 
 	column club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 735de3d6-32b8-4146-93bd-34a547c9a63e
 		summarizeBy: none
 		sourceColumn: club_id
 
@@ -10,6 +12,7 @@ table fct_club_transfer_portfolio
 
 	column club_name
 		dataType: string
+		lineageTag: 0705b51e-ee5b-4603-a09f-846ffe6671dc
 		summarizeBy: none
 		sourceColumn: club_name
 
@@ -17,6 +20,7 @@ table fct_club_transfer_portfolio
 
 	column transfer_season
 		dataType: string
+		lineageTag: 4201a8c2-bf5f-44ec-9f52-ca2f4a7905df
 		summarizeBy: none
 		sourceColumn: transfer_season
 
@@ -25,6 +29,7 @@ table fct_club_transfer_portfolio
 	column inbound_transfers
 		dataType: int64
 		formatString: 0
+		lineageTag: c9476e8d-f63e-4050-a22c-c36f84592b2c
 		summarizeBy: sum
 		sourceColumn: inbound_transfers
 
@@ -33,6 +38,7 @@ table fct_club_transfer_portfolio
 	column outbound_transfers
 		dataType: int64
 		formatString: 0
+		lineageTag: 2476dc76-1c49-422c-aeb5-123a8da85e1e
 		summarizeBy: sum
 		sourceColumn: outbound_transfers
 
@@ -41,6 +47,7 @@ table fct_club_transfer_portfolio
 	column inbound_known_fee_transfers
 		dataType: int64
 		formatString: 0
+		lineageTag: c4db3f0b-5e3b-4d9b-a1bb-34eafe31b673
 		summarizeBy: sum
 		sourceColumn: inbound_known_fee_transfers
 
@@ -49,6 +56,7 @@ table fct_club_transfer_portfolio
 	column outbound_known_fee_transfers
 		dataType: int64
 		formatString: 0
+		lineageTag: 8bed7e5c-a0cc-4cce-aed3-ebc69caad7ec
 		summarizeBy: sum
 		sourceColumn: outbound_known_fee_transfers
 
@@ -56,6 +64,7 @@ table fct_club_transfer_portfolio
 
 	column inbound_transfer_spend
 		dataType: double
+		lineageTag: 3c4919fc-2982-4f4f-9b84-f914447629ed
 		summarizeBy: sum
 		sourceColumn: inbound_transfer_spend
 
@@ -65,6 +74,7 @@ table fct_club_transfer_portfolio
 
 	column outbound_transfer_income
 		dataType: double
+		lineageTag: a17276b8-52bd-4eed-8613-1b2f6216c71e
 		summarizeBy: sum
 		sourceColumn: outbound_transfer_income
 
@@ -74,6 +84,7 @@ table fct_club_transfer_portfolio
 
 	column net_transfer_spend
 		dataType: double
+		lineageTag: 99daa754-ce29-4b56-89cf-cc4da84a3b16
 		summarizeBy: sum
 		sourceColumn: net_transfer_spend
 
@@ -83,6 +94,7 @@ table fct_club_transfer_portfolio
 
 	column avg_inbound_transfer_fee
 		dataType: double
+		lineageTag: 452781c7-ce2a-48b2-a56f-0ec9e1a88ce0
 		summarizeBy: sum
 		sourceColumn: avg_inbound_transfer_fee
 
@@ -92,6 +104,7 @@ table fct_club_transfer_portfolio
 
 	column avg_outbound_transfer_fee
 		dataType: double
+		lineageTag: b052be88-3572-480c-843b-fcaca3dfeb69
 		summarizeBy: sum
 		sourceColumn: avg_outbound_transfer_fee
 
@@ -101,6 +114,7 @@ table fct_club_transfer_portfolio
 
 	column avg_inbound_fee_premium_pct
 		dataType: double
+		lineageTag: 5497da34-1e4f-45c6-b6f6-8b6c5e567e82
 		summarizeBy: sum
 		sourceColumn: avg_inbound_fee_premium_pct
 
@@ -110,6 +124,7 @@ table fct_club_transfer_portfolio
 
 	column avg_outbound_fee_premium_pct
 		dataType: double
+		lineageTag: 5e686551-0182-4142-8e20-3de231318287
 		summarizeBy: sum
 		sourceColumn: avg_outbound_fee_premium_pct
 
@@ -119,6 +134,7 @@ table fct_club_transfer_portfolio
 
 	column avg_inbound_post_transfer_value_change_pct
 		dataType: double
+		lineageTag: dc72a086-19c9-4392-bdfa-f5ac88930869
 		summarizeBy: sum
 		sourceColumn: avg_inbound_post_transfer_value_change_pct
 
@@ -129,6 +145,7 @@ table fct_club_transfer_portfolio
 	column inbound_transfers_with_value_outcome
 		dataType: int64
 		formatString: 0
+		lineageTag: 47ba8ce6-ce9f-4269-ad45-2e013af449d1
 		summarizeBy: sum
 		sourceColumn: inbound_transfers_with_value_outcome
 
@@ -136,6 +153,7 @@ table fct_club_transfer_portfolio
 
 	column inbound_positive_value_outcome_rate_pct
 		dataType: double
+		lineageTag: 8d66f950-84e3-4342-884f-2182b7913211
 		summarizeBy: sum
 		sourceColumn: inbound_positive_value_outcome_rate_pct
 
@@ -145,6 +163,7 @@ table fct_club_transfer_portfolio
 
 	column inbound_fee_coverage_pct
 		dataType: double
+		lineageTag: b6fb6367-6f4f-4e5c-8934-99d8bf75e66a
 		summarizeBy: sum
 		sourceColumn: inbound_fee_coverage_pct
 
@@ -154,6 +173,7 @@ table fct_club_transfer_portfolio
 
 	column outbound_fee_coverage_pct
 		dataType: double
+		lineageTag: ae5f0daf-18e9-4d92-8ba7-2776a0fcf47c
 		summarizeBy: sum
 		sourceColumn: outbound_fee_coverage_pct
 

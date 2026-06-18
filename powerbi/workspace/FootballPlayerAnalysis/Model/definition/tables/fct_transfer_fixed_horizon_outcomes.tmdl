@@ -1,7 +1,9 @@
 table fct_transfer_fixed_horizon_outcomes
+	lineageTag: 69b4e592-2a42-489e-980a-5909f0b94a79
 
 	column transfer_key
 		dataType: string
+		lineageTag: b054f4d8-c88e-4527-a1dc-6bc23c46d4ff
 		summarizeBy: none
 		sourceColumn: transfer_key
 
@@ -10,6 +12,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column player_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 8d8df802-2df0-4d15-8e08-8eac39320161
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -17,6 +20,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column player_name
 		dataType: string
+		lineageTag: 677c6383-474c-4db6-98ec-acec3597ec5f
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -24,6 +28,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column position
 		dataType: string
+		lineageTag: befd3390-4914-4018-be39-ed9271778eef
 		summarizeBy: none
 		sourceColumn: position
 
@@ -31,6 +36,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column sub_position
 		dataType: string
+		lineageTag: 466734d5-4b07-4502-a75a-d7f0593020a7
 		summarizeBy: none
 		sourceColumn: sub_position
 
@@ -39,6 +45,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column age_at_transfer
 		dataType: int64
 		formatString: 0
+		lineageTag: eae29b1f-1982-4783-bb2f-67d6def13c6f
 		summarizeBy: sum
 		sourceColumn: age_at_transfer
 
@@ -46,6 +53,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column age_band_at_transfer
 		dataType: string
+		lineageTag: 6b232332-d8a0-4fa2-9456-eb3975fbde25
 		summarizeBy: none
 		sourceColumn: age_band_at_transfer
 
@@ -54,6 +62,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column transfer_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: a8e3bc9c-3199-40a7-a1ff-f57e70ba5384
 		summarizeBy: none
 		sourceColumn: transfer_date
 
@@ -69,6 +78,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column transfer_year
 		dataType: int64
 		formatString: 0
+		lineageTag: 2d192d9d-ec76-4f57-96e8-6d2bf0c3741b
 		summarizeBy: sum
 		sourceColumn: transfer_year
 
@@ -76,6 +86,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column transfer_season
 		dataType: string
+		lineageTag: 362d7a91-1e61-4067-8b8a-106ba25b272e
 		summarizeBy: none
 		sourceColumn: transfer_season
 
@@ -84,6 +95,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column from_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 7fd594ad-9d16-44f3-99e8-456a15ef6301
 		summarizeBy: sum
 		sourceColumn: from_club_id
 
@@ -91,6 +103,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column from_club_name
 		dataType: string
+		lineageTag: e16e19e3-79dd-4166-8229-438da5129157
 		summarizeBy: none
 		sourceColumn: from_club_name
 
@@ -99,6 +112,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column to_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 3cfe54e9-c9f6-4cb1-9b5f-a9887faad5eb
 		summarizeBy: sum
 		sourceColumn: to_club_id
 
@@ -106,6 +120,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column to_club_name
 		dataType: string
+		lineageTag: f7f79cd8-8237-474c-b837-5264b7c3dd19
 		summarizeBy: none
 		sourceColumn: to_club_name
 
@@ -113,6 +128,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column transfer_fee
 		dataType: double
+		lineageTag: f18fe8d5-a8a6-44a6-b567-c7a588603ace
 		summarizeBy: sum
 		sourceColumn: transfer_fee
 
@@ -122,6 +138,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column market_value_baseline
 		dataType: double
+		lineageTag: 4a590400-121e-4518-8e63-6f905fd60237
 		summarizeBy: sum
 		sourceColumn: market_value_baseline
 
@@ -131,6 +148,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column fee_market_value_difference
 		dataType: double
+		lineageTag: e03039da-e219-4aca-b108-63e5addc8a9e
 		summarizeBy: sum
 		sourceColumn: fee_market_value_difference
 
@@ -140,6 +158,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column fee_market_value_difference_pct
 		dataType: double
+		lineageTag: 64fc8aab-3766-4a4b-a6b0-6cfbea41d09b
 		summarizeBy: sum
 		sourceColumn: fee_market_value_difference_pct
 
@@ -149,6 +168,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column fee_premium_band
 		dataType: string
+		lineageTag: f0fbfa28-df97-49a2-b444-4ecc2547354b
 		summarizeBy: none
 		sourceColumn: fee_premium_band
 
@@ -156,6 +176,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column valuation_context_change
 		dataType: string
+		lineageTag: 2986429e-3278-4a37-b403-f98d3fe1b879
 		summarizeBy: none
 		sourceColumn: valuation_context_change
 
@@ -164,6 +185,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column has_known_transfer_fee
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 45794f4d-13db-4161-8837-9146a55f7cc7
 		summarizeBy: none
 		sourceColumn: has_known_transfer_fee
 
@@ -172,6 +194,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column has_fee_market_value_comparison
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 2cbb0fab-834d-4258-a248-90d83c2756af
 		summarizeBy: none
 		sourceColumn: has_fee_market_value_comparison
 
@@ -180,6 +203,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column target_90d_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: f287f568-9fac-47d5-b4f9-e53e52a70796
 		summarizeBy: none
 		sourceColumn: target_90d_date
 
@@ -195,6 +219,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column valuation_90d_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 8e000d60-6612-427a-8b26-780ea1cce71e
 		summarizeBy: none
 		sourceColumn: valuation_90d_date
 
@@ -210,6 +235,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column market_value_90d
 		dataType: int64
 		formatString: 0
+		lineageTag: 3062453e-5188-4836-a238-85a0f1e6fc69
 		summarizeBy: sum
 		sourceColumn: market_value_90d
 
@@ -218,6 +244,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column days_to_90d_valuation
 		dataType: int64
 		formatString: 0
+		lineageTag: 92d26fa6-3b57-4c0f-a9ca-3af6a4a13843
 		summarizeBy: sum
 		sourceColumn: days_to_90d_valuation
 
@@ -225,6 +252,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column market_value_change_90d
 		dataType: double
+		lineageTag: 5899169c-9a85-429e-a19a-6b79cf57eabd
 		summarizeBy: sum
 		sourceColumn: market_value_change_90d
 
@@ -234,6 +262,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column market_value_change_90d_pct
 		dataType: double
+		lineageTag: 8e8ee72a-5004-48fb-b6fc-eb3c06c1efd0
 		summarizeBy: sum
 		sourceColumn: market_value_change_90d_pct
 
@@ -244,6 +273,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column has_90d_outcome
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 29a57d60-ceba-4c65-8ae7-b6b0d8fec5bd
 		summarizeBy: none
 		sourceColumn: has_90d_outcome
 
@@ -251,6 +281,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column outcome_90d_status
 		dataType: string
+		lineageTag: 4d811c58-8816-494e-82e4-fb172ebd5e1e
 		summarizeBy: none
 		sourceColumn: outcome_90d_status
 
@@ -259,6 +290,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column target_180d_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 147b9b3d-07bd-4342-bacc-1e75a3b9c33c
 		summarizeBy: none
 		sourceColumn: target_180d_date
 
@@ -274,6 +306,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column valuation_180d_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 44fcde5b-5010-4d56-bd5b-263fdecdec38
 		summarizeBy: none
 		sourceColumn: valuation_180d_date
 
@@ -289,6 +322,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column market_value_180d
 		dataType: int64
 		formatString: 0
+		lineageTag: 116acd1f-4d9c-4c55-8307-7143590a2039
 		summarizeBy: sum
 		sourceColumn: market_value_180d
 
@@ -297,6 +331,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column days_to_180d_valuation
 		dataType: int64
 		formatString: 0
+		lineageTag: 15101a99-2020-42fa-ab78-ffdd5d64348d
 		summarizeBy: sum
 		sourceColumn: days_to_180d_valuation
 
@@ -304,6 +339,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column market_value_change_180d
 		dataType: double
+		lineageTag: a4e2a150-cbe7-4a94-92be-00c17edf8338
 		summarizeBy: sum
 		sourceColumn: market_value_change_180d
 
@@ -313,6 +349,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column market_value_change_180d_pct
 		dataType: double
+		lineageTag: 13c92a6d-86b6-4a1a-a376-a375f5de3477
 		summarizeBy: sum
 		sourceColumn: market_value_change_180d_pct
 
@@ -323,6 +360,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column has_180d_outcome
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 314968d6-128e-406d-828b-68292108c95a
 		summarizeBy: none
 		sourceColumn: has_180d_outcome
 
@@ -330,6 +368,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column outcome_180d_status
 		dataType: string
+		lineageTag: c6b14528-44cb-4084-a867-cf328d06737e
 		summarizeBy: none
 		sourceColumn: outcome_180d_status
 
@@ -338,6 +377,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column target_365d_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 1258501b-099a-404e-b4f9-8886cc598159
 		summarizeBy: none
 		sourceColumn: target_365d_date
 
@@ -353,6 +393,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column valuation_365d_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: b9ef2160-8b9d-4293-92bf-48cef383dfa3
 		summarizeBy: none
 		sourceColumn: valuation_365d_date
 
@@ -368,6 +409,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column market_value_365d
 		dataType: int64
 		formatString: 0
+		lineageTag: 800a37ab-cc04-4083-ab82-a47ded178cf3
 		summarizeBy: sum
 		sourceColumn: market_value_365d
 
@@ -376,6 +418,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column days_to_365d_valuation
 		dataType: int64
 		formatString: 0
+		lineageTag: ac200685-0fad-41d0-9216-b7d625c32d7f
 		summarizeBy: sum
 		sourceColumn: days_to_365d_valuation
 
@@ -383,6 +426,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column market_value_change_365d
 		dataType: double
+		lineageTag: 22e3c131-d672-421c-bd20-b3d67cbe3083
 		summarizeBy: sum
 		sourceColumn: market_value_change_365d
 
@@ -392,6 +436,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column market_value_change_365d_pct
 		dataType: double
+		lineageTag: 48563beb-d55a-4fd5-9a2d-534f1efc3cd7
 		summarizeBy: sum
 		sourceColumn: market_value_change_365d_pct
 
@@ -402,6 +447,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column has_365d_outcome
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b991482a-5d16-430c-9559-27d571382050
 		summarizeBy: none
 		sourceColumn: has_365d_outcome
 
@@ -409,6 +455,7 @@ table fct_transfer_fixed_horizon_outcomes
 
 	column outcome_365d_status
 		dataType: string
+		lineageTag: ea25dae9-4291-4a31-b1b0-7eeb2ee47455
 		summarizeBy: none
 		sourceColumn: outcome_365d_status
 
@@ -417,6 +464,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column pre_180d_appearances
 		dataType: int64
 		formatString: 0
+		lineageTag: 8757843a-fd3e-4f30-9d23-6bdd3a2130e8
 		summarizeBy: sum
 		sourceColumn: pre_180d_appearances
 
@@ -425,6 +473,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column pre_180d_minutes
 		dataType: int64
 		formatString: 0
+		lineageTag: 65a7fdd0-1042-4cd8-b063-6371ff275b14
 		summarizeBy: sum
 		sourceColumn: pre_180d_minutes
 
@@ -433,6 +482,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column pre_180d_goals
 		dataType: int64
 		formatString: 0
+		lineageTag: 7b61dd61-7fff-451a-8295-897cd6bbc8c0
 		summarizeBy: sum
 		sourceColumn: pre_180d_goals
 
@@ -441,6 +491,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column pre_180d_assists
 		dataType: int64
 		formatString: 0
+		lineageTag: baddecc9-4d09-4eb6-91ee-c5592d98a626
 		summarizeBy: sum
 		sourceColumn: pre_180d_assists
 
@@ -449,6 +500,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column post_180d_appearances
 		dataType: int64
 		formatString: 0
+		lineageTag: 7beea82c-9ccb-4ed4-ab44-6839f7e45fc2
 		summarizeBy: sum
 		sourceColumn: post_180d_appearances
 
@@ -457,6 +509,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column post_180d_minutes
 		dataType: int64
 		formatString: 0
+		lineageTag: b6a64d87-50bf-4cd7-a4e7-6b15a2a62e88
 		summarizeBy: sum
 		sourceColumn: post_180d_minutes
 
@@ -465,6 +518,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column post_180d_goals
 		dataType: int64
 		formatString: 0
+		lineageTag: 45214cac-d1f2-4132-a5a1-b5c3bc65b984
 		summarizeBy: sum
 		sourceColumn: post_180d_goals
 
@@ -473,6 +527,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column post_180d_assists
 		dataType: int64
 		formatString: 0
+		lineageTag: 8ba19a05-634e-45d3-8c87-1f3bc6c45a3c
 		summarizeBy: sum
 		sourceColumn: post_180d_assists
 
@@ -481,6 +536,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column has_pre_180d_performance
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 8a9b42fe-f8a7-4282-aac4-9e4b8d81c0e7
 		summarizeBy: none
 		sourceColumn: has_pre_180d_performance
 
@@ -489,6 +545,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column has_post_180d_performance
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b7bae840-fe85-466e-98f0-359479d2408b
 		summarizeBy: none
 		sourceColumn: has_post_180d_performance
 
@@ -497,6 +554,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column minutes_change_post_vs_pre_180d
 		dataType: int64
 		formatString: 0
+		lineageTag: ee0b7a99-3aa4-40e7-8090-3a61ee5ab391
 		summarizeBy: sum
 		sourceColumn: minutes_change_post_vs_pre_180d
 
@@ -505,6 +563,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column goals_change_post_vs_pre_180d
 		dataType: int64
 		formatString: 0
+		lineageTag: b246661b-b543-4333-a9c5-5cbd0271e1b8
 		summarizeBy: sum
 		sourceColumn: goals_change_post_vs_pre_180d
 
@@ -513,6 +572,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column assists_change_post_vs_pre_180d
 		dataType: int64
 		formatString: 0
+		lineageTag: 07f0c0bf-a932-4626-b818-6cfaf1abb20a
 		summarizeBy: sum
 		sourceColumn: assists_change_post_vs_pre_180d
 
@@ -521,6 +581,7 @@ table fct_transfer_fixed_horizon_outcomes
 	column source_latest_valuation_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: c9fac81f-ebed-47cd-8e9f-3fe3a0fa7a40
 		summarizeBy: none
 		sourceColumn: source_latest_valuation_date
 

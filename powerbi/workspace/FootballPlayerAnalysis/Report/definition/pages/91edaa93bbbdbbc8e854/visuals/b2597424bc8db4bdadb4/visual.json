@@ -23,7 +23,8 @@
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "11pt",
-                      "color": "#FFFFFF"
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -34,7 +35,8 @@
                     "value": "",
                     "textStyle": {
                       "fontSize": "4pt",
-                      "color": "#FFFFFF"
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -45,8 +47,9 @@
                     "value": "• Toplam ücret ve ortalama sonraki değişim, oyuncunun yarattığı net değeri özetler.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
-                      "color": "#E6F2E8"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -57,8 +60,9 @@
                     "value": "• Sezon bazlı ücret trendi: oyuncunun müzakere gücünü ve piyasa algısını yansıtır.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
-                      "color": "#E6F2E8"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -69,8 +73,9 @@
                     "value": "• Prim (+%): kulübün o oyuncuya standart değerinin üstünde ödediğini gösterir.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
-                      "color": "#E6F2E8"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -81,8 +86,9 @@
                     "value": "• Sonraki değişim % negatifse oyuncu, transferden sonra piyasa değeri kaybetmiştir.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
-                      "color": "#E6F2E8"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]

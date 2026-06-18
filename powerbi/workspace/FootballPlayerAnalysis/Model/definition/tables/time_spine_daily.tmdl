@@ -1,8 +1,10 @@
 table time_spine_daily
+	lineageTag: 325a2808-4a22-40ea-934f-2cec77990708
 
 	column date_day
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: b5e74b77-d4fa-4d97-883f-821fa1795041
 		summarizeBy: none
 		sourceColumn: date_day
 

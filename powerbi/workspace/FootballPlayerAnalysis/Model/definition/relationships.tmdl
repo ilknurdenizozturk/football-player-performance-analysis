@@ -202,7 +202,6 @@ relationship AutoDetected_a2b9cf44-9f9b-4179-9b56-c36f0c732083
 	fromColumn: fct_player_rolling_form.competition_id
 	toColumn: dim_competitions.competition_id
 
-
 relationship AutoDetected_aa270e73-8b03-4fb0-82e0-a5ee54164efd
 	fromColumn: fct_player_match_performance.player_id
 	toColumn: dim_players.player_id

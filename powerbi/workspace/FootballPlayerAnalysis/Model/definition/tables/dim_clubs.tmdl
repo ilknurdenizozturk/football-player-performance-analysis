@@ -1,8 +1,10 @@
 table dim_clubs
+	lineageTag: 9b13e5e4-37d9-4f69-b608-941f5ddddb3c
 
 	column club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 2733cd91-5807-4dd6-a2d0-ac2d8d76bcd3
 		summarizeBy: none
 		sourceColumn: club_id
 
@@ -10,6 +12,7 @@ table dim_clubs
 
 	column club_code
 		dataType: string
+		lineageTag: 0dba5d9d-5aa5-4a73-8c2a-bf55dd61462b
 		summarizeBy: none
 		sourceColumn: club_code
 
@@ -17,6 +20,7 @@ table dim_clubs
 
 	column club_name
 		dataType: string
+		lineageTag: cdd7b4b7-25f7-4c18-8a64-af5c65c6f3b4
 		summarizeBy: none
 		sourceColumn: club_name
 
@@ -24,6 +28,7 @@ table dim_clubs
 
 	column domestic_competition_id
 		dataType: string
+		lineageTag: 23a596f8-2921-413d-a20b-487a322befa0
 		summarizeBy: none
 		sourceColumn: domestic_competition_id
 
@@ -31,6 +36,7 @@ table dim_clubs
 
 	column total_market_value
 		dataType: string
+		lineageTag: 96ce8e08-b115-467d-baa9-b748be74a7e7
 		summarizeBy: none
 		sourceColumn: total_market_value
 
@@ -39,6 +45,7 @@ table dim_clubs
 	column squad_size
 		dataType: int64
 		formatString: 0
+		lineageTag: e3eeafce-a5c3-4f30-a163-38ff001409d0
 		summarizeBy: sum
 		sourceColumn: squad_size
 
@@ -46,6 +53,7 @@ table dim_clubs
 
 	column average_age
 		dataType: double
+		lineageTag: 1b955d63-b20b-4fef-87e2-73f9f7e5effe
 		summarizeBy: sum
 		sourceColumn: average_age
 
@@ -56,6 +64,7 @@ table dim_clubs
 	column foreigners_number
 		dataType: int64
 		formatString: 0
+		lineageTag: 0104ade8-f3b2-4996-a66d-37b0428b86a0
 		summarizeBy: sum
 		sourceColumn: foreigners_number
 
@@ -63,6 +72,7 @@ table dim_clubs
 
 	column foreigners_percentage
 		dataType: double
+		lineageTag: 6e70ceee-7e74-4b21-a547-72ed6ba215f2
 		summarizeBy: sum
 		sourceColumn: foreigners_percentage
 
@@ -73,6 +83,7 @@ table dim_clubs
 	column national_team_players
 		dataType: int64
 		formatString: 0
+		lineageTag: 03044b8b-9ddd-4d34-b2d6-9777922b9a73
 		summarizeBy: sum
 		sourceColumn: national_team_players
 
@@ -80,6 +91,7 @@ table dim_clubs
 
 	column stadium_name
 		dataType: string
+		lineageTag: f7af5c1f-762b-4a4f-b2eb-5a636829f6fe
 		summarizeBy: none
 		sourceColumn: stadium_name
 
@@ -88,6 +100,7 @@ table dim_clubs
 	column stadium_seats
 		dataType: int64
 		formatString: 0
+		lineageTag: 1fa9f3a6-0542-49d7-aa1c-e051eda821a1
 		summarizeBy: sum
 		sourceColumn: stadium_seats
 
@@ -95,6 +108,7 @@ table dim_clubs
 
 	column net_transfer_record
 		dataType: string
+		lineageTag: 0b61be2d-1ed4-4513-bff4-75d91f2719b5
 		summarizeBy: none
 		sourceColumn: net_transfer_record
 
@@ -102,6 +116,7 @@ table dim_clubs
 
 	column coach_name
 		dataType: string
+		lineageTag: 8dd6030f-9da9-4f6d-b433-a0f6b4ca7639
 		summarizeBy: none
 		sourceColumn: coach_name
 
@@ -110,6 +125,7 @@ table dim_clubs
 	column last_season
 		dataType: int64
 		formatString: 0
+		lineageTag: c45217fa-0fcf-4b2a-9683-86d78e6d181f
 		summarizeBy: sum
 		sourceColumn: last_season
 
@@ -117,6 +133,7 @@ table dim_clubs
 
 	column club_record_type
 		dataType: string
+		lineageTag: 4790f13f-8b23-4385-bc03-645a2728b446
 		summarizeBy: none
 		sourceColumn: club_record_type
 
@@ -124,6 +141,7 @@ table dim_clubs
 
 	column club_profile_completeness_pct
 		dataType: double
+		lineageTag: 7e4f9be5-5ac3-47cc-8d5c-d90e6c1d7670
 		summarizeBy: sum
 		sourceColumn: club_profile_completeness_pct
 
@@ -133,6 +151,7 @@ table dim_clubs
 
 	column club_name_display
 		dataType: string
+		lineageTag: 8e377903-b5d8-4865-85d0-9c6f05384209
 		summarizeBy: none
 		sourceColumn: club_name_display
 
@@ -141,6 +160,7 @@ table dim_clubs
 	column has_club_name
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d51129ab-8e2f-44c1-9683-ddec2e62adb0
 		summarizeBy: none
 		sourceColumn: has_club_name
 
@@ -149,6 +169,7 @@ table dim_clubs
 	column has_current_profile
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: aeb17472-854f-4b91-baa8-f646ac8a03a3
 		summarizeBy: none
 		sourceColumn: has_current_profile
 
@@ -156,6 +177,7 @@ table dim_clubs
 
 	column club_profile_completeness_status
 		dataType: string
+		lineageTag: 2bbd9eaf-2140-410e-b24c-256355828488
 		summarizeBy: none
 		sourceColumn: club_profile_completeness_status
 

@@ -1,7 +1,9 @@
 table fct_player_rolling_form
+	lineageTag: dd6825f5-b893-4187-8e0e-19e5478f43f1
 
 	column appearance_id
 		dataType: string
+		lineageTag: df9354a0-2c4e-49f1-8b10-4598ca101a74
 		summarizeBy: none
 		sourceColumn: appearance_id
 
@@ -10,6 +12,7 @@ table fct_player_rolling_form
 	column game_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 0101e5ae-e7ad-4b00-b178-7e0d19a4fdc3
 		summarizeBy: sum
 		sourceColumn: game_id
 
@@ -18,6 +21,7 @@ table fct_player_rolling_form
 	column player_id
 		dataType: int64
 		formatString: 0
+		lineageTag: a7b0ef6a-fc26-4952-a782-c365e66979f0
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -25,6 +29,7 @@ table fct_player_rolling_form
 
 	column player_name
 		dataType: string
+		lineageTag: 28f29502-1843-4b1d-be94-4e2c3bce0112
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -32,6 +37,7 @@ table fct_player_rolling_form
 
 	column position
 		dataType: string
+		lineageTag: 1f7e2177-dbed-481e-b545-81094328d576
 		summarizeBy: none
 		sourceColumn: position
 
@@ -39,6 +45,7 @@ table fct_player_rolling_form
 
 	column sub_position
 		dataType: string
+		lineageTag: 95db84a4-9c64-4362-b2d2-bd0046764e30
 		summarizeBy: none
 		sourceColumn: sub_position
 
@@ -47,6 +54,7 @@ table fct_player_rolling_form
 	column player_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: f6074cfd-b005-456a-a64d-691b4ce38aa9
 		summarizeBy: sum
 		sourceColumn: player_club_id
 
@@ -54,6 +62,7 @@ table fct_player_rolling_form
 
 	column player_club_name
 		dataType: string
+		lineageTag: 2ed072d6-ae4a-4c72-a642-6763fbdb7d11
 		summarizeBy: none
 		sourceColumn: player_club_name
 
@@ -61,6 +70,7 @@ table fct_player_rolling_form
 
 	column competition_id
 		dataType: string
+		lineageTag: 6e11917a-3f55-4e6d-be87-2a6ed05131ad
 		summarizeBy: none
 		sourceColumn: competition_id
 
@@ -69,6 +79,7 @@ table fct_player_rolling_form
 	column season
 		dataType: int64
 		formatString: 0
+		lineageTag: 67df4878-3300-4cb7-9a5b-571d038500dc
 		summarizeBy: sum
 		sourceColumn: season
 
@@ -77,6 +88,7 @@ table fct_player_rolling_form
 	column appearance_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: b2acb550-d8fa-4204-878f-8dbdd3127d8b
 		summarizeBy: none
 		sourceColumn: appearance_date
 
@@ -91,6 +103,7 @@ table fct_player_rolling_form
 
 	column hosting
 		dataType: string
+		lineageTag: a7e11577-671d-45e1-a754-2f4efc3f2689
 		summarizeBy: none
 		sourceColumn: hosting
 
@@ -99,6 +112,7 @@ table fct_player_rolling_form
 	column opponent_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 234ac979-cb4a-42fd-8a38-5b40ad7515c3
 		summarizeBy: sum
 		sourceColumn: opponent_club_id
 
@@ -106,6 +120,7 @@ table fct_player_rolling_form
 
 	column opponent_club_name
 		dataType: string
+		lineageTag: 5dd55d5d-ea9f-400d-a583-9d8633688b81
 		summarizeBy: none
 		sourceColumn: opponent_club_name
 
@@ -113,6 +128,7 @@ table fct_player_rolling_form
 
 	column club_result
 		dataType: string
+		lineageTag: 8d9b95de-281f-4aa8-817f-b41db217a8b1
 		summarizeBy: none
 		sourceColumn: club_result
 
@@ -121,6 +137,7 @@ table fct_player_rolling_form
 	column club_points
 		dataType: int64
 		formatString: 0
+		lineageTag: 16a39a84-da07-4e7c-a932-07cea514967a
 		summarizeBy: sum
 		sourceColumn: club_points
 
@@ -129,6 +146,7 @@ table fct_player_rolling_form
 	column minutes_played
 		dataType: int64
 		formatString: 0
+		lineageTag: d08259d3-dd47-4b17-bf2f-983b1bb4c39e
 		summarizeBy: sum
 		sourceColumn: minutes_played
 
@@ -137,6 +155,7 @@ table fct_player_rolling_form
 	column goals
 		dataType: int64
 		formatString: 0
+		lineageTag: c50122fe-59d4-40de-b884-07cf07abbf36
 		summarizeBy: sum
 		sourceColumn: goals
 
@@ -145,6 +164,7 @@ table fct_player_rolling_form
 	column assists
 		dataType: int64
 		formatString: 0
+		lineageTag: feaaa81c-1512-416e-b3bb-baf81bbf188a
 		summarizeBy: sum
 		sourceColumn: assists
 
@@ -153,6 +173,7 @@ table fct_player_rolling_form
 	column is_starter
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3d11d18a-dfee-49dc-af72-10b47b729ae6
 		summarizeBy: none
 		sourceColumn: is_starter
 
@@ -161,6 +182,7 @@ table fct_player_rolling_form
 	column is_captain
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ddab8622-2af3-4686-8d72-39669a74d772
 		summarizeBy: none
 		sourceColumn: is_captain
 
@@ -169,6 +191,7 @@ table fct_player_rolling_form
 	column rolling_5_appearances
 		dataType: int64
 		formatString: 0
+		lineageTag: 1d0fb998-0276-468f-adba-a6f7f20ea609
 		summarizeBy: sum
 		sourceColumn: rolling_5_appearances
 
@@ -177,6 +200,7 @@ table fct_player_rolling_form
 	column rolling_5_minutes
 		dataType: int64
 		formatString: 0
+		lineageTag: 5550b174-9d2c-4cbe-ab96-628257993a75
 		summarizeBy: sum
 		sourceColumn: rolling_5_minutes
 
@@ -185,6 +209,7 @@ table fct_player_rolling_form
 	column rolling_5_goals
 		dataType: int64
 		formatString: 0
+		lineageTag: 4a493889-5271-446e-a4e2-f0adac9a1148
 		summarizeBy: sum
 		sourceColumn: rolling_5_goals
 
@@ -193,6 +218,7 @@ table fct_player_rolling_form
 	column rolling_5_assists
 		dataType: int64
 		formatString: 0
+		lineageTag: 9f6c7524-af80-49c7-bd6c-d29858135fd0
 		summarizeBy: sum
 		sourceColumn: rolling_5_assists
 
@@ -201,6 +227,7 @@ table fct_player_rolling_form
 	column rolling_5_yellow_cards
 		dataType: int64
 		formatString: 0
+		lineageTag: 578300ad-c1fb-45ad-a8d2-2d13e8252c06
 		summarizeBy: sum
 		sourceColumn: rolling_5_yellow_cards
 
@@ -209,6 +236,7 @@ table fct_player_rolling_form
 	column rolling_5_red_cards
 		dataType: int64
 		formatString: 0
+		lineageTag: ead27bc3-3df2-42eb-854d-5fee29c44cb9
 		summarizeBy: sum
 		sourceColumn: rolling_5_red_cards
 
@@ -217,6 +245,7 @@ table fct_player_rolling_form
 	column rolling_5_club_points
 		dataType: int64
 		formatString: 0
+		lineageTag: 7e1c7658-39ad-4b81-b714-bb1d4cb83aa6
 		summarizeBy: sum
 		sourceColumn: rolling_5_club_points
 
@@ -224,6 +253,7 @@ table fct_player_rolling_form
 
 	column rolling_5_goals_per_90
 		dataType: double
+		lineageTag: 44580849-7bdb-43aa-baff-4ddba27cf059
 		summarizeBy: sum
 		sourceColumn: rolling_5_goals_per_90
 
@@ -233,6 +263,7 @@ table fct_player_rolling_form
 
 	column rolling_5_assists_per_90
 		dataType: double
+		lineageTag: 3806c0c1-ffb1-4c13-92b3-6d67a43cb367
 		summarizeBy: sum
 		sourceColumn: rolling_5_assists_per_90
 
@@ -242,6 +273,7 @@ table fct_player_rolling_form
 
 	column rolling_5_avg_minutes
 		dataType: double
+		lineageTag: b67ef14f-def1-4ae3-b361-27e2da63c0ef
 		summarizeBy: sum
 		sourceColumn: rolling_5_avg_minutes
 
@@ -252,6 +284,7 @@ table fct_player_rolling_form
 	column rolling_5_starts
 		dataType: int64
 		formatString: 0
+		lineageTag: 3e6a33ac-afc6-4c4e-a7a3-a4943a68660f
 		summarizeBy: sum
 		sourceColumn: rolling_5_starts
 
@@ -260,6 +293,7 @@ table fct_player_rolling_form
 	column rolling_5_captain_appearances
 		dataType: int64
 		formatString: 0
+		lineageTag: a5f8bbdb-2a17-4e1e-87c2-0ea9ecd350d1
 		summarizeBy: sum
 		sourceColumn: rolling_5_captain_appearances
 

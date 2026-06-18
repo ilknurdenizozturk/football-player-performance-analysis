@@ -1,8 +1,10 @@
 table fct_player_career_timeline
+	lineageTag: 5dea35cb-a2c6-4e07-a37c-42df0601b81e
 
 	column player_id
 		dataType: int64
 		formatString: 0
+		lineageTag: d1d0f16c-6ffe-4e4f-bfb0-9acad3e6f4f0
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -10,6 +12,7 @@ table fct_player_career_timeline
 
 	column player_name
 		dataType: string
+		lineageTag: e6e17dcc-1e0e-4b5f-8160-34102eb9fc39
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -17,6 +20,7 @@ table fct_player_career_timeline
 
 	column position
 		dataType: string
+		lineageTag: 0b84103e-6b2c-4f07-972a-215abea08671
 		summarizeBy: none
 		sourceColumn: position
 
@@ -24,6 +28,7 @@ table fct_player_career_timeline
 
 	column current_club_name
 		dataType: string
+		lineageTag: 38e5e6f1-12fc-45c0-8828-08cb814a3758
 		summarizeBy: none
 		sourceColumn: current_club_name
 
@@ -32,6 +37,7 @@ table fct_player_career_timeline
 	column season
 		dataType: int64
 		formatString: 0
+		lineageTag: 006a3b07-71bd-4359-92b8-624c0abd8f71
 		summarizeBy: sum
 		sourceColumn: season
 
@@ -39,6 +45,7 @@ table fct_player_career_timeline
 
 	column competition_id
 		dataType: string
+		lineageTag: e995c97d-fc76-4c3f-a012-c575fd22ce4c
 		summarizeBy: none
 		sourceColumn: competition_id
 
@@ -47,6 +54,7 @@ table fct_player_career_timeline
 	column matches_played
 		dataType: int64
 		formatString: 0
+		lineageTag: 7ffcef36-409d-421e-8510-bee3f3a404de
 		summarizeBy: sum
 		sourceColumn: matches_played
 
@@ -55,6 +63,7 @@ table fct_player_career_timeline
 	column total_goals
 		dataType: int64
 		formatString: 0
+		lineageTag: ae530185-9ef2-4fc0-bc3d-81808d00b8be
 		summarizeBy: sum
 		sourceColumn: total_goals
 
@@ -63,6 +72,7 @@ table fct_player_career_timeline
 	column total_assists
 		dataType: int64
 		formatString: 0
+		lineageTag: 4c946265-1838-4b95-beac-2e433b66fc93
 		summarizeBy: sum
 		sourceColumn: total_assists
 
@@ -71,6 +81,7 @@ table fct_player_career_timeline
 	column total_minutes_played
 		dataType: int64
 		formatString: 0
+		lineageTag: 1f7741ce-51b3-4efa-8aff-3cc7d187c44c
 		summarizeBy: sum
 		sourceColumn: total_minutes_played
 
@@ -79,6 +90,7 @@ table fct_player_career_timeline
 	column total_yellow_cards
 		dataType: int64
 		formatString: 0
+		lineageTag: c053a835-c73e-4af7-b652-ed45c1e59fb0
 		summarizeBy: sum
 		sourceColumn: total_yellow_cards
 
@@ -87,6 +99,7 @@ table fct_player_career_timeline
 	column total_red_cards
 		dataType: int64
 		formatString: 0
+		lineageTag: cbdfbc76-4632-4cca-a887-d60050b5379b
 		summarizeBy: sum
 		sourceColumn: total_red_cards
 
@@ -94,6 +107,7 @@ table fct_player_career_timeline
 
 	column goals_per_match
 		dataType: double
+		lineageTag: 5cdcae84-cd1a-4a48-a422-8441c2a45db8
 		summarizeBy: sum
 		sourceColumn: goals_per_match
 
@@ -103,6 +117,7 @@ table fct_player_career_timeline
 
 	column assists_per_match
 		dataType: double
+		lineageTag: 376e8866-965d-4d85-b63e-0d25bf36d23e
 		summarizeBy: sum
 		sourceColumn: assists_per_match
 
@@ -112,6 +127,7 @@ table fct_player_career_timeline
 
 	column goals_per_90
 		dataType: double
+		lineageTag: 31f866b3-f1ed-4c57-8392-e8b7cd1ed988
 		summarizeBy: sum
 		sourceColumn: goals_per_90
 
@@ -121,6 +137,7 @@ table fct_player_career_timeline
 
 	column assists_per_90
 		dataType: double
+		lineageTag: 2e035c65-4671-477f-a40d-e07f418f1991
 		summarizeBy: sum
 		sourceColumn: assists_per_90
 
@@ -131,6 +148,7 @@ table fct_player_career_timeline
 	column season_market_value
 		dataType: int64
 		formatString: 0
+		lineageTag: c26967b4-ecd6-48d5-a2a2-aa32b0fd2dab
 		summarizeBy: sum
 		sourceColumn: season_market_value
 
@@ -139,6 +157,7 @@ table fct_player_career_timeline
 	column season_market_value_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 9ed4e994-9fbc-46b4-972d-747f3d8975c8
 		summarizeBy: none
 		sourceColumn: season_market_value_date
 
@@ -154,6 +173,7 @@ table fct_player_career_timeline
 	column has_season_market_value
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f41acdcf-b8b4-43b6-a475-daca2d648326
 		summarizeBy: none
 		sourceColumn: has_season_market_value
 

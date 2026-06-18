@@ -22,8 +22,9 @@
                     "value": "OYUNCU ÖZETİ",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "8pt",
-                      "color": "#FFFFFF"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]

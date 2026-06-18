@@ -1,8 +1,10 @@
 table fct_club_risk_profile
+	lineageTag: ef9ea4d8-9cf0-4d3d-9168-c36e8edd9521
 
 	column club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 3d9912eb-89b4-4530-8d4e-b7865c62b9c6
 		summarizeBy: none
 		sourceColumn: club_id
 
@@ -10,6 +12,7 @@ table fct_club_risk_profile
 
 	column club_name
 		dataType: string
+		lineageTag: 0b3520b4-6695-45d7-981a-467b4894b313
 		summarizeBy: none
 		sourceColumn: club_name
 
@@ -18,6 +21,7 @@ table fct_club_risk_profile
 	column total_incoming_transfers
 		dataType: int64
 		formatString: 0
+		lineageTag: 70483945-d487-4d81-8d69-6bddfc2475ed
 		summarizeBy: sum
 		sourceColumn: total_incoming_transfers
 
@@ -26,6 +30,7 @@ table fct_club_risk_profile
 	column transfers_with_known_fee
 		dataType: int64
 		formatString: 0
+		lineageTag: 50e66d13-5aca-44a6-8579-af1b0d8955b9
 		summarizeBy: sum
 		sourceColumn: transfers_with_known_fee
 
@@ -33,6 +38,7 @@ table fct_club_risk_profile
 
 	column known_fee_coverage_pct
 		dataType: double
+		lineageTag: 3e771454-6b0a-44a6-b29e-24f99e3bfc98
 		summarizeBy: sum
 		sourceColumn: known_fee_coverage_pct
 
@@ -43,6 +49,7 @@ table fct_club_risk_profile
 	column observed_365d_transfers
 		dataType: int64
 		formatString: 0
+		lineageTag: eaa38a10-ce46-411d-b89d-437cb87225b5
 		summarizeBy: sum
 		sourceColumn: observed_365d_transfers
 
@@ -50,6 +57,7 @@ table fct_club_risk_profile
 
 	column outcome_365d_coverage_pct
 		dataType: double
+		lineageTag: 65049d8a-bad6-4d7f-945c-cd9f3ed05eb7
 		summarizeBy: sum
 		sourceColumn: outcome_365d_coverage_pct
 
@@ -59,6 +67,7 @@ table fct_club_risk_profile
 
 	column avg_overpay_pct
 		dataType: double
+		lineageTag: 88a9596e-9a08-4b8d-85c6-ac04acf82384
 		summarizeBy: sum
 		sourceColumn: avg_overpay_pct
 
@@ -69,6 +78,7 @@ table fct_club_risk_profile
 	column successful_transfers
 		dataType: int64
 		formatString: 0
+		lineageTag: e5ac84ab-6468-4f15-bebb-b92c0578fe8e
 		summarizeBy: sum
 		sourceColumn: successful_transfers
 
@@ -77,6 +87,7 @@ table fct_club_risk_profile
 	column unsuccessful_transfers
 		dataType: int64
 		formatString: 0
+		lineageTag: 59b2db56-003b-43dd-bb45-cdad4ce5648c
 		summarizeBy: sum
 		sourceColumn: unsuccessful_transfers
 
@@ -84,6 +95,7 @@ table fct_club_risk_profile
 
 	column transfer_success_rate_pct
 		dataType: double
+		lineageTag: f15fff2c-8498-4943-ac22-43ddb9190c50
 		summarizeBy: sum
 		sourceColumn: transfer_success_rate_pct
 
@@ -94,6 +106,7 @@ table fct_club_risk_profile
 	column meets_minimum_sample_size
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b24e8811-1c78-4322-b0b4-4ae8600a38fa
 		summarizeBy: none
 		sourceColumn: meets_minimum_sample_size
 
@@ -101,6 +114,7 @@ table fct_club_risk_profile
 
 	column transfer_risk_category
 		dataType: string
+		lineageTag: 73a404f7-ab51-4663-843a-2d5b3e18a557
 		summarizeBy: none
 		sourceColumn: transfer_risk_category
 

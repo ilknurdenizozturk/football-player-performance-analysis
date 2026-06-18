@@ -23,7 +23,8 @@
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "11pt",
-                      "color": "#FFFFFF"
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -34,7 +35,8 @@
                     "value": "",
                     "textStyle": {
                       "fontSize": "4pt",
-                      "color": "#FFFFFF"
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -45,8 +47,9 @@
                     "value": "• Düşük WAPE (<%15) modelin yüksek doğruluğunu gösterir.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
-                      "color": "#E6F2E8"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -57,8 +60,9 @@
                     "value": "• R²>0.95 güçlü açıklama gücü anlamına gelir.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
-                      "color": "#E6F2E8"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -69,8 +73,9 @@
                     "value": "• Önem sırası 1 = tahmin üzerinde en fazla etkisi olan özellik.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
-                      "color": "#E6F2E8"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -81,8 +86,9 @@
                     "value": "• Tüm blocking kalite kapıları geçilmelidir.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
-                      "color": "#E6F2E8"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -93,8 +99,9 @@
                     "value": "• Feature drift izlenerek model güncelleme kararı verilir.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
-                      "color": "#E6F2E8"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]
@@ -105,8 +112,9 @@
                     "value": "• Segment performansı pozisyon bazında yorumlanabilir.",
                     "textStyle": {
                       "fontWeight": "normal",
-                      "fontSize": "8pt",
-                      "color": "#E6F2E8"
+                      "fontSize": "9pt",
+                      "color": "#285D3D",
+                      "bold": false
                     }
                   }
                 ]

@@ -1,11 +1,14 @@
 table dim_players
+	lineageTag: 55fcaa3f-041b-43e5-9ea9-371aad2509a4
 
 	measure 'Total Players' = DISTINCTCOUNT(dim_players[player_id])
 		formatString: 0
+		lineageTag: 93360042-9b6c-4a14-a6fe-112bd4f8f9b1
 
 	column player_id
 		dataType: int64
 		formatString: 0
+		lineageTag: ddfb63ae-9c16-4f8e-8091-d26fa9f54a02
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -13,6 +16,7 @@ table dim_players
 
 	column player_name
 		dataType: string
+		lineageTag: 9f109995-c5e5-45ff-b2b4-b8dbd0148009
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -20,6 +24,7 @@ table dim_players
 
 	column position
 		dataType: string
+		lineageTag: 96e48504-394b-43b1-9381-c46153465a17
 		summarizeBy: none
 		sourceColumn: position
 
@@ -27,6 +32,7 @@ table dim_players
 
 	column sub_position
 		dataType: string
+		lineageTag: 1006c8c4-1c0e-4f0c-848e-1bad00be3dee
 		summarizeBy: none
 		sourceColumn: sub_position
 
@@ -35,6 +41,7 @@ table dim_players
 	column birth_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 0ebe349d-1f83-4929-8ae0-a422fdf25a30
 		summarizeBy: none
 		sourceColumn: birth_date
 
@@ -49,6 +56,7 @@ table dim_players
 
 	column country_of_birth
 		dataType: string
+		lineageTag: 61b64749-c3ce-4f26-8865-0caf64b8be26
 		summarizeBy: none
 		sourceColumn: country_of_birth
 
@@ -56,6 +64,7 @@ table dim_players
 
 	column country_of_citizenship
 		dataType: string
+		lineageTag: ecb150b9-e7da-4482-a831-19aaa8d75d87
 		summarizeBy: none
 		sourceColumn: country_of_citizenship
 
@@ -64,6 +73,7 @@ table dim_players
 	column height_in_cm
 		dataType: int64
 		formatString: 0
+		lineageTag: dcfffcc9-ea7d-485c-8fc7-ff754ec4e9e3
 		summarizeBy: sum
 		sourceColumn: height_in_cm
 
@@ -71,6 +81,7 @@ table dim_players
 
 	column preferred_foot
 		dataType: string
+		lineageTag: e8a8934a-a7ca-474f-b686-0150b8c34dfa
 		summarizeBy: none
 		sourceColumn: preferred_foot
 
@@ -78,6 +89,7 @@ table dim_players
 
 	column agent_name
 		dataType: string
+		lineageTag: dfdab32c-75ef-414d-bc2f-4d8c96bdea20
 		summarizeBy: none
 		sourceColumn: agent_name
 
@@ -86,6 +98,7 @@ table dim_players
 	column current_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: a8f5e18f-2ca5-46ce-9691-da85c2aa7fd4
 		summarizeBy: sum
 		sourceColumn: current_club_id
 
@@ -93,6 +106,7 @@ table dim_players
 
 	column current_club_name
 		dataType: string
+		lineageTag: 6df39c58-c22b-417b-9244-caadac070732
 		summarizeBy: none
 		sourceColumn: current_club_name
 
@@ -101,6 +115,7 @@ table dim_players
 	column last_season
 		dataType: int64
 		formatString: 0
+		lineageTag: 5f4fa74c-02ca-4a0e-8dbb-e968b58c3b44
 		summarizeBy: sum
 		sourceColumn: last_season
 
@@ -108,6 +123,7 @@ table dim_players
 
 	column player_record_type
 		dataType: string
+		lineageTag: 6f3e5698-3f4e-491a-8cda-2b55d634c932
 		summarizeBy: none
 		sourceColumn: player_record_type
 
@@ -115,6 +131,7 @@ table dim_players
 
 	column player_profile_completeness_pct
 		dataType: double
+		lineageTag: 4f1fa2ea-28b9-4a41-a53d-236ab5e2405c
 		summarizeBy: sum
 		sourceColumn: player_profile_completeness_pct
 
@@ -124,6 +141,7 @@ table dim_players
 
 	column player_name_display
 		dataType: string
+		lineageTag: 33305840-bf93-4ca0-9142-42de4c59de2d
 		summarizeBy: none
 		sourceColumn: player_name_display
 
@@ -131,6 +149,7 @@ table dim_players
 
 	column position_display
 		dataType: string
+		lineageTag: 8b44f2a0-fdab-4f9e-aa89-7cfdabc1813d
 		summarizeBy: none
 		sourceColumn: position_display
 
@@ -138,6 +157,7 @@ table dim_players
 
 	column current_club_name_display
 		dataType: string
+		lineageTag: 1e0ea848-6d61-4761-9bec-5b82e6239ea6
 		summarizeBy: none
 		sourceColumn: current_club_name_display
 
@@ -146,6 +166,7 @@ table dim_players
 	column has_current_profile
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 8306c2a4-97f4-46ba-9cac-29ade3556c91
 		summarizeBy: none
 		sourceColumn: has_current_profile
 
@@ -153,6 +174,7 @@ table dim_players
 
 	column player_profile_completeness_status
 		dataType: string
+		lineageTag: 0033a749-7254-416f-915c-6b7845049b3f
 		summarizeBy: none
 		sourceColumn: player_profile_completeness_status
 
@@ -160,6 +182,7 @@ table dim_players
 
 	column 'Age Group' = SWITCH(TRUE(), DATEDIFF(dim_players[birth_date], TODAY(), YEAR) < 22, "18-21", DATEDIFF(dim_players[birth_date], TODAY(), YEAR) < 26, "22-25", DATEDIFF(dim_players[birth_date], TODAY(), YEAR) < 30, "26-29", DATEDIFF(dim_players[birth_date], TODAY(), YEAR) < 34, "30-33", "34+")
 		dataType: string
+		lineageTag: 54537802-9ed6-40a8-a58a-5eb1cbeb3be4
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic

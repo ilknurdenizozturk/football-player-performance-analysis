@@ -1,7 +1,9 @@
 table ml_player_market_value_model_registry
+	lineageTag: d530d62a-6cbd-45d3-8435-f5bb0e33cdef
 
 	column model_name
 		dataType: string
+		lineageTag: 55d3477f-3131-4dfe-ac26-dae6eb9ad2d9
 		summarizeBy: none
 		sourceColumn: model_name
 
@@ -9,6 +11,7 @@ table ml_player_market_value_model_registry
 
 	column model_version
 		dataType: string
+		lineageTag: 5d795b0d-f717-4b5e-ad38-3ba26d095019
 		summarizeBy: none
 		sourceColumn: model_version
 
@@ -17,6 +20,7 @@ table ml_player_market_value_model_registry
 	column model_generated_at_utc
 		dataType: dateTime
 		formatString: General Date
+		lineageTag: 8020fb0b-d3ee-42e2-ae15-869afb84ad47
 		summarizeBy: none
 		sourceColumn: model_generated_at_utc
 
@@ -29,6 +33,7 @@ table ml_player_market_value_model_registry
 
 	column release_status
 		dataType: string
+		lineageTag: cd47a521-e82a-470e-b472-e064d7660c2a
 		summarizeBy: none
 		sourceColumn: release_status
 
@@ -37,6 +42,7 @@ table ml_player_market_value_model_registry
 	column blocking_quality_gates_passed
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 7cfb946c-4f92-46b3-ba3f-0aca461e2ec0
 		summarizeBy: none
 		sourceColumn: blocking_quality_gates_passed
 
@@ -45,6 +51,7 @@ table ml_player_market_value_model_registry
 	column warning_quality_gates_failed
 		dataType: int64
 		formatString: 0
+		lineageTag: be100164-c78e-4c87-a6b1-c09d3289f4b0
 		summarizeBy: sum
 		sourceColumn: warning_quality_gates_failed
 
@@ -52,6 +59,7 @@ table ml_player_market_value_model_registry
 
 	column model_artifact_sha256
 		dataType: string
+		lineageTag: ab0099e4-4c00-413b-b7aa-bcc93577964c
 		summarizeBy: none
 		sourceColumn: model_artifact_sha256
 
@@ -59,6 +67,7 @@ table ml_player_market_value_model_registry
 
 	column feature_contract_hash
 		dataType: string
+		lineageTag: 0c88f93b-da6c-481e-8c63-705d238997d5
 		summarizeBy: none
 		sourceColumn: feature_contract_hash
 
@@ -66,6 +75,7 @@ table ml_player_market_value_model_registry
 
 	column source_commit_sha
 		dataType: string
+		lineageTag: d1e11a3c-f86f-4fef-9b4f-203320694791
 		summarizeBy: none
 		sourceColumn: source_commit_sha
 
@@ -73,6 +83,7 @@ table ml_player_market_value_model_registry
 
 	column runtime_versions
 		dataType: string
+		lineageTag: ba781528-d181-4cc2-8174-5e763645f314
 		summarizeBy: none
 		sourceColumn: runtime_versions
 
@@ -81,6 +92,7 @@ table ml_player_market_value_model_registry
 	column training_rows
 		dataType: int64
 		formatString: 0
+		lineageTag: f9813bc1-b5e6-4b0e-b840-e91011c6515c
 		summarizeBy: sum
 		sourceColumn: training_rows
 
@@ -89,6 +101,7 @@ table ml_player_market_value_model_registry
 	column test_rows
 		dataType: int64
 		formatString: 0
+		lineageTag: 3542cd7b-0fa2-4246-bea7-bdf843482b0e
 		summarizeBy: sum
 		sourceColumn: test_rows
 
@@ -97,6 +110,7 @@ table ml_player_market_value_model_registry
 	column train_season_min
 		dataType: int64
 		formatString: 0
+		lineageTag: 63323740-9538-4b97-9334-28b2356a116e
 		summarizeBy: sum
 		sourceColumn: train_season_min
 
@@ -105,6 +119,7 @@ table ml_player_market_value_model_registry
 	column train_season_max
 		dataType: int64
 		formatString: 0
+		lineageTag: c6d7dd22-45d3-4270-99f4-d07765b9245c
 		summarizeBy: sum
 		sourceColumn: train_season_max
 
@@ -113,6 +128,7 @@ table ml_player_market_value_model_registry
 	column evaluation_training_rows
 		dataType: int64
 		formatString: 0
+		lineageTag: 3980ca66-0625-4ffa-9214-7d15ea2b1362
 		summarizeBy: sum
 		sourceColumn: evaluation_training_rows
 
@@ -121,6 +137,7 @@ table ml_player_market_value_model_registry
 	column production_training_rows
 		dataType: int64
 		formatString: 0
+		lineageTag: 10520c30-c1be-49bd-854a-a163e2e254bf
 		summarizeBy: sum
 		sourceColumn: production_training_rows
 
@@ -129,6 +146,7 @@ table ml_player_market_value_model_registry
 	column evaluation_train_season_min
 		dataType: int64
 		formatString: 0
+		lineageTag: 576cb389-246c-4f3a-8334-af4b3fb48097
 		summarizeBy: sum
 		sourceColumn: evaluation_train_season_min
 
@@ -137,6 +155,7 @@ table ml_player_market_value_model_registry
 	column evaluation_train_season_max
 		dataType: int64
 		formatString: 0
+		lineageTag: 5d741ee5-e5e4-448c-9465-45be3c8d8280
 		summarizeBy: sum
 		sourceColumn: evaluation_train_season_max
 
@@ -145,6 +164,7 @@ table ml_player_market_value_model_registry
 	column production_train_season_min
 		dataType: int64
 		formatString: 0
+		lineageTag: 22a75e03-26d1-4617-a1c1-da3c4adb065c
 		summarizeBy: sum
 		sourceColumn: production_train_season_min
 
@@ -153,6 +173,7 @@ table ml_player_market_value_model_registry
 	column production_train_season_max
 		dataType: int64
 		formatString: 0
+		lineageTag: f213f9e0-fe70-4e1c-b94b-9cc9520e1f87
 		summarizeBy: sum
 		sourceColumn: production_train_season_max
 
@@ -161,6 +182,7 @@ table ml_player_market_value_model_registry
 	column tuning_season
 		dataType: int64
 		formatString: 0
+		lineageTag: b72599d5-ec66-4679-9230-a97507db0aa2
 		summarizeBy: sum
 		sourceColumn: tuning_season
 
@@ -169,6 +191,7 @@ table ml_player_market_value_model_registry
 	column calibration_season
 		dataType: int64
 		formatString: 0
+		lineageTag: 37cbe979-8aa3-4b44-a1cf-b09fb0ddb770
 		summarizeBy: sum
 		sourceColumn: calibration_season
 
@@ -176,6 +199,7 @@ table ml_player_market_value_model_registry
 
 	column test_seasons
 		dataType: string
+		lineageTag: b8bbdaf1-2bc7-4d44-902e-7cd1eea65b06
 		summarizeBy: none
 		sourceColumn: test_seasons
 
@@ -183,6 +207,7 @@ table ml_player_market_value_model_registry
 
 	column selected_ml_blend_weight
 		dataType: double
+		lineageTag: b8c09121-eb9e-4677-b13b-52e9bcbd428e
 		summarizeBy: sum
 		sourceColumn: selected_ml_blend_weight
 
@@ -192,6 +217,7 @@ table ml_player_market_value_model_registry
 
 	column selected_ml_blend_weights_by_quality_status
 		dataType: string
+		lineageTag: c8f28ef1-6cd0-44f6-92fd-652f8b7d2a82
 		summarizeBy: none
 		sourceColumn: selected_ml_blend_weights_by_quality_status
 
@@ -199,6 +225,7 @@ table ml_player_market_value_model_registry
 
 	column conformal_prediction_interval_eur_90
 		dataType: double
+		lineageTag: f18a9259-0918-4dc2-8956-65b1f186e582
 		summarizeBy: sum
 		sourceColumn: conformal_prediction_interval_eur_90
 
@@ -208,6 +235,7 @@ table ml_player_market_value_model_registry
 
 	column conformal_prediction_interval_by_predicted_value_band_eur_90
 		dataType: string
+		lineageTag: 051fa544-ea58-45fa-88e3-d6425dd87bf2
 		summarizeBy: none
 		sourceColumn: conformal_prediction_interval_by_predicted_value_band_eur_90
 
@@ -215,6 +243,7 @@ table ml_player_market_value_model_registry
 
 	column test_mae_eur
 		dataType: double
+		lineageTag: 48fc53e5-cfcc-44e6-84ff-611a37cb10a7
 		summarizeBy: sum
 		sourceColumn: test_mae_eur
 
@@ -224,6 +253,7 @@ table ml_player_market_value_model_registry
 
 	column test_rmse_eur
 		dataType: double
+		lineageTag: a18f67b9-d0d3-46ee-aee5-498a0925c11f
 		summarizeBy: sum
 		sourceColumn: test_rmse_eur
 
@@ -233,6 +263,7 @@ table ml_player_market_value_model_registry
 
 	column test_r2
 		dataType: double
+		lineageTag: b018815f-66ea-46d1-ac3f-4618865091e9
 		summarizeBy: sum
 		sourceColumn: test_r2
 
@@ -242,6 +273,7 @@ table ml_player_market_value_model_registry
 
 	column test_wape_pct
 		dataType: double
+		lineageTag: e6acf652-8c2b-4b77-b3f3-b32659ee2781
 		summarizeBy: sum
 		sourceColumn: test_wape_pct
 
@@ -251,6 +283,7 @@ table ml_player_market_value_model_registry
 
 	column test_median_absolute_percentage_error_pct
 		dataType: double
+		lineageTag: 2d356446-0361-44c7-af1e-b4ebfbbba0b2
 		summarizeBy: sum
 		sourceColumn: test_median_absolute_percentage_error_pct
 
@@ -260,6 +293,7 @@ table ml_player_market_value_model_registry
 
 	column test_mean_error_eur
 		dataType: double
+		lineageTag: 7109bc72-7d6b-4bb8-9095-cb1cbaedfcb4
 		summarizeBy: sum
 		sourceColumn: test_mean_error_eur
 
@@ -269,6 +303,7 @@ table ml_player_market_value_model_registry
 
 	column test_within_25_pct
 		dataType: double
+		lineageTag: 59bfe115-fd1b-4ac9-b006-ef92d31749d7
 		summarizeBy: sum
 		sourceColumn: test_within_25_pct
 

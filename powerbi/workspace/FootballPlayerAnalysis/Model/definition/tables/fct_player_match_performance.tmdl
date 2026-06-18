@@ -1,7 +1,9 @@
 table fct_player_match_performance
+	lineageTag: c12370de-719b-489e-83aa-e9e45fe7ab26
 
 	column appearance_id
 		dataType: string
+		lineageTag: 9b67bf1a-3d65-4566-bba1-d287b9242cb5
 		summarizeBy: none
 		sourceColumn: appearance_id
 
@@ -10,6 +12,7 @@ table fct_player_match_performance
 	column game_id
 		dataType: int64
 		formatString: 0
+		lineageTag: e636b2d1-e84b-4885-b715-4e4112127f18
 		summarizeBy: sum
 		sourceColumn: game_id
 
@@ -18,6 +21,7 @@ table fct_player_match_performance
 	column player_id
 		dataType: int64
 		formatString: 0
+		lineageTag: a808006c-bff3-4878-8442-1062ce567f0c
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -25,6 +29,7 @@ table fct_player_match_performance
 
 	column player_name
 		dataType: string
+		lineageTag: ede58ad7-3a5c-4a53-81b6-dc69f026c97f
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -32,6 +37,7 @@ table fct_player_match_performance
 
 	column position
 		dataType: string
+		lineageTag: 3fc7799f-a051-42bd-a158-d9f6bae30685
 		summarizeBy: none
 		sourceColumn: position
 
@@ -39,6 +45,7 @@ table fct_player_match_performance
 
 	column sub_position
 		dataType: string
+		lineageTag: e606f79e-eda3-49ab-af69-a14250a0f3ca
 		summarizeBy: none
 		sourceColumn: sub_position
 
@@ -47,6 +54,7 @@ table fct_player_match_performance
 	column player_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 3fd80701-3c1b-4603-8bd4-a185756b2ca5
 		summarizeBy: sum
 		sourceColumn: player_club_id
 
@@ -54,6 +62,7 @@ table fct_player_match_performance
 
 	column player_club_name
 		dataType: string
+		lineageTag: 4c67cdac-b736-46b2-942b-7b2e07057f1f
 		summarizeBy: none
 		sourceColumn: player_club_name
 
@@ -61,6 +70,7 @@ table fct_player_match_performance
 
 	column competition_id
 		dataType: string
+		lineageTag: 6c21b07d-adb7-40b0-8a05-d25aecf16ab1
 		summarizeBy: none
 		sourceColumn: competition_id
 
@@ -69,6 +79,7 @@ table fct_player_match_performance
 	column season
 		dataType: int64
 		formatString: 0
+		lineageTag: 81621c67-63b4-44cc-aa57-d25899b43267
 		summarizeBy: sum
 		sourceColumn: season
 
@@ -77,6 +88,7 @@ table fct_player_match_performance
 	column appearance_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 274f7262-63fe-4bd4-b59c-918a80746357
 		summarizeBy: none
 		sourceColumn: appearance_date
 
@@ -91,6 +103,7 @@ table fct_player_match_performance
 
 	column hosting
 		dataType: string
+		lineageTag: e75f00dd-790f-4acb-a3d9-4a0b331d548b
 		summarizeBy: none
 		sourceColumn: hosting
 
@@ -99,6 +112,7 @@ table fct_player_match_performance
 	column opponent_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 886e2819-9e6c-4309-b36d-3d4e4398b6ff
 		summarizeBy: sum
 		sourceColumn: opponent_club_id
 
@@ -106,6 +120,7 @@ table fct_player_match_performance
 
 	column opponent_club_name
 		dataType: string
+		lineageTag: bb6a13e6-c68d-4ed1-97c7-df50274bff9a
 		summarizeBy: none
 		sourceColumn: opponent_club_name
 
@@ -114,6 +129,7 @@ table fct_player_match_performance
 	column club_goals
 		dataType: int64
 		formatString: 0
+		lineageTag: d19a863c-c30b-4d55-9ae8-065e5bad7d7a
 		summarizeBy: sum
 		sourceColumn: club_goals
 
@@ -122,6 +138,7 @@ table fct_player_match_performance
 	column opponent_goals
 		dataType: int64
 		formatString: 0
+		lineageTag: 66631031-eaf6-4851-a5ac-a13a94a2b4e7
 		summarizeBy: sum
 		sourceColumn: opponent_goals
 
@@ -129,6 +146,7 @@ table fct_player_match_performance
 
 	column club_result
 		dataType: string
+		lineageTag: 385f388b-2589-4f7e-b9aa-6044b0661db5
 		summarizeBy: none
 		sourceColumn: club_result
 
@@ -137,6 +155,7 @@ table fct_player_match_performance
 	column club_points
 		dataType: int64
 		formatString: 0
+		lineageTag: 46024cb1-dc3c-4759-8fb6-45ec7534d9ff
 		summarizeBy: sum
 		sourceColumn: club_points
 
@@ -145,6 +164,7 @@ table fct_player_match_performance
 	column minutes_played
 		dataType: int64
 		formatString: 0
+		lineageTag: 8cc73d18-e6f7-4b0c-8e9d-fb202df882c1
 		summarizeBy: sum
 		sourceColumn: minutes_played
 
@@ -153,6 +173,7 @@ table fct_player_match_performance
 	column goals
 		dataType: int64
 		formatString: 0
+		lineageTag: 69a624aa-0769-46e9-898a-46cae66190f6
 		summarizeBy: sum
 		sourceColumn: goals
 
@@ -161,6 +182,7 @@ table fct_player_match_performance
 	column assists
 		dataType: int64
 		formatString: 0
+		lineageTag: 93e4c359-8c0d-4642-a1f3-c1f3eca8765a
 		summarizeBy: sum
 		sourceColumn: assists
 
@@ -169,6 +191,7 @@ table fct_player_match_performance
 	column yellow_cards
 		dataType: int64
 		formatString: 0
+		lineageTag: d42b4adf-5d52-471b-a4ba-95328af143a3
 		summarizeBy: sum
 		sourceColumn: yellow_cards
 
@@ -177,6 +200,7 @@ table fct_player_match_performance
 	column red_cards
 		dataType: int64
 		formatString: 0
+		lineageTag: b694810d-cb00-46c6-a679-f7e8fe8dba89
 		summarizeBy: sum
 		sourceColumn: red_cards
 
@@ -184,6 +208,7 @@ table fct_player_match_performance
 
 	column goals_per_90
 		dataType: double
+		lineageTag: 336be5ec-42b0-48ee-962c-0d751e271e93
 		summarizeBy: sum
 		sourceColumn: goals_per_90
 
@@ -193,6 +218,7 @@ table fct_player_match_performance
 
 	column assists_per_90
 		dataType: double
+		lineageTag: 3ea90ba5-8043-43e7-aa06-ba8abeba53e6
 		summarizeBy: sum
 		sourceColumn: assists_per_90
 
@@ -203,6 +229,7 @@ table fct_player_match_performance
 	column is_starter
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 6fcf284c-4254-4543-b4c3-cb7a25e238a9
 		summarizeBy: none
 		sourceColumn: is_starter
 
@@ -211,6 +238,7 @@ table fct_player_match_performance
 	column is_captain
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ade55b56-770e-443c-afd3-917790738073
 		summarizeBy: none
 		sourceColumn: is_captain
 
@@ -218,6 +246,7 @@ table fct_player_match_performance
 
 	column lineup_position
 		dataType: string
+		lineageTag: 73bde4d1-2dff-458f-b9e7-755a9efc2493
 		summarizeBy: none
 		sourceColumn: lineup_position
 
@@ -226,6 +255,7 @@ table fct_player_match_performance
 	column has_lineup_context
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 6c0d49b6-8572-45b3-93f7-bcec3f446d25
 		summarizeBy: none
 		sourceColumn: has_lineup_context
 
@@ -234,6 +264,7 @@ table fct_player_match_performance
 	column is_future_appearance
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 8af64cb6-4e10-483d-a4d0-b72a91466a2b
 		summarizeBy: none
 		sourceColumn: is_future_appearance
 

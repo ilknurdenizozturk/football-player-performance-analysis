@@ -1,99 +1,120 @@
 table fct_transfer_market_value_analysis
+	lineageTag: a6d77086-2eb4-4534-b086-f2a3ab6ee01a
 
 	/// Distinct transfer records in the active filter context.
 	measure 'Transfer Count' = DISTINCTCOUNT(fct_transfer_market_value_analysis[transfer_key])
 		formatString: #,0 "transfer"
 		displayFolder: Market Value Analysis\01 Scope
+		lineageTag: 198c71ed-2019-4fd3-a185-2003b1acf890
 
 	/// Transfers with a known transfer fee.
 	measure 'Known Fee Transfer Count' = CALCULATE([Transfer Count], fct_transfer_market_value_analysis[has_known_transfer_fee] = TRUE())
 		formatString: #,0 "transfer"
 		displayFolder: Market Value Analysis\01 Scope
+		lineageTag: f0651008-e862-41f7-bc19-996c85018b8a
 
 	/// Share of transfer records with a known transfer fee.
 	measure 'Known Fee Coverage %' = COALESCE(DIVIDE([Known Fee Transfer Count], [Transfer Count]), 0)
 		formatString: 0.0%
 		displayFolder: Market Value Analysis\02 Data Trust
+		lineageTag: 9d11f745-cb42-40a9-b115-ae4e71d4f72e
 
 	/// Average transfer fee, excluding unknown fee records.
 	measure 'Average Known Transfer Fee' = CALCULATE(AVERAGE(fct_transfer_market_value_analysis[transfer_fee]), fct_transfer_market_value_analysis[has_known_transfer_fee] = TRUE())
 		formatString: €0.0
 		displayFolder: Market Value Analysis\03 Commercial Value
+		lineageTag: 73f82b76-87e5-4586-87a8-cebb40c81c03
 
 	/// Total known transfer fee in the active filter context.
 	measure 'Total Known Transfer Fee' = CALCULATE(SUM(fct_transfer_market_value_analysis[transfer_fee]), fct_transfer_market_value_analysis[has_known_transfer_fee] = TRUE())
 		formatString: €0.0
 		displayFolder: Market Value Analysis\03 Commercial Value
+		lineageTag: 09c6d92b-e50e-490e-9eb8-6f0c07aac4c3
 
 	/// Transfers with both a known fee and a market-value baseline.
 	measure 'Comparable Transfer Count' = CALCULATE([Transfer Count], fct_transfer_market_value_analysis[has_fee_market_value_comparison] = TRUE())
 		formatString: #,0 "transfer"
 		displayFolder: Market Value Analysis\02 Data Trust
+		lineageTag: 6ee01470-5103-4dac-a133-d801c4ebe9ff
 
 	/// Share of transfer records eligible for fee versus market-value comparison.
 	measure 'Comparison Coverage %' = DIVIDE([Comparable Transfer Count], [Transfer Count])
 		formatString: 0.0%
 		displayFolder: Market Value Analysis\02 Data Trust
+		lineageTag: e5d8c8b4-7cb2-4307-9e4a-600a8a3a3fd1
 
 	/// Average fee premium or discount versus the market-value baseline.
 	measure 'Average Fee Premium Discount %' = DIVIDE(CALCULATE(AVERAGE(fct_transfer_market_value_analysis[fee_market_value_difference_pct]), fct_transfer_market_value_analysis[has_fee_market_value_comparison] = TRUE()), 100)
 		formatString: 0.0%
 		displayFolder: Market Value Analysis\03 Commercial Value
+		lineageTag: bd47e9e7-5c9b-4daf-83eb-e15c9b871fc2
 
 	/// Transfers with an observable post-transfer market-value outcome.
 	measure 'Post Transfer Outcome Count' = CALCULATE([Transfer Count], fct_transfer_market_value_analysis[has_post_transfer_value_change] = TRUE())
 		formatString: #,0 "transfer"
 		displayFolder: Market Value Analysis\02 Data Trust
+		lineageTag: 21c71d35-6122-4979-91d4-8cec08547f52
 
 	/// Share of transfers with an observable post-transfer value outcome.
 	measure 'Post Transfer Outcome Coverage %' = COALESCE(DIVIDE([Post Transfer Outcome Count], [Transfer Count]), 0)
 		formatString: 0.0%
 		displayFolder: Market Value Analysis\02 Data Trust
+		lineageTag: 5a8b3a5a-b488-4b15-8349-465a50a6b477
 
 	/// Average post-transfer market-value change for observable outcomes.
 	measure 'Average Post Transfer Value Change %' = DIVIDE(CALCULATE(AVERAGE(fct_transfer_market_value_analysis[market_value_change_after_transfer_pct]), fct_transfer_market_value_analysis[has_post_transfer_value_change] = TRUE()), 100)
 		formatString: 0.0%
 		displayFolder: Market Value Analysis\04 Outcomes
+		lineageTag: cc08e972-3d91-4681-aa3a-87388f526005
 
 	/// Share of observable transfer outcomes with a market-value increase.
 	measure 'Value Increase Rate %' = COALESCE(DIVIDE(CALCULATE([Transfer Count], fct_transfer_market_value_analysis[market_value_direction_after_transfer] = "increase"), [Post Transfer Outcome Count]), 0)
 		formatString: 0.0%
 		displayFolder: Market Value Analysis\04 Outcomes
+		lineageTag: 7ab30caf-36fd-4653-8aa5-bc1af6dd365f
 
 	/// Selected player label for drill-through pages.
 	measure 'Selected Transfer Player' = SELECTEDVALUE(fct_transfer_market_value_analysis[player_name], "Oyuncu secilmedi")
 		displayFolder: Market Value Analysis\05 Dynamic Context
+		lineageTag: c853fdfd-9b76-4061-9328-a169b6cb402e
 
 	/// Dynamic context summary driven by active filters.
 	measure 'Transfer Context Summary' = VAR SeasonLabel = SELECTEDVALUE(fct_transfer_market_value_analysis[transfer_season], "Tüm Sezonlar") VAR PositionLabel = SELECTEDVALUE(fct_transfer_market_value_analysis[pozisyon_tr], "Tüm Pozisyonlar") RETURN SeasonLabel & " | " & PositionLabel & " | " & FORMAT([Transfer Count], "#,0") & " transfer"
 		displayFolder: Market Value Analysis\05 Dynamic Context
+		lineageTag: e73b0767-9fe4-45ff-8e46-6b570746e434
 
 	/// Dynamic page title driven by active slicer selections.
 	measure 'Page 005 Dynamic Title' = VAR s = SELECTEDVALUE(fct_transfer_market_value_analysis[transfer_season], "Tüm Sezonlar") VAR p = SELECTEDVALUE(fct_transfer_market_value_analysis[pozisyon_tr], "Tüm Pozisyonlar") RETURN "💰 Transfer & Piyasa Değeri  │  " & s & "  │  " & p
 		displayFolder: Market Value Analysis\05 Dynamic Context
+		lineageTag: cc67b574-b5b6-42c5-b9c6-4c539a192797
 
 	/// Transfers where the fee exceeds market value by more than 30% — competitive bidding or star effect signal.
 	measure 'High Premium Transfer Count' = CALCULATE([Transfer Count], fct_transfer_market_value_analysis[fee_market_value_difference_pct] > 30)
 		formatString: #,0 "transfer"
 		displayFolder: Market Value Analysis\03 Commercial Value
+		lineageTag: 0a5e5243-0fbf-4667-bd91-c014f32102c7
 
 	/// Ratio of total known fees to total market value baselines — overall market efficiency index.
 	measure 'Transfer Value Index' = DIVIDE(CALCULATE(SUM(fct_transfer_market_value_analysis[transfer_fee]), fct_transfer_market_value_analysis[has_known_transfer_fee] = TRUE()), CALCULATE(SUM(fct_transfer_market_value_analysis[market_value_baseline]), fct_transfer_market_value_analysis[has_market_value_baseline] = TRUE()))
 		formatString: 0.00x
 		displayFolder: Market Value Analysis\03 Commercial Value
+		lineageTag: 8cfa7b25-a8cf-4d3e-99b4-b5ef24732e8e
 
 	/// Year-over-year change in average known transfer fee.
 	measure 'YoY Avg Fee Change %' = VAR CY = CALCULATE([Average Known Transfer Fee]) VAR PY = CALCULATE([Average Known Transfer Fee], FILTER(ALL(fct_transfer_market_value_analysis[transfer_year]), fct_transfer_market_value_analysis[transfer_year] = MAX(fct_transfer_market_value_analysis[transfer_year]) - 1)) RETURN DIVIDE(CY - PY, PY)
 		formatString: +0.0%;-0.0%;0.0%
 		displayFolder: Market Value Analysis\03 Commercial Value
+		lineageTag: e82fce97-6095-4ebc-a61f-94ee598d08d9
 
 	/// Maximum known transfer fee in the active filter context.
 	measure 'Max Known Transfer Fee' = CALCULATE(MAX(fct_transfer_market_value_analysis[transfer_fee]), fct_transfer_market_value_analysis[has_known_transfer_fee] = TRUE())
 		formatString: €0.0
 		displayFolder: Market Value Analysis\03 Commercial Value
+		lineageTag: 14c27655-cb86-40d8-9b13-ca5083e8526e
 
 	column transfer_key
 		dataType: string
+		lineageTag: 9bb31505-ef53-4da1-8e7b-32912043929b
 		summarizeBy: none
 		sourceColumn: transfer_key
 
@@ -102,6 +123,7 @@ table fct_transfer_market_value_analysis
 	column player_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 10b82ddf-402f-4c15-ae6e-ad9f8e3b4424
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -109,6 +131,7 @@ table fct_transfer_market_value_analysis
 
 	column player_name
 		dataType: string
+		lineageTag: f65991e1-3873-42cb-857b-5f3d5607c804
 		summarizeBy: none
 		sourceColumn: player_name
 
@@ -116,6 +139,7 @@ table fct_transfer_market_value_analysis
 
 	column position
 		dataType: string
+		lineageTag: f788ddf7-dbd7-4f57-a09c-c27873d30fbc
 		summarizeBy: none
 		sourceColumn: position
 
@@ -123,6 +147,7 @@ table fct_transfer_market_value_analysis
 
 	column sub_position
 		dataType: string
+		lineageTag: 629eb0d8-abd7-4a7b-84b4-292b04836e9c
 		summarizeBy: none
 		sourceColumn: sub_position
 
@@ -131,6 +156,7 @@ table fct_transfer_market_value_analysis
 	column birth_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: e98b00ec-94d6-47fa-9102-f39eb983e1c9
 		summarizeBy: none
 		sourceColumn: birth_date
 
@@ -145,6 +171,7 @@ table fct_transfer_market_value_analysis
 
 	column country_of_citizenship
 		dataType: string
+		lineageTag: a9b04396-87e4-418f-a530-e7f406d56d6e
 		summarizeBy: none
 		sourceColumn: country_of_citizenship
 
@@ -153,6 +180,7 @@ table fct_transfer_market_value_analysis
 	column age_at_transfer
 		dataType: int64
 		formatString: 0
+		lineageTag: e979c754-0566-4a3c-b732-f17a1682be57
 		summarizeBy: sum
 		sourceColumn: age_at_transfer
 
@@ -161,6 +189,7 @@ table fct_transfer_market_value_analysis
 	column transfer_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 9b2021de-1de1-420c-9a0a-ebe204a7cf61
 		summarizeBy: none
 		sourceColumn: transfer_date
 
@@ -176,6 +205,7 @@ table fct_transfer_market_value_analysis
 	column transfer_year
 		dataType: int64
 		formatString: 0
+		lineageTag: 4c151f51-0ab0-43e6-9e54-a4be82e3f816
 		summarizeBy: sum
 		sourceColumn: transfer_year
 
@@ -184,6 +214,7 @@ table fct_transfer_market_value_analysis
 	column transfer_month
 		dataType: int64
 		formatString: 0
+		lineageTag: 01eb4e1e-21f6-42fd-9e66-e05b6396b780
 		summarizeBy: sum
 		sourceColumn: transfer_month
 
@@ -191,6 +222,7 @@ table fct_transfer_market_value_analysis
 
 	column transfer_season
 		dataType: string
+		lineageTag: da85d030-b0b6-4cba-9c99-50fdcf5fb03d
 		summarizeBy: none
 		sourceColumn: transfer_season
 
@@ -199,6 +231,7 @@ table fct_transfer_market_value_analysis
 	column is_future_transfer
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d40f54ed-fd9e-45b9-9bc1-9671abab7bc0
 		summarizeBy: none
 		sourceColumn: is_future_transfer
 
@@ -207,6 +240,7 @@ table fct_transfer_market_value_analysis
 	column transfer_sequence_number
 		dataType: int64
 		formatString: 0
+		lineageTag: dfa246c2-2f5d-4361-a75b-02839857b1f6
 		summarizeBy: sum
 		sourceColumn: transfer_sequence_number
 
@@ -215,6 +249,7 @@ table fct_transfer_market_value_analysis
 	column player_transfer_count
 		dataType: int64
 		formatString: 0
+		lineageTag: be232e2d-9aa4-493e-a151-b0fe95bfae9d
 		summarizeBy: sum
 		sourceColumn: player_transfer_count
 
@@ -223,6 +258,7 @@ table fct_transfer_market_value_analysis
 	column known_fee_transfer_count
 		dataType: int64
 		formatString: 0
+		lineageTag: 615d42aa-95ed-4fd4-bdaa-6a68ca676dac
 		summarizeBy: sum
 		sourceColumn: known_fee_transfer_count
 
@@ -231,6 +267,7 @@ table fct_transfer_market_value_analysis
 	column is_latest_transfer
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 989c3b60-ac09-4efd-8fa4-66287437a157
 		summarizeBy: none
 		sourceColumn: is_latest_transfer
 
@@ -239,6 +276,7 @@ table fct_transfer_market_value_analysis
 	column previous_transfer_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: fbb9f977-b327-45d6-bae1-fe3ccd7f3a2b
 		summarizeBy: none
 		sourceColumn: previous_transfer_date
 
@@ -254,6 +292,7 @@ table fct_transfer_market_value_analysis
 	column days_since_previous_transfer
 		dataType: int64
 		formatString: 0
+		lineageTag: c30a9124-9035-4d98-a93a-4b90fa13db52
 		summarizeBy: sum
 		sourceColumn: days_since_previous_transfer
 
@@ -262,6 +301,7 @@ table fct_transfer_market_value_analysis
 	column next_transfer_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: e7b64baa-0f22-48cf-94a5-902abd76ddae
 		summarizeBy: none
 		sourceColumn: next_transfer_date
 
@@ -277,6 +317,7 @@ table fct_transfer_market_value_analysis
 	column days_to_next_transfer
 		dataType: int64
 		formatString: 0
+		lineageTag: 7953a6d6-54f6-49bd-91a4-2848406ab4f0
 		summarizeBy: sum
 		sourceColumn: days_to_next_transfer
 
@@ -285,6 +326,7 @@ table fct_transfer_market_value_analysis
 	column from_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 4462509f-0c62-4820-8e60-fcd85413d9fc
 		summarizeBy: sum
 		sourceColumn: from_club_id
 
@@ -292,6 +334,7 @@ table fct_transfer_market_value_analysis
 
 	column from_club_name
 		dataType: string
+		lineageTag: 0b981f83-01b2-4df3-b963-a71d43f2d8b8
 		summarizeBy: none
 		sourceColumn: from_club_name
 
@@ -300,6 +343,7 @@ table fct_transfer_market_value_analysis
 	column to_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: f0c7ce6e-92c6-4327-baf1-02e45c7842f9
 		summarizeBy: sum
 		sourceColumn: to_club_id
 
@@ -307,6 +351,7 @@ table fct_transfer_market_value_analysis
 
 	column to_club_name
 		dataType: string
+		lineageTag: 146f3650-4930-4e3d-9d07-9cb4403a9c64
 		summarizeBy: none
 		sourceColumn: to_club_name
 
@@ -314,6 +359,7 @@ table fct_transfer_market_value_analysis
 
 	column transfer_fee
 		dataType: double
+		lineageTag: 33f1a412-a899-4ad1-b64e-17ca0bf4543d
 		summarizeBy: sum
 		sourceColumn: transfer_fee
 
@@ -323,6 +369,7 @@ table fct_transfer_market_value_analysis
 
 	column cumulative_known_transfer_fee
 		dataType: double
+		lineageTag: 50c96a08-cc36-40c2-be23-591bc8664b4a
 		summarizeBy: sum
 		sourceColumn: cumulative_known_transfer_fee
 
@@ -332,6 +379,7 @@ table fct_transfer_market_value_analysis
 
 	column total_transfer_fee
 		dataType: double
+		lineageTag: 07c452b8-2b5c-49f1-9778-0b5caea039f9
 		summarizeBy: sum
 		sourceColumn: total_transfer_fee
 
@@ -341,6 +389,7 @@ table fct_transfer_market_value_analysis
 
 	column avg_transfer_fee
 		dataType: double
+		lineageTag: a9689ec4-439b-4b58-8c4c-b8ea4bad6a05
 		summarizeBy: sum
 		sourceColumn: avg_transfer_fee
 
@@ -350,6 +399,7 @@ table fct_transfer_market_value_analysis
 
 	column max_transfer_fee
 		dataType: double
+		lineageTag: 2f415614-253e-467f-8426-c67b505f13e4
 		summarizeBy: sum
 		sourceColumn: max_transfer_fee
 
@@ -359,6 +409,7 @@ table fct_transfer_market_value_analysis
 
 	column fee_status
 		dataType: string
+		lineageTag: e569878c-d580-4208-af99-e3aafc4f016c
 		summarizeBy: none
 		sourceColumn: fee_status
 
@@ -367,6 +418,7 @@ table fct_transfer_market_value_analysis
 	column has_known_transfer_fee
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b828f20b-7941-4dcd-aec7-cbdc4659007d
 		summarizeBy: none
 		sourceColumn: has_known_transfer_fee
 
@@ -374,6 +426,7 @@ table fct_transfer_market_value_analysis
 
 	column transfer_record_market_value
 		dataType: double
+		lineageTag: 7abfaced-f2fa-42db-acef-76f010842760
 		summarizeBy: sum
 		sourceColumn: transfer_record_market_value
 
@@ -384,6 +437,7 @@ table fct_transfer_market_value_analysis
 	column has_transfer_record_market_value
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 7f4d7f06-71c6-4bbb-a493-881fae8f287a
 		summarizeBy: none
 		sourceColumn: has_transfer_record_market_value
 
@@ -392,6 +446,7 @@ table fct_transfer_market_value_analysis
 	column market_value_baseline_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: fd9c7788-bd2f-4995-88a4-df5091bd5b99
 		summarizeBy: none
 		sourceColumn: market_value_baseline_date
 
@@ -406,6 +461,7 @@ table fct_transfer_market_value_analysis
 
 	column market_value_baseline
 		dataType: double
+		lineageTag: 974b4dc5-9194-4c26-bc46-5bb94eaaeb6d
 		summarizeBy: sum
 		sourceColumn: market_value_baseline
 
@@ -415,6 +471,7 @@ table fct_transfer_market_value_analysis
 
 	column market_value_baseline_source
 		dataType: string
+		lineageTag: 082bd013-2207-4898-aefb-8a5dc3b3678b
 		summarizeBy: none
 		sourceColumn: market_value_baseline_source
 
@@ -423,6 +480,7 @@ table fct_transfer_market_value_analysis
 	column has_market_value_baseline
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5e043a05-8467-4d7c-baf2-875dae706259
 		summarizeBy: none
 		sourceColumn: has_market_value_baseline
 
@@ -431,6 +489,7 @@ table fct_transfer_market_value_analysis
 	column has_fee_market_value_comparison
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 4d2f1a4d-4028-4957-9f66-2e219cddbbe9
 		summarizeBy: none
 		sourceColumn: has_fee_market_value_comparison
 
@@ -439,6 +498,7 @@ table fct_transfer_market_value_analysis
 	column days_since_market_value_baseline
 		dataType: int64
 		formatString: 0
+		lineageTag: e4bbc745-e909-4015-8136-99ea7e63e65a
 		summarizeBy: sum
 		sourceColumn: days_since_market_value_baseline
 
@@ -446,6 +506,7 @@ table fct_transfer_market_value_analysis
 
 	column fee_market_value_difference
 		dataType: double
+		lineageTag: 1b75a82d-e615-44f0-b19b-e15efbacc0a5
 		summarizeBy: sum
 		sourceColumn: fee_market_value_difference
 
@@ -455,6 +516,7 @@ table fct_transfer_market_value_analysis
 
 	column fee_market_value_difference_pct
 		dataType: double
+		lineageTag: 8e06bedd-fb94-4bc2-a04d-bc6bab92d327
 		summarizeBy: sum
 		sourceColumn: fee_market_value_difference_pct
 
@@ -464,6 +526,7 @@ table fct_transfer_market_value_analysis
 
 	column fee_to_market_value_ratio
 		dataType: double
+		lineageTag: 27028736-32b3-41b6-a1d2-44a183ca3357
 		summarizeBy: sum
 		sourceColumn: fee_to_market_value_ratio
 
@@ -474,6 +537,7 @@ table fct_transfer_market_value_analysis
 	column prior_valuation_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: f016e5fa-7e45-48a3-aa5d-ebd82e1b9f84
 		summarizeBy: none
 		sourceColumn: prior_valuation_date
 
@@ -489,6 +553,7 @@ table fct_transfer_market_value_analysis
 	column prior_market_value
 		dataType: int64
 		formatString: 0
+		lineageTag: 08b9c1a8-9a6d-4be4-850e-344924a7cc7a
 		summarizeBy: sum
 		sourceColumn: prior_market_value
 
@@ -497,6 +562,7 @@ table fct_transfer_market_value_analysis
 	column prior_valuation_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: b4f8a893-6d76-4477-8f92-e073d9c11f33
 		summarizeBy: sum
 		sourceColumn: prior_valuation_club_id
 
@@ -504,6 +570,7 @@ table fct_transfer_market_value_analysis
 
 	column prior_valuation_club_name
 		dataType: string
+		lineageTag: 81332c8d-e385-4d5d-b41f-c5716c4ba72e
 		summarizeBy: none
 		sourceColumn: prior_valuation_club_name
 
@@ -511,6 +578,7 @@ table fct_transfer_market_value_analysis
 
 	column prior_valuation_competition_id
 		dataType: string
+		lineageTag: 60cd09fb-4796-46b8-b379-dab9e581bb82
 		summarizeBy: none
 		sourceColumn: prior_valuation_competition_id
 
@@ -518,6 +586,7 @@ table fct_transfer_market_value_analysis
 
 	column prior_competition_name
 		dataType: string
+		lineageTag: 2080cec2-f2b1-4999-88dd-434dfaa3d3b8
 		summarizeBy: none
 		sourceColumn: prior_competition_name
 
@@ -525,6 +594,7 @@ table fct_transfer_market_value_analysis
 
 	column prior_competition_country_name
 		dataType: string
+		lineageTag: b2fbfe2d-9ba1-46e1-bf5c-00790162a364
 		summarizeBy: none
 		sourceColumn: prior_competition_country_name
 
@@ -532,6 +602,7 @@ table fct_transfer_market_value_analysis
 
 	column prior_competition_confederation
 		dataType: string
+		lineageTag: c01db97e-fade-4514-a250-33843008d57e
 		summarizeBy: none
 		sourceColumn: prior_competition_confederation
 
@@ -540,6 +611,7 @@ table fct_transfer_market_value_analysis
 	column has_prior_valuation
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9e5eaff5-283b-4e60-8db3-dc39dad85520
 		summarizeBy: none
 		sourceColumn: has_prior_valuation
 
@@ -548,6 +620,7 @@ table fct_transfer_market_value_analysis
 	column days_since_prior_valuation
 		dataType: int64
 		formatString: 0
+		lineageTag: 5be637fe-af8a-4404-b60a-7af29b9b32aa
 		summarizeBy: sum
 		sourceColumn: days_since_prior_valuation
 
@@ -556,6 +629,7 @@ table fct_transfer_market_value_analysis
 	column next_valuation_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 0da4325e-277d-4b48-97cb-644f71efd616
 		summarizeBy: none
 		sourceColumn: next_valuation_date
 
@@ -571,6 +645,7 @@ table fct_transfer_market_value_analysis
 	column next_market_value
 		dataType: int64
 		formatString: 0
+		lineageTag: d4a54530-519a-42a0-bfe2-846e2c14b2a8
 		summarizeBy: sum
 		sourceColumn: next_market_value
 
@@ -579,6 +654,7 @@ table fct_transfer_market_value_analysis
 	column next_valuation_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 730e5b95-b0d1-4582-97d2-53945b4a908e
 		summarizeBy: sum
 		sourceColumn: next_valuation_club_id
 
@@ -586,6 +662,7 @@ table fct_transfer_market_value_analysis
 
 	column next_valuation_club_name
 		dataType: string
+		lineageTag: 7b9510e7-e0ca-4bcf-90bc-0026789e09dc
 		summarizeBy: none
 		sourceColumn: next_valuation_club_name
 
@@ -593,6 +670,7 @@ table fct_transfer_market_value_analysis
 
 	column next_valuation_competition_id
 		dataType: string
+		lineageTag: 16cb1df8-d8ac-4dd8-872f-1a25ca73450a
 		summarizeBy: none
 		sourceColumn: next_valuation_competition_id
 
@@ -600,6 +678,7 @@ table fct_transfer_market_value_analysis
 
 	column next_competition_name
 		dataType: string
+		lineageTag: eed8bc6e-5f02-4b7f-b410-bbd575616833
 		summarizeBy: none
 		sourceColumn: next_competition_name
 
@@ -607,6 +686,7 @@ table fct_transfer_market_value_analysis
 
 	column next_competition_country_name
 		dataType: string
+		lineageTag: b4c8b6d7-da62-416a-a3e5-26b7900237bc
 		summarizeBy: none
 		sourceColumn: next_competition_country_name
 
@@ -614,6 +694,7 @@ table fct_transfer_market_value_analysis
 
 	column next_competition_confederation
 		dataType: string
+		lineageTag: 841b1ac1-c13d-4605-b67a-d868b8a88bb9
 		summarizeBy: none
 		sourceColumn: next_competition_confederation
 
@@ -622,6 +703,7 @@ table fct_transfer_market_value_analysis
 	column has_next_valuation
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: da2ceaaf-6596-45d0-b708-55a60e0cc79b
 		summarizeBy: none
 		sourceColumn: has_next_valuation
 
@@ -630,6 +712,7 @@ table fct_transfer_market_value_analysis
 	column days_to_next_valuation
 		dataType: int64
 		formatString: 0
+		lineageTag: 32416acb-b005-4ab1-8087-b837026e6d7d
 		summarizeBy: sum
 		sourceColumn: days_to_next_valuation
 
@@ -637,6 +720,7 @@ table fct_transfer_market_value_analysis
 
 	column market_value_change_after_transfer
 		dataType: double
+		lineageTag: e3473b36-fff3-4676-9a96-891d7f8b504b
 		summarizeBy: sum
 		sourceColumn: market_value_change_after_transfer
 
@@ -646,6 +730,7 @@ table fct_transfer_market_value_analysis
 
 	column market_value_change_after_transfer_pct
 		dataType: double
+		lineageTag: 3e3c2a5d-10c5-4a78-ae9b-044645c8d587
 		summarizeBy: sum
 		sourceColumn: market_value_change_after_transfer_pct
 
@@ -656,6 +741,7 @@ table fct_transfer_market_value_analysis
 	column has_post_transfer_value_change
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a3c8011d-b225-4929-aee1-df79f8202428
 		summarizeBy: none
 		sourceColumn: has_post_transfer_value_change
 
@@ -663,6 +749,7 @@ table fct_transfer_market_value_analysis
 
 	column market_value_direction_after_transfer
 		dataType: string
+		lineageTag: 090c7865-7684-4cd3-8856-4d7102126ff4
 		summarizeBy: none
 		sourceColumn: market_value_direction_after_transfer
 
@@ -670,6 +757,7 @@ table fct_transfer_market_value_analysis
 
 	column valuation_context_change
 		dataType: string
+		lineageTag: de6ed599-8bcb-4c49-a723-e46a9132a33d
 		summarizeBy: none
 		sourceColumn: valuation_context_change
 
@@ -678,6 +766,7 @@ table fct_transfer_market_value_analysis
 	column first_valuation_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: ff12a19f-0906-4d2f-80f6-fefda265d069
 		summarizeBy: none
 		sourceColumn: first_valuation_date
 
@@ -693,6 +782,7 @@ table fct_transfer_market_value_analysis
 	column latest_valuation_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: e468aac8-5666-4299-a024-1ea70c19b123
 		summarizeBy: none
 		sourceColumn: latest_valuation_date
 
@@ -708,6 +798,7 @@ table fct_transfer_market_value_analysis
 	column first_market_value
 		dataType: int64
 		formatString: 0
+		lineageTag: 6ad5e8d3-2ffe-4028-91d9-af99dc897af5
 		summarizeBy: sum
 		sourceColumn: first_market_value
 
@@ -716,6 +807,7 @@ table fct_transfer_market_value_analysis
 	column current_market_value
 		dataType: int64
 		formatString: 0
+		lineageTag: 06f69d5e-e56e-4cdb-bc1f-4cbbe8ecf191
 		summarizeBy: sum
 		sourceColumn: current_market_value
 
@@ -724,6 +816,7 @@ table fct_transfer_market_value_analysis
 	column highest_market_value
 		dataType: int64
 		formatString: 0
+		lineageTag: f26f1c46-8133-49da-baf2-19ecbb15e74d
 		summarizeBy: sum
 		sourceColumn: highest_market_value
 
@@ -732,6 +825,7 @@ table fct_transfer_market_value_analysis
 	column career_market_value_growth
 		dataType: int64
 		formatString: 0
+		lineageTag: 43c9cf3d-7877-4451-b7e6-a9989689c22d
 		summarizeBy: sum
 		sourceColumn: career_market_value_growth
 
@@ -739,6 +833,7 @@ table fct_transfer_market_value_analysis
 
 	column career_market_value_growth_pct
 		dataType: double
+		lineageTag: b8339c19-dc2b-49a7-9ade-5f31bf0b3236
 		summarizeBy: sum
 		sourceColumn: career_market_value_growth_pct
 
@@ -748,6 +843,7 @@ table fct_transfer_market_value_analysis
 
 	column yon_etiketi_tr
 		dataType: string
+		lineageTag: 60af9716-fd31-4d37-a3a3-3638415c1696
 		summarizeBy: none
 		sourceColumn: yon_etiketi_tr
 
@@ -755,6 +851,7 @@ table fct_transfer_market_value_analysis
 
 	column pozisyon_tr
 		dataType: string
+		lineageTag: ecce0427-3a47-404f-9859-231e09d8facb
 		summarizeBy: none
 		sourceColumn: pozisyon_tr
 
@@ -762,6 +859,7 @@ table fct_transfer_market_value_analysis
 
 	column fee_range_category_tr = SWITCH(TRUE(), [transfer_fee] >= 50000000, "Mega Transfer (≥50M€)", [transfer_fee] >= 20000000, "Büyük Transfer (20-50M€)", [transfer_fee] >= 5000000, "Orta Transfer (5-20M€)", [transfer_fee] > 0, "Küçük Transfer (<5M€)", NOT([has_known_transfer_fee]), "Ücretsiz/Bilinmiyor", "Veri Yok")
 		dataType: string
+		lineageTag: dce1966f-9599-4e5a-b37d-744024fc42be
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic

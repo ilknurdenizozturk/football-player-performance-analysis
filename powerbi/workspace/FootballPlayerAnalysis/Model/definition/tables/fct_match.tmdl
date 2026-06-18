@@ -1,8 +1,10 @@
 table fct_match
+	lineageTag: 24e6d6fb-a99e-44d8-87c3-4d002f694c5b
 
 	column game_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 3e88377b-e831-4633-ae32-b7be2c381413
 		summarizeBy: sum
 		sourceColumn: game_id
 
@@ -11,6 +13,7 @@ table fct_match
 	column game_date
 		dataType: dateTime
 		formatString: Long Date
+		lineageTag: 6318f9bf-77de-4db6-b1cf-4fe12c875798
 		summarizeBy: none
 		sourceColumn: game_date
 
@@ -26,6 +29,7 @@ table fct_match
 	column season
 		dataType: int64
 		formatString: 0
+		lineageTag: b8fbf5cc-828b-4525-a689-5ec7f6d4226f
 		summarizeBy: sum
 		sourceColumn: season
 
@@ -33,6 +37,7 @@ table fct_match
 
 	column competition_id
 		dataType: string
+		lineageTag: d7249dd6-c935-4985-91bc-2c8d570285b5
 		summarizeBy: none
 		sourceColumn: competition_id
 
@@ -40,6 +45,7 @@ table fct_match
 
 	column competition_name
 		dataType: string
+		lineageTag: b2454301-848d-4726-90eb-b5c28d5db2b7
 		summarizeBy: none
 		sourceColumn: competition_name
 
@@ -47,6 +53,7 @@ table fct_match
 
 	column competition_type
 		dataType: string
+		lineageTag: 15246925-e641-46a9-9b49-6447161d7eb0
 		summarizeBy: none
 		sourceColumn: competition_type
 
@@ -54,6 +61,7 @@ table fct_match
 
 	column competition_country_name
 		dataType: string
+		lineageTag: fa5fd53a-1d7c-4019-bfba-1750c386563b
 		summarizeBy: none
 		sourceColumn: competition_country_name
 
@@ -61,6 +69,7 @@ table fct_match
 
 	column round
 		dataType: string
+		lineageTag: c2adcebb-c816-4450-b97c-ec1fc4e1958a
 		summarizeBy: none
 		sourceColumn: round
 
@@ -69,6 +78,7 @@ table fct_match
 	column home_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: b2dd93ba-c0a1-4939-9ea9-01b11786d725
 		summarizeBy: sum
 		sourceColumn: home_club_id
 
@@ -76,6 +86,7 @@ table fct_match
 
 	column home_club_name
 		dataType: string
+		lineageTag: c8b2eb76-d3ce-497a-aecf-499e94985b28
 		summarizeBy: none
 		sourceColumn: home_club_name
 
@@ -84,6 +95,7 @@ table fct_match
 	column away_club_id
 		dataType: int64
 		formatString: 0
+		lineageTag: 48d59ccd-f675-4869-9bf0-37cac0ae90ef
 		summarizeBy: sum
 		sourceColumn: away_club_id
 
@@ -91,6 +103,7 @@ table fct_match
 
 	column away_club_name
 		dataType: string
+		lineageTag: 7ad5efe7-b791-4798-bc22-4bf2331aeed9
 		summarizeBy: none
 		sourceColumn: away_club_name
 
@@ -99,6 +112,7 @@ table fct_match
 	column home_club_goals
 		dataType: int64
 		formatString: 0
+		lineageTag: 78280110-13c4-461e-8091-39dd0b74cc77
 		summarizeBy: sum
 		sourceColumn: home_club_goals
 
@@ -107,6 +121,7 @@ table fct_match
 	column away_club_goals
 		dataType: int64
 		formatString: 0
+		lineageTag: f7feb233-a92c-4216-8585-0353f3bb4e5a
 		summarizeBy: sum
 		sourceColumn: away_club_goals
 
@@ -115,6 +130,7 @@ table fct_match
 	column total_goals
 		dataType: int64
 		formatString: 0
+		lineageTag: 4fef9460-8fde-4bda-a5d0-cda198ef4923
 		summarizeBy: sum
 		sourceColumn: total_goals
 
@@ -123,6 +139,7 @@ table fct_match
 	column home_goal_difference
 		dataType: int64
 		formatString: 0
+		lineageTag: 0d5792e8-2b11-48ab-8b95-300ca5b7574f
 		summarizeBy: sum
 		sourceColumn: home_goal_difference
 
@@ -130,6 +147,7 @@ table fct_match
 
 	column match_result
 		dataType: string
+		lineageTag: cbfd3323-6ad3-4b8c-9d77-eb4664ebd881
 		summarizeBy: none
 		sourceColumn: match_result
 
@@ -138,6 +156,7 @@ table fct_match
 	column home_club_position
 		dataType: int64
 		formatString: 0
+		lineageTag: f20e9a46-711f-4a39-8830-8a468ff9bcf7
 		summarizeBy: sum
 		sourceColumn: home_club_position
 
@@ -146,6 +165,7 @@ table fct_match
 	column away_club_position
 		dataType: int64
 		formatString: 0
+		lineageTag: 217194fa-813c-471e-9fbd-ded67d32d175
 		summarizeBy: sum
 		sourceColumn: away_club_position
 
@@ -153,6 +173,7 @@ table fct_match
 
 	column home_club_manager_name
 		dataType: string
+		lineageTag: be0d47b7-6a29-4c70-b9fd-776ba79a5122
 		summarizeBy: none
 		sourceColumn: home_club_manager_name
 
@@ -160,6 +181,7 @@ table fct_match
 
 	column away_club_manager_name
 		dataType: string
+		lineageTag: 61dcacac-45c6-42dd-9952-1b6b7aa54f25
 		summarizeBy: none
 		sourceColumn: away_club_manager_name
 
@@ -167,6 +189,7 @@ table fct_match
 
 	column home_club_formation
 		dataType: string
+		lineageTag: db856c87-4352-43e2-b831-70d7d75094b3
 		summarizeBy: none
 		sourceColumn: home_club_formation
 
@@ -174,6 +197,7 @@ table fct_match
 
 	column away_club_formation
 		dataType: string
+		lineageTag: bb9cec87-6629-4808-92d0-87d97acea533
 		summarizeBy: none
 		sourceColumn: away_club_formation
 
@@ -181,6 +205,7 @@ table fct_match
 
 	column stadium
 		dataType: string
+		lineageTag: 8055252e-e80a-407a-b3ca-7e329ffb4c04
 		summarizeBy: none
 		sourceColumn: stadium
 
@@ -189,6 +214,7 @@ table fct_match
 	column attendance
 		dataType: int64
 		formatString: 0
+		lineageTag: febf4ddc-cd03-410a-9730-9c58dd49ed36
 		summarizeBy: sum
 		sourceColumn: attendance
 
@@ -196,6 +222,7 @@ table fct_match
 
 	column referee
 		dataType: string
+		lineageTag: d589096f-6f1e-47e7-aa4d-5c20e2aabd7f
 		summarizeBy: none
 		sourceColumn: referee
 
@@ -203,6 +230,7 @@ table fct_match
 
 	column aggregate
 		dataType: string
+		lineageTag: 5f5fbede-b215-4bbf-a0f3-8caa0490aee4
 		summarizeBy: none
 		sourceColumn: aggregate
 
@@ -211,6 +239,7 @@ table fct_match
 	column is_future_game
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e4abcf66-8217-49c1-891a-dd28a7f41ed3
 		summarizeBy: none
 		sourceColumn: is_future_game
 
@@ -219,6 +248,7 @@ table fct_match
 	column has_attendance
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: fc62d5a4-a637-42d1-afd4-1ce9f18f39ee
 		summarizeBy: none
 		sourceColumn: has_attendance
 
@@ -227,6 +257,7 @@ table fct_match
 	column has_both_formations
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 37c27932-55a8-45ab-b078-e5372e3224db
 		summarizeBy: none
 		sourceColumn: has_both_formations
 
@@ -235,6 +266,7 @@ table fct_match
 	column has_both_managers
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9dc26b98-4fef-4641-bad6-f6a04c89ff44
 		summarizeBy: none
 		sourceColumn: has_both_managers
 
@@ -243,6 +275,7 @@ table fct_match
 	column has_both_table_positions
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: df1e2d61-5ebc-48cd-b49a-efbc171e7355
 		summarizeBy: none
 		sourceColumn: has_both_table_positions
 
