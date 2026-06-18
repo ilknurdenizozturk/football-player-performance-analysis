@@ -178,6 +178,37 @@ dbt test
 
 See the [Runbook](docs/RUNBOOK.md) for deployment and troubleshooting procedures.
 
+## Power BI Dashboard
+
+The report is stored as a PBIP project at `powerbi/workspace/FootballPlayerAnalysis/` in PBIR v4 format (`Report/definition/`). Open `FootballPlayerAnalysis.pbip` in Power BI Desktop June 2026 (v2.155+).
+
+### Report Pages
+
+| Page | Description |
+| --- | --- |
+| 🏠 Home | Landing page with navigation to all sections |
+| 📊 Oyuncu Performans Analizi | Player performance KPIs, top-10 rankings, and position scatter |
+| 👥 Oyuncu Segmentasyonu | Player segmentation hub |
+| 🏆 Kulüp ve Lig Analizi | Club and league analysis hub |
+| 🔄 Transfer Başarısı Tahmini | Transfer outcome prediction hub |
+| 💰 Transfer ve Piyasa Değeri Analizi | Transfer fees, premium/discount rates, and volume by season |
+| ⭐ Oyuncu Piyasa Değeri Tahmini | ML predictions, quality segments, and confidence metrics |
+| ML Model Güvenilirliği | Backtest results, feature importance, and model registry |
+| :) Thank You | Closing slide |
+
+### Drill-Through Pages (hidden in view mode)
+
+| Page | Trigger field |
+| --- | --- |
+| Transfer Oyuncu Detayi | `fct_transfer_market_value_analysis.player_name` |
+| Oyuncu Tahmin Detayi | `ml_player_market_value_current_predictions.player_name` |
+
+Right-click a player name in any table and choose **Detaylandır**, or **Ctrl+click** the row in edit mode, to navigate to the player-level detail page.
+
+### Format Notes
+
+The workspace uses PBIR v4 (`Report/definition/`) exclusively. The legacy `Report/sections/` directory is retained for reference but is not read by PBI Desktop when `definition/` is present. Do not add or restore `Report/report.json` — it triggers a format conflict with `definition/`.
+
 ## Automation
 
 The [`dbt CI`](.github/workflows/dbt-ci.yml) GitHub Actions workflow:
@@ -224,6 +255,10 @@ For a Turkish end-to-end summary prepared for project handoff and team communica
 |-- tests/
 |-- docs/
 |-- scripts/
+|-- powerbi/
+|   |-- workspace/FootballPlayerAnalysis/   (PBIP project, PBIR v4 format)
+|   |-- MODEL_SPEC.md
+|   `-- MEASURES.dax
 |-- .github/workflows/
 |-- analyses/
 |-- macros/

@@ -1,5 +1,18 @@
 # Power BI Modeling Guide
 
+## Report File Format
+
+The report is a PBIP project stored at `powerbi/workspace/FootballPlayerAnalysis/`. It uses the PBIR v4 format: all page and visual definitions live under `Report/definition/` as plain JSON files. This makes every visual property version-controllable and diff-readable.
+
+**Requirements:** Power BI Desktop June 2026 (v2.155+) with the **Enhanced Report Format** preview feature enabled.
+
+**Format rules:**
+- Never add or restore `Report/report.json` — its presence alongside `Report/definition/` causes a load error (`You cannot have both PBIR and PBIR-Legacy formats in the same PBIP`).
+- The legacy `Report/sections/` directory is retained for historical reference only.
+- Visual definitions follow the schema at `https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json`.
+
+**Opening the report:** Open `powerbi/workspace/FootballPlayerAnalysis/FootballPlayerAnalysis.pbip` directly in PBI Desktop. Data requires a BigQuery connection; refresh credentials from `football.json` service account if prompted.
+
 ## Recommended Dataset
 
 Connect Power BI to the BigQuery `football_mart` dataset. The mart layer is materialized as tables and is the supported BI interface. Do not build report relationships directly against staging or intermediate views.
