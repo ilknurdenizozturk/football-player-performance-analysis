@@ -76,6 +76,8 @@ The Power BI report contains **9 pages** and **2 drill-through pages**, all back
 
 ### Player Performance Analysis
 
+![Player Performance Analysis](docs/assets/screenshots/01_player_performance.png)
+
 > 14B total players · 171B goals · 135B assists · Avg 69.7 min/match · Avg G+A per 90: 0.21
 >
 > Top-10 efficiency ranking (G+A per 90), treemap breakdowns by goals and assists per 90, position scatter, and age vs. performance & market value trend.
@@ -83,6 +85,8 @@ The Power BI report contains **9 pages** and **2 drill-through pages**, all back
 ---
 
 ### Player Segmentation
+
+![Player Segmentation](docs/assets/screenshots/02_player_segmentation.png)
 
 > **341** Elite Stars · **3,977** Key Players · **7,612** Developing Players · **1,974** Experienced Veterans
 >
@@ -92,6 +96,8 @@ The Power BI report contains **9 pages** and **2 drill-through pages**, all back
 
 ### Club & League Analysis
 
+![Club & League Analysis](docs/assets/screenshots/03_club_league_analysis.png)
+
 > **33** leagues · **9,032** clubs · Avg. success rate: **0.41** · Avg. overpay: **-89.71** · High-risk clubs: **10**
 >
 > Club transfer success rate ranking, risk vs. success scatter matrix, and success rate by league. **56.82%** of clubs are low-risk, **42.83%** medium-risk, **0.35%** high-risk.
@@ -99,6 +105,8 @@ The Power BI report contains **9 pages** and **2 drill-through pages**, all back
 ---
 
 ### Transfer Success Prediction
+
+![Transfer Success Prediction](docs/assets/screenshots/04_transfer_success_prediction.png)
 
 > **7,406** predictions · Avg. success rate: **39.20%** · Model accuracy: **70.58%** · Avg. prediction probability: **0.43**
 >
@@ -108,6 +116,8 @@ The Power BI report contains **9 pages** and **2 drill-through pages**, all back
 
 ### Transfer & Market Value Analysis
 
+![Transfer & Market Value Analysis](docs/assets/screenshots/05_transfer_market_value.png)
+
 > **40,208** transfers · Known fee rate: **64.2%** · Avg. fee: **€0.4M** · Avg. overpay: **-79.1%** · Total volume: **€9,803.9M**
 >
 > Clubs systematically acquire players at **~79% below market value** across all positions. Forwards carry the smallest discount (-74.6%), goalkeepers the largest (-87.4%). Transfer budgets peaked at **€0.8M/season** in 2016/17 and have since tightened to **€0.3M**. Only **19.7%** of transfers result in post-transfer value appreciation.
@@ -115,6 +125,8 @@ The Power BI report contains **9 pages** and **2 drill-through pages**, all back
 ---
 
 ### Player Market Value Prediction (ML)
+
+![Player Market Value Prediction](docs/assets/screenshots/06_market_value_prediction.png)
 
 > **7,841** players scored · Decision-ready: **72.9%** · Avg. prediction: **€5.3M** · Avg. previous: **€6.7M** · Value growth: **+18.3%**
 >
