@@ -331,7 +331,7 @@ The workflow uses `GCP_SERVICE_ACCOUNT_JSON` repository secret. Pull requests ge
 - 4 ML assertions: leakage, coverage, business rules, scoring readiness
 - Complete model and column documentation enforcement in CI
 
-Full results and known source limitations → [Data Quality](docs/DATA_QUALITY.md)
+Full test results and known source limitations → [Data Quality](docs/DATA_QUALITY.md)
 
 ---
 
@@ -395,15 +395,11 @@ Full results and known source limitations → [Data Quality](docs/DATA_QUALITY.m
 
 | Document | Description |
 |---|---|
-| [Architecture & Model Catalog](docs/ARCHITECTURE.md) | Full lineage, grains, model responsibilities |
-| [Player Market Value ML](docs/PLAYER_MARKET_VALUE_ML.md) | Methodology, commands, interpretation, limitations |
-| [Transfer & Market Value Analysis](docs/TRANSFER_MARKET_VALUE_ANALYSIS.md) | Transfer analytics deep-dive |
-| [KPI Dictionary](docs/KPI_DICTIONARY.md) | All KPIs, definitions, and calculation rules |
-| [Data Quality](docs/DATA_QUALITY.md) | Test results, known source limitations |
-| [Power BI Modeling Guide](docs/POWER_BI_MODELING.md) | Report structure, measures, PBIR format notes |
-| [Professional Analytics Layer](docs/PROFESSIONAL_ANALYTICS.md) | Governed metrics, semantic layer, exposures |
-| [Experimentation & Causal Analysis](docs/EXPERIMENTATION_AND_CAUSAL_ANALYSIS.md) | Matched comparisons, cohort analysis |
-| [Operations Runbook](docs/RUNBOOK.md) | Deployment, scheduling, troubleshooting |
+| [Architecture & Model Catalog](docs/ARCHITECTURE.md) | Full lineage, grains, model catalog, KPI reference, and transfer analysis SQL examples |
+| [Player Market Value ML](docs/PLAYER_MARKET_VALUE_ML.md) | Methodology, feature engineering, ensemble design, commands, and limitations |
+| [Data Quality](docs/DATA_QUALITY.md) | Test results, coverage metrics, and known source limitations |
+| [Power BI Modeling Guide](docs/POWER_BI_MODELING.md) | Relationships, measures, PBIR format, and null-handling guidance |
+| [Operations Runbook](docs/RUNBOOK.md) | Deployment, CI scheduling, and troubleshooting procedures |
 
 ---
 

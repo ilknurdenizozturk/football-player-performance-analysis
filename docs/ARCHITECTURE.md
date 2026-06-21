@@ -180,9 +180,77 @@ Historical dimension records can contain `NULL` descriptive attributes when the 
 | `fct_agent_portfolio` | Agent | Current represented-player portfolio |
 | `fct_analytics_refresh_audit` | dbt invocation | Append-only volume and coverage audit |
 
-Detailed metric definitions, coverage, caveats, and example queries are available in [Transfer and Market Value Analysis](TRANSFER_MARKET_VALUE_ANALYSIS.md).
+### Transfer & Market Value Analysis
 
-The professional marts, governed metrics, analyses, snapshots, and release rules are documented in [Professional Analytics Layer](PROFESSIONAL_ANALYTICS.md).
+`fct_transfer_market_value_analysis` is the primary analytics surface for evaluating player transfers. 40,208 transfer records, 75 columns, partitioned by year, clustered by `player_id / to_club_id / from_club_id`.
+
+**Market value baseline priority:**
+1. Use `transfer_record_market_value` when the transfer row provides a value
+2. Otherwise use the latest available valuation on or before the transfer date
+3. Leave null when neither is available — never estimate
+
+**Coverage (as of June 2026):**
+
+| Coverage metric | Rows |
+|---|---:|
+| Total transfer records | 40,208 |
+| Transfers with a known fee | 25,821 |
+| Transfers with a market value baseline | 24,913 |
+| Transfers with both fee and baseline | 20,001 |
+| Transfers with a prior valuation | 24,886 |
+| Transfers with a subsequent valuation | 35,077 |
+| Transfers with post-transfer value change | 21,820 |
+| Future-dated transfer records | 428 |
+
+**Interpretation rules:**
+- `fee_status = 'zero_fee'` means the source fee equals zero — not automatically a free transfer
+- `fee_market_value_difference_pct` is null when fee or baseline is unavailable, or when baseline is zero
+- Power BI measures must filter with `has_*` availability fields — never replace null monetary values with zero
+
+**Example: fee premium by season**
+
+```sql
+select
+    transfer_season,
+    count(*) as comparable_transfers,
+    round(avg(fee_market_value_difference_pct), 2) as avg_fee_premium_pct,
+    round(avg(market_value_change_after_transfer_pct), 2) as avg_post_transfer_value_change_pct
+from `football_mart.fct_transfer_market_value_analysis`
+where has_fee_market_value_comparison
+    and not is_future_transfer
+group by transfer_season
+order by transfer_season desc;
+```
+
+**Example: largest post-transfer value gains**
+
+```sql
+select
+    player_name, transfer_date, from_club_name, to_club_name,
+    transfer_fee, market_value_baseline, next_market_value,
+    market_value_change_after_transfer_pct, days_to_next_valuation
+from `football_mart.fct_transfer_market_value_analysis`
+where has_post_transfer_value_change
+    and days_to_next_valuation <= 365
+    and not is_future_transfer
+order by market_value_change_after_transfer desc
+limit 100;
+```
+
+### KPI Reference
+
+| KPI | Formula | Source model |
+|---|---|---|
+| Fee premium % | `(transfer_fee - market_value_baseline) / market_value_baseline * 100` | `fct_transfer_market_value_analysis` |
+| 90/180/365-day value change % | Nearest valuation within ±30 days of horizon vs. transfer baseline | `fct_transfer_fixed_horizon_outcomes` |
+| Outcome coverage % | Observed comparable outcomes / cohort transfers | `fct_transfer_cohort_performance` |
+| Positive outcome rate % | Outcomes above baseline / observed outcomes | `fct_transfer_cohort_performance` |
+| Net transfer spend | Known inbound fees − known outbound fees | `fct_club_transfer_portfolio` |
+| Transfer success rate | 365-day outcomes with ≥20% growth / observed 365-day outcomes | `fct_club_risk_profile` |
+| Goals per 90 | `goals / minutes_played * 90` | `fct_player_rolling_form` |
+| Win rate % | `wins / matches_played * 100` | `fct_club_season_performance` |
+
+**Statistical rules:** prefer median and IQR for skewed transfer outcomes; segment comparisons must report observed sample size; randomized A/B terminology is prohibited unless treatment assignment was randomized and logged.
 
 ## Semantic Layer, Exposures, And Snapshots
 
@@ -231,3 +299,5 @@ Power BI should connect to `football_mart`, use the dimension tables on the one-
 Use `player_name_display`, `position_display`, `current_club_name_display`, and `club_name_display` in visuals. Use canonical nullable columns for data-quality analysis. Before calculating an average, ratio, or comparison from optional monetary values, filter with the corresponding `has_*` field.
 
 The complete relationship, NULL, and measure guidance is documented in [Power BI Modeling Guide](POWER_BI_MODELING.md).
+
+Full ML methodology, commands, interpretation, and limitations → [Player Market Value ML](PLAYER_MARKET_VALUE_ML.md)
