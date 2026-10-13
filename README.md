@@ -23,6 +23,8 @@
 
 ---
 
+**Companion analysis:** [Market-value prediction and the prior-value baseline](https://www.kaggle.com/code/senanuretin/your-market-value-r2-is-mostly-last-year-s-price) — a separate time-split notebook based on the project's source data. Its evaluation results are specific to that experiment and should not be conflated with the metrics reported below.
+
 ## Project Status
 
 Validated against BigQuery — June 15, 2026
