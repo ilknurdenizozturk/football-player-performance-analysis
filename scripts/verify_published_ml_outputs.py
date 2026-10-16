@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 
 from google.cloud import bigquery
 from google.oauth2 import service_account
@@ -25,9 +26,25 @@ def bigquery_client(args: argparse.Namespace) -> bigquery.Client:
     return bigquery.Client(project=args.project_id, credentials=credentials)
 
 
+def qualified_table_prefix(project_id: str, dataset: str) -> str:
+    """Return a quoted BigQuery table prefix using validated identifiers.
+
+    Unlike query parameters, identifiers have to be interpolated into SQL.
+    Restrict their syntax so CLI input cannot escape the backtick-quoted
+    project.dataset.table reference.
+    """
+    # Google Cloud project IDs have a stricter grammar than dataset IDs.
+    # Reject malformed names before generating or submitting SQL.
+    if not re.fullmatch(r"[a-z][a-z0-9-]{4,28}[a-z0-9]", project_id):
+        raise ValueError(f"Invalid BigQuery project ID: {project_id!r}")
+    if not re.fullmatch(r"[A-Za-z0-9_]{1,1024}", dataset):
+        raise ValueError(f"Invalid BigQuery dataset: {dataset!r}")
+    return f"`{project_id}.{dataset}"
+
+
 def main() -> None:
     args = parse_args()
-    prefix = f"`{args.project_id}.{args.dataset}"
+    prefix = qualified_table_prefix(args.project_id, args.dataset)
     query = f"""
         with latest as (
             select model_version, release_status
@@ -42,7 +59,7 @@ def main() -> None:
             (
                 select count(*)
                 from {prefix}.ml_player_market_value_quality_gates`
-                where severity = 'blocking' and not passed
+                where severity = 'blocking' and passed IS NOT TRUE
             ) as blocking_gate_failures,
             (
                 select count(*)
@@ -51,7 +68,7 @@ def main() -> None:
             (
                 select count(*)
                 from {prefix}.ml_player_market_value_current_predictions`
-                where model_version != latest.model_version
+                where model_version IS DISTINCT FROM latest.model_version
                     or predicted_market_value_eur < 0
                     or prediction_interval_eur <= 0
                     or prediction_lower_eur > predicted_market_value_eur
@@ -78,12 +95,12 @@ def main() -> None:
             (
                 select count(*)
                 from {prefix}.ml_player_market_value_evaluation_predictions`
-                where model_version != latest.model_version
+                where model_version IS DISTINCT FROM latest.model_version
             ) as evaluation_version_mismatches,
             (
                 select count(*)
                 from {prefix}.ml_player_market_value_evaluation_metrics`
-                where model_version != latest.model_version
+                where model_version IS DISTINCT FROM latest.model_version
             ) as metric_version_mismatches,
             (
                 select count(*)
@@ -95,17 +112,17 @@ def main() -> None:
             (
                 select count(*)
                 from {prefix}.ml_player_market_value_feature_drift`
-                where model_version != latest.model_version
+                where model_version IS DISTINCT FROM latest.model_version
             ) as drift_version_mismatches,
             (
                 select count(*)
                 from {prefix}.ml_player_market_value_feature_importance`
-                where model_version != latest.model_version
+                where model_version IS DISTINCT FROM latest.model_version
             ) as importance_version_mismatches,
             (
                 select count(*)
                 from {prefix}.ml_player_market_value_quality_gates`
-                where model_version != latest.model_version
+                where model_version IS DISTINCT FROM latest.model_version
             ) as gate_version_mismatches
 
         from latest
@@ -115,8 +132,10 @@ def main() -> None:
         raise ValueError("Published ML verification could not identify one latest model.")
 
     result = dict(rows[0].items())
-    if result["release_status"] == "rejected":
-        raise ValueError("Latest published model is rejected.")
+    if result["release_status"] not in ("approved", "approved_with_monitoring"):
+        raise ValueError("Latest published model is rejected or has an invalid release status.")
+    if not isinstance(result["model_version"], str) or not result["model_version"].strip():
+        raise ValueError("Latest published model version is missing.")
     if result["current_prediction_rows"] <= 0:
         raise ValueError("Published current predictions are empty.")
 
