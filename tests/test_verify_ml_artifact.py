@@ -102,6 +102,38 @@ class ArtifactIntegrityOrderTests(unittest.TestCase):
             self.verifier.main()
         return deserializer
 
+    def test_missing_model_never_reaches_joblib(self):
+        model_path = prepare_artifacts(self.output_dir)
+        model_path.unlink()
+
+        with (
+            mock.patch.object(
+                self.verifier, "parse_args",
+                return_value=argparse.Namespace(output_dir=str(self.output_dir)),
+            ),
+            mock.patch.object(self.verifier.joblib, "load") as deserializer,
+        ):
+            with self.assertRaises(FileNotFoundError):
+                self.verifier.main()
+            deserializer.assert_not_called()
+
+    def test_malformed_metrics_never_reaches_joblib(self):
+        prepare_artifacts(self.output_dir)
+        (self.output_dir / "metrics.json").write_text(
+            "{not valid json", encoding="utf-8"
+        )
+
+        with (
+            mock.patch.object(
+                self.verifier, "parse_args",
+                return_value=argparse.Namespace(output_dir=str(self.output_dir)),
+            ),
+            mock.patch.object(self.verifier.joblib, "load") as deserializer,
+        ):
+            with self.assertRaises(json.JSONDecodeError):
+                self.verifier.main()
+            deserializer.assert_not_called()
+
     def test_tampered_artifact_never_reaches_joblib(self):
         prepare_artifacts(self.output_dir, hash_matches=False)
         with (
