@@ -89,7 +89,6 @@ def main() -> None:
                 select count(*)
                 from {prefix}.ml_player_market_value_evaluation_predictions`
                 where predicted_market_value_eur IS NULL
-                    or predicted_market_value_eur IS NULL
                     or prediction_interval_eur IS NULL
                     or prediction_lower_eur IS NULL
                     or prediction_upper_eur IS NULL
