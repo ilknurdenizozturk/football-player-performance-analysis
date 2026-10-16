@@ -170,6 +170,40 @@ class BigQueryIdentifierValidationTests(unittest.TestCase):
         client.query.assert_called_once()
         self.assertEqual(client.query.call_args.kwargs, {"location": "EU"})
 
+    def test_published_sql_rejects_missing_prediction_and_segment_values(self):
+        client = self._run_with_mock_row(self._valid_bigquery_row())
+        query = client.query.call_args.args[0]
+
+        current = query.split("as current_prediction_rows", 1)[1].split(
+            "as invalid_current_predictions", 1
+        )[0]
+        evaluation = query.split("as invalid_current_predictions", 1)[1].split(
+            "as invalid_evaluation_predictions", 1
+        )[0]
+        required_prediction_fields = (
+            "predicted_market_value_eur",
+            "prediction_interval_eur",
+            "prediction_lower_eur",
+            "prediction_upper_eur",
+            "selected_ml_blend_weight",
+            "prediction_quality_status",
+        )
+        for scope, sql in (("current", current), ("evaluation", evaluation)):
+            for field in required_prediction_fields:
+                with self.subTest(scope=scope, field=field):
+                    self.assertIn(f"{field} IS NULL", sql)
+
+        segments = query.split("as metric_version_mismatches", 1)[1].split(
+            "as invalid_segment_metrics", 1
+        )[0]
+        for field in (
+            "row_count",
+            "minimum_sample_size",
+            "meets_minimum_sample_size",
+        ):
+            with self.subTest(scope="segments", field=field):
+                self.assertIn(f"{field} IS NULL", segments)
+
     def test_rejects_missing_release_status_and_model_version(self):
         for field, value, message in (
             ("release_status", None, "invalid release status"),
