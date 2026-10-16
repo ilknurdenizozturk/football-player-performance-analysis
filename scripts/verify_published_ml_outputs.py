@@ -69,6 +69,12 @@ def main() -> None:
                 select count(*)
                 from {prefix}.ml_player_market_value_current_predictions`
                 where model_version IS DISTINCT FROM latest.model_version
+                    or predicted_market_value_eur IS NULL
+                    or prediction_interval_eur IS NULL
+                    or prediction_lower_eur IS NULL
+                    or prediction_upper_eur IS NULL
+                    or selected_ml_blend_weight IS NULL
+                    or prediction_quality_status IS NULL
                     or predicted_market_value_eur < 0
                     or prediction_interval_eur <= 0
                     or prediction_lower_eur > predicted_market_value_eur
@@ -82,7 +88,14 @@ def main() -> None:
             (
                 select count(*)
                 from {prefix}.ml_player_market_value_evaluation_predictions`
-                where predicted_market_value_eur < 0
+                where predicted_market_value_eur IS NULL
+                    or predicted_market_value_eur IS NULL
+                    or prediction_interval_eur IS NULL
+                    or prediction_lower_eur IS NULL
+                    or prediction_upper_eur IS NULL
+                    or selected_ml_blend_weight IS NULL
+                    or prediction_quality_status IS NULL
+                    or predicted_market_value_eur < 0
                     or prediction_interval_eur <= 0
                     or prediction_lower_eur > predicted_market_value_eur
                     or prediction_upper_eur < predicted_market_value_eur
@@ -105,7 +118,10 @@ def main() -> None:
             (
                 select count(*)
                 from {prefix}.ml_player_market_value_evaluation_metrics`
-                where row_count <= 0
+                where row_count IS NULL
+                    or minimum_sample_size IS NULL
+                    or meets_minimum_sample_size IS NULL
+                    or row_count <= 0
                     or minimum_sample_size != 30
                     or meets_minimum_sample_size != (row_count >= minimum_sample_size)
             ) as invalid_segment_metrics,
