@@ -7,7 +7,6 @@ import json
 from pathlib import Path
 
 import joblib
-
 from train_player_market_value import feature_contract_hash, file_sha256
 
 
@@ -29,23 +28,32 @@ def main() -> None:
 
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
-    model_bundle = joblib.load(model_path)
 
+    # joblib uses pickle, which may execute code during deserialization.
+    # Check the file against a trusted manifest before loading it.
     if file_sha256(model_path) != manifest["model_artifact_sha256"]:
         raise ValueError("Model artifact checksum does not match the manifest.")
     if manifest["feature_contract_hash"] != feature_contract_hash():
         raise ValueError("Manifest feature contract does not match the current code.")
+
+    # Reject invalid release metadata before deserializing the pickle-backed
+    # bundle. Checks after joblib.load() cannot protect the deserialization
+    # boundary, even when the model would later be rejected.
+    if metrics["model_version"] != manifest["model_version"]:
+        raise ValueError("Metrics version does not match the manifest.")
+    release_status = manifest["release_status"]
+    if release_status not in ("approved", "approved_with_monitoring"):
+        raise ValueError("Rejected model artifact or invalid release status cannot be promoted.")
+    if metrics["release_status"] != release_status:
+        raise ValueError("Metrics release status does not match the manifest.")
+    if metrics["blocking_quality_gates_passed"] is not True:
+        raise ValueError("Model artifact has failed blocking quality gates.")
+
+    model_bundle = joblib.load(model_path)
     if model_bundle["feature_contract_hash"] != manifest["feature_contract_hash"]:
         raise ValueError("Model bundle feature contract does not match the manifest.")
     if model_bundle["model_version"] != manifest["model_version"]:
         raise ValueError("Model bundle version does not match the manifest.")
-    if metrics["model_version"] != manifest["model_version"]:
-        raise ValueError("Metrics version does not match the manifest.")
-    if manifest["release_status"] == "rejected":
-        raise ValueError("Rejected model artifact cannot be promoted.")
-    if not metrics["blocking_quality_gates_passed"]:
-        raise ValueError("Model artifact has failed blocking quality gates.")
-
     required_bundle_keys = {
         "pipeline",
         "selected_ml_blend_weight",
