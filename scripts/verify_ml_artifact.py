@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 import joblib
+
 from train_player_market_value import feature_contract_hash, file_sha256
 
 
